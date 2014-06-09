@@ -1268,3 +1268,70 @@
 .panel-title-custom>a:hover{
 	text-decoration: none;
 }
+
+.form-v-log-in{
+	color: #c18a14;
+	font-size: 20px;
+	padding-top: 2px;
+	font-weight: 500;
+}
+
+.log-in-content{
+	margin-bottom: 100px;
+	margin-top: 60px;
+	padding: 20px;
+	border: 1px solid #ddd;
+	box-shadow: 2px 2px 2px #ddd;
+	border-radius: 10px;
+}
+
+.form-v-sign-up{
+	color: #c18a14;
+}
+
+.sign-log-in{
+	color: #b69c64;
+	border-bottom: 2px solid #ddd;
+	padding-bottom: 6px;
+	margin-bottom: 30px;
+}
+
+.hvr-no-decortn{
+	text-decoration: none;
+}
+
+.hvr-no-decortn:hover{
+	text-decoration: none;
+}
+
+.color-inhrt{
+	color: #373737;
+}
+
+.color-inhrt:hover{
+	color: #373737;
+}
+
+.email-verify-txt{
+	border: 1px solid #ddd;
+	padding: 10px;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 120px;
+}
+
+.tnk-u{
+	color: #c18a14;
+	font-size: 35px;
+}
+
+.verified-txt{
+	color: #b69c64;
+	font-size: 20px;
+}
+
+.clk-prof-btn{
+	display: block;
+	margin-bottom: 1em;
+}
