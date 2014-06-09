@@ -1173,13 +1173,98 @@
 	border: 1px solid #DDDDDD;
 	border-radius: 8px;
 	padding: 10px;
+	margin-top: 50px;
 }
 
-.btn-cust{
-	margin: 10px 0;
-	margin-top: 2px;
+.btn-cust-row{
+	margin-bottom: 20px;
 }
 
-.btn-go-ckout{
-	margin-bottom: 10px;
+.brdr-btm{
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.form-v{
+	color: #c18a14;
+	font-size: 14px;
+	padding-top: 2px;
+	font-weight: 500;
+}
+
+.checkout-btn {
+	margin-top: 25px;
+	font-size: 20px;
+	padding: 6px 30px 6px 30px;
+}
+
+.nul-pad{
+	padding: 0;
+}
+
+.head-bill {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 0.5em;
+	margin-bottom: 1.5em;
+	color: #c18a14 !important;
+}
+
+.ship-text{
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.ship-text-span{
+	color: #666;
+}
+
+.table-order-review thead th{
+	font-weight: 500;
+}
+.table-order-review tbody tr td{
+	font-weight: 600;
+}
+.table-order-review tbody tr td span{
+	font-weight: 500;
+	color: #666;
+}
+
+.brdr-right-nul {
+	border-right: none !important;
+}
+
+.brdr-left-nul {
+	border-left: none !important;
+}
+
+.grand-head{
+	font-size: 18px;
+	font-weight: 900 !important;
+	color: #777 !important;
+}
+
+.edit-cart{
+	display: block;
+	padding: 0.2em 1em;
+	margin-top: 3em;
+	width: 156px;
+}
+
+.cart-btn{
+	margin-bottom: 5px;
+	float: left;
+	margin-left: 10px;
+}
+
+.panel-default-custom>.panel-heading{
+	background-image: -webkit-linear-gradient(top,#E7DCC3 0,#D5C298 100%);
+	background-image: linear-gradient(to bottom,#E7DCC3 0,#D5C298 100%);
+	background-repeat: repeat-x;
+}
+
+.panel-title-custom>a{
+	color: #8B6003;
+}
+
+.panel-title-custom>a:hover{
+	text-decoration: none;
 }
