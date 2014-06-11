@@ -21,7 +21,7 @@
 
     <![endif]-->
 
-<title>Market | Home</title>
+<title>Market | View Cart</title>
 </head>
 
 <body>
@@ -131,7 +131,7 @@
 								              <li><a href="opportunity.html">OPPORTUNITY</a>
 								              </li>
 								              <li>
-								              	<form role="form">
+								              	<form method="post" role="form">
 													<div class="form-group form-group-custom">
 														<div class="col-sm-12">
 															<input type="text" placeholder="Search" class="form-control customsearch" />
@@ -191,7 +191,7 @@
 				
 				<div class="container">
 					<div class="row">
-						<form role="form" action="checkout.html">
+						<form method="post" role="form" action="checkout.html">
 						<div class="col-sm-8">
 							<h3 class="cart-prod-name">
 								Your shopping cart - 2 Items
@@ -418,5 +418,8 @@
     $('#myTab a:first').tab('show')
   })
 </script>
+
+<script src="dist/js/custom.js"></script>
+
 </body>
 </html>

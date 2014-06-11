@@ -579,7 +579,8 @@
 }
 
 .navbar-custom-profile{
-	background: linear-gradient(0deg,#daddde, #e4e9ea) !important;
+	background-image: linear-gradient(to bottom,#E7DCC3 0,#D5C298 100%);
+	background-repeat: repeat-x;
 	border: none;
 	border-radius: 0px;
 	font-size: 0.9em;
@@ -926,24 +927,6 @@
 
 .carousel.carousel-fade .carousel-control {
 	z-index: 3;
-}
-
-.open > .dropdown-menu {
-  -webkit-transform: scale(1, 1);
-  transform: scale(1, 1);  
-  opacity:1;
-}
-  
-.dropdown-menu {
-  opacity:.3;
-  -webkit-transform-origin: top;
-  transform-origin: top;
-  -webkit-animation-fill-mode: forwards;  
-  animation-fill-mode: forwards; 
-  -webkit-transform: scale(1, 0);
-  display: block; 
-  transition: all 0.2s linear;
-  -webkit-transition: all 0.2s linear;
 }
 
 .row-cart{

@@ -21,7 +21,7 @@
 
     <![endif]-->
 
-<title>Market | Home</title>
+<title>Market | Checkout</title>
 </head>
 
 <body>
@@ -131,7 +131,7 @@
 								              <li><a href="opportunity.html">OPPORTUNITY</a>
 								              </li>
 								              <li>
-								              	<form role="form">
+								              	<form method="post" role="form">
 													<div class="form-group form-group-custom">
 														<div class="col-sm-12">
 															<input type="text" placeholder="Search" class="form-control customsearch" />
@@ -208,7 +208,7 @@
 							        		<h4 class="head-bill">
 				                    			Billing Information
 				                    		</h4>
-							        		<form role="form">
+							        		<form role="form" method="post">
 				                                <div class="form-group">
 				                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
 				                                    <div class="col-sm-10">
@@ -363,7 +363,7 @@
 							        		<h4 class="head-bill">
 				                    			Shipping Information
 				                    		</h4>
-							        		<form role="form">
+							        		<form role="form" method="post">
 				                                <div class="form-group">
 				                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
 				                                    <div class="col-sm-10">
@@ -512,7 +512,7 @@
 				                    		<h4 class="head-bill">
 				                    			Shipping Method
 				                    		</h4>
-				                        	<form role="form">
+				                        	<form role="form" method="post">
 				                                <div class="col-sm-12">
 				                                	<h5 class="ship-text">
 				                                		Air Shipping (Delivery timeline 10 working days. Working days does not include Sat and Sun)<br>
@@ -547,7 +547,7 @@
 				                    		<h4 class="head-bill">
 				                    			Payment Information
 				                    		</h4>
-				                        	<form role="form">
+				                        	<form role="form" method="post">
 					                       		<div class="col-sm-10">
 				                           		 	<div class="radio">
 													  <label>
@@ -589,7 +589,7 @@
 			                    		<h4 class="head-bill">
 			                    			Order Review
 			                    		</h4>
-			                        	<form role="form" action="purchased.html">
+			                        	<form role="form" method="post" action="purchased.html">
 				                       		<div class="col-sm-10">
 			                           		 	<table class="table table-bordered table-order-review">
 			                           		 		<thead>
@@ -711,5 +711,6 @@
     $('#myTab a:first').tab('show')
   });
 </script>
+<script src="dist/js/custom.js"></script>
 </body>
 </html>
