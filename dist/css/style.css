@@ -9,6 +9,16 @@
 	src:url(../../fonts/PTN77F.ttf) format('truetype');
 }
 
+@font-face{
+	font-family:PTSans Narrow;
+	src:url(../../fonts/PTN57F.ttf) format('truetype');
+}
+
+@font-face{
+	font-family:Mavens Pro;
+	src:url(../../fonts/MavenPro-Regular.ttf) format('truetype');
+}
+
 .nav-toggle-custom{
 	border: 1px solid #9E7110;
 }
@@ -1317,4 +1327,138 @@
 .clk-prof-btn{
 	display: block;
 	margin-bottom: 1em;
+}
+
+.head-profile-checkout{
+	font-size: 28px;
+	background-color: #373737;
+	color: #fff;
+	font-family: PTSans Narrow;
+	padding: 10px 35px;
+	border-radius: 8px;
+	margin-top: 28px;
+	text-transform: uppercase;
+	position: relative;
+}
+
+.head-profile-checkout:before{
+	content:'';
+    position: absolute;
+	top: 100%;
+	left: 34%;
+    margin-left: -50px;
+    width: 0;
+    height: 0;
+	border-top: solid 20px #373737;
+	border-left: solid 15px transparent;
+	border-right: solid 15px transparent;
+}
+
+.label-profile{
+	background-color: #ffffff;
+	padding: 5px 20px;
+	border-radius: 5px;
+	font-family: Mavens Pro;
+	font-size: 18px;
+	font-weight: normal;
+}
+
+.mrgn-tp-profile{
+	margin-top: 60px;
+}
+
+.form-profile{
+	border-color: #b69c64;
+	background: transparent;
+	font-family: Mavens Pro;
+	font-size: 18px;
+}
+
+.form-profile:focus{
+	background: transparent;
+	border-color: #b69c64;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(182, 156, 100, 0.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(182, 156, 100, 0.6);
+}
+
+.btn-custom-profile{
+	background-color: #b69c64;
+	color: #fff;
+	font-family: PTSans Narrow;
+	font-weight: bold;
+	font-size: 20px;
+	float: right;
+}
+
+.hd-scnd-profile{
+	background-color: #FFFFFF;
+	color: #B69C64;
+	font-family: PTSans Narrow;
+	padding: 8px;
+	width: 87%;
+	margin: 0 auto;
+	margin-top: 60px;
+	margin-bottom: 35px;
+	border-radius: 8px;
+}
+
+.label-custom{
+	font-family: Mavens Pro;
+	font-size: 18px;
+	display: block;
+	margin-top: -27px;
+	margin-left: 6.333333333333333%;
+}
+
+.amt-account{
+	margin-left: 5%;
+}
+
+.table-custom{
+    margin-top: 30px;
+}
+
+.table-custom>thead{
+    background-color: #373737;
+    border: none;
+}
+
+.table-custom>thead>tr>th{
+	color: #ffffff;
+    font-family: PTSans Narrow;
+    font-weight: 300;
+    font-size: 22px;
+    position: relative;
+}
+
+.table-custom>thead>tr>th:before{
+	content:'';
+    position: absolute;
+	top: 100%;
+	left: 20%;
+    width: 0;
+    height: 0;
+	border-top: solid 12px #373737;
+	border-left: solid 10px transparent;
+	border-right: solid 10px transparent;
+}
+
+.table-custom>tbody{
+	
+}
+
+.table-custom>tbody>tr{
+    border: none;
+	
+}
+
+.table-custom>tbody>tr>td{
+    border: 1px solid #b8b8b8;
+    font-family: Mavens Pro;
+    font-size: 18px;
+}
+
+.amt-color{
+	color: #c18a14;
 }
