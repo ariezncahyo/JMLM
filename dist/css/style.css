@@ -735,8 +735,8 @@
 .img-search-prof{
 	position: absolute;
 	width: 32px;
-	right: 16px;
-	bottom: 1px;
+	right: 2px;
+	bottom: 2px;
 }
 
 .form-prof{
@@ -833,7 +833,7 @@
 .btn-custom-prof-dark{
 	background-color: #6f5929;
 	padding: 0.6em;
-	width: 90%;
+	width: 100%;
 	font-size: 1.2em;
 }
 
@@ -1461,4 +1461,16 @@
 
 .amt-color{
 	color: #c18a14;
+}
+
+@media(max-width: 992px){
+	
+	.mrgn-lt-sm{
+		margin-left: 0;
+	}
+	
+	.pad-lt-col-sm{
+		padding: 1em 0.5em;
+	}
+	
 }
