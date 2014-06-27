@@ -862,7 +862,7 @@
 }
 
 .hd-carousel{
-	background-image: url('../../images/head_carousel');
+	background-image: url('../../images/head_carousel.png');
 	background-repeat: repeat-x;
 	min-height: 0.5em;
 	margin: 8px 0px !important;
