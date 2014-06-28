@@ -25,6 +25,7 @@
     <!-- Page-Level Plugin CSS - Dashboard -->
     <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
     <link href="css/plugins/timeline/timeline.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/style.css" rel="stylesheet">

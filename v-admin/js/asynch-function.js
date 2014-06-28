@@ -9,14 +9,14 @@
 function sendingRequest(sendingData,returningPlace){
 	$.ajax({
 		type: "POST",
-		url:"v-includes/class.fetchData.php",
+		url:"v-includes/library/class.fetchData.php",
 		data: sendingData,
 		beforeSend:function(){
 			// this is where we append a loading image
 			$('').html('');
 		  },
 		success:function(result){
-			console.log(result);
+			//console.log(result);
 			$(returningPlace).html(result);
 			return false;
 	}});
@@ -46,3 +46,18 @@ function alertSuccess(msg){
 	body.animate({scrollTop:0}, '500');
 	setInterval('$( "#success_msg" ).hide()', 3000);
 }
+
+$(document).ready(function(e) {
+    //getting subcategory list from category list
+	$(document).on('change', '#pro_cat', function() { 
+		//get product category value
+		var cat = $(this).val();
+		if(cat != '')
+		{
+			var sendingData = 'category='+cat+'&refData=pro_cat';
+			var returningPlace = '#pro_subcat';
+			//calling ajax function
+			sendingRequest(sendingData,returningPlace);
+		}
+	});
+});

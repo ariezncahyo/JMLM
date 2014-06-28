@@ -331,3 +331,27 @@ table.dataTable thead .sorting:after {
 	font-weight:bold;
 	font-size:26px;
 }
+.adm_row{
+	margin-top:1em;
+	padding:0 0 0.5em;
+}
+.page_form_caption{
+	color:#D22D2D;
+	margin-top:0px;
+	margin-bottom:15px;
+}
+.admin_form_label{
+	font-size:1em;
+	margin-top:5px;
+}
+.admin_form_textbox{
+	border: 1px solid #B6B6B6;
+}
+.admin_form_radio_label{
+	margin-right:6em;
+}
+.page-header {
+	color: #b69c64;
+	padding: 8px 15px 8px 0;
+	margin: 17px 0px 10px 0;
+}

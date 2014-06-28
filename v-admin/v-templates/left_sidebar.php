@@ -16,10 +16,10 @@
                         <a href="admin.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-fax fa-fw"></i> Product Details<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="add-product.php">Add Product</a>
                             </li>
                             <li>
                                 <a href="#">Lorem Ipsum</a>

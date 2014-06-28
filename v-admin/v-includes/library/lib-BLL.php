@@ -130,12 +130,22 @@
 		}
 		
 		/*
+		- method for getting current datetime
+		- Auth: Dipanjan
+		*/
+		function getCurrentDateTime()
+		{
+			$time = date('Y-m-d h:i:s a');
+			return $time;
+		}
+		
+		/*
 		- method for getting current date
 		- Auth: Dipanjan
 		*/
 		function getCurrentDate()
 		{
-			$date = date('y-m-d');
+			$date = date('Y-m-d');
 			return $date;
 		}
 		
@@ -147,6 +157,23 @@
 		{
 			$time = date('h:i:s a');
 			return $time;
+		}
+		
+		/*
+		- method for getting product category list
+		- Auth: Dipanjan
+		*/
+		function getProductCategoryList()
+		{
+			//get all values
+			$list = $this->manage_content->getValue_where('category','*','status',1);
+			if(!empty($list[0]))
+			{
+				foreach($list as $pro)
+				{
+					echo '<option value="'.$pro['categoryId'].'">'.$pro['name'].'</option>';
+				}
+			}
 		}
 	}
 	
