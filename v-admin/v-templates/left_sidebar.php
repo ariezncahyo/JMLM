@@ -22,16 +22,16 @@
                                 <a href="add-product.php">Add Product</a>
                             </li>
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="list-product.php">Product List</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Product Category<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="add-category.php">Add Category</a>
                             </li>
                             <li>
                                 <a href="#">Lorem Ipsum</a>

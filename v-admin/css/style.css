@@ -355,3 +355,20 @@ table.dataTable thead .sorting:after {
 	padding: 8px 15px 8px 0;
 	margin: 17px 0px 10px 0;
 }
+
+
+
+
+
+
+/* media query */
+@media (max-width: 991px) {
+	.table-responsive {
+		width: 100%;
+		margin-bottom: 15px;
+		overflow-y: hidden;
+		overflow-x: scroll;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		border: 1px solid #ddd;
+	}
+}

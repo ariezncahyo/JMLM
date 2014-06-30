@@ -426,6 +426,26 @@
 			}
 		}
 		
+		/*
+		- method to delete the values 
+		- Auth: Dipanjan
+		*/
+		function deleteValue($table_name,$column_name,$column_value)
+		{
+			if(is_string($column_value))
+			{
+				$queryString = "DELETE FROM $table_name WHERE $column_name = '$column_value'";
+			}
+			else
+			{
+				$queryString = "DELETE FROM $table_name WHERE $column_name = $column_value";
+			}
+			$query = $this->link->prepare($queryString);
+			$query->execute();
+			$count = $query->rowCount();
+			return $count;
+		}
+		
 		function abc($table_name,$column_name,$column_values){
 			//declaring variables for preparing the query
 			$column = "";

@@ -49,7 +49,7 @@ function alertSuccess(msg){
 
 $(document).ready(function(e) {
     //getting subcategory list from category list
-	$(document).on('change', '#pro_cat', function() { 
+	/*$(document).on('change', '#pro_cat', function() { 
 		//get product category value
 		var cat = $(this).val();
 		if(cat != '')
@@ -58,6 +58,66 @@ $(document).ready(function(e) {
 			var returningPlace = '#pro_subcat';
 			//calling ajax function
 			sendingRequest(sendingData,returningPlace);
+		}
+	});*/
+	
+	//getting 1st level sub category list
+	$(document).on('change', '#add_cat', function() { 
+		//get product category value
+		var cat = $(this).val();
+		if(cat != -1 && cat != 'root')
+		{
+			//remove all the text inside add subcat id
+			$('#add_subcat').html('');
+			var sendingData = 'category='+cat+'&refData=subcat';
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					$('#add_subcat').append(result);
+					return false;
+			}});
+		}
+		else
+		{
+			//html value to null
+			$('#add_subcat').html('');
+		}
+	});
+	
+	//get nested level category list
+	$(document).on('change', '.nested_cat', function() { 
+		//get product category value
+		var cat = $(this).val();
+		if(cat != -1)
+		{
+			//remove all html under this nested category
+			$(this).parent().parent().next('.form-group').remove();
+			var sendingData = 'category='+cat+'&refData=nested_cat';
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					$('#add_subcat').append(result);
+					return false;
+			}});
+		}
+		else
+		{
+			//html value to null
+			$('#add_subcat').html('');
 		}
 	});
 });

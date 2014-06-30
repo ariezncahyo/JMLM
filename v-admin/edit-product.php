@@ -1,6 +1,12 @@
 <?php
-	$pageTitle = 'Add Product';
+	$pageTitle = 'Edit Product';
 	include 'v-templates/header.php';
+?>
+<?php
+	//getting product id from get method
+	$pid = $GLOBALS['_GET']['pid'];
+	//get values of product
+	$product_details = $manageContent->getInformationForEdit('product_info','product_id',$pid);
 ?>
 	<?php
 		include 'v-templates/left_sidebar.php';
@@ -17,24 +23,31 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Add Product</h1>
+                    <h1 class="page-header">Edit Product</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row adm_row">
                 <div class="col-lg-12">
-                    <form role="form" action="v-includes/functions/function.add-product.php" method="post">
+                    <form role="form" action="v-includes/functions/function.edit-product.php" method="post">
                         <h4 class="page_form_caption">Fill Up Product Information</h4>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Product Name</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="name" />
+                                <input type="text" class="form-control" name="name" value="<?php echo $product_details[0]['name'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label admin_form_label col-sm-3">Category</label>
+                            <label class="control-label admin_form_label col-sm-3">Selected Category</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" readonly="readonly" value="<?php echo $manageContent->getValueFromId('product_category','categoryId',$product_details[0]['category'],'name') ?>"/>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Select Category For Edit</label>
                             <div class="col-sm-5">
                                 <select class="form-control" name="cat[]" id="add_cat">
                                 	<option value="-1">-- Select An Category --</option>
@@ -50,63 +63,63 @@
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Description</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="des" id="editor1"></textarea>
+                                <textarea class="form-control" name="des" id="editor1"><?php echo $product_details[0]['description'] ?></textarea>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Old Price</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="old_price" />
+                                <input type="text" class="form-control" name="old_price" value="<?php echo $product_details[0]['old_price'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Guest Price</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="guest_price" />
+                                <input type="text" class="form-control" name="guest_price" value="<?php echo $product_details[0]['guest_price'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Member Price</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="member_price" />
+                                <input type="text" class="form-control" name="member_price" value="<?php echo $product_details[0]['member_price'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Special Price</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="special_price" />
+                                <input type="text" class="form-control" name="special_price" value="<?php echo $product_details[0]['special_price'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Distribution Rate</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="distribution_rate" />
+                                <input type="text" class="form-control" name="distribution_rate" value="<?php echo $product_details[0]['distribution_rate'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Product Stock</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="stock" />
+                                <input type="text" class="form-control" name="stock" value="<?php echo $product_details[0]['stock'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Expiry Date</label>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control exp_date" name="exp_date" />
+                                <input type="text" class="form-control exp_date" name="exp_date" value="<?php echo $product_details[0]['exp_date'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Maximum Selection</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" name="maxpick" />
+                                <input type="text" class="form-control" name="maxpick" value="<?php echo $product_details[0]['maxpick'] ?>"/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -114,16 +127,17 @@
                             <label class="control-label admin_form_label col-sm-3">Featured Product</label>
                             <div class="col-sm-4">
                                 <select name="feature" class="form-control">
-                                	<option value="active">Active</option>
-                                    <option value="deactive">Deactive</option>
+                                	<?php
+										$manageContent->checkFeatureProduct($pid);
+									?>
                                 </select>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6 col-sm-offset-3">
+                            	<input type="hidden" name="pid" value="<?php echo $product_details[0]['product_id'] ?>" />
                                 <input type="submit" class="btn btn-success btn-lg" value="Submit" />
-                                <input type="reset" class="btn btn-danger btn-lg" value="Reset Data" />
                             </div>
                             <div class="clearfix"></div>
                         </div>

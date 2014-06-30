@@ -166,12 +166,162 @@
 		function getProductCategoryList()
 		{
 			//get all values
-			$list = $this->manage_content->getValue_where('category','*','status',1);
+			$list = $this->manage_content->getValueMultipleCondtn('product_category','*',array('status'),array(1));
 			if(!empty($list[0]))
 			{
 				foreach($list as $pro)
 				{
-					echo '<option value="'.$pro['categoryId'].'">'.$pro['name'].'</option>';
+					if(empty($pro['parentId']))
+					{
+						echo '<option value="'.$pro['categoryId'].'">'.$pro['name'].'</option>';
+					}
+				}
+			}
+		}
+		
+		/*
+		- method for getting product root category list
+		- Auth: Dipanjan
+		*/
+		function getProductRootCategory()
+		{
+			//get all root values
+			$list = $this->manage_content->getValueMultipleCondtn('product_category','*',array('status'),array(1));
+			//echo root category option
+			echo '<option value="root">Root Category</option>';
+			if(!empty($list[0]))
+			{
+				foreach($list as $pro)
+				{
+					if(empty($pro['parentId']))
+					{
+						echo '<option value="'.$pro['categoryId'].'">'.$pro['name'].'</option>';
+					}
+				}
+			}
+		}
+		
+		/*
+		- method for getting list of product
+		- Auth: Dipanjan
+		*/
+		function getProductList()
+		{
+			//get values from database
+			$products = $this->manage_content->getValue('product_info','*');
+			if(!empty($products[0]))
+			{
+				foreach($products as $product)
+				{
+					//checking for feature product
+					$feature = $this->manage_content->getValue_where('feature_product','*','product_id',$product['product_id']);
+					if(!empty($feature[0]))
+					{
+						$feature_status = 'Yes';
+					}
+					else
+					{
+						$feature_status = 'No';
+					}
+					//checking for status
+					if($product['status'] == 1)
+					{
+						$btn = '<button class="btn btn-success">Active</button>';
+					}
+					else
+					{
+						$btn = '<button class="btn btn-danger">Deactive</button>';
+					}
+					
+					echo '<tr>
+							<td>'.$product['name'].'</td>
+							<td>'.$this->getValueFromId('product_category','categoryId',$product['category'],'name').'</td>
+							<td>'.$product['date'].'</td>
+							<td>'.$product['exp_date'].'</td>
+							<td>'.$feature_status.'</td>
+							<td><a href="edit-product.php?pid='.$product['product_id'].'"><button class="btn btn-info">Edit Details</button></a></td>
+							<td>'.$btn.'</td>       	
+						  </tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+                      	<td colspan="7">No Result Found</td>          	
+                      </tr>';
+			}
+		}
+		
+		/*
+		- method for getting value from id
+		- Auth: Dipanjan
+		*/
+		function getValueFromId($table_name,$column_name,$column_value,$return_value)
+		{
+			//get value from database
+			$getValue = $this->manage_content->getValue_where($table_name,'*',$column_name,$column_value);
+			if(!empty($getValue[0]))
+			{
+				return $getValue[0][$return_value];
+			}
+		}
+		
+		/*
+		- method for getting value from table id
+		- Auth: Dipanjan
+		*/
+		function getInformationForEdit($table_name,$column_name,$column_value)
+		{
+			//get values from database
+			$getValue = $this->manage_content->getValue_where($table_name,'*',$column_name,$column_value);
+			if(!empty($getValue[0]))
+			{
+				return $getValue;
+			}
+		}
+		
+		/*
+		- method for checking that the product is featured or not
+		- Auth: Dipanjan
+		*/
+		function checkFeatureProduct($pid)
+		{
+			//getting value
+			$getValue = $this->manage_content->getValue_where('feature_product','*','product_id',$pid);
+			echo '<option value="active"'; if(!empty($getValue[0])) { echo 'selected="selected"'; } echo'>Active</option>
+                  <option value="deactive" '; if(empty($getValue[0])) { echo 'selected="selected"'; } echo'>Deactive</option>';
+		}
+		
+		/*
+		- method for getting category list
+		- Auth: Dipanjan
+		*/
+		function getCategoryList()
+		{
+			//getting all root category
+			$root = $this->manage_content->getValueMultipleCondtn('product_category','*',array('status'),array(1));
+			if(!empty($root[0]))
+			{
+				foreach($root as $parent)
+				{
+					if(empty($parent['parentId']))
+					{
+						//checking for status
+						if($parent['status'] == 1)
+						{
+							$btn = '<button class="btn btn-success">Active</button>';
+						}
+						else
+						{
+							$btn = '<button class="btn btn-danger">Deactive</button>';
+						}
+						echo '<tr>
+								<td>'.$parent['name'].'</td>
+								<td>'.count(explode(',',$parent['childId'])).'</td>
+								<td>'.$parent['date'].'</td>
+								<td>'.$btn.'</td>
+							</tr>';
+					}
 				}
 			}
 		}

@@ -56,6 +56,62 @@
 						<div class="clearfix"></div>';
 			}
 		}
+		
+		/*
+		- method for getting sub category list according category
+		- Auth: Dipanjan
+		*/
+		function getSubCategoryList($userData)
+		{
+			//getting values from category
+			$subCats = $this->manageContent->getValueMultipleCondtn('product_category','*',array('parentId','status'),array($userData['category'],1));
+			if(!empty($subCats[0]))
+			{
+				echo '<div class="form-group">
+						<label class="control-label admin_form_label col-sm-3">Select Category</label>
+						<div class="col-sm-5">
+							<select class="form-control nested_cat" name="cat[]">
+								<option value="-1">-- Select A Category --</option>';
+							
+					foreach($subCats as $subCat)
+					{
+						echo '<option value="'.$subCat['categoryId'].'">'.$subCat['name'].'</option>';
+					}
+							
+				echo 	'</select>
+						</div>
+						<div class="clearfix"></div>
+						</div>';
+			}
+		}
+		
+		/*
+		- method for getting nested category list according category
+		- Auth: Dipanjan
+		*/
+		function getNestedCategoryList($userData)
+		{
+			//getting values from category
+			$subCats = $this->manageContent->getValueMultipleCondtn('product_category','*',array('parentId','status'),array($userData['category'],1));
+			if(!empty($subCats[0]))
+			{
+				echo '<div class="form-group">
+						<label class="control-label admin_form_label col-sm-3">Select Category</label>
+						<div class="col-sm-5">
+							<select class="form-control nested_cat" name="cat[]">
+								<option value="-1">-- Select A Category --</option>';
+							
+					foreach($subCats as $subCat)
+					{
+						echo '<option value="'.$subCat['categoryId'].'">'.$subCat['name'].'</option>';
+					}
+							
+				echo 	'</select>
+						</div>
+						<div class="clearfix"></div>
+						</div>';
+			}
+		}
 	}
 	
 	/* receiving data from UI layer Form */
@@ -68,6 +124,18 @@
 		case 'pro_cat':
 		{
 			$proSubCat = $fetchData->getProductSubCategoryList($GLOBALS['_POST']);
+			break;
+		}
+		//for product nested category list according category
+		case 'subcat':
+		{
+			$subCat = $fetchData->getSubCategoryList($GLOBALS['_POST']);
+			break;
+		}
+		//for product nested category list according category
+		case 'nested_cat':
+		{
+			$nestedCat = $fetchData->getNestedCategoryList($GLOBALS['_POST']);
 			break;
 		}
 		default:
