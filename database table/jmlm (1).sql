@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2014 at 04:07 PM
+-- Generation Time: Jun 30, 2014 at 05:21 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -77,14 +77,50 @@ CREATE TABLE IF NOT EXISTS `feature_product` (
   `product_id` varchar(200) NOT NULL,
   `status` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`feature_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `feature_product`
 --
 
 INSERT INTO `feature_product` (`feature_id`, `product_id`, `status`) VALUES
-(1, 'pro53aec7e3a7c49', '1');
+(3, 'pro53b13f6c4adce', '1'),
+(4, 'pro53b13cba9cc8f', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_category`
+--
+
+CREATE TABLE IF NOT EXISTS `product_category` (
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `parentId` varchar(50) DEFAULT NULL,
+  `childId` varchar(50) DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`categoryId`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+
+--
+-- Dumping data for table `product_category`
+--
+
+INSERT INTO `product_category` (`categoryId`, `name`, `parentId`, `childId`, `date`, `status`) VALUES
+(1, 'abcdef bcdaef', '', '3', '2014-06-30 00:00:00', '1'),
+(2, 'abcd', '', '5,7,11', '2014-06-30 00:00:00', '1'),
+(3, 'qwqwqw', '1', '4,6,10', '2014-06-30 00:00:00', '1'),
+(4, 'Find job', '3', NULL, '2014-06-30 00:00:00', '1'),
+(5, 'vbvbvbv', '2', '8', '2014-06-30 00:00:00', '1'),
+(6, 'ghghghghg', '3', NULL, '2014-06-30 00:00:00', '1'),
+(7, 'ioioioioi', '2', NULL, '2014-06-30 00:00:00', '1'),
+(8, 'test 1', '5', '9', '2014-06-30 00:00:00', '1'),
+(9, 'gbgbgbgbg', '8', NULL, '2014-06-30 00:00:00', '1'),
+(10, 'wewewew', '3', NULL, '2014-06-30 00:00:00', '1'),
+(11, 'susu', '2', '12', '2014-06-30 00:00:00', '1'),
+(12, 'nest under susu', '11', '13', '2014-06-30 00:00:00', '1'),
+(13, 'nest under abcd', '12', NULL, '2014-06-30 00:00:00', '1');
 
 -- --------------------------------------------------------
 
@@ -110,7 +146,6 @@ CREATE TABLE IF NOT EXISTS `product_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` varchar(200) NOT NULL,
   `category` int(11) NOT NULL,
-  `sub_category` int(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(10000) DEFAULT NULL,
   `old_price` varchar(50) NOT NULL,
@@ -124,14 +159,15 @@ CREATE TABLE IF NOT EXISTS `product_info` (
   `date` datetime NOT NULL,
   `status` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `product_info`
 --
 
-INSERT INTO `product_info` (`id`, `product_id`, `category`, `sub_category`, `name`, `description`, `old_price`, `guest_price`, `member_price`, `special_price`, `distribution_rate`, `stock`, `exp_date`, `maxpick`, `date`, `status`) VALUES
-(1, 'pro53aec7e3a7c49', 2, 4, 'test institute', '<p><span style="font-size:18px"><span style="color:#0000CD">sdf werew rwer fghgj ghjghj gdfjd fghfgh dfshfdghfgh</span></span></p>\r\n', '120', '$55', '$898', '32243', '40%', 222, '2014-11-29 00:00:00', 5, '2014-06-28 03:49:23', '1');
+INSERT INTO `product_info` (`id`, `product_id`, `category`, `name`, `description`, `old_price`, `guest_price`, `member_price`, `special_price`, `distribution_rate`, `stock`, `exp_date`, `maxpick`, `date`, `status`) VALUES
+(1, 'pro53b13cba9cc8f', 1, 'test 2', '<p><span style="color:#00FF00"><span style="font-size:24px"><strong>sdf sfewer wer</strong></span></span></p>\r\n', '$87', '$100', '$898', '$66', '10%', 222, '2014-07-19 00:00:00', 4, '2014-06-30 12:32:26', '1'),
+(2, 'pro53b13f6c4adce', 9, 'Find job', '<p>re gdfgdfg dsfggfbvnvnvhg</p>\r\n', '$12', '$33', '332', '$66', '22%', 222, '2014-12-27 00:00:00', 8, '2014-06-30 12:43:56', '1');
 
 -- --------------------------------------------------------
 
