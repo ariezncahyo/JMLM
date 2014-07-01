@@ -61,6 +61,13 @@
                         </div>
                         <div id="add_subcat"></div>
                         <div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Short Description</label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" name="short_des" rows="4"><?php echo $product_details[0]['short_description'] ?></textarea>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Description</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" name="des" id="editor1"><?php echo $product_details[0]['description'] ?></textarea>

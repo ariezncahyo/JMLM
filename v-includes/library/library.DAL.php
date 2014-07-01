@@ -1,7 +1,9 @@
 <?php
-	//include class library of database connecton
+	//include class library of database connection
 	include 'class.database.php';
-	class ManageContent_DAL
+	
+
+	class DAL_Library
 	{
 		public $link;
 		

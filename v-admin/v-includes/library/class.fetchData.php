@@ -112,6 +112,29 @@
 						</div>';
 			}
 		}
+		
+		/*
+		- method for setting active category 
+		- Auth: Dipanjan
+		*/
+		function setActiveCategory($userData)
+		{
+			//print_r($userData);
+			//getting active category array
+			$active = explode(',',$userData['category']);
+			//print_r($active);
+			if(!empty($active[0]))
+			{
+				//set all active value to 0
+				$updateValue = $this->manageContent->updateValueWhere('product_category','active',0,'active',1);
+				//update new value
+				foreach($active as $key=>$value)
+				{
+					$updateNew = $this->manageContent->updateValueWhere('product_category','active',1,'categoryId',$value);
+				}
+			}
+			
+		}
 	}
 	
 	/* receiving data from UI layer Form */
@@ -136,6 +159,12 @@
 		case 'nested_cat':
 		{
 			$nestedCat = $fetchData->getNestedCategoryList($GLOBALS['_POST']);
+			break;
+		}
+		//for product active category
+		case 'active_cat':
+		{
+			$activeCat = $fetchData->setActiveCategory($GLOBALS['_POST']);
 			break;
 		}
 		default:

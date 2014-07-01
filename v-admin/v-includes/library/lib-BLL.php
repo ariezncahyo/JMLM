@@ -306,6 +306,25 @@
 				{
 					if(empty($parent['parentId']))
 					{
+						//getting child element
+						$child = explode(',',$parent['childId']);
+						if(!empty($parent['childId']))
+						{
+							$child_no = count($child);
+						}
+						else
+						{
+							$child_no = 0;
+						}
+						//checking for activecategory
+						if($parent['active'] == 1)
+						{
+							$active = 'checked="checked"';
+						}
+						else
+						{
+							$active = '';
+						}
 						//checking for status
 						if($parent['status'] == 1)
 						{
@@ -316,11 +335,77 @@
 							$btn = '<button class="btn btn-danger">Deactive</button>';
 						}
 						echo '<tr>
-								<td>'.$parent['name'].'</td>
-								<td>'.count(explode(',',$parent['childId'])).'</td>
+								<td><input type="checkbox" name="parent_cat[]" class="parent_cat" value="'.$parent['categoryId'].'" '.$active.' />'.$parent['name'].'</td>
+								<td>'.$child_no.'</td>
 								<td>'.$parent['date'].'</td>
 								<td>'.$btn.'</td>
 							</tr>';
+						
+						//getting child detail
+						if($child_no != 0)
+						{
+							//set category level
+							$category_level = 2;
+							//calling recursive functoin
+							$this->getNestedCategoryList($child,$category_level);
+						}
+						
+					}
+				}
+			}
+		}
+		
+		/*
+		- method for getting nested category list
+		- Auth: Dipanjan
+		*/
+		function getNestedCategoryList($child_element,$category_level)
+		{
+			foreach($child_element as $child)
+			{
+				//getting child details
+				$child_details = $this->manage_content->getValue_where('product_category','*','categoryId',$child);
+				if(!empty($child_details[0]))
+				{
+					//getting child element
+					$nested_child = explode(',',$child_details[0]['childId']);
+					if(!empty($child_details[0]['childId']))
+					{
+						$nested_child_no = count($nested_child);
+					}
+					else
+					{
+						$nested_child_no = 0;
+					}
+					//checking for status
+					if($child_details[0]['status'] == 1)
+					{
+						$btn = '<button class="btn btn-success">Active</button>';
+					}
+					else
+					{
+						$btn = '<button class="btn btn-danger">Deactive</button>';
+					}
+					
+					
+					echo '<tr>';
+							//empty td is created which is calculated from category level
+							for($i= 1; $i<=($category_level - 1); $i++)
+							{
+								echo '<td></td>';
+							}
+					  echo '<td>'.$child_details[0]['name'].'</td>
+							<td>'.$nested_child_no.'</td>
+							<td>'.$child_details[0]['date'].'</td>
+							<td>'.$btn.'</td>
+						</tr>';
+					//getting child detail
+					if($nested_child_no != 0)
+					{
+						//set category level
+						$nested_category_level = $category_level + 1;
+						//calling recursive functoin
+						$this->getNestedCategoryList($nested_child,$nested_category_level);
 					}
 				}
 			}

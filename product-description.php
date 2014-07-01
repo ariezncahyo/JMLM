@@ -1,8 +1,12 @@
 <?php
-	session_start();
 	$page_title = 'Product Description';
 	//include template files
 	include 'v-templates/header-guest.php';
+?>
+<?php
+	$product_id = 'pro53b13cba9cc8f';
+	//get product details
+	$pro_details = $manageContent->getProductDetailsInDescriptionPage($product_id);
 ?>
 						
 <!-- navbar second profile -->
@@ -49,9 +53,9 @@
             </div>
         </div>
         <div class="col-sm-9">
-            <h3 class="cart-prod-name">Lorem Ipsum 95BCJ</h3>
-            <p class="stock-avail">In Stock <span class="status-stk">(101 items available)</span></p>
-            <p class="price-cart">S$1234</p>
+            <h3 class="cart-prod-name"><?php echo $pro_details[0]['name'] ?></h3>
+            <p class="stock-avail">In Stock <span class="status-stk">(<?php echo $pro_details[0]['stock'] ?> items available)</span></p>
+            <p class="price-cart"><?php echo $pro_details[0]['member_price'] ?></p>
             <div class="row">
                 <div class="col-sm-5">
                     <div class="det-cont-form">
@@ -99,45 +103,17 @@
         <div class="col-sm-12">
             <ul class="nav nav-tabs nav-tabs-cart" id="myTab">
               <li class="active"><a href="#des1" data-toggle="tab">Description</a></li>
-              <li><a href="#des2" data-toggle="tab">Lorem Details</a></li>
-              <li><a href="#des3" data-toggle="tab">Lorem Details More</a></li>
+              <li><a href="#des2" data-toggle="tab">Review</a></li>
+              <li><a href="#des3" data-toggle="tab">YouTube Video</a></li>
             </ul>
             
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="des1">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <p class="cart-det-para mrgn-tp-cart">
-                                lorem Ipsum : Lorem ipsum<br />
-                                lorem ipsum : loremm ipsum lorem 2525 lorem.
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor: Lorem ips sit.<br />
-                                Lorem ipsum dolor: Lorem ips.<br />
-                                Lorem ipsum dolor: Lorem ipsum<br />
-                                Lorem ipsum dolor: Lorem ipsum dolor
-                            </p>
+                        <div class="col-sm-12 mrgn-tp-cart">
+                            <?php
+								echo $pro_details[0]['description'];
+							?>
                         </div>
                     </div>
                 </div>

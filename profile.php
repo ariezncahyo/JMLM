@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	$page_title = 'Profile';
 	//include template files
 	include 'v-templates/header-user.php';

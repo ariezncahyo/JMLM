@@ -48,7 +48,14 @@
                         </div>
                         <div id="add_subcat"></div>
                         <div class="form-group">
-                            <label class="control-label admin_form_label col-sm-3">Description</label>
+                            <label class="control-label admin_form_label col-sm-3">Short Description</label>
+                            <div class="col-sm-7">
+                                <textarea class="form-control" name="short_des" rows="4"></textarea>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Product Details</label>
                             <div class="col-sm-9">
                                 <textarea class="form-control" name="des" id="editor1"></textarea>
                             </div>

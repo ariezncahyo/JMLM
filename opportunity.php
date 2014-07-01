@@ -1,5 +1,4 @@
 <?php
-	session_start();
 	$page_title = 'Opportunity';
 	//include template files
 	include 'v-templates/header-guest.php';

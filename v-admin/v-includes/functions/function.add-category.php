@@ -22,11 +22,14 @@
 			{
 				$parentId = $lastIndex;
 			}
-			//set status of category
+			//getting current datetime
+			$datetime = date('Y-m-d h:i:s a');
+			//set status and active field of category
 			$status = 1;
+			$active = 0;
 			//inserting values to database
-			$column_name = array('name','parentId','status');
-			$column_value = array($_POST['name'],$parentId,$status);
+			$column_name = array('name','parentId','date','active','status');
+			$column_value = array($_POST['name'],$parentId,$datetime,$active,$status);
 			$insert = $manageData->insertValue('product_category',$column_name,$column_value);
 			
 			/* updating parent's childId field */

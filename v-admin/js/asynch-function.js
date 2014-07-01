@@ -120,4 +120,33 @@ $(document).ready(function(e) {
 			$('#add_subcat').html('');
 		}
 	});
+	
+	//checking parent category checkbox and setting active category
+	$(document).on('click', '.parent_cat', function() {
+		var check_length = $('input[name="parent_cat[]"]:checked').length;
+		//checking that it is multiple of 4
+		if((check_length % 4) == 0 && check_length != 0)
+		{
+			//getting category value in array
+			var catIDs = $('input[name="parent_cat[]"]:checked').map(function(){
+			  return $(this).val();
+			}).get(); // <----
+			//prepare sending date
+			var sendingData = 'category='+catIDs+'&refData=active_cat';
+			//calling ajax function
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					location.reload();
+					return false;
+			}});
+		}
+	});
 });

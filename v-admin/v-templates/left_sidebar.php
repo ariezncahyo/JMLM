@@ -34,7 +34,7 @@
                                 <a href="add-category.php">Add Category</a>
                             </li>
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="list-category.php">Category List</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

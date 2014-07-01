@@ -24,6 +24,11 @@
 			$upd = $manageData->updateValueWhere('product_info','category',$category,'product_id',$_POST['pid']);
 		}
 		
+		if(isset($_POST['short_des']) && !empty($_POST['short_des']))
+		{
+			$upd = $manageData->updateValueWhere('product_info','short_description',$_POST['short_des'],'product_id',$_POST['pid']);
+		}
+		
 		if(isset($_POST['des']) && !empty($_POST['des']))
 		{
 			$upd = $manageData->updateValueWhere('product_info','description',$_POST['des'],'product_id',$_POST['pid']);

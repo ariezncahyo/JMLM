@@ -140,10 +140,13 @@
 	min-height: 22em;
 	border-top: 2px solid #b8b8b8;
 }
+.pro_container{
+	margin-bottom:3em;
+}
 
 .container-products{
 	background: linear-gradient(0deg,#fefefe, #fafafa) !important;
-	margin: 1.5em 0em 4em 0em;
+	margin: 1.5em 0em 1em 0em;
 	padding: 1em;
 	padding-bottom: 0em;
 	border: 1px solid #cecece;
@@ -169,6 +172,7 @@
 	font-size: 1.5em;
 	color: #363636;
 	line-height: 1.2;
+	text-align:center;
 }
 
 .img-container{
