@@ -3,3 +3,10 @@ $('.navbar .dropdown').hover(function() {
 }, function() {
   $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp()
 });
+
+//making accordian anchor working
+$(document).ready(function(e) {
+    $(document).on('click', 'a', function() { 
+		$(this).void ();
+	});
+});

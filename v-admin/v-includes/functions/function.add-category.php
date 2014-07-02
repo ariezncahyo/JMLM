@@ -13,14 +13,19 @@
 			if($lastIndex == 'root')
 			{
 				$parentId = '';
+				$level = 1;
 			}
 			else if($lastIndex == -1)
 			{
 				$parentId = prev($_POST['cat']);
+				//getting level of parent
+				$upperLevel = $manageData->getValue_where('product_category','*','categoryId',$parentId);
+				$level = intval($upperLevel[0]['level']) + 1;
 			}
 			else
 			{
 				$parentId = $lastIndex;
+				$level = end(array_keys($_POST['cat'])) + 2;
 			}
 			//getting current datetime
 			$datetime = date('Y-m-d h:i:s a');
@@ -28,8 +33,8 @@
 			$status = 1;
 			$active = 0;
 			//inserting values to database
-			$column_name = array('name','parentId','date','active','status');
-			$column_value = array($_POST['name'],$parentId,$datetime,$active,$status);
+			$column_name = array('name','parentId','level','date','active','status');
+			$column_value = array($_POST['name'],$parentId,$level,$datetime,$active,$status);
 			$insert = $manageData->insertValue('product_category',$column_name,$column_value);
 			
 			/* updating parent's childId field */

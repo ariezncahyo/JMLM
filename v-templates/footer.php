@@ -55,7 +55,7 @@
   $(function () {
     $('#myTab a:first').tab('show')
   });
-</script>	
+</script>
 <script src="dist/js/custom.js"></script>
 </body>
 </html>

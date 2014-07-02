@@ -3,6 +3,24 @@
 	//include template files
 	include 'v-templates/header-guest.php';
 ?>
+<?php
+	if(isset($GLOBALS['_GET']['cat']))
+	{
+		$cat_id = $GLOBALS['_GET']['cat'];
+	}
+	else
+	{
+		$cat_id = '';
+	}
+	if(isset($GLOBALS['_GET']['l']))
+	{
+		$level = $GLOBALS['_GET']['l'];
+	}
+	else
+	{
+		$level = 1;
+	}
+?>
 						
 <!-- banner -->
 
@@ -20,7 +38,7 @@
     
     <div class="row">
         <div class="col-sm-3">
-        
+        	<?php include 'v-templates/category-sidebar.php'; ?>
         </div>
         <div class="col-sm-9">
             <div class="banner">    

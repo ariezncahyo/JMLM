@@ -103,5 +103,121 @@
 			return $this->_DAL_Obj->getValue_where('product_info','*','product_id',$product_id);
 		}
 		
+		/*
+		- method for showing product category list in sidebar
+		- Auth: Dipanjan
+		*/
+		function getCategoryListInSidebar($level,$categoryId)
+		{
+			if($level == 1)
+			{
+				//getting parent category list
+				$parent_cat = $this->_DAL_Obj->getValueMultipleCondtn('product_category','*',array('level','status'),array($level,1));
+			}
+			else
+			{
+				//getting parent category list
+				$parent_cat = $this->_DAL_Obj->getValueMultipleCondtn('product_category','*',array('level','categoryId','status'),array($level,$categoryId,1));
+			}
+			
+			if(!empty($parent_cat[0]))
+			{
+				echo '<div class="panel-group" id="accordion'.$parent_cat[0]['level'].'">';
+				
+				foreach($parent_cat as $parent)
+				{
+					//get category list
+					$cat_list = $this->_DAL_Obj->getValueMultipleCondtn('product_category','*',array('parentId','status'),array($parent['categoryId'],1));
+					
+					/*//setting the anchor
+					if(empty($cat_list[0]))
+					{
+						$anchr = '<h4 class="panel-title" data-toggle="collapse" data-parent="#accordion'.$parent['level'].'">
+									<a href="products.php?cat='.$parent['categoryId'].'&l='.$parent['level'].'">'.$parent['name'].'</a>
+								  </h4>';
+					}
+					else
+					{
+						$anchr = '<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion'.$parent['level'].'" href="#collapse'.$parent['categoryId'].'">'.$parent['name'].'</a>
+								  </h4>';
+					}*/
+					
+					echo '<div class="panel panel-default panel-custom">
+							<div class="panel-heading">
+							  <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion'.$parent['level'].'">
+									<a href="products.php?cat='.$parent['categoryId'].'&l='.$parent['level'].'">'.$parent['name'].'</a>
+								  </h4>
+							</div>';
+					
+					if(!empty($cat_list[0]))
+					{
+						echo '<div id="collapse'.$parent['categoryId'].'" class="panel-collapse collapse'; if($parent['categoryId'] == $categoryId) { echo 'in'; } echo '">
+							  <div class="panel-body">';
+								//calling recursive function
+								$this->getNestedCategoryListInSidebar($cat_list,$level,$categoryId);
+								
+						echo '</div>
+							</div>';
+					}
+					
+					echo '</div>';
+				}
+				
+				echo '</div>';
+			}
+		}
+		
+		
+		/*
+		- method for showing nested product category list in sidebar
+		- Auth: Dipanjan
+		*/
+		function getNestedCategoryListInSidebar($cat_list,$page_level,$categoryId)
+		{
+			if(!empty($cat_list[0]))
+			{
+				echo '<div class="panel-group" id="accordion'.$cat_list[0]['level'].'">';
+				foreach($cat_list as $cat)
+				{
+					//get category list
+					$cat_list_child = $this->_DAL_Obj->getValueMultipleCondtn('product_category','*',array('parentId','status'),array($cat['categoryId'],1));
+					//setting the anchor
+					/*if(intval($cat['level']) >= (intval($page_level) + 1) || empty($cat_list_child[0]))
+					{
+						$anchr = '<h4 class="panel-title" data-toggle="collapse" data-parent="#accordion'.$cat['level'].'">
+									<a href="products.php?cat='.$cat['categoryId'].'&l='.$cat['level'].'">'.$cat['name'].'</a>
+								  </h4>';
+					}
+					else
+					{
+						$anchr = '<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion'.$cat['level'].'" href="#collapse'.$cat['categoryId'].'">'.$cat['name'].'</a>
+								  </h4>';
+					}*/
+					
+					echo '<div class="panel panel-default panel-custom">
+							<div class="panel-heading">
+							  <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion'.$cat['level'].'">
+									<a href="products.php?cat='.$cat['categoryId'].'&l='.$cat['level'].'">'.$cat['name'].'</a>
+								  </h4>
+							</div>';
+							
+					if(!empty($cat_list_child[0]))
+					{
+						echo  '<div id="collapse'.$cat['categoryId'].'" class="panel-collapse collapse'; if($cat['categoryId'] == $categoryId) { echo 'in'; } echo '">
+							  	<div class="panel-body">';
+								//calling recursive function
+								$this->getNestedCategoryListInSidebar($cat_list_child,$page_level,$categoryId);
+								
+						echo '</div>
+							</div>';
+					}
+							
+					echo  '</div>';
+				}
+				echo '</div>';
+			}
+		}
 	 }
 ?>
