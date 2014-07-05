@@ -1,10 +1,14 @@
 <?php
 	$page_title = 'Product Description';
 	//include template files
+	if(!isset($GLOBALS['_GET']['pro']))
+	{
+		header("Location: index.php");
+	}
 	include 'v-templates/header-guest.php';
 ?>
 <?php
-	$product_id = 'pro53b13cba9cc8f';
+	$product_id = $GLOBALS['_GET']['pro'];
 	//get product details
 	$pro_details = $manageContent->getProductDetailsInDescriptionPage($product_id);
 ?>
@@ -120,38 +124,10 @@
               <div class="tab-pane fade" id="des2">
                 <div class="tab-content">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <p class="cart-det-para mrgn-tp-cart">
-                                lorem Ipsum : Lorem ipsum<br />
-                                lorem ipsum : loremm ipsum lorem 2525 lorem.
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor: Lorem ips sit.<br />
-                                Lorem ipsum dolor: Lorem ips.<br />
-                                Lorem ipsum dolor: Lorem ipsum<br />
-                                Lorem ipsum dolor: Lorem ipsum dolor
-                            </p>
+                        <div class="col-sm-12 mrgn-tp-cart">
+                            <?php
+								echo $pro_details[0]['description'];
+							?>
                         </div>
                     </div>
                 </div>
@@ -159,38 +135,13 @@
               <div class="tab-pane fade" id="des3">
                 <div class="tab-content">
                     <div class="row">
-                        <div class="col-sm-12">
-                            <p class="cart-det-para mrgn-tp-cart">
-                                lorem Ipsum : Lorem ipsum<br />
-                                lorem ipsum : loremm ipsum lorem 2525 lorem.
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </p>
-                            <h4 class="cart-det-head">
-                                Lorem ipsum dolor sit amet
-                            </h4>
-                            <p class="cart-det-para">
-                                Lorem ipsum dolor: Lorem ips sit.<br />
-                                Lorem ipsum dolor: Lorem ips.<br />
-                                Lorem ipsum dolor: Lorem ipsum<br />
-                                Lorem ipsum dolor: Lorem ipsum dolor
-                            </p>
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div class="youTube_outline">
+                            	<?php
+									//get youTube video
+									$manageContent->getProductLink($product_id);
+								?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -206,53 +157,12 @@
     <div class="row">
         <div class="col-sm-12">
             <h3 class="cart-prod-name rel-head">
-                Related Products : 
+                Related Products :
             </h3>
             <div class="row row-rel-prod mrgn-btm">
-                <div class="col-sm-3">
-                    <a href="product-description.php">
-                        <div class="rel-prod img-thumbnail">
-                            <img class="img-responsive" src="images/curly.jpg" />
-                            <p class="cart-prod-name-rel">
-                                Lorem Ipsum Dolor
-                            </p>
-                            <p class="price-cart-rel">S$ 1234</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-3">
-                    <a href="product-description.php">
-                        <div class="rel-prod img-thumbnail">
-                            <img class="img-responsive" src="images/curly.jpg" />
-                            <p class="cart-prod-name-rel">
-                                Lorem Ipsum Dolor
-                            </p>
-                            <p class="price-cart-rel">S$ 1234</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-3">
-                    <a href="product-description.php">
-                        <div class="rel-prod img-thumbnail">
-                            <img class="img-responsive" src="images/curly.jpg" />
-                            <p class="cart-prod-name-rel">
-                                Lorem Ipsum Dolor
-                            </p>
-                            <p class="price-cart-rel">S$ 1234</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-3">
-                    <a href="product-description.php">
-                        <div class="rel-prod img-thumbnail">
-                            <img class="img-responsive" src="images/curly.jpg" />
-                            <p class="cart-prod-name-rel">
-                                Lorem Ipsum Dolor
-                            </p>
-                            <p class="price-cart-rel">S$ 1234</p>
-                        </div>
-                    </a>
-                </div>
+                <?php 
+					$manageContent->getRelativeProductListOfCategory($pro_details[0]['category'],$pro_details[0]['product_id']); 
+				?>
             </div>
         </div>
     </div>

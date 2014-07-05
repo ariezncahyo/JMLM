@@ -56,7 +56,14 @@
             <div class="row">
                 <?php
 					//get product list
-					$manageContent->getProductListOfCategory();
+					if(!empty($cat_id))
+					{
+						$manageContent->getProductListOfCategory($cat_id);
+					}
+					else
+					{
+						$manageContent->getFeatureProductList();
+					}
 				?>
          	</div>      
         </div>                

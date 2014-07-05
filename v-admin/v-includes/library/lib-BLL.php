@@ -232,6 +232,16 @@
 					{
 						$btn = '<button class="btn btn-danger">Deactive</button>';
 					}
+					//checking for video link
+					$video = $this->manage_content->getValueMultipleCondtn('product_video','*',array('product_id','status'),array($product['product_id'],1));
+					if(empty($video[0]))
+					{
+						$link_btn = 'Add Link';
+					}
+					else
+					{
+						$link_btn = 'Edit Link';
+					}
 					
 					echo '<tr>
 							<td>'.$product['name'].'</td>
@@ -239,6 +249,7 @@
 							<td>'.$product['date'].'</td>
 							<td>'.$product['exp_date'].'</td>
 							<td>'.$feature_status.'</td>
+							<td><a href="product-video.php?pid='.$product['product_id'].'"><button class="btn btn-warning">'.$link_btn.'</button></a></td>
 							<td><a href="edit-product.php?pid='.$product['product_id'].'"><button class="btn btn-info">Edit Details</button></a></td>
 							<td>'.$btn.'</td>       	
 						  </tr>';
@@ -408,6 +419,20 @@
 						$this->getNestedCategoryList($nested_child,$nested_category_level);
 					}
 				}
+			}
+		}
+		
+		/*
+		- method for checking product video is added or not
+		- Auth: Dipanjan
+		*/
+		function getProductVideoStatus($product_id)
+		{
+			//get values from database
+			$status = $this->manage_content->getValueMultipleCondtn('product_video','*',array('product_id','status'),array($product_id,1));
+			if(!empty($status[0]['video']))
+			{
+				return $status;
 			}
 		}
 	}

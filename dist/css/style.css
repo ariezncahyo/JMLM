@@ -1524,6 +1524,11 @@
 	text-decoration: none;
 }
 
+.youTube_outline{
+	margin-top:30px;
+	margin-bottom:30px;
+}
+
 @media(max-width: 992px){
 	
 	.mrgn-lt-sm{

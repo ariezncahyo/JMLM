@@ -33,6 +33,7 @@
                                     <th>Upload Date</th>
                                     <th>Expiry date</th>
                                     <th>Featured</th>
+                                    <th>Video</th>
                                     <th>Edit</th>
                                     <th>Status</th>
                                 </tr>
