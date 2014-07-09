@@ -57,5 +57,32 @@
   });
 </script>
 <script src="dist/js/custom.js"></script>
+<script src="js/asynch-function.js"></script>
+<script src="js/validiation.js"></script>
+<script src="js/jquery.plugin.js"></script>
+<script src="js/jquery.datepick.js"></script>
+
+<script type="text/javascript">
+	$('.dob').datepick({
+		dateFormat: 'yyyy-mm-dd',
+		minDate: new Date(1900, 1 - 1, 01), 
+		maxDate: new Date(),
+		yearRange: '1900:2014',
+		showTrigger: '#calImg'
+	});
+</script>
+	<?php
+		//checking for session variable and showing the result
+		if(isset($_SESSION['success']))
+		{
+			echo '<script type="text/javascript">alertSuccess("'.$_SESSION['success'].'");</script>';
+			unset($_SESSION['success']);
+		}
+		else if(isset($_SESSION['warning']))
+		{
+			echo '<script type="text/javascript">alertWarning("'.$_SESSION['warning'].'");</script>';
+			unset($_SESSION['warning']);
+		}
+	?>
 </body>
 </html>

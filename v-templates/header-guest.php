@@ -1,9 +1,3 @@
-<?php
-	session_start();
-	//include BLL file
-	include 'v-includes/library/library.BLL.php';
-	$manageContent = new BLL_Library();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +6,7 @@
 
 <link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="dist/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="dist/css/jquery.datepick.css" />
 <link rel="stylesheet" type="text/css" href="dist/css/style.css" />
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

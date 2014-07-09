@@ -435,6 +435,53 @@
 				return $status;
 			}
 		}
+		
+		/*
+		- method for getting all product list
+		- Auth: Dipanjan
+		*/
+		function getProductNameList()
+		{
+			//get values from database
+			$products = $this->manage_content->getValueMultipleCondtn('product_info','*',array('status'),array(1));
+			foreach($products as $product)
+			{
+				echo '<option value="'.$product['product_id'].'">'.$product['name'].'</option>';
+			}
+		}
+		
+		/*
+		- method for getting product customization value
+		- Auth: Dipanjan
+		*/
+		function getProductCustomValue($product_id,$specification)
+		{
+			//get values from database
+			$values = $this->manage_content->getValueMultipleCondtn('product_customization','*',array('product_id','specification','status'),array($product_id,$specification,1));
+			//getting values in an array
+			$value = explode(',',$values[0]['value']);
+			//setting the class names
+			if($specification == 'color')
+			{
+				$textbox_class = 'pro_custom_color';
+				$textbox_name = 'pro_color[]';
+				$delete_btn = 'color_delete';
+			}
+			else if($specification == 'size')
+			{
+				$textbox_class = 'pro_custom_size';
+				$textbox_name = 'pro_size[]';
+				$delete_btn = 'size_delete';
+			}
+			if(!empty($value))
+			{
+				foreach($value as $key=>$array_value)
+				{
+					echo '<input type="text" class="form-control '.$textbox_class.' pull-left" name="'.$textbox_name.'" value="'.$array_value.'"/>
+                          <div class="pull-left"><button type="button" class="btn btn-danger btn-sm '.$delete_btn.'">Delete</button></div>';
+				}
+			}
+		}
 	}
 	
 ?>

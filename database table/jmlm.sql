@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2014 at 04:57 PM
+-- Generation Time: Jul 09, 2014 at 05:25 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -160,6 +160,31 @@ INSERT INTO `product_category` (`categoryId`, `name`, `parentId`, `childId`, `le
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product_customization`
+--
+
+CREATE TABLE IF NOT EXISTS `product_customization` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` varchar(200) NOT NULL,
+  `specification` varchar(200) NOT NULL,
+  `value` varchar(10000) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `product_customization`
+--
+
+INSERT INTO `product_customization` (`id`, `product_id`, `specification`, `value`, `status`) VALUES
+(1, 'pro53b13cba9cc8f', 'color', 'red,blue', '1'),
+(2, 'pro53b13cba9cc8f', 'size', '14 inch,44 mt,100 cm', '1'),
+(3, 'pro53b7a48b16406', 'color', 'purple,black', '1'),
+(4, 'pro53b7a48b16406', 'size', '1mt,500cm', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product_image`
 --
 
@@ -289,6 +314,40 @@ CREATE TABLE IF NOT EXISTS `tax_info` (
   `status` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_info`
+--
+
+CREATE TABLE IF NOT EXISTS `user_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(200) NOT NULL,
+  `f_name` varchar(500) NOT NULL,
+  `l_name` varchar(500) NOT NULL,
+  `gender` varchar(100) NOT NULL,
+  `dob` date NOT NULL,
+  `addr_1` varchar(1000) DEFAULT NULL,
+  `addr_2` varchar(1000) DEFAULT NULL,
+  `city` varchar(250) DEFAULT NULL,
+  `postal_code` varchar(200) NOT NULL,
+  `phone` varchar(200) DEFAULT NULL,
+  `company` varchar(500) DEFAULT NULL,
+  `username` varchar(500) NOT NULL,
+  `email_id` varchar(500) NOT NULL,
+  `password` varchar(1000) NOT NULL,
+  `email_verification` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `user_info`
+--
+
+INSERT INTO `user_info` (`id`, `user_id`, `f_name`, `l_name`, `gender`, `dob`, `addr_1`, `addr_2`, `city`, `postal_code`, `phone`, `company`, `username`, `email_id`, `password`, `email_verification`, `status`) VALUES
+(1, 'user53bd43c5325d5', 'Dipanjan', 'Bagchi', 'male', '1992-07-06', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', '700115', '1234565', '', 'Dipa0904', 'vdipanjan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

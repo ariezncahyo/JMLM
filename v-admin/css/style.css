@@ -355,6 +355,11 @@ table.dataTable thead .sorting:after {
 	padding: 8px 15px 8px 0;
 	margin: 17px 0px 10px 0;
 }
+.pro_custom_color, .pro_custom_size{
+	margin-bottom:10px;
+	width:80% !important;
+	margin-right:10px;
+}
 
 
 

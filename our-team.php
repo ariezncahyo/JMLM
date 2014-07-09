@@ -1,11 +1,25 @@
 <?php
 	$page_title = 'Our Team';
 	//include template files
-	include 'v-templates/header-guest.php';
+	include 'v-templates/header.php';
+	
+?>
+<?php
+	//include another template file
+	include 'v-templates/header-user.php';
 ?>
 <!-- banner -->
 
 <div class="container">
+	<div class="row">
+        <div class="col-lg-12">
+            <!-- div for showing success message--->
+            <div class="alert alert-success" id="success_msg"></div>
+            <!-- div for showing warning message--->
+            <div class="alert alert-danger" id="warning_msg"></div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
     <div class="row">
         <div class="col-sm-12">
             

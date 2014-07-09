@@ -1,37 +1,16 @@
 <?php
 	$page_title = 'Login';
 	//include template files
-	include 'v-templates/header-guest.php';
+	include 'v-templates/header.php';
+	if($_SESSION['user_id'] != 'Guest')
+	{
+		header("Location: index.php");
+	}
 ?>
-						
-<!-- navbar second profile -->
-
-<nav class="navbar navbar-scnd-prof" role="navigation">
-    <div class="container">
-        
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle nav-toggle-custom" data-toggle="collapse" data-target="#collapsenavscndprof">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar icn-custom"></span>
-                <span class="icon-bar icn-custom"></span>
-                <span class="icon-bar icn-custom"></span>
-            </button>
-        </div><!-- navbar-header ends -->
-        
-        <!-- navbar elements for toggling -->
-        <div class="collapse navbar-collapse" id="collapsenavscndprof">
-            <ul class="nav navbar-nav nav-custom-scnd-prof">
-                <li><a href="index.php"><span class="active-scnd-prof">HOME</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">ABOUT US</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">SERVICES</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">MEDIA</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">MEMBERSHIP</span></a></li>
-            </ul>
-        </div><!-- collapsenavprof ends -->
-        
-    </div><!-- container fluid ends -->
-</nav>
+<?php
+	//include another template file
+	include 'v-templates/header-user.php';
+?>
 
 <div class="row row-mrgn-nul row-mrgn-cart hd-carousel">
     <div class="col-sm-12">
@@ -41,6 +20,15 @@
 <!-- log in section -->
 
 <div class="container">
+	<div class="row">
+        <div class="col-lg-12">
+            <!-- div for showing success message--->
+            <div class="alert alert-success" id="success_msg"></div>
+            <!-- div for showing warning message--->
+            <div class="alert alert-danger" id="warning_msg"></div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <h3 class="sign-log-in">Log In</h3>
@@ -49,24 +37,24 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
             <div class="log-in-content">
-                <form class="form-horizontal" action="forgot-password.php" role="form" method="post">
+                <form class="form-horizontal" action="v-includes/functions/function.login.php" role="form" method="post">
                     <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control form-cart" placeholder="Email">
+                          <input type="email" class="form-control form-cart" placeholder="Email" name="email">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Password : </label>
                         <div class="col-sm-9">
-                          <input type="password" class="form-control form-cart" placeholder="Password">
+                          <input type="password" class="form-control form-cart" placeholder="Password" name="password">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox"> Keep me logged in for 2 weeks
+                              <input type="checkbox" name="login_time"> Keep me logged in for 2 weeks
                             </label>
                           </div>
                         </div>
@@ -78,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 nul-pad col-sm-9">
-                            <button type="submit" class="btn btn-link btn-link-custom">Forgot password</button>
+                            <a href="forgot-password.php"><button type="button" class="btn btn-link btn-link-custom">Forgot password</button></a>
                         </div>
                     </div>
                 </form>

@@ -1,7 +1,15 @@
 <?php
 	$page_title = 'Forgot Password';
 	//include template files
-	include 'v-templates/header-guest.php';
+	include 'v-templates/header.php';
+	if($_SESSION['user_id'] != 'Guest')
+	{
+		header("Location: index.php");
+	}
+?>
+<?php
+	//include another template file
+	include 'v-templates/header-user.php';
 ?>
 						
 <!-- navbar second profile -->
@@ -33,14 +41,25 @@
     </div><!-- container fluid ends -->
 </nav>
 
+
 <div class="row row-mrgn-nul row-mrgn-cart hd-carousel">
     <div class="col-sm-12">
     </div>
 </div>
 
+
 <!-- log in section -->
 
 <div class="container">
+	<div class="row">
+        <div class="col-lg-12">
+            <!-- div for showing success message--->
+            <div class="alert alert-success" id="success_msg"></div>
+            <!-- div for showing warning message--->
+            <div class="alert alert-danger" id="warning_msg"></div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <h3 class="sign-log-in">Type your email to Get Password</h3>

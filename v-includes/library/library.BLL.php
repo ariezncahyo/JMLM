@@ -463,5 +463,46 @@
 			}
 		}
 		
+		/*
+		- method for getting product customization values
+		- Auth: Dipanjan
+		*/
+		function getProductCustomValue($product_id)
+		{
+			//get values from database
+			$getValues = $this->_DAL_Obj->getValueMultipleCondtn('product_customization','*',array('product_id','status'),array($product_id,1));
+			if(!empty($getValues[0]))
+			{
+				foreach($getValues as $getValue)
+				{
+					if($getValue['specification'] == 'color')
+					{
+						$name = 'product_color';
+					}
+					else if($getValue['specification'] == 'size')
+					{
+						$name = 'product_size';
+					}
+					//getting values in ana array
+					$value = explode(',',$getValue['value']);
+					echo '<div class="form-group">
+                                <label class="lbl-cart">'.$getValue['specification'].'</label>
+                                <select class="form-control form-cart" name="'.$name.'">
+                                    <option>select one</option>';
+					if(!empty($value))
+					{
+						foreach($value as $key=>$array_value)
+						{
+							echo '<option value="'.$array_value.'">'.$array_value.'</option>';
+						}
+					}
+					
+                    echo  '</select>
+                         </div>';
+					
+				}
+			}
+		}
+		
 	 }
 ?>

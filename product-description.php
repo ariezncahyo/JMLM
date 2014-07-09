@@ -1,16 +1,21 @@
 <?php
 	$page_title = 'Product Description';
 	//include template files
+	include 'v-templates/header.php';
+?>
+<?php
 	if(!isset($GLOBALS['_GET']['pro']))
 	{
 		header("Location: index.php");
 	}
-	include 'v-templates/header-guest.php';
-?>
-<?php
+	
 	$product_id = $GLOBALS['_GET']['pro'];
 	//get product details
 	$pro_details = $manageContent->getProductDetailsInDescriptionPage($product_id);
+?>
+<?php
+	//include another template file
+	include 'v-templates/header-user.php';
 ?>
 						
 <!-- navbar second profile -->
@@ -50,7 +55,16 @@
 <!-- cart section -->
 
 <div class="container">
-    <div class="row row-cart">
+	<div class="row">
+        <div class="col-lg-12">
+            <!-- div for showing success message--->
+            <div class="alert alert-success" id="success_msg"></div>
+            <!-- div for showing warning message--->
+            <div class="alert alert-danger" id="warning_msg"></div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row row-cart pro_des_row">
         <div class="col-sm-3">
             <div class="img-prod-cart">
                 <img class="img-responsive" src="images/basket-egg.jpg" />
@@ -64,38 +78,16 @@
                 <div class="col-sm-5">
                     <div class="det-cont-form">
                         <form method="post" role="form">
-                            <div class="form-group">
-                                <label class="lbl-cart">Lorem Ipsum</label>
-                                <select class="form-control form-cart">
-                                    <option>select one</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="lbl-cart">Lorem Ipsum</label>
-                                <select class="form-control form-cart">
-                                    <option>select one</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                    <option>Lorem Ipsum</option>
-                                </select>
-                            </div>
+                            <?php
+								//getting product custom values
+								$manageContent->getProductCustomValue($product_id);
+							?>
                             <div class="form-group">
                                 <label class="lbl-cart">Quantity</label>
-                                <input type="text" class="form-control form-cart quant-cart" />
+                                <input type="text" class="form-control form-cart quant-cart" name="quantity"/>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-lg btn-warning">
-                                    Add To Cart
-                                </button>
+                                <button type="button" class="btn btn-lg btn-warning">Add To Cart</button>
                             </div>
                         </form>
                     </div>

@@ -24,6 +24,9 @@
                             <li>
                                 <a href="list-product.php">Product List</a>
                             </li>
+                            <li>
+                                <a href="product-custom.php">Product Customization</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

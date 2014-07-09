@@ -1,37 +1,12 @@
 <?php
 	$page_title = 'Checkout';
 	//include template files
-	include 'v-templates/header-guest.php';
+	include 'v-templates/header.php';
 ?>
-						
-<!-- navbar second profile -->
-
-<nav class="navbar navbar-scnd-prof" role="navigation">
-    <div class="container">
-        
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle nav-toggle-custom" data-toggle="collapse" data-target="#collapsenavscndprof">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar icn-custom"></span>
-                <span class="icon-bar icn-custom"></span>
-                <span class="icon-bar icn-custom"></span>
-            </button>
-        </div><!-- navbar-header ends -->
-        
-        <!-- navbar elements for toggling -->
-        <div class="collapse navbar-collapse" id="collapsenavscndprof">
-            <ul class="nav navbar-nav nav-custom-scnd-prof">
-                <li><a href="index.php"><span class="active-scnd-prof">HOME</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">ABOUT US</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">SERVICES</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">MEDIA</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">MEMBERSHIP</span></a></li>
-            </ul>
-        </div><!-- collapsenavprof ends -->
-        
-    </div><!-- container fluid ends -->
-</nav>
+<?php
+	//include another template file
+	include 'v-templates/header-user.php';
+?>
 
 <div class="row row-mrgn-nul row-mrgn-cart hd-carousel">
     <div class="col-sm-12">
@@ -41,6 +16,15 @@
 <!-- checkout form -->
 
 <div class="container">
+	<div class="row">
+        <div class="col-lg-12">
+            <!-- div for showing success message--->
+            <div class="alert alert-success" id="success_msg"></div>
+            <!-- div for showing warning message--->
+            <div class="alert alert-danger" id="warning_msg"></div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="panel-group" id="accordion">
@@ -48,7 +32,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                      Billing Information
+                      Billing Information 
                     </a>
                   </h4>
                 </div>
