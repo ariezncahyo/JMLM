@@ -17,35 +17,7 @@
 	//include another template file
 	include 'v-templates/header-user.php';
 ?>
-						
-<!-- navbar second profile -->
 
-<nav class="navbar navbar-scnd-prof" role="navigation">
-    <div class="container">
-        
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle nav-toggle-custom" data-toggle="collapse" data-target="#collapsenavscndprof">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar icn-custom"></span>
-                <span class="icon-bar icn-custom"></span>
-                <span class="icon-bar icn-custom"></span>
-            </button>
-        </div><!-- navbar-header ends -->
-        
-        <!-- navbar elements for toggling -->
-        <div class="collapse navbar-collapse" id="collapsenavscndprof">
-            <ul class="nav navbar-nav nav-custom-scnd-prof">
-                <li><a href="index.php"><span class="active-scnd-prof">HOME</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">ABOUT US</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">SERVICES</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">MEDIA</span></a></li>
-                <li><a href="#"><span class="hvr-scnd-prof">MEMBERSHIP</span></a></li>
-            </ul>
-        </div><!-- collapsenavprof ends -->
-        
-    </div><!-- container fluid ends -->
-</nav>
 
 <div class="row row-mrgn-nul row-mrgn-cart hd-carousel">
     <div class="col-sm-12">
@@ -77,17 +49,21 @@
             <div class="row">
                 <div class="col-sm-5">
                     <div class="det-cont-form">
-                        <form method="post" role="form">
-                            <?php
-								//getting product custom values
-								$manageContent->getProductCustomValue($product_id);
-							?>
-                            <div class="form-group">
-                                <label class="lbl-cart">Quantity</label>
-                                <input type="text" class="form-control form-cart quant-cart" name="quantity"/>
+                        <form method="post" role="form" name="shopping-cart">
+                        	<div class="specification_details">
+								<?php
+                                    //getting product custom values
+                                    $manageContent->getProductCustomValue($product_id);
+                                ?>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-lg btn-warning">Add To Cart</button>
+                                <label class="lbl-cart">Quantity</label>
+                                <input type="text" class="form-control form-cart quant-cart" name="quantity" id="pro_quan"/>
+                                <div class="form-error" id="err_pro_quan"></div>
+                            </div>
+                            <div class="form-group">
+                            	<input type="hidden" name="mx" value="<?php echo $pro_details[0]['maxpick'] ?>" />
+                                <button type="button" class="btn btn-lg btn-warning" id="add-to-cart">Add To Cart</button>
                             </div>
                         </form>
                     </div>

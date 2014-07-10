@@ -32,7 +32,7 @@
 				foreach($getValue as $value)
 				{
 					echo '<div class="col-sm-3">
-							<a href="products.php" class="hvr-no-decortn">
+							<a href="products.php?cat='.$value['categoryId'].'&l='.$value['level'].'" class="hvr-no-decortn">
 								<div class="container-products">
 									<p class="prod-para">'.$value['name'].'</p>
 									<div class="row">
@@ -473,22 +473,18 @@
 			$getValues = $this->_DAL_Obj->getValueMultipleCondtn('product_customization','*',array('product_id','status'),array($product_id,1));
 			if(!empty($getValues[0]))
 			{
+				//defining integers for name and id
+				$label_id = 'label1';
+				$name = 'speci1';
+				$id = 'speci1';
 				foreach($getValues as $getValue)
 				{
-					if($getValue['specification'] == 'color')
-					{
-						$name = 'product_color';
-					}
-					else if($getValue['specification'] == 'size')
-					{
-						$name = 'product_size';
-					}
 					//getting values in ana array
 					$value = explode(',',$getValue['value']);
 					echo '<div class="form-group">
-                                <label class="lbl-cart">'.$getValue['specification'].'</label>
-                                <select class="form-control form-cart" name="'.$name.'">
-                                    <option>select one</option>';
+                                <label class="lbl-cart" id="'.$label_id.'">'.$getValue['specification'].'</label>
+                                <select class="form-control form-cart" name="'.$name.'" id="'.$id.'">
+                                    <option value="-1">select one</option>';
 					if(!empty($value))
 					{
 						foreach($value as $key=>$array_value)
@@ -498,9 +494,16 @@
 					}
 					
                     echo  '</select>
+							<div class="form-error" id="err_'.$id.'"></div>
                          </div>';
+				
+					//increment the variable
+					$label_id = 'label'.(intval(substr($label_id,5)) + 1);
+					$name = 'speci'.(intval(substr($name,5)) + 1);
+					$id = 'speci'.(intval(substr($id,5)) + 1);
 					
 				}
+				
 			}
 		}
 		

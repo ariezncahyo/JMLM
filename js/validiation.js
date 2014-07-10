@@ -157,6 +157,28 @@ function checkEmptyField(id_name_1)
 		exit(); 
 	}
 }
+function validateSelectBoxField(id_name,err_id)
+{
+	var x = document.getElementById(id_name).value;
+	if(x == -1)
+	{
+		//make the background color red
+		document.getElementById(id_name).style.backgroundColor = '#F6D3D3';
+		//showing the msg
+		document.getElementById(err_id).innerHTML = '**Please Fill Up The Field';
+		document.getElementById(err_id).style.color = 'red';
+		result = 0;
+		//document.getElementById('btn_submit').disabled = 'true';
+		exit();
+	}
+	else
+	{
+		//make the background color normal if valid
+		document.getElementById(id_name).style.backgroundColor = '#ffffff';
+		result = 1;
+	}
+}
+
 function validateSignupForm(form_name)
 {
 	validateRequiredField('signup_fname','err_signup_fname');
@@ -172,6 +194,7 @@ function validateSignupForm(form_name)
 	//submit the contact form
 	document.getElementById(form_name).submit();
 }
+
 
 /*
 	method for alert warning message

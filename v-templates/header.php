@@ -16,14 +16,14 @@
 	}
 	
 	//checking for user or guest user id
-	if(isset($GLOBALS['_COOKIE']['DiHuangUser']))
+	if(isset($GLOBALS['_COOKIE']['DiHuangUser']) && isset($_SESSION['user_id']))
 	{
 		if($_SESSION['user_id'] != $GLOBALS['_COOKIE']['DiHuangUser'] || substr($_SESSION['user_id'],0,4) != 'user')
 		{
 			$_SESSION['user_id'] = 'Guest';
 		}
 	}
-	else if(!isset($GLOBALS['_COOKIE']['DiHuangUser']) && substr($_SESSION['user_id'],0,4) != 'user')
+	else if(!isset($GLOBALS['_COOKIE']['DiHuangUser']) && !isset($_SESSION['user_id']))
 	{
 		$_SESSION['user_id'] = 'Guest';
 	}

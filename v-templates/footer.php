@@ -61,6 +61,7 @@
 <script src="js/validiation.js"></script>
 <script src="js/jquery.plugin.js"></script>
 <script src="js/jquery.datepick.js"></script>
+<script src="js/shopping-cart.js"></script>
 
 <script type="text/javascript">
 	$('.dob').datepick({
