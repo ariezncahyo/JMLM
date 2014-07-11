@@ -32,7 +32,7 @@
 					include 'v-templates/sidebar-user.php';
 				?>
                 
-                <div class="col-sm-8">
+                <div class="col-sm-9">
                     <div class="rgt-col-divs">
                         <div class="row">
                             <div class="col-sm-12">

@@ -89,75 +89,75 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 contact-container">
-            
-            <div class="row">
-                <div class="col-sm-8">
-                    <h2 class="future-hd">OUR TEAM</h2>
-                    
-                    <div class="row row-our-tm">
-                        <div class="col-sm-9">
-                            <h4 class="our-tm-hd">Lorem Ipsum</h4>
-                            <p class="our-tm-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                                nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <h4 class="team-name">LOREM IPSUM</h4>
-                        </div>
-                        <div class="col-sm-3">
-                            <img src="images/team-1.png" class="img-responsive" />
-                        </div>
-                    </div>
-                    
-                    <div class="row row-our-tm">
-                        <div class="col-sm-9">
-                            <h4 class="our-tm-hd">Lorem Ipsum</h4>
-                            <p class="our-tm-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                                nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <h4 class="team-name">LOREM IPSUM</h4>
-                        </div>
-                        <div class="col-sm-3">
-                            <img src="images/team-2.png" class="img-responsive" />
-                        </div>
-                    </div>
-                    
-                    <div class="row row-our-tm mrgn-btm">
-                        <div class="col-sm-9">
-                            <h4 class="our-tm-hd">Lorem Ipsum</h4>
-                            <p class="our-tm-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                                nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <h4 class="team-name">LOREM IPSUM</h4>
-                        </div>
-                        <div class="col-sm-3">
-                            <img src="images/team-3.png" class="img-responsive" />
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-sm-4">
-                    <table class="table tble-custm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td><a href="company-history.php">COMPANY HISTORY</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="future.php">THE FUTURE</a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="our-team.php">OUR TEAM</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
+        <div class="col-sm-12">
+            <div class="contact-container">
+	            <div class="row">
+	                <div class="col-sm-8">
+	                    <h2 class="future-hd">OUR TEAM</h2>
+	                    
+	                    <div class="row row-our-tm">
+	                        <div class="col-sm-9">
+	                            <h4 class="our-tm-hd">Lorem Ipsum</h4>
+	                            <p class="our-tm-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+	                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+	                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+	                                nisi ut aliquip ex ea commodo consequat.
+	                            </p>
+	                            <h4 class="team-name">LOREM IPSUM</h4>
+	                        </div>
+	                        <div class="col-sm-3">
+	                            <img src="images/team-1.png" class="img-responsive" />
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="row row-our-tm">
+	                        <div class="col-sm-9">
+	                            <h4 class="our-tm-hd">Lorem Ipsum</h4>
+	                            <p class="our-tm-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+	                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+	                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+	                                nisi ut aliquip ex ea commodo consequat.
+	                            </p>
+	                            <h4 class="team-name">LOREM IPSUM</h4>
+	                        </div>
+	                        <div class="col-sm-3">
+	                            <img src="images/team-2.png" class="img-responsive" />
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="row row-our-tm mrgn-btm">
+	                        <div class="col-sm-9">
+	                            <h4 class="our-tm-hd">Lorem Ipsum</h4>
+	                            <p class="our-tm-para">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+	                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+	                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+	                                nisi ut aliquip ex ea commodo consequat.
+	                            </p>
+	                            <h4 class="team-name">LOREM IPSUM</h4>
+	                        </div>
+	                        <div class="col-sm-3">
+	                            <img src="images/team-3.png" class="img-responsive" />
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                <div class="col-sm-4">
+	                    <table class="table tble-custm table-bordered">
+	                        <tbody>
+	                            <tr>
+	                                <td><a href="company-history.php">COMPANY HISTORY</a></td>
+	                            </tr>
+	                            <tr>
+	                                <td><a href="future.php">THE FUTURE</a></td>
+	                            </tr>
+	                            <tr>
+	                                <td><a href="our-team.php">OUR TEAM</a></td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+	                </div>
+	            </div>
+            </div><!-- contact-container ends -->
         </div><!-- cols ends -->
     </div><!-- row ends -->
 </div><!-- container ends -->

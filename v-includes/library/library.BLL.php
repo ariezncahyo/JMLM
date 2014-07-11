@@ -20,6 +20,43 @@
 		}
 		
 		/*
+		- method for getting system currency
+		- Auth: Dipanjan
+		*/
+		function getSystemCurrency($field)
+		{
+			$sytem_currency = $this->_DAL_Obj->getValue_where('system_currency','*','field',$field);
+			return $sytem_currency[0]['currency'];
+		}
+		
+		/*
+		- method for getting shiiping cost of system
+		- Auth: Dipanjan
+		*/
+		function getShippingCost()
+		{
+			$sytem_currency = $this->_DAL_Obj->getValue_where('shipping_cost_info','*','status',1);
+			return $sytem_currency[0]['shipping_cost'];
+		}
+		
+		/*
+		- method for getting member or guest
+		- Auth: Dipanjan
+		*/
+		function getUserPrice()
+		{
+			if(substr($_SESSION['user_id'],0,4) == 'user')
+			{
+				$price = 'member_price';
+			}
+			else
+			{
+				$price = 'guest_price';
+			}
+			return $price;
+		}
+		
+		/*
 		- method for getting product active category list on home page 
 		- Auth: Dipanjan
 		*/
@@ -505,6 +542,102 @@
 				}
 				
 			}
+		}
+		
+		/*
+		- method for getting no of product in cart
+		- Auth: Dipanjan
+		*/
+		function getTotalProductInCart()
+		{
+			//getting value of user id cookie
+			if(isset($GLOBALS['_COOKIE'][$_SESSION['user_id']]))
+			{
+				$cookie_value = $GLOBALS['_COOKIE'][$_SESSION['user_id']];
+				$total_product = explode(':',$cookie_value);
+				echo $total_product[0];
+			}
+			else
+			{
+				echo 0;
+			}
+		}
+		
+		/*
+		- method for getting selected product list in view cart
+		- Auth: Dipanjan
+		*/
+		function getProductListInCart()
+		{
+			/*echo '<pre>';
+			print_r($GLOBALS['_COOKIE']);
+			echo '</pre>';*/
+			//initialize total amount variable
+			$total_amount = 0;
+			//getting no of items selected
+			$pro_value = explode(':',$GLOBALS['_COOKIE'][$_SESSION['user_id']]);
+			$items_selected = $pro_value[1];
+			//getting product details cookie 
+			for($i=1; $i<=$items_selected; $i++)
+			{
+				$get_cookie_value = $GLOBALS['_COOKIE'][$_SESSION['user_id'].'pro:'.$i];
+				//get each value part in an array
+				$allValue = explode(':',$get_cookie_value);
+				//getting product id
+				$pid = substr(strrchr($allValue[0],'='),1);
+				//getting quantity
+				$quantity = substr(strrchr($allValue[1],'='),1);
+				//getting max length of specification
+				$maxSpeciLength = substr(strrchr(end($allValue),'='),1);
+				//getting product details
+				$pro_details = $this->_DAL_Obj->getValue_where('product_info','*','product_id',$pid);
+				if(!empty($pro_details[0]))
+				{
+					//getting usre price
+					$user_price = $pro_details[0][$this->getUserPrice()];
+					//getting total amount
+					$amount = $quantity * intval($user_price);
+					echo '<div class="view-cart-container">
+							<div class="row">
+								<div class="col-sm-1">
+									<div class="rmv"><button class="btn btn-link btn-rmv">x</button></div>
+								</div>
+								<div class="col-sm-2 col-xs-5">
+									<img src="images/curly.jpg" class="img-responsive" />
+								</div>
+								<div class="col-sm-5 col-xs-7">
+									<p class="prod-v-crt-name">'.$pro_details[0]['name'].'</p>';
+						if($maxSpeciLength != 0)
+						{
+							for($j=1; $j<=$maxSpeciLength; $j++)
+							{
+								echo '<p class="prod-details-v-cart">
+										<span class="lbl-det">'.substr(strrchr($allValue[(2*$j)],'='),1).' :</span>
+										<span class="lbl-rslt">'.substr(strrchr($allValue[(2*$j)+1],'='),1).' </span>
+									</p>';
+							}
+						}
+						echo	'</div>
+								<div class="col-sm-2 col-xs-6">
+									<div class="quant-cart-v-cart">
+										<p class="price-cart-rel">'.$this->getSystemCurrency('product').$user_price.'</p>
+										<p class="mult-v-cart">x</p>
+										<div class="quant-num">
+											<input type="text" class="form-control form-cart" value="'.$quantity.'"/>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-2 col-xs-6">
+									<p class="price-cart-rel">'.$this->getSystemCurrency('product').$amount.'</p>
+								</div>
+							</div>
+						</div>';
+				}//end of if condition
+				//calculating total amount
+				$total_amount = $total_amount + $amount;
+			}//end of for loop
+			//return total amount of the cart
+			return $total_amount;
 		}
 		
 	 }

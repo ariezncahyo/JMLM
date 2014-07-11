@@ -54,15 +54,15 @@
 								<li><a href="#"><span class="nav-welcome">Welcome Name of The Person</span></a></li>
 								
 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="nav-prof-2">Lorem Ipsum<img src="images/arrow-down-nav.png" /></span></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="nav-prof-2">Links<img src="images/arrow-down-nav.png" /></span></a>
 									
 									<ul class="dropdown-menu">
-										<li><a href="#">Lorem Ipsum</a></li>
-										<li><a href="#">Lorem Ipsum</a></li>
-										<li><a href="#">Lorem Ipsum</a></li>
-										<li><a href="#">Lorem Ipsum</a></li>
-										<li><a href="#">Lorem Ipsum</a></li>
-										<li><a href="#">Lorem Ipsum</a></li>
+										<li><a href="company-history.php">Company History</a></li>
+										<li><a href="culture.php">Culture</a></li>
+										<li><a href="future.php">Future</a></li>
+										<li><a href="opportunity.php">Opportunity</a></li>
+										<li><a href="our-team.php">Our Team</a></li>
+										<li><a href="products.php">Products</a></li>
 									</ul>
 								</li>
 								
@@ -79,9 +79,18 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12">
-							<div class="logo-nav-prof">
+							<div>
 								<div class="col-sm-2 pad-social">
-									<a href="index.php"><img src="images/logo.png" /></a>
+									<a href="index.php"><img src="images/logo.png" class="logo-nav-prof"></a>
+								</div>
+								<div class="col-sm-offset-7 col-sm-3">
+									<a href="view-cart.php" class="cart-nw center-block">
+										<div class="cart-sec">
+											<div class="cart">
+												<img src="images/cart.png" /> <span class="cart-txt"> CART <?php $manageContent->getTotalProductInCart(); ?></span>
+											</div>
+										</div><!-- cart-sec ends -->
+									</a>
 								</div>
 							</div>
 						</div>
@@ -108,10 +117,12 @@
                         <div class="collapse navbar-collapse" id="collapsenavscndprof">
                             <ul class="nav navbar-nav nav-custom-scnd-prof">
                                 <li><a href="index.php"><span class="active-scnd-prof">HOME</span></a></li>
-                                <li><a href="#"><span class="hvr-scnd-prof">ABOUT US</span></a></li>
-                                <li><a href="#"><span class="hvr-scnd-prof">SERVICES</span></a></li>
-                                <li><a href="#"><span class="hvr-scnd-prof">MEDIA</span></a></li>
-                                <li><a href="#"><span class="hvr-scnd-prof">MEMBERSHIP</span></a></li>
+                                <li><a href="products.php"><span class="hvr-scnd-prof">PRODUCT</span></a></li>
+                                <li><a href="profile.php"><span class="hvr-scnd-prof">PROFILE</span></a></li>
+                                <li><a href="bank-account.php"><span class="hvr-scnd-prof">BANK ACCOUNT</span></a></li>
+                                <li><a href="my-wallet.php"><span class="hvr-scnd-prof">MY WALLET</span></a></li>
+                                <li><a href="profile-setting.php"><span class="hvr-scnd-prof">PROFILE SETTING</span></a></li>
+                                <li><a href="withdraw-amount.php"><span class="hvr-scnd-prof">WITHDRAW AMOUNT</span></a></li>
                             </ul>
                             
                             <ul class="nav navbar-nav navbar-right nav-custom-scnd-prof">
@@ -209,7 +220,7 @@
 												<a href="view-cart.php">
 													<div class="cart-sec">
 														<div class="cart">
-															<img src="images/cart.png" /> <span class="cart-txt"> CART 0</span>
+															<img src="images/cart.png" /> <span class="cart-txt"> CART <?php $manageContent->getTotalProductInCart(); ?></span>
 														</div>
 													</div><!-- cart-sec ends -->
 												</a>

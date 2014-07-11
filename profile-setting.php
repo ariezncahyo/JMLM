@@ -32,7 +32,7 @@
 					include 'v-templates/sidebar-user.php';
 				?>
                 
-                <div class="col-sm-8">
+                <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
                         profile settings

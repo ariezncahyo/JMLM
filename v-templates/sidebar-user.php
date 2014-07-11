@@ -1,20 +1,21 @@
 <!-- left column profile -->
-<div class="col-sm-4">
+<div class="col-sm-3">
     <div class="prof-pic mrgn-lt-sm">
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-sm-4">
-                        <img class="img-responsive" src="images/prod1.png" />
+                    <div class="col-sm-12 col-md-4 pad-min">
+                        <img class="img-responsive center-block" src="images/prod1.png" />
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12 col-md-8">
                         <h4 class="prof-h">Lorem ipsum dolor sit</h4>
                         <p class="prof-p">
                             Lorem ipsum dolor
                         </p>
-                        <a href="#" class="btn btn-custom-prof">Lorem Ipsum</a>
+                        <button type="button" class="btn btn-custom-prof hidden-sm hidden-md center-block">Lorem Ipsum</button>
                     </div>
                 </div>
+                <button type="button" class="btn btn-custom-prof visible-sm visible-md center-block">Lorem Ipsum</button>
             </div>
         </div>
     </div><!-- prof pic ends -->
@@ -58,7 +59,7 @@
                 <p class="tble-para-dark">
                     Lorem ipsum dolor sit amet
                 </p>
-                <a href="#" class="btn btn-custom-prof btn-custom-prof-dark">Lorem Ipsum lorem</a>
+                <button type="button" class="btn btn-custom-prof btn-custom-prof-dark center-block">Lorem Ipsum</button>
             </div>
         </div>
     </div>
