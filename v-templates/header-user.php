@@ -51,7 +51,7 @@
 						<!-- navbar elements for toggling -->
 						<div class="collapse navbar-collapse" id="collapsenavprof">
 							<ul class="nav navbar-nav navbar-right nav-custom-prof">
-								<li><a href="#"><span class="nav-welcome">Welcome Name of The Person</span></a></li>
+								<li><a href="#"><span class="nav-welcome"><?php $manageContent->getUsernameOfUser(); ?></span></a></li>
 								
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="nav-prof-2">Links<img src="images/arrow-down-nav.png" /></span></a>

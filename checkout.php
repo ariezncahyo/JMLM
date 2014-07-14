@@ -4,6 +4,13 @@
 	include 'v-templates/header.php';
 ?>
 <?php
+	//checking for empty cart
+	if(!isset($GLOBALS['_COOKIE'][$_SESSION['user_id']]))
+	{
+		header("Location: view-cart.php");
+	}
+?>
+<?php
 	//include another template file
 	include 'v-templates/header-user.php';
 ?>
@@ -14,6 +21,10 @@
 </div>
 
 <!-- checkout form -->
+<?php
+	//getting values of user info
+	$userInfo = $manageContent->getUserInfo();
+?>
 
 <div class="container">
 	<div class="row">
@@ -31,7 +42,7 @@
               <div class="panel panel-default panel-default-custom">
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="checkout-one">
                       Billing Information 
                     </a>
                   </h4>
@@ -43,32 +54,32 @@
                             <h4 class="head-bill">
                                 Billing Information
                             </h4>
-                            <form role="form" method="post">
+                            <form role="form" id="billing_info">
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="First Name">
+                                      <input type="text" class="form-cart form-control" placeholder="First Name" name="f_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['f_name'].'"'; } ?>>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Last Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Last Name">
+                                      <input type="text" class="form-cart form-control" placeholder="Last Name" name="l_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['l_name'].'"'; } ?>>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Company</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Company">
+                                      <input type="text" class="form-cart form-control" placeholder="Company" name="company" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['company'].'"'; } ?>>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Email Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Email Address">
+                                      <input type="text" class="form-cart form-control" placeholder="Email Address" name="email_id" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['email_id'].'"'; } ?>/>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -76,10 +87,10 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Address">
+                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr1" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_1'].'"'; } ?>>
                                     </div>
                                     <div class="col-sm-10 mrgn-tp-cart">
-                                      <input type="text" class="form-cart form-control" placeholder="Address">
+                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr2" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_2'].'"'; } ?>>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -87,21 +98,21 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">City</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="City">
+                                          <input type="text" class="form-cart form-control" placeholder="City" name="city" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['city'].'"'; } ?>>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Zip/Postal Code</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Zip/Postal Code">
+                                          <input type="text" class="form-cart form-control" placeholder="Zip/Postal Code" name="postal_code" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['postal_code'].'"'; } ?>>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Telephone</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Phone Number</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Telephone">
+                                          <input type="text" class="form-cart form-control" placeholder="Phone Number" name="phone" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['phone'].'"'; } ?>>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -110,70 +121,22 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">State/Province</label>
                                         <div class="col-sm-12">
-                                          <select class="form-cart form-control">
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                          </select>
+                                          <input type="text" class="form-cart form-control" placeholder="State" name="state" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['state'].'"'; } ?>>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Country</label>
                                         <div class="col-sm-12">
-                                          <select class="form-cart form-control">
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                          </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Customer Type</label>
-                                        <div class="col-sm-12">
-                                          <select class="form-cart form-control">
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                          </select>
+                                          <input type="text" class="form-cart form-control" placeholder="Country" name="country" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['country'].'"'; } ?>>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
-                                     <div class="col-sm-10">
-                                        <div class="radio">
-                                          <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-                                            Ship to this address
-                                          </label>
-                                        </div>
-                                        <div class="radio">
-                                          <label>
-                                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                            Ship to different address
-                                          </label>
-                                        </div>
-                                     </div>
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button class="btn btn-warning btn-lg checkout-btn">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="billing_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapseTwo">Continue</button>
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +149,7 @@
               <div class="panel panel-default panel-default-custom">
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" id="checkout-two">
                       Shipping Information
                     </a>
                   </h4>
@@ -198,32 +161,40 @@
                             <h4 class="head-bill">
                                 Shipping Information
                             </h4>
-                            <form role="form" method="post">
+                            <form role="form" id="shipping_info">
+                            	<div class="col-sm-10">
+                                    <div class="checkbox">
+                                      <label>
+                                        <input type="checkbox" name="addr_condition" id="addr_condition">
+                                        Use Billing Address
+                                      </label>
+                                    </div>
+                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="First Name">
+                                      <input type="text" class="form-cart form-control" placeholder="First Name" name="f_name">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Last Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Last Name">
+                                      <input type="text" class="form-cart form-control" placeholder="Last Name" name="l_name">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Company</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Company">
+                                      <input type="text" class="form-cart form-control" placeholder="Company" name="company">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Email Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Email Address">
+                                      <input type="text" class="form-cart form-control" placeholder="Email Address" name="email_id">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -231,10 +202,10 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Address">
+                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr1">
                                     </div>
                                     <div class="col-sm-10 mrgn-tp-cart">
-                                      <input type="text" class="form-cart form-control" placeholder="Address">
+                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr2">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -242,21 +213,21 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">City</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="City">
+                                          <input type="text" class="form-cart form-control" placeholder="City" name="city">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Zip/Postal Code</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Zip/Postal Code">
+                                          <input type="text" class="form-cart form-control" placeholder="Zip/Postal Code" name="postal_code">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Telephone</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Telephone">
+                                          <input type="text" class="form-cart form-control" placeholder="Telephone" name="phone">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -265,64 +236,23 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">State/Province</label>
                                         <div class="col-sm-12">
-                                          <select class="form-cart form-control">
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                          </select>
+                                          <input type="text" class="form-cart form-control" placeholder="State" name="state">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Country</label>
                                         <div class="col-sm-12">
-                                          <select class="form-cart form-control">
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                          </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Customer Type</label>
-                                        <div class="col-sm-12">
-                                          <select class="form-cart form-control">
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                            <option>Lorem Ipsum 1</option>
-                                          </select>
+                                          <input type="text" class="form-cart form-control" placeholder="State" name="country">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
-                                     <div class="col-sm-10">
-                                        <div class="checkbox">
-                                          <label>
-                                            <input type="checkbox" value="">
-                                            Use Billing Address
-                                          </label>
-                                        </div>
-                                     </div>
+                                     
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button class="btn btn-warning btn-lg checkout-btn">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="shipping_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapseThree">Continue</button>
                                         </div>
                                     </div>
                                 </div>
@@ -335,7 +265,7 @@
               <div class="panel panel-default panel-default-custom">
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" id="checkout-three">
                       Shipping Method
                     </a>
                   </h4>
@@ -347,17 +277,19 @@
                             <h4 class="head-bill">
                                 Shipping Method
                             </h4>
-                            <form role="form" method="post">
+                            <form role="form" id="shipping_method">
                                 <div class="col-sm-12">
                                     <h5 class="ship-text">
-                                        Air Shipping (Delivery timeline 10 working days. Working days does not include Sat and Sun)<br>
-                                        <span class="ship-text-span">Rs.25 (Per Piece) Total.   Rs. 275</span>
+                                        <?php
+											//get shipping cost
+											$manageContent->getShippingChargesInCheckoutPage();
+										?>
                                     </h5>
                                 </div>
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button class="btn btn-warning btn-lg checkout-btn">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="shipping_method_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapsefour">Continue</button>
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +302,7 @@
               <div class="panel panel-default panel-default-custom">
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour" id="checkout-four">
                       Payment Information
                     </a>
                   </h4>
@@ -382,25 +314,31 @@
                             <h4 class="head-bill">
                                 Payment Information
                             </h4>
-                            <form role="form" method="post">
+                            <form role="form" id="payment_info">
                                 <div class="col-sm-10">
-                                    <div class="radio">
+                                    <div class="radio" id="online">
                                       <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                        <input type="radio" name="payment_info" value="online" checked="checked">
                                         <h4 class="ship-text ship-text-span">Online Payment</h4>
                                       </label>
                                     </div>
-                                    <div class="radio">
+                                    <div class="radio" id="bank">
                                       <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        <input type="radio" name="payment_info" value="bank">
                                         <h4 class="ship-text ship-text-span">Cheque / Bank Transfer (Your order will be on hold until the full payment is received)</h4>
+                                      </label>
+                                    </div>
+                                    <div class="radio" id="cod">
+                                      <label>
+                                        <input type="radio" name="payment_info" value="cod">
+                                        <h4 class="ship-text ship-text-span">Cash On Delivery</h4>
                                       </label>
                                     </div>
                                  </div>
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button class="btn btn-warning btn-lg checkout-btn">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="payment_info_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapsefive">Continue</button>
                                         </div>
                                     </div>
                                 </div>
@@ -413,7 +351,7 @@
               <div class="panel panel-default panel-default-custom">
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsefive">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsefive" id="checkout-five">
                       Order Review
                     </a>
                   </h4>
@@ -424,68 +362,33 @@
                         <h4 class="head-bill">
                             Order Review
                         </h4>
-                        <form role="form" method="post" action="purchased.php">
+                        <form role="form" id="order_info">
                             <div class="col-sm-10">
                                 <table class="table table-bordered table-order-review">
                                     <thead>
                                         <tr><th>Product Name</th>
+                                        <th>Specification</th>
                                         <th>Price</th>
                                         <th>Qty</th>
                                         <th>Subtotal</th>
                                     </tr></thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                Lorem Ipsum<br>
-                                                Loremlo<br>
-                                                <span>S</span><br>
-                                                Lore<br>
-                                                <span>Lorem</span>
-                                            </td>
-                                            <td><span>Rs.199</span></td>
-                                            <td>1</td>
-                                            <td><span>Rs.199</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Lorem Ipsum<br>
-                                                Loremlo<br>
-                                                <span>S</span><br>
-                                                Lore<br>
-                                                <span>Lorem</span>
-                                            </td>
-                                            <td><span>Rs.199</span></td>
-                                            <td>1</td>
-                                            <td><span>Rs.199</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="brdr-right-nul"><span>Subtotal</span></td>
-                                            <td class="brdr-left-nul brdr-right-nul"></td>
-                                            <td class="brdr-left-nul brdr-right-nul"></td>
-                                            <td><span>Rs.2,189</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="brdr-right-nul"><span>Shipping &amp; Handling (Air Shipping (Delivery timeline 10 working days. Working days does not include Sat and Sun))</span></td>
-                                            <td class="brdr-left-nul brdr-right-nul"></td>
-                                            <td class="brdr-left-nul brdr-right-nul"></td>
-                                            <td><span>Rs.2,189</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="brdr-right-nul"><span class="grand-head">Grand Total</span></td>
-                                            <td class="brdr-left-nul brdr-right-nul"></td>
-                                            <td class="brdr-left-nul brdr-right-nul"></td>
-                                            <td><span>Rs.2,189</span></td>
-                                        </tr>
+                                        
+                                        <?php
+											//get order details
+											$manageContent->getAmountDetailsInCheckoutPage();
+										?>
+                                        
                                     </tbody>
                                 </table>
                              </div>
                             <div class="row mrgn-tp-cart">
                                 <div class="col-md-6">
-                                   <a href="cart.php" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
+                                   <a href="view-cart.php" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="cart-btn">
-                                        <button class="btn btn-warning checkout-btn">Continue</button>
+                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn">Continue</button>
                                     </div>
                                 </div>
                             </div>

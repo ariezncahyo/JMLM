@@ -224,22 +224,64 @@
 			
 			for($i=0;$i<count($column_name);$i++)
 			{
-				/*if(is_string($column_values[$i]))
+				if(is_string($column_values[$i]))
 				{
-					$column = $column." AND `".$column_name[$i]."` = '".$column_values[$i]."'";
+					$column = $column.",`".$column_name[$i]."`='".$column_values[$i]."'";
 				}
 				else
 				{
-					$column = $column." AND `".$column_name[$i]."` = ".$column_values[$i]."";
-				}*/
-				$column = $column." AND ".$column_name[$i]." = '".$column_values[$i]."'";
+					$column = $column.",`".$column_name[$i]."`=".$column_values[$i];
+				}
+				//$column = $column.",`".$column_name[$i]."` = ".$column_values[$i];
+				
 			}
-			$column = substr($column,5);
-			$query = $this->link->prepare("UPDATE `$table_name` SET ". $column ." WHERE $condition_column = $condition_value");
-			echo "UPDATE `$table_name` SET ". $column ." WHERE $condition_column = '$condition_value'";
+			$column = substr($column,1);
+			$query = $this->link->prepare("UPDATE `".$table_name."` SET ". $column ." WHERE `".$condition_column."` = '".$condition_value."'");
 			$query->execute();
 			$count = $query->rowCount();
-			echo $count;
+			return $count;
+		}
+		
+		/*
+		- method for updating multiple values using multiple conditions
+		- auth: Dipanjan
+		*/
+		function updateMultipleValueMulCondition($table_name,$column_name,$column_values,$condition_column,$condition_value)
+		{
+			//declaring variables for preparing the query
+			$column = "";
+			$value = "";
+			
+			for($i=0;$i<count($column_name);$i++)
+			{
+				if(is_string($column_values[$i]))
+				{
+					$column = $column.",`".$column_name[$i]."`='".$column_values[$i]."'";
+				}
+				else
+				{
+					$column = $column.",`".$column_name[$i]."`=".$column_values[$i];
+				}
+				//$column = $column.",`".$column_name[$i]."` = ".$column_values[$i];
+				
+			}
+			$column = substr($column,1);
+			
+			//declaring variables for preparing the query
+			$update_column = "";
+			$update_value = "";
+			
+			for($i=0;$i<count($condition_column);$i++)
+			{
+				$update_column = $update_column." AND ".$condition_column[$i]."='".$condition_value[$i]."'";
+				
+			}
+			$update_column = substr($update_column,5);
+			
+			$query = $this->link->prepare("UPDATE `".$table_name."` SET ". $column ." WHERE ".$update_column);
+			$query->execute();
+			$count = $query->rowCount();
+			return $count;
 		}
 		
 		/*

@@ -15,7 +15,7 @@
 
 <!-- view cart section -->
 
-<div class="container">
+<div class="container view_cart_container">
 	<div class="row">
         <div class="col-lg-12">
             <!-- div for showing success message--->
@@ -43,7 +43,7 @@
 					echo '<div class="sub-total">
 							<div class="row">
 								<div class="col-sm-2">
-									<a class="btn btn-link btn-link-custom">Empty Your Cart</a>
+									<a class="btn btn-link btn-link-custom" id="empty_cart">Empty Your Cart</a>
 								</div>
 								<div class="col-sm-offset-7 col-sm-3">
 									<p class="prod-v-crt-name">Subtotal : '.$currency.$cart_amount.'</p>

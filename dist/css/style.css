@@ -115,7 +115,7 @@
 
 .cart{
 	background-color: #c8c8c8;
-	padding: 0.4em 1.2em;
+	padding: 0.4em 1em;
 	float: right;
 	border-radius: 6px;
 	color: #373737;
@@ -1004,6 +1004,9 @@
 	font-weight: normal;
 }
 
+.form-cart_int{
+	text-align:center;
+}
 .form-cart:focus{
 	border-color: #b69c64;
 	outline: 0;
@@ -1571,6 +1574,10 @@
 
 .mrgn-lt-sm{
 	margin-left: 0;
+}
+
+.view_cart_container{
+	min-height:600px;
 }
 
 @media(max-width: 767px){

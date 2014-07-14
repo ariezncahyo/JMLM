@@ -600,7 +600,7 @@
 					echo '<div class="view-cart-container">
 							<div class="row">
 								<div class="col-sm-1">
-									<div class="rmv"><button class="btn btn-link btn-rmv">x</button></div>
+									<div class="rmv"><button class="btn btn-link btn-rmv" name="pro:'.$i.'">x</button></div>
 								</div>
 								<div class="col-sm-2 col-xs-5">
 									<img src="images/curly.jpg" class="img-responsive" />
@@ -623,7 +623,7 @@
 										<p class="price-cart-rel">'.$this->getSystemCurrency('product').$user_price.'</p>
 										<p class="mult-v-cart">x</p>
 										<div class="quant-num">
-											<input type="text" class="form-control form-cart" value="'.$quantity.'"/>
+											<input type="text" class="form-control form-cart form-cart_int" id="pro:'.$i.'" name="'.$pro_details[0]['maxpick'].'" value="'.$quantity.'"/>
 										</div>
 									</div>
 								</div>
@@ -638,6 +638,155 @@
 			}//end of for loop
 			//return total amount of the cart
 			return $total_amount;
+		}
+		
+		/*
+		- method for getting user info
+		- Auth: Dipanjan
+		*/
+		function getUserInfo()
+		{
+			if($_SESSION['user_id'] != 'Guest')
+			{
+				return $this->_DAL_Obj->getValue_where('user_info','*','user_id',$_SESSION['user_id']);
+			}
+		}
+		
+		/*
+		- method for getting checkout shipping charges
+		- Auth: Dipanjan
+		*/
+		function getShippingChargesInCheckoutPage()
+		{
+			//get shipping charges
+			$ship = $this->_DAL_Obj->getValue_where('shipping_cost_info','*','id',1);
+			echo '<p>Shipping Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun)</p>
+                  <p class="ship-text-span"> Total.   '.$this->getSystemCurrency('product').' '.$ship[0]['shipping_cost'].'</p>';
+		}
+		
+		/*
+		- method for getting checkout shipping charges
+		- Auth: Dipanjan
+		*/
+		function getAmountDetailsInCheckoutPage()
+		{
+			//get order list
+			$total_amount = $this->getOrderListInCheckoutPage();
+			//get shipping charges
+			$ship = $this->_DAL_Obj->getValue_where('shipping_cost_info','*','id',1);
+			//get grand total
+			$grand_total = intval($total_amount) + intval($ship[0]['shipping_cost']);
+			//setting total in session value
+			$_SESSION['total_amount'] = $grand_total;
+			//showing grand total
+			echo '<tr>
+					<td colspan="4" class="brdr-right-nul"><span>Subtotal</span></td>
+					<td><span>'.$this->getSystemCurrency('product').$total_amount.'</span></td>
+				</tr>
+				<tr>
+					<td colspan="4" class="brdr-right-nul"><span>Shipping & Handling Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun)</span></td>
+					<td><span>'.$this->getSystemCurrency('product').$ship[0]['shipping_cost'].'</span></td>
+				</tr>
+				<tr>
+					<td colspan="4" class="brdr-right-nul"><span class="grand-head">Grand Total</span></td>
+					<td><span>'.$this->getSystemCurrency('product').$grand_total.'</span></td>
+				</tr>';
+		}
+		
+		/*
+		- method for getting checkout order list
+		- Auth: Dipanjan
+		*/
+		function getOrderListInCheckoutPage()
+		{
+			//initialize total amount variable
+			$total_amount = 0;
+			//getting no of items selected
+			$pro_value = explode(':',$GLOBALS['_COOKIE'][$_SESSION['user_id']]);
+			$items_selected = $pro_value[1];
+			//getting product details cookie 
+			for($i=1; $i<=$items_selected; $i++)
+			{
+				$get_cookie_value = $GLOBALS['_COOKIE'][$_SESSION['user_id'].'pro:'.$i];
+				//get each value part in an array
+				$allValue = explode(':',$get_cookie_value);
+				//getting product id
+				$pid = substr(strrchr($allValue[0],'='),1);
+				//getting quantity
+				$quantity = substr(strrchr($allValue[1],'='),1);
+				//getting max length of specification
+				$maxSpeciLength = substr(strrchr(end($allValue),'='),1);
+				//getting product details
+				$pro_details = $this->_DAL_Obj->getValue_where('product_info','*','product_id',$pid);
+				if(!empty($pro_details[0]))
+				{
+					//getting usre price
+					$user_price = $pro_details[0][$this->getUserPrice()];
+					//getting total amount
+					$amount = $quantity * intval($user_price);
+						
+					echo '<tr>
+							<td class="col-sm-7">
+								<h5>'.$pro_details[0]['name'].'</h5>
+							</td>
+							<td>';
+					
+					if($maxSpeciLength != 0)
+					{
+						for($j=1; $j<=$maxSpeciLength; $j++)
+						{
+							echo '<span>'.substr(strrchr($allValue[(2*$j)],'='),1).' :</span>
+								<span>'.substr(strrchr($allValue[(2*$j)+1],'='),1).' </span><br>';
+						}
+					}
+					
+					echo '</td>
+							<td><span>'.$this->getSystemCurrency('product').$user_price.'</span></td>
+							<td>'.$quantity.'</td>
+							<td><span>'.$this->getSystemCurrency('product').$amount.'</span></td>
+						</tr>';
+					
+				}//end of if condition
+				//calculating total amount
+				$total_amount = $total_amount + $amount;
+			}//end of for loop
+			//return total amount of the cart
+			return $total_amount;
+		}
+		
+		/*
+		- method for unset product cart cookies
+		- Auth: Dipanjan
+		*/
+		function destroyProductCookie()
+		{
+			//getting no of items selected
+			$pro_value = explode(':',$GLOBALS['_COOKIE'][$_SESSION['user_id']]);
+			$items_selected = $pro_value[1];
+			//getting product details cookie 
+			for($i=1; $i<=$items_selected; $i++)
+			{
+				$cookie_name = $_SESSION['user_id'].'pro:'.$i;
+				//delete this cookie
+				setcookie($cookie_name, '', time() - 3600, '/');
+			}
+			//delete user id cookie
+			setcookie($_SESSION['user_id'], '', time() - 3600, '/');
+			
+		}
+		
+		/*
+		- method for getting username of login person
+		- Auth: Dipanjan
+		*/
+		function getUsernameOfUser()
+		{
+			//get user info
+			$user_info = $this->_DAL_Obj->getValue_where('user_info','*','user_id',$_SESSION['user_id']);
+			if(!empty($user_info[0]))
+			{
+				echo 'Welcome '.$user_info[0]['username'];
+			}
 		}
 		
 	 }

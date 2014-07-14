@@ -6,7 +6,7 @@ $('.navbar .dropdown').hover(function() {
 
 //making accordian anchor working
 $(document).ready(function(e) {
-    $(document).on('click', 'a', function() { 
+    $(document).on('click', '.panel-custom a', function() { 
 		$(this).void ();
 	});
 });

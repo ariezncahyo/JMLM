@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2014 at 05:20 PM
+-- Generation Time: Jul 14, 2014 at 05:22 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -107,6 +107,7 @@ INSERT INTO `feature_product` (`feature_id`, `product_id`, `status`) VALUES
 CREATE TABLE IF NOT EXISTS `order_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` varchar(200) NOT NULL,
+  `user_id` varchar(250) NOT NULL,
   `shipping_charge` varchar(100) DEFAULT NULL,
   `payment_method` varchar(200) DEFAULT NULL,
   `total_amount` varchar(100) DEFAULT NULL,
@@ -115,9 +116,16 @@ CREATE TABLE IF NOT EXISTS `order_info` (
   `ip` varchar(100) DEFAULT NULL,
   `order_status` varchar(50) DEFAULT NULL,
   `notes` varchar(1000) DEFAULT NULL,
-  `user_id` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `order_info`
+--
+
+INSERT INTO `order_info` (`id`, `order_id`, `user_id`, `shipping_charge`, `payment_method`, `total_amount`, `total_quantity`, `date`, `ip`, `order_status`, `notes`) VALUES
+(1, 'order53c3ece3a7e25', 'user53bd43c5325d5', '10', 'online', '6462', 9, '2014-07-14 04:07:02', '::1', 'Processing', NULL),
+(2, 'order53c3edb4d3169', 'user53bd43c5325d5', '10', 'bank', '322', 4, '2014-07-14 04:07:32', '::1', 'Processing', NULL);
 
 -- --------------------------------------------------------
 
@@ -128,9 +136,10 @@ CREATE TABLE IF NOT EXISTS `order_info` (
 CREATE TABLE IF NOT EXISTS `order_shipping_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` varchar(200) NOT NULL,
+  `f_name` varchar(500) DEFAULT NULL,
+  `l_name` varchar(500) DEFAULT NULL,
   `addr_1` varchar(1000) DEFAULT NULL,
   `addr_2` varchar(1000) DEFAULT NULL,
-  `name` varchar(500) DEFAULT NULL,
   `email_id` varchar(500) DEFAULT NULL,
   `contact_no` varchar(200) DEFAULT NULL,
   `postal_code` varchar(200) DEFAULT NULL,
@@ -139,7 +148,17 @@ CREATE TABLE IF NOT EXISTS `order_shipping_info` (
   `country` varchar(200) NOT NULL,
   `address_mode` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `order_shipping_info`
+--
+
+INSERT INTO `order_shipping_info` (`id`, `order_id`, `f_name`, `l_name`, `addr_1`, `addr_2`, `email_id`, `contact_no`, `postal_code`, `city`, `state`, `country`, `address_mode`) VALUES
+(1, 'order53c3ece3a7e25', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Billing'),
+(2, 'order53c3ece3a7e25', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Shipping'),
+(3, 'order53c3edb4d3169', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Billing'),
+(4, 'order53c3edb4d3169', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Shipping');
 
 -- --------------------------------------------------------
 
@@ -319,9 +338,22 @@ CREATE TABLE IF NOT EXISTS `product_inventory_info` (
   `order_id` varchar(200) NOT NULL,
   `product_id` varchar(200) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
+  `specification` varchar(2000) DEFAULT NULL,
   `price` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `product_inventory_info`
+--
+
+INSERT INTO `product_inventory_info` (`id`, `order_id`, `product_id`, `quantity`, `specification`, `price`) VALUES
+(1, 'order53c3ece3a7e25', 'pro53b13f6c4adce', 1, 'color:white,size:55', '332'),
+(2, 'order53c3ece3a7e25', 'pro53b13cba9cc8f', 4, 'color:blue,size:14 inch', '3592'),
+(3, 'order53c3ece3a7e25', 'pro53b7aeabc714d', 3, '', '1995'),
+(4, 'order53c3ece3a7e25', 'pro53b7af554d2e4', 1, '', '533'),
+(5, 'order53c3edb4d3169', 'pro53b7a4c596059', 2, 'size:11,color:white', '156'),
+(6, 'order53c3edb4d3169', 'pro53b7a48b16406', 2, 'color:black,size:1mt', '156');
 
 -- --------------------------------------------------------
 
@@ -441,6 +473,8 @@ CREATE TABLE IF NOT EXISTS `user_info` (
   `addr_1` varchar(1000) DEFAULT NULL,
   `addr_2` varchar(1000) DEFAULT NULL,
   `city` varchar(250) DEFAULT NULL,
+  `state` varchar(200) NOT NULL,
+  `country` varchar(200) NOT NULL,
   `postal_code` varchar(200) NOT NULL,
   `phone` varchar(200) DEFAULT NULL,
   `company` varchar(500) DEFAULT NULL,
@@ -456,8 +490,8 @@ CREATE TABLE IF NOT EXISTS `user_info` (
 -- Dumping data for table `user_info`
 --
 
-INSERT INTO `user_info` (`id`, `user_id`, `f_name`, `l_name`, `gender`, `dob`, `addr_1`, `addr_2`, `city`, `postal_code`, `phone`, `company`, `username`, `email_id`, `password`, `email_verification`, `status`) VALUES
-(1, 'user53bd43c5325d5', 'Dipanjan', 'Bagchi', 'male', '1992-07-06', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', '700115', '1234565', '', 'Dipa0904', 'vdipanjan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1');
+INSERT INTO `user_info` (`id`, `user_id`, `f_name`, `l_name`, `gender`, `dob`, `addr_1`, `addr_2`, `city`, `state`, `country`, `postal_code`, `phone`, `company`, `username`, `email_id`, `password`, `email_verification`, `status`) VALUES
+(1, 'user53bd43c5325d5', 'Dipanjan', 'Bagchi', 'male', '1992-07-06', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', 'WB', 'India', '700115', '1234565', '', 'Dipa0904', 'vdipanjan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

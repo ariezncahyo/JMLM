@@ -92,6 +92,20 @@
                         </div>
                       </div>
                       <div class="form-group">
+                        <label class="col-sm-3 form-v-sign-up control-label">State : </label>
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control form-cart" placeholder="State" name="state" id="signup_state">
+                          <div class="form-error" id="err_signup_state"></div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 form-v-sign-up control-label">Country : </label>
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control form-cart" placeholder="Country" name="country" id="signup_country">
+                          <div class="form-error" id="err_signup_country"></div>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Postal Code : </label>
                         <div class="col-sm-3">
                           <input type="text" class="form-control form-cart" placeholder="Postal Code" name="postal_code" id="signup_postal">

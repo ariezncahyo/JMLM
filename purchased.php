@@ -2,10 +2,22 @@
 	$page_title = 'Purchase';
 	//include template files
 	include 'v-templates/header.php';
-	/*if($_SESSION['user_id'] == 'Guest')
+?>
+<?php 
+	//getting previous page name
+	$page_name = substr(strrchr($_SERVER['HTTP_REFERER'],'/'),1);
+	if($page_name != 'checkout.php' || !isset($_SESSION['order_id']))
 	{
 		header("Location: index.php");
-	}*/
+	}
+	$order_id = $_SESSION['order_id'];	
+?>
+<?php
+	//unset session and cookie
+	$manageContent->destroyProductCookie();
+	//unset product session values
+	unset($_SESSION['order_id']);
+	unset($_SESSION['total_amount']);
 ?>
 <?php
 	//include another template file
@@ -28,9 +40,9 @@
                 </h3>
                 <p class="verified-txt">
                     For your purchase ,<br />
-                    Your purchase id is AKT123456
+                    Your order id is <?php echo $order_id; ?>
                 </p>
-                <a href="#" class="btn-link-custom clk-prof-btn">
+                <a class="btn-link-custom clk-prof-btn">
                     Please keep this for tracking
                 </a>
             </div><!-- email verifiy text ends -->

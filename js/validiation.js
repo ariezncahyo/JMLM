@@ -186,6 +186,8 @@ function validateSignupForm(form_name)
 	validateRequiredField('signup_dob','err_signup_dob');
 	validateRequiredField('signup_addr1','err_signup_addr1');
 	validateRequiredField('signup_city','err_signup_city');
+	validateRequiredField('signup_state','err_signup_state');
+	validateRequiredField('signup_country','err_signup_country');
 	validateRequiredField('signup_postal','err_signup_postal');
 	validateRequiredField('signup_username','err_signup_username');
 	validateRequiredField('signup_email','err_signup_email');
