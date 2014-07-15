@@ -62,7 +62,22 @@
 		if(isset($_POST['stock']) && !empty($_POST['stock']))
 		{
 			$upd = $manageData->updateValueWhere('product_info','stock',$_POST['stock'],'product_id',$_POST['pid']);
+			/* updating remaining stock */
+			$processing_quan = $manageData->getValue_where('product_inventory_info','*','product_id',$_POST['pid']);
+			//declaring a counter
+			$pro_process = 0;
+			if(!empty($processing_quan[0]))
+			{
+				foreach($processing_quan as $quantity)
+				{
+					$pro_process = $pro_process + intval($quantity['quantity']);
+				}
+			}
+			$remaining_stock = intval($_POST['stock']) - intval($pro_process);
+			//updating remaining stock value
+			$upd = $manageData->updateValueWhere('product_info','remaining_stock',intval($remaining_stock),'product_id',$_POST['pid']);
 		}
+		
 		
 		if(isset($_POST['exp_date']) && !empty($_POST['exp_date']))
 		{

@@ -23,8 +23,8 @@
 		//setting status
 		$status = 1;
 		//inserting values in product table
-		$column_name_pro = array('product_id','category','name','short_description','description','old_price','guest_price','member_price','special_price','distribution_rate','stock','exp_date','maxpick','date','status');
-		$column_value_pro = array($product_id,$cat,$_POST['name'],$_POST['short_des'],$_POST['des'],$_POST['old_price'],$_POST['guest_price'],$_POST['member_price'],$_POST['special_price'],$_POST['distribution_rate'],$_POST['stock'],$_POST['exp_date'],$_POST['maxpick'],$datetime,$status);
+		$column_name_pro = array('product_id','category','name','short_description','description','old_price','guest_price','member_price','special_price','distribution_rate','stock','remaining_stock','exp_date','maxpick','date','status');
+		$column_value_pro = array($product_id,$cat,$_POST['name'],$_POST['short_des'],$_POST['des'],$_POST['old_price'],$_POST['guest_price'],$_POST['member_price'],$_POST['special_price'],$_POST['distribution_rate'],$_POST['stock'],$_POST['stock'],$_POST['exp_date'],$_POST['maxpick'],$datetime,$status);
 		$insert_pro = $manageData->insertValue('product_info',$column_name_pro,$column_value_pro);
 		
 		if($_POST['feature'] == 'active')

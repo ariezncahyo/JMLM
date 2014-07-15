@@ -192,8 +192,11 @@
 				}
 				//calculating total amount
 				$total_amount = $total_amount + $amount;
+				/* decreasing product quantity from stock */
+				$decreament = $this->manageContent->decreamentValue('product_info','remaining_stock',intval($quantity),'product_id',$pid);
 			}//end of for loop
 			
+			//updating order table
 			$grand_total = $_SESSION['total_amount'];
 			$date = date('Y-m-d h:m:s a');
 			$pro_value = explode(':',$GLOBALS['_COOKIE'][$_SESSION['user_id']]);

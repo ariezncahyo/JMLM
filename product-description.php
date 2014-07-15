@@ -44,7 +44,7 @@
         </div>
         <div class="col-sm-9">
             <h3 class="cart-prod-name"><?php echo $pro_details[0]['name'] ?></h3>
-            <p class="stock-avail">In Stock <span class="status-stk">(<?php echo $pro_details[0]['stock'] ?> items available)</span></p>
+            <p class="stock-avail">In Stock <span class="status-stk">(<?php echo $pro_details[0]['remaining_stock'] ?> items available)</span></p>
             <p class="price-cart">
 			<?php
 				echo $manageContent->getSystemCurrency('product').$pro_details[0][$manageContent->getUserPrice()];

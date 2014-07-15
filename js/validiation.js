@@ -179,6 +179,48 @@ function validateSelectBoxField(id_name,err_id)
 	}
 }
 
+
+
+/* validiation for checkout forms */
+function validateAccordianField(id_name,err_id)
+{
+	var x = document.getElementById(id_name).value;
+	if(x == "")
+	{
+		//make the background color red
+		document.getElementById(id_name).style.backgroundColor = '#F6D3D3';
+		//showing the msg
+		document.getElementById(err_id).innerHTML = '**Please Fill Up The Field';
+		document.getElementById(err_id).style.color = 'red';
+		result = 0;
+	}
+	else
+	{
+		//make the background color normal if valid
+		document.getElementById(id_name).style.backgroundColor = '#ffffff';
+		result = 1;
+	}
+	return result;
+}
+
+//function for validiation of radiobutton
+function validiateCheckoutRadio(id,err_id){
+	var value = $(id).find('input[type="radio"]').is(':checked');
+	
+	if(value == true)
+	{
+		result = 1;
+	}
+	else
+	{
+		document.getElementById(err_id).innerHTML = '**Please Select One Option';
+		document.getElementById(err_id).style.color = 'red';
+		result = 0;
+	}
+	return result;
+}
+
+
 function validateSignupForm(form_name)
 {
 	validateRequiredField('signup_fname','err_signup_fname');
@@ -197,6 +239,63 @@ function validateSignupForm(form_name)
 	document.getElementById(form_name).submit();
 }
 
+
+//validiation of billing form
+function validateBillingForm()
+{
+	var r1 = validateAccordianField('bill_fname','err_bill_fname');
+	var r2 = validateAccordianField('bill_lname','err_bill_lname');
+	validateEmail('bill_email');
+	var r3 = checkResultEmail('err_bill_email');
+	var r4 = validateAccordianField('bill_addr1','err_bill_addr1');
+	var r5 = validateAccordianField('bill_addr2','err_bill_addr2');
+	var r6 = validateAccordianField('bill_city','err_bill_city');
+	var r7 = validateAccordianField('bill_zip','err_bill_zip');
+	var r8 = validateAccordianField('bill_phone','err_bill_phone');
+	var r9 = validateAccordianField('bill_state','err_bill_state');
+	var r10 = validateAccordianField('bill_country','err_bill_country');
+	
+	if(r1 == 0 || r2 == 0 || r3 == 0 || r4 == 0 || r5 == 0 || r6 == 0 || r7 == 0 || r8 == 0 || r9 == 0 || r10 == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+//validiation of shipping form
+function validateShippingForm()
+{
+	var r1 = validateAccordianField('ship_fname','err_ship_fname');
+	var r2 = validateAccordianField('ship_lname','err_ship_lname');
+	validateEmail('ship_email');
+	var r3 = checkResultEmail('err_ship_email');
+	var r4 = validateAccordianField('ship_addr1','err_ship_addr1');
+	var r5 = validateAccordianField('ship_addr2','err_ship_addr2');
+	var r6 = validateAccordianField('ship_city','err_ship_city');
+	var r7 = validateAccordianField('ship_zip','err_ship_zip');
+	var r8 = validateAccordianField('ship_phone','err_ship_phone');
+	var r9 = validateAccordianField('ship_state','err_ship_state');
+	var r10 = validateAccordianField('ship_country','err_ship_country');
+	
+	if(r1 == 0 || r2 == 0 || r3 == 0 || r4 == 0 || r5 == 0 || r6 == 0 || r7 == 0 || r8 == 0 || r9 == 0 || r10 == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+//validiation of payment info form
+function validatePaymentInfoForm()
+{
+	var r1 = validiateCheckoutRadio('#payment_info','err_payment_info');
+	return r1;
+}
 
 /*
 	method for alert warning message

@@ -121,36 +121,55 @@ $(document).ready(function(e) {
 			//get value of this cookie
 			var cookie_value = getCookie(user_id+name);
 			var value_part = cookie_value.split(':');
+			//getting product id
+			var Product_id = value_part[0].substr(parseInt(value_part[0].lastIndexOf('='))+1);
 			//getting values of quantity
 			var quantity = value_part[1].substr(parseInt(value_part[1].lastIndexOf('='))+1);
-			//make change of quantity
-			value_part[1] = 'quantity='+new_quantity;
-			//defining an empty string
-			var cookie_str = '';
-			//making the string for cookie value
-			for(c=0; c<value_part.length; c++)
+			//checking that product selected must not be greater than maxpick
+			var ex_value = checkingMaxpick(user_id,Product_id);
+			
+			if(parseInt(ex_value) + parseInt(new_quantity) > maxpick)
 			{
-				cookie_str = cookie_str+':'+value_part[c];
+				//alerting the error
+				var msg = '<b>Warning: You Can Not Select This Product More Than ' +maxpick+ ' Times</b>';
+				alertWarning(msg);
+				//reload the page
+				location.reload();
 			}
-			cookie_str = cookie_str.substr(1);
-			//update cookie
-			createCookie((user_id+name),cookie_str,1);
-			//get total product no cookie
-			var product_no = getCookie(user_id).split(':');
-			//get difference of quantity
-			var qua_diff = parseInt(new_quantity) - parseInt(quantity);
-			//adding the diffenece in product no
-			var new_pro = parseInt(product_no[0]) + parseInt(qua_diff);
-			//setting user id cookie
-			createCookie(user_id,(new_pro+':'+product_no[1]),1);
-			//reload the page
-			location.reload();
+			else
+			{
+				//make change of quantity
+				value_part[1] = 'quantity='+new_quantity;
+				//defining an empty string
+				var cookie_str = '';
+				//making the string for cookie value
+				for(c=0; c<value_part.length; c++)
+				{
+					cookie_str = cookie_str+':'+value_part[c];
+				}
+				cookie_str = cookie_str.substr(1);
+				//update cookie
+				createCookie((user_id+name),cookie_str,1);
+				//get total product no cookie
+				var product_no = getCookie(user_id).split(':');
+				//get difference of quantity
+				var qua_diff = parseInt(new_quantity) - parseInt(quantity);
+				//adding the diffenece in product no
+				var new_pro = parseInt(product_no[0]) + parseInt(qua_diff);
+				//setting user id cookie
+				createCookie(user_id,(new_pro+':'+product_no[1]),1);
+				//reload the page
+				location.reload();
+			}
+			
 		}
 		else
 		{
 			//alerting the error
 			var msg = '<b>Warning: You Can Not Select This Product More Than ' +maxpick+ ' Times</b>';
 			alertWarning(msg);
+			//reload the page
+			location.reload();
 		}
 			
 	});
@@ -162,26 +181,34 @@ $(document).ready(function(e) {
 	//open first accordian at the time loading
 	$('#checkout-one').css('pointer-events','auto');
 	
+	
 	//for billing info data
-	$(document).on('click', '#billing_btn', function(){ 
-		
-		var form_data = $('#billing_info').serialize();
-		sendingData = form_data+'&refData=billing_info';
-		//console.log(sendingData);
-		//calling ajax function
-		$.ajax({
-			type: "POST",
-			url:"v-includes/library/class.fetchData.php",
-			data: sendingData,
-			beforeSend:function(){
-				// this is where we append a loading image
-				$('').html('');
-			  },
-			success:function(result){
-				//console.log(result);
-				$('#checkout-two').css('pointer-events','auto');
-				return false;
-		}});
+	$('#billing_btn').click(function(e){ 
+		//validiation of this form
+		var val_result = validateBillingForm();
+		if(val_result == 0)
+		{
+			return false;
+		}
+		else
+		{
+			var form_data = $('#billing_info').serialize();
+			sendingData = form_data+'&refData=billing_info';
+			//calling ajax function
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					$('#checkout-two').css('pointer-events','auto');
+					return false;
+			}});
+		}
 	});
 	
 	//setting shipping and billing address same
@@ -224,28 +251,35 @@ $(document).ready(function(e) {
 	});
 	
 	//for billing info data
-	$(document).on('click', '#shipping_btn', function(){ 
-		var form_data = $('#shipping_info').serialize();
-		sendingData = form_data+'&refData=shipping_info';
-		//console.log(sendingData);
-		//calling ajax function
-		$.ajax({
-			type: "POST",
-			url:"v-includes/library/class.fetchData.php",
-			data: sendingData,
-			beforeSend:function(){
-				// this is where we append a loading image
-				$('').html('');
-			  },
-			success:function(result){
-				//console.log(result);
-				$('#checkout-three').css('pointer-events','auto');
-				return false;
-		}});
+	$('#shipping_btn').click(function(){ 
+		var val_result = validateShippingForm();
+		if(val_result == 0)
+		{
+			return false;
+		}
+		else
+		{
+			var form_data = $('#shipping_info').serialize();
+			sendingData = form_data+'&refData=shipping_info';
+			//calling ajax function
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					$('#checkout-three').css('pointer-events','auto');
+					return false;
+			}});
+		}
 	});
 	
 	//for shipping_method info
-	$(document).on('click', '#shipping_method_btn', function(){ 
+	$('#shipping_method_btn').click(function(){ 
 		sendingData = 'refData=shipping_charge_info';
 		//console.log(sendingData);
 		//calling ajax function
@@ -268,24 +302,32 @@ $(document).ready(function(e) {
 	$('#cod').hide();
 	
 	//for payment method info
-	$(document).on('click', '#payment_info_btn', function(){ 
-		var form_data = $('#payment_info').serialize();
-		sendingData = form_data+'&refData=payment_info';
-		//console.log(sendingData);
-		//calling ajax function
-		$.ajax({
-			type: "POST",
-			url:"v-includes/library/class.fetchData.php",
-			data: sendingData,
-			beforeSend:function(){
-				// this is where we append a loading image
-				$('').html('');
-			  },
-			success:function(result){
-				//console.log(result);
-				$('#checkout-five').css('pointer-events','auto');
-				return false;
-		}});
+	$('#payment_info_btn').click(function(){ 
+		var val_result = validatePaymentInfoForm();
+		if(val_result == 0)
+		{
+			return false;
+		}
+		else
+		{
+			var form_data = $('#payment_info').serialize();
+			sendingData = form_data+'&refData=payment_info';
+			//console.log(sendingData);
+			//calling ajax function
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					$('#checkout-five').css('pointer-events','auto');
+					return false;
+			}});
+		}
 	});
 	
 	//for final submit
@@ -331,15 +373,29 @@ function setCookieForProduct(user_id,Quantity,Product_id,speci_length,maxpick)
 				var total_product = getCookie(user_id);
 				//getting no of cookie set for product details
 				var productCookie = total_product.substr(parseInt(total_product.lastIndexOf(':'))+1);
-				//set the cookie with product details
-				getProductSpecification(user_id,Quantity,Product_id,speci_length,parseInt(productCookie)+1);
-				//set the value of user id cookie
-				var new_quantity = parseInt(total_product.substr(0,parseInt(total_product.lastIndexOf(':')))) + Quantity;
-				var new_pro_cookie = parseInt(productCookie) + 1;
-				createCookie(user_id,((new_quantity)+':'+(new_pro_cookie)),1);
-				//alerting the success
-				var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
-				alertSuccess(msg);
+				//checking that product selected must not be greater than maxpick
+				var ex_value = checkingMaxpick(user_id,Product_id);
+				
+				if(parseInt(ex_value) + parseInt(Quantity) > maxpick)
+				{
+					//alerting the error
+					var msg = '<b>Warning: You Can Not Select This Product More Than ' +maxpick+ ' Times</b>';
+					alertWarning(msg);
+				}
+				else
+				{
+					//set the cookie with product details
+					getProductSpecification(user_id,Quantity,Product_id,speci_length,parseInt(productCookie)+1);
+					//set the value of user id cookie
+					var new_quantity = parseInt(total_product.substr(0,parseInt(total_product.lastIndexOf(':')))) + Quantity;
+					var new_pro_cookie = parseInt(productCookie) + 1;
+					createCookie(user_id,((new_quantity)+':'+(new_pro_cookie)),1);
+					//alerting the success
+					//changing cart value
+					$('.cart-value').html(' CART '+new_quantity);
+					var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
+					alertSuccess(msg);
+				}
 			}
 			else
 			{
@@ -347,6 +403,8 @@ function setCookieForProduct(user_id,Quantity,Product_id,speci_length,maxpick)
 				//set the cookie with product details
 				getProductSpecification(user_id,Quantity,Product_id,speci_length,1);
 				//alerting the success
+				//changing cart value
+				$('.cart-value').html(' CART '+Quantity);
 				var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
 				alertSuccess(msg);
 			}
@@ -358,6 +416,8 @@ function setCookieForProduct(user_id,Quantity,Product_id,speci_length,maxpick)
 			//set the cookie with product details
 			getProductSpecification(user_id,Quantity,Product_id,speci_length,1);
 			//alerting the success
+			//changing cart value
+			$('.cart-value').html(' CART '+Quantity);
 			var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
 			alertSuccess(msg);
 		}
@@ -399,6 +459,33 @@ function getProductSpecification(user_id,Quantity,Product_id,speci_length,produc
 	createCookie(pro_cookie_name,pro_cookie_value,1);
 }
 
+/*
+	method for checking total product must not be greater than maxpick
+	Auth: Dipanjan
+*/
+function checkingMaxpick(user_id,Product_id)
+{
+	//get values of user id cookie
+	var total_product = getCookie(user_id);
+	//getting no of cookie set for product details
+	var productCookie = total_product.substr(parseInt(total_product.lastIndexOf(':'))+1);
+	//checking that product selected must not be greater than maxpick
+	//initialize a counter 
+	var ex_value = 0;
+	for(var i=1; i<=parseInt(productCookie); i++)
+	{
+		//get existing cookie
+		var exist_cookie_value = getCookie(user_id+'pro:'+i);
+		if(exist_cookie_value.indexOf('pid='+Product_id) != -1)
+		{
+			//get quantity of this product
+			var exist_quan_str = (exist_cookie_value.split(':'))[1];
+			var exist_quan = exist_quan_str.substr(parseInt(exist_quan_str.lastIndexOf('='))+1);
+			ex_value = parseInt(ex_value) + parseInt(exist_quan);
+		}
+	}
+	return ex_value
+}
 
 
 
@@ -494,3 +581,4 @@ function deleteAllCookies() {
 function eraseCookie(name) {
     createCookie(name,"",-1);
 }
+

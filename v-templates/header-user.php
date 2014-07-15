@@ -87,7 +87,7 @@
 									<a href="view-cart.php" class="cart-nw center-block">
 										<div class="cart-sec">
 											<div class="cart">
-												<img src="images/cart.png" /> <span class="cart-txt"> CART <?php $manageContent->getTotalProductInCart(); ?></span>
+												<img src="images/cart.png" /> <span class="cart-txt cart-value"> CART <?php $manageContent->getTotalProductInCart(); ?></span>
 											</div>
 										</div><!-- cart-sec ends -->
 									</a>
@@ -220,7 +220,7 @@
 												<a href="view-cart.php">
 													<div class="cart-sec">
 														<div class="cart">
-															<img src="images/cart.png" /> <span class="cart-txt"> CART <?php $manageContent->getTotalProductInCart(); ?></span>
+															<img src="images/cart.png" /> <span class="cart-txt cart-value"> CART <?php $manageContent->getTotalProductInCart(); ?></span>
 														</div>
 													</div><!-- cart-sec ends -->
 												</a>

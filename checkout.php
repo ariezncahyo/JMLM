@@ -58,28 +58,31 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="First Name" name="f_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['f_name'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_fname" placeholder="First Name" name="f_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['f_name'].'"'; } ?>>
+                                      <div class="form-error" id="err_bill_fname"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Last Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Last Name" name="l_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['l_name'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_lname" placeholder="Last Name" name="l_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['l_name'].'"'; } ?>>
+                                      <div class="form-error" id="err_bill_lname"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Company</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Company" name="company" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['company'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_comp" placeholder="Company" name="company" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['company'].'"'; } ?>>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Email Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Email Address" name="email_id" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['email_id'].'"'; } ?>/>
+                                      <input type="text" class="form-cart form-control" id="bill_email" placeholder="Email Address" name="email_id" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['email_id'].'"'; } ?>/>
+                                      <div class="form-error" id="err_bill_email"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -87,10 +90,12 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr1" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_1'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_addr1" placeholder="Address" name="addr1" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_1'].'"'; } ?>>
+                                      <div class="form-error" id="err_bill_addr1"></div>
                                     </div>
                                     <div class="col-sm-10 mrgn-tp-cart">
-                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr2" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_2'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_addr2" placeholder="Address" name="addr2" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_2'].'"'; } ?>>
+                                      <div class="form-error" id="err_bill_addr2"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -98,21 +103,24 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">City</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="City" name="city" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['city'].'"'; } ?>>
+                                          <input type="text" class="form-cart form-control" id="bill_city" placeholder="City" name="city" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['city'].'"'; } ?>>
+                                          <div class="form-error" id="err_bill_city"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Zip/Postal Code</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Zip/Postal Code" name="postal_code" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['postal_code'].'"'; } ?>>
+                                          <input type="text" class="form-cart form-control" id="bill_zip" placeholder="Zip/Postal Code" name="postal_code" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['postal_code'].'"'; } ?>>
+                                          <div class="form-error" id="err_bill_zip"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Phone Number</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Phone Number" name="phone" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['phone'].'"'; } ?>>
+                                          <input type="text" class="form-cart form-control" id="bill_phone" placeholder="Phone Number" name="phone" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['phone'].'"'; } ?>>
+                                          <div class="form-error" id="err_bill_phone"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -121,14 +129,16 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">State/Province</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="State" name="state" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['state'].'"'; } ?>>
+                                          <input type="text" class="form-cart form-control" id="bill_state" placeholder="State" name="state" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['state'].'"'; } ?>>
+                                          <div class="form-error" id="err_bill_state"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Country</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Country" name="country" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['country'].'"'; } ?>>
+                                          <input type="text" class="form-cart form-control" id="bill_country" placeholder="Country" name="country" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['country'].'"'; } ?>>
+                                          <div class="form-error" id="err_bill_country"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -173,14 +183,17 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="First Name" name="f_name">
+                                      <input type="text" class="form-cart form-control" id="ship_fname" placeholder="First Name" name="f_name">
+                                      <div class="form-error" id="err_ship_fname"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Last Name</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Last Name" name="l_name">
+                                      <input type="text" class="form-cart form-control" id="ship_lname" placeholder="Last Name" name="l_name">
+                                      
+                                      <div class="form-error" id="err_ship_lname"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -194,7 +207,8 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Email Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Email Address" name="email_id">
+                                      <input type="text" class="form-cart form-control" id="ship_email" placeholder="Email Address" name="email_id">
+                                      <div class="form-error" id="err_ship_email"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -202,10 +216,12 @@
                                 <div class="form-group">
                                     <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Address</label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr1">
+                                      <input type="text" class="form-cart form-control" id="ship_addr1" placeholder="Address" name="addr1">
+                                      <div class="form-error" id="err_ship_addr1"></div>
                                     </div>
                                     <div class="col-sm-10 mrgn-tp-cart">
-                                      <input type="text" class="form-cart form-control" placeholder="Address" name="addr2">
+                                      <input type="text" class="form-cart form-control" id="ship_addr2" placeholder="Address" name="addr2">
+                                      <div class="form-error" id="err_ship_addr2"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
@@ -213,21 +229,24 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">City</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="City" name="city">
+                                          <input type="text" class="form-cart form-control" id="ship_city" placeholder="City" name="city">
+                                          <div class="form-error" id="err_ship_city"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Zip/Postal Code</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Zip/Postal Code" name="postal_code">
+                                          <input type="text" class="form-cart form-control" id="ship_zip" placeholder="Zip/Postal Code" name="postal_code">
+                                          <div class="form-error" id="err_ship_zip"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Telephone</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="Telephone" name="phone">
+                                          <input type="text" class="form-cart form-control" id="ship_phone" placeholder="Telephone" name="phone">
+                                          <div class="form-error" id="err_ship_phone"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -236,14 +255,16 @@
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">State/Province</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="State" name="state">
+                                          <input type="text" class="form-cart form-control" id="ship_state" placeholder="State" name="state">
+                                          <div class="form-error" id="err_ship_state"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Country</label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" placeholder="State" name="country">
+                                          <input type="text" class="form-cart form-control" id="ship_country" placeholder="State" name="country">
+                                          <div class="form-error" id="err_ship_country"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -334,6 +355,7 @@
                                         <h4 class="ship-text ship-text-span">Cash On Delivery</h4>
                                       </label>
                                     </div>
+                                    <div class="form-error" id="err_payment_info"></div>
                                  </div>
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
@@ -388,7 +410,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="cart-btn">
-                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn">Continue</button>
+                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn">CHECKOUT</button>
                                     </div>
                                 </div>
                             </div>

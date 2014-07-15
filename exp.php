@@ -35,8 +35,10 @@
 	}*/
 	
 	
-	//echo $result = $obj->updateMultipleValueMulCondition('order_info',array('user_id','total_quantity'),array('dgfdfgd',456456),array('order_id','order_status'),array('abcd','aaa'));
+	//$result = $obj->decreamentValue('product_info','stock',5,'product_id','pro53b13cba9cc8f');
 	
+	
+
 	
 	
 ?>
