@@ -15,7 +15,7 @@
 			//set user status
 			$status = 1;
 			$column_name = array('user_id','f_name','l_name','gender','dob','addr_1','addr_2','city','state','country','postal_code','phone','company','username','email_id','password','email_verification','status');
-			$column_value = array($user_id,$_POST['f_name'],$_POST['l_name'],$_POST['gender'],$_POST['dob'],$_POST['addr1'],$_POST['addr2'],$_POST['city'],$_POST['state'],$_POST['country'],$_POST['postal_code'],$_POST['phone'],$_POST['company'],$_POST['username'],$_POST['email'],md5($_POST['password']),1,$status);
+			$column_value = array($user_id,$_POST['f_name'],$_POST['l_name'],$_POST['gender'],$_POST['dob'],$_POST['addr1'],$_POST['addr2'],$_POST['city'],$_POST['state'],$_POST['country'],$_POST['postal_code'],$_POST['phone'],$_POST['company'],$_POST['username'],$_POST['email'],md5($_POST['password']),0,$status);
 			//insert user info to database
 			$insert = $manageData->insertValue('user_info',$column_name,$column_value);
 			if($insert == 1)

@@ -38,10 +38,12 @@
 		if($insert_pro == 1)
 		{
 			$_SESSION['success'] = 'Product Uploaded Successfully';
+			header("Location: ../../add-product-image.php?pid=".$product_id);
 		}
 		else
 		{
 			$_SESSION['warning'] = 'Product Uploaded Unsuccessfully';
+			header("Location: ../../add-product.php");
 		}
 	}
 	

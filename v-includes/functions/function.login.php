@@ -29,6 +29,10 @@
 					setcookie('DiHuangUser',$user_cred[0]['user_id'],$login_time,'/');
 					//set session value
 					$_SESSION['user_id'] = $user_cred[0]['user_id'];
+					if($user_cred[0]['email_verification'] == 0)
+					{
+						$_SESSION['invalid'] == 'Email Not Verified';
+					}
 					
 					$_SESSION['success'] = 'Login Successfull';
 					header("Location: ../../profile.php");

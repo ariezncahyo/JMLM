@@ -60,6 +60,8 @@
                 <!-- /.col-lg-8 -->
             </div>
             <!-- /.row -->
+            <!-- previous page link -->
+            <p class="previous_page_link"><a href="product-info.php?pid=<?php echo $pid; ?>">Back To Previous Page</a></p>
         </div>
         <!-- /#page-wrapper -->
 

@@ -42,10 +42,10 @@
 				break;
 			}
 			
-			case 'add_pro_color':
+			case 'add_pro':
 			{
 				//getting string of input array
-				$value = makeAString($_POST['pro_color']);
+				$value = makeAString($_POST['pro']);
 				$column_name = array('product_id','specification','value','status');
 				$column_value = array($_POST['pid'],$_POST['speci'],$value,1);
 				$insert = $manageData->insertValue('product_customization',$column_name,$column_value);
@@ -61,29 +61,10 @@
 				break;
 			}
 			
-			case 'add_pro_size':
+			case 'edit_pro':
 			{
 				//getting string of input array
-				$value = makeAString($_POST['pro_size']);
-				$column_name = array('product_id','specification','value','status');
-				$column_value = array($_POST['pid'],$_POST['speci'],$value,1);
-				$insert = $manageData->insertValue('product_customization',$column_name,$column_value);
-				if($insert == 1)
-				{
-					$_SESSION['success'] = 'Insert Successfull';
-				}
-				else
-				{
-					$_SESSION['warning'] = 'Insert Unsuccessfull';
-				}
-				header("Location: ../../product-custom.php?pid=".$_POST['pid']."&speci=".$_POST['speci']."&action=edit");
-				break;
-			}
-			
-			case 'edit_pro_color':
-			{
-				//getting string of input array
-				$value = makeAString($_POST['pro_color']);
+				$value = makeAString($_POST['pro']);
 				if(!empty($value))
 				{
 					$update = $manageData->updateValueMultipleCondition('product_customization','value',$value,array('product_id','specification'),array($_POST['pid'],$_POST['speci']));
@@ -100,25 +81,6 @@
 				break;
 			}
 			
-			case 'edit_pro_size':
-			{
-				//getting string of input array
-				$value = makeAString($_POST['pro_size']);
-				if(!empty($value))
-				{
-					$update = $manageData->updateValueMultipleCondition('product_customization','value',$value,array('product_id','specification'),array($_POST['pid'],$_POST['speci']));
-				}
-				if($update == 1)
-				{
-					$_SESSION['success'] = 'Update Successfull';
-				}
-				else
-				{
-					$_SESSION['warning'] = 'Update Unsuccessfull';
-				}
-				header("Location: ../../product-custom.php?pid=".$_POST['pid']."&speci=".$_POST['speci']."&action=edit");
-				break;
-			}
 		}
 	}
 	

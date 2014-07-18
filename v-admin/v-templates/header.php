@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="css/jquery.datepick.css" />
 
     <!-- SB Admin CSS - Include with every page -->
+    <link href="css/jquery.Jcrop.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
 </head>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2014 at 05:29 PM
+-- Generation Time: Jul 18, 2014 at 05:04 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `product_customization` (
   `value` varchar(10000) DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `product_customization`
@@ -240,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `product_customization` (
 
 INSERT INTO `product_customization` (`id`, `product_id`, `specification`, `value`, `status`) VALUES
 (1, 'pro53b13cba9cc8f', 'color', 'red,blue', '1'),
-(2, 'pro53b13cba9cc8f', 'size', '14 inch,44 mt,100 cm', '1'),
+(2, 'pro53b13cba9cc8f', 'size', '14 inch,100 cm', '1'),
 (3, 'pro53b7a48b16406', 'color', 'purple,black', '1'),
 (4, 'pro53b7a48b16406', 'size', '1mt,500cm', '1'),
 (5, 'pro53b13f6c4adce', 'color', 'white,orange,violet', '1'),
@@ -254,7 +254,9 @@ INSERT INTO `product_customization` (`id`, `product_id`, `specification`, `value
 (13, 'pro53b7a744d2f34', 'color', 'blue,green,grey', '1'),
 (14, 'pro53b7a744d2f34', 'size', '100 cm,150 cm', '1'),
 (15, 'pro53b7a96e40231', 'color', 'orange,sky', '1'),
-(16, 'pro53b7a96e40231', 'size', '22 cm,34 cm', '1');
+(16, 'pro53b7a96e40231', 'size', '22 cm,34 cm', '1'),
+(17, 'pro53b7af97db77d', 'color', 'blue,white,red', '1'),
+(18, 'pro53b7af97db77d', 'size', '55 cm,41 cm', '1');
 
 -- --------------------------------------------------------
 
@@ -266,9 +268,20 @@ CREATE TABLE IF NOT EXISTS `product_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` varchar(200) NOT NULL,
   `image` varchar(200) NOT NULL,
-  `order` int(11) DEFAULT NULL,
+  `img_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `product_image`
+--
+
+INSERT INTO `product_image` (`id`, `product_id`, `image`, `img_order`) VALUES
+(1, 'pro53b13cba9cc8f', 'Chrysanthemum.jpg', 1),
+(2, 'pro53b13cba9cc8f', 'Hydrangeas.jpg', 3),
+(3, 'pro53b13cba9cc8f', 'Jellyfish.jpg', 4),
+(4, 'pro53b13cba9cc8f', 'Desert.jpg', 2),
+(5, 'pro53b13cba9cc8f', 'Koala.jpg', 5);
 
 -- --------------------------------------------------------
 

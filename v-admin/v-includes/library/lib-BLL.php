@@ -18,6 +18,16 @@
 		}
 		
 		/*
+		- method for getting system currency
+		- Auth: Dipanjan
+		*/
+		function getSystemCurrency($field)
+		{
+			$sytem_currency = $this->manage_content->getValue_where('system_currency','*','field',$field);
+			return $sytem_currency[0]['currency'];
+		}
+		
+		/*
 		- method for creating user cookie
 		- Auth: Dipanjan
 		*/
@@ -249,9 +259,8 @@
 							<td>'.$product['date'].'</td>
 							<td>'.$product['exp_date'].'</td>
 							<td>'.$feature_status.'</td>
-							<td><a href="product-video.php?pid='.$product['product_id'].'"><button class="btn btn-warning">'.$link_btn.'</button></a></td>
-							<td><a href="edit-product.php?pid='.$product['product_id'].'"><button class="btn btn-info">Edit Details</button></a></td>
-							<td>'.$btn.'</td>       	
+							<td><a href="product-info.php?pid='.$product['product_id'].'"><button class="btn btn-info">Product Details</button></a></td>
+							<td>'.$btn.'</td>     	
 						  </tr>';
 				}
 			}
@@ -460,26 +469,146 @@
 			$values = $this->manage_content->getValueMultipleCondtn('product_customization','*',array('product_id','specification','status'),array($product_id,$specification,1));
 			//getting values in an array
 			$value = explode(',',$values[0]['value']);
-			//setting the class names
-			if($specification == 'color')
-			{
-				$textbox_class = 'pro_custom_color';
-				$textbox_name = 'pro_color[]';
-				$delete_btn = 'color_delete';
-			}
-			else if($specification == 'size')
-			{
-				$textbox_class = 'pro_custom_size';
-				$textbox_name = 'pro_size[]';
-				$delete_btn = 'size_delete';
-			}
+			
 			if(!empty($value))
 			{
 				foreach($value as $key=>$array_value)
 				{
-					echo '<input type="text" class="form-control '.$textbox_class.' pull-left" name="'.$textbox_name.'" value="'.$array_value.'"/>
-                          <div class="pull-left"><button type="button" class="btn btn-danger btn-sm '.$delete_btn.'">Delete</button></div>';
+					echo '<input type="text" class="form-control pro_custom_color pull-left" name="pro[]" value="'.$array_value.'"/>
+                          <div class="pull-left"><button type="button" class="btn btn-danger btn-sm delete">Delete</button></div>';
 				}
+			}
+		}
+		
+		/*
+		- method for getting product image list
+		- Auth: Dipanjan
+		*/
+		function getProductImageList($pid)
+		{
+			//getting product image
+			$product_list = $this->manage_content->getValueWhereAsc('product_image','*',array('product_id'),array($pid),'img_order');
+			if(!empty($product_list[0]))
+			{
+				foreach($product_list as $pro)
+				{
+					echo '<div class="col-sm-4 pro_gal_img">
+							<img src="img/'.$pro['image'].'" class="img-responsive center-block" />
+						</div>';
+					
+				}
+			}
+			else
+			{
+				echo '<div class="col-sm-12">
+						<h4 class="page_form_caption" style="color:#000;">No Images Found</h4>
+					</div>';
+			}
+		}
+		
+		/*
+		- method for product basic info
+		- Auth: Dipanjan
+		*/
+		function getProBasicInfo($product_id)
+		{
+			//getting product info
+			$pro_details = $this->manage_content->getValue_where('product_info','*','product_id',$product_id);
+			if(!empty($pro_details[0]))
+			{
+				//getting info about feature product
+				$feature = $this->manage_content->getValueMultipleCondtn('feature_product','*',array('product_id','status'),array($product_id,1));
+				if(!empty($feature[0]))
+				{
+					$f_content = 'Yes';
+				}
+				else
+				{
+					$f_content = 'No';
+				}
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Product Basic Info</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Name:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['name'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Category:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getValueFromId('product_category','categoryId',$pro_details[0]['category'],'name').'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Short Description:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['short_description'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Old Price:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getSystemCurrency('product').$pro_details[0]['old_price'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Guest Price:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getSystemCurrency('product').$pro_details[0]['guest_price'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Member Price:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getSystemCurrency('product').$pro_details[0]['member_price'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Rate:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['distribution_rate'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Stock:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['stock'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Remaining Stock:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['remaining_stock'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Upload Date:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['date'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Expiry Date:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['exp_date'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Maxpick:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['maxpick'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Feature Product:</div>
+                                <div class="pro_info_text col-sm-9">'.$f_content.'</div>
+								<div class="clearfix"></div>
+							</div>
+                        </div>';
+			}
+		}
+		
+		/*
+		- method for product description
+		- Auth: Dipanjan
+		*/
+		function getProductDescription($product_id)
+		{
+			//getting product info
+			$pro_details = $this->manage_content->getValue_where('product_info','*','product_id',$product_id);
+			if(!empty($pro_details[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Product Description</div>
+                        <div class="panel-body">'.$pro_details[0]['description'].'</div>';
 			}
 		}
 	}

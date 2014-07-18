@@ -151,31 +151,15 @@ $(document).ready(function(e) {
 	});
 	
 	//adding color textbox
-	$(document).on('click', '.add_color', function() { 
+	$(document).on('click', '.add_speci', function() { 
 		//append a textbox
-		var appending_text = '<input type="text" class="form-control pro_custom_color pull-left" name="pro_color[]" /><div class="pull-left"><button type="button" class="btn btn-danger btn-sm color_delete">Delete</button></div>';
+		var appending_text = '<input type="text" class="form-control pro_custom_color pull-left" name="pro[]" /><div class="pull-left"><button type="button" class="btn btn-danger btn-sm delete">Delete</button></div>';
 		
 		$('.color_textbox').append(appending_text);
 	});
 	
-	//adding size textbox
-	$(document).on('click', '.add_size', function() { 
-		//append a textbox
-		var appending_text = '<input type="text" class="form-control pro_custom_size pull-left" name="pro_size[]" /><div class="pull-left"><button type="button" class="btn btn-danger btn-sm size_delete">Delete</button></div>';
-		
-		$('.size_textbox').append(appending_text);
-	});
-	
 	//deleting the color textbox with button
-	$(document).on('click', '.color_delete', function() { 
-		//delete the textbox
-		$(this).parent().prev().replaceWith('');
-		//delete the button
-		$(this).parent().replaceWith('');
-	});
-	
-	//deleting the size textbox with button
-	$(document).on('click', '.size_delete', function() { 
+	$(document).on('click', '.delete', function() { 
 		//delete the textbox
 		$(this).parent().prev().replaceWith('');
 		//delete the button

@@ -4,6 +4,8 @@
     <script src="js/jquery.plugin.js"></script>
     <script src="js/jquery.datepick.js"></script>
     <script src="js/asynch-function.js"></script>
+    <script src="js/upload.js"></script>
+    <script src="js/jquery.Jcrop.min.js"></script>
     <?php
 		//checking for session variable and showing the result
 		if(isset($_SESSION['success']))

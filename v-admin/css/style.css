@@ -360,6 +360,32 @@ table.dataTable thead .sorting:after {
 	width:80% !important;
 	margin-right:10px;
 }
+#cropButton{
+	display:none;
+}
+.pro_gal_img{
+	margin:15px 0;
+}
+.previous_page_link{
+	color:#0173FE;
+	font-size:1em;
+}
+.previous_page_link a{
+	color:inherit;
+}
+.pro_info_outline{
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+.pro_info_topic{
+    padding-left: 0px;
+    text-align: right;
+    font-weight: bold;
+}
+.pro_info_text{
+    color: #111;
+    padding-right: 0px;
+}
 
 
 
