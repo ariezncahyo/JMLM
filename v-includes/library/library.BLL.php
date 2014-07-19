@@ -20,6 +20,27 @@
 		}
 		
 		/*
+		- method for getting smember validiation
+		- Auth: Dipanjan
+		*/
+		function getMemberValidiation()
+		{
+			//get member validiation
+			return $this->_DAL_Obj->getValue_where('user_info','*','user_id',$_SESSION['user_id']);
+			
+		}
+		
+		/*
+		- method for verify user email
+		- Auth: Dipanjan
+		*/
+		function verifyUserEmail($user_id)
+		{
+			//update email verification value
+			$update = $this->_DAL_Obj->updateValueWhere('user_info','email_verification',1,'user_id',$user_id);
+		}
+		
+		/*
 		- method for getting system currency
 		- Auth: Dipanjan
 		*/

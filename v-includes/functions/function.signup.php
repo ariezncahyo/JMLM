@@ -4,6 +4,10 @@
 	include '../library/library.DAL.php';
 	$manageData = new DAL_Library();
 	
+	//include class mail
+	include '../library/class.mail.php';
+	$mail = new mailFunction();
+	
 	//checking for values
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
@@ -26,6 +30,9 @@
 				setcookie('DiHuangUser',$user_id,$login_time,'/');
 				//set session value
 				$_SESSION['user_id'] = $user_id;
+				
+				//sending email to verify email
+				$mailSend = $mail->activationLink($_POST['email'],$_POST['username'],$user_id);
 				
 				$_SESSION['success'] = 'Registration Successfull!!';
 				header("Location: ../../profile.php");

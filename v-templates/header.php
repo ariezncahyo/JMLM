@@ -27,5 +27,18 @@
 	{
 		$_SESSION['user_id'] = 'Guest';
 	}
+	
+	//checking validiation
+	if(isset($_SESSION['user_id']))
+	{
+		if(substr($_SESSION['user_id'],0,4) == 'user')
+		{
+			$userStatus = $manageContent->getMemberValidiation();
+			if($userStatus[0]['email_verification'] == 0)
+			{
+				$_SESSION['invalid'] = 'Email Not Verified';
+			}
+		}
+	}
 		
 ?>

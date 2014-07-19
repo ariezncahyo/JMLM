@@ -2,6 +2,11 @@
 	$page_title = 'Company History';
 	//include template files
 	include 'v-templates/header.php';
+	//checking for invalid user
+	if(isset($_SESSION['invalid']))
+	{
+		header("Location: invalid-user.php");
+	}
 ?>
 <?php
 	//include another template file

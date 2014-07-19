@@ -6,6 +6,11 @@
 	{
 		header("Location: index.php");
 	}
+	//checking for invalid user
+	if(isset($_SESSION['invalid']))
+	{
+		header("Location: invalid-user.php");
+	}
 ?>
 <?php
 	//include another template file

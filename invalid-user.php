@@ -1,19 +1,15 @@
 <?php
-	$page_title = 'Email Verification';
+	$page_title = 'Invalid User';
 	//include template files
 	include 'v-templates/header.php';
-	/*if($_SESSION['user_id'] == 'Guest')
+	if($_SESSION['user_id'] == 'Guest')
 	{
 		header("Location: index.php");
-	}*/
+	}
 ?>
 <?php
 	//include another template file
 	include 'v-templates/header-user.php';
-?>
-<?php
-	//verifying user id
-	$manageContent->verifyUserEmail($_GET['uid']);
 ?>
 
 
@@ -38,14 +34,14 @@
         <div class="col-sm-4 col-sm-offset-4">
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
-                    Thank You
+                    Your Membership Is Invalid
                 </h3>
                 <p class="verified-txt">
-                    Your email has been verified
+                    You have to verify your email by clicking the link send to your email id
                 </p>
-                <a href="profile.php" class="btn-link-custom clk-prof-btn">
+                <!--<a href="profile.php" class="btn-link-custom clk-prof-btn">
                     Click here to go to your profile
-                </a>
+                </a>-->
             </div><!-- email verifiy text ends -->
         </div>
     </div>

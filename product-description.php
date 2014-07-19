@@ -2,6 +2,11 @@
 	$page_title = 'Product Description';
 	//include template files
 	include 'v-templates/header.php';
+	//checking for invalid user
+	if(isset($_SESSION['invalid']))
+	{
+		header("Location: invalid-user.php");
+	}
 ?>
 <?php
 	if(!isset($GLOBALS['_GET']['pro']))
