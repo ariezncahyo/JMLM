@@ -2,7 +2,7 @@
 	$page_title = 'Invalid User';
 	//include template files
 	include 'v-templates/header.php';
-	if($_SESSION['user_id'] == 'Guest')
+	if($_SESSION['user_id'] == 'Guest' || !isset($_SESSION['invalid']))
 	{
 		header("Location: index.php");
 	}

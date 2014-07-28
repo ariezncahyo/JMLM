@@ -43,9 +43,19 @@
     </div>
     <div class="row row-cart pro_des_row">
         <div class="col-sm-3">
-            <div class="img-prod-cart">
-                <img class="img-responsive" src="images/basket-egg.jpg" />
-            </div>
+            <!--<div class="img-prod-cart">
+            	<li>
+                	<img class="img-responsive" src="images/basket-egg.jpg" />
+                </li>
+                <li>
+                	<img class="img-responsive" src="images/basket-egg.jpg" />
+                </li>
+                <div class="clearfix"></div>
+            </div>-->
+            <?php
+				//getting product pic details
+				$manageContent->getProductImageInDetailsPage($product_id);
+			?>
         </div>
         <div class="col-sm-9">
             <h3 class="cart-prod-name"><?php echo $pro_details[0]['name'] ?></h3>

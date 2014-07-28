@@ -22,8 +22,8 @@
 	$yCoordinate = ($actualHeight/$responsiveHeight)*$GLOBALS['_POST']['ycordinate'];
 	
 	
-	$targ_w = ($actualWidth/$responsiveWidth)*150;
-	$targ_h = ($actualHeight/$responsiveHeight)*150;
+	$targ_w = ($actualWidth/$responsiveWidth)*300;
+	$targ_h = ($actualHeight/$responsiveHeight)*300;
 	
 	
 	$jpeg_quality = 90;
@@ -36,7 +36,10 @@
 		$img_r = imagecreatefrompng($src);
 		$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 		imagecopyresampled($dst_r,$img_r,0,0,$xCoordinate,$yCoordinate,$targ_w,$targ_h,$targ_w,$targ_h);
-		imagepng($dst_r,'../../img/'.$GLOBALS['_POST']['imagename'], $png_quality);
+		//save image in admin panel
+		//imagepng($dst_r,'../../img/product'.$GLOBALS['_POST']['imagename'], $png_quality);
+		//save image in ui product folder
+		imagepng($dst_r,'../../../images/product/'.$GLOBALS['_POST']['imagename'], $png_quality);
 		
 		//save the product image into the database
 		saveProductImage($manageData,$pid,$GLOBALS['_POST']['imagename'],$img_order);
@@ -45,7 +48,10 @@
 		$img_r = imagecreatefromjpeg($src);
 		$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 		imagecopyresampled($dst_r,$img_r,0,0,$xCoordinate,$yCoordinate,$targ_w,$targ_h,$targ_w,$targ_h);
-		imagejpeg($dst_r,'../../img/'.$GLOBALS['_POST']['imagename'], $jpeg_quality);
+		//save image in admin panel
+		//imagejpeg($dst_r,'../../img/product'.$GLOBALS['_POST']['imagename'], $jpeg_quality);
+		//save image in ui product folder
+		imagejpeg($dst_r,'../../../images/product/'.$GLOBALS['_POST']['imagename'], $jpeg_quality);
 		
 		//save the product image into the database
 		saveProductImage($manageData,$pid,$GLOBALS['_POST']['imagename'],$img_order);
@@ -54,7 +60,10 @@
 		$img_r = imagecreatefromjpeg($src);
 		$dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 		imagecopyresampled($dst_r,$img_r,0,0,$xCoordinate,$yCoordinate,$targ_w,$targ_h,$targ_w,$targ_h);
-		imagejpeg($dst_r,'../../img/'.$GLOBALS['_POST']['imagename'], $jpeg_quality);
+		//save image in admin panel
+		//imagejpeg($dst_r,'../../img/product'.$GLOBALS['_POST']['imagename'], $jpeg_quality);
+		//save image in ui product folder
+		imagejpeg($dst_r,'../../../images/product/'.$GLOBALS['_POST']['imagename'], $jpeg_quality);
 		
 		//save the product image into the database
 		saveProductImage($manageData,$pid,$GLOBALS['_POST']['imagename'],$img_order);

@@ -165,4 +165,94 @@ $(document).ready(function(e) {
 		//delete the button
 		$(this).parent().replaceWith('');
 	});
+	
+	//automatic visible filtered items
+	if($('#order_filter').val() == 'date')
+	{
+		$('#filter-fromdate').css('display', 'block');
+		$('#filter-todate').css('display', 'block');
+	}
+	if($('#order_filter').val() == 'product')
+	{
+		$('#filter-pro').css('display', 'block');
+	}
+	if($('#order_filter').val() == 'user')
+	{
+		$('#filter-user').css('display', 'block');
+	}
+	if($('#order_filter').val() == 'payment_method')
+	{
+		$('#filter-payment').css('display', 'block');
+	}
+	
+	//showing order filter order option
+	$('#order_filter').change(function() {
+        var filter_value = $(this).val();
+		if(filter_value == 'date')
+		{
+			$('#filter-fromdate').css('display', 'block');
+			$('#filter-todate').css('display', 'block');
+			$('#filter-pro').css('display', 'none');
+			$('#filter-user').css('display', 'none');
+			$('#filter-payment').css('display', 'none');
+		}
+		else if(filter_value == 'product')
+		{
+			$('#filter-fromdate').css('display', 'none');
+			$('#filter-todate').css('display', 'none');
+			$('#filter-pro').css('display', 'block');
+			$('#filter-user').css('display', 'none');
+			$('#filter-payment').css('display', 'none');
+		}
+		else if(filter_value == 'user')
+		{
+			$('#filter-fromdate').css('display', 'none');
+			$('#filter-todate').css('display', 'none');
+			$('#filter-pro').css('display', 'none');
+			$('#filter-user').css('display', 'block');
+			$('#filter-payment').css('display', 'none');
+		}
+		else if(filter_value == 'payment_method')
+		{
+			$('#filter-fromdate').css('display', 'none');
+			$('#filter-todate').css('display', 'none');
+			$('#filter-pro').css('display', 'none');
+			$('#filter-user').css('display', 'none');
+			$('#filter-payment').css('display', 'block');
+		}
+		else
+		{
+			$('#filter-fromdate').css('display', 'none');
+			$('#filter-todate').css('display', 'none');
+			$('#filter-pro').css('display', 'none');
+			$('#filter-user').css('display', 'none');
+			$('#filter-payment').css('display', 'none');
+		}
+    });
+	
+	//set the values of filter order option
+	$('#filter-btn').click(function() {
+        var filter_value = $('#order_filter').val();
+		if(filter_value == 'date')
+		{
+			var from_date = $('.filter_order_form').find('[name="from_date"]').val();
+			var to_date = $('.filter_order_form').find('[name="to_date"]').val();
+			window.location.href = 'filtered-order.php?filter='+filter_value+'&value1='+from_date+'&value2='+to_date;
+		}
+		else if(filter_value == 'product')
+		{
+			var product = $('.filter_order_form').find('[name="pro"]').val();
+			window.location.href = 'filtered-order.php?filter='+filter_value+'&value='+product;
+		}
+		else if(filter_value == 'user')
+		{
+			var user_type = $('.filter_order_form').find('[name="user_type"]').val();
+			window.location.href = 'filtered-order.php?filter='+filter_value+'&value='+user_type;
+		}
+		else if(filter_value == 'payment_method')
+		{
+			var payment_method = $('.filter_order_form').find('[name="payment_method"]').val();
+			window.location.href = 'filtered-order.php?filter='+filter_value+'&value='+payment_method;
+		}
+    });
 });

@@ -21,6 +21,38 @@ $(document).ready(function(e) {
 		//validiation for integer field
 		validiateIntegerField('pro_quan','err_pro_quan');
 		var Quantity = parseInt($('#pro_quan').val());
+		if(Quantity != 0)
+		{
+			if(getCookie('DiHuangUser') == "")
+			{
+				user_id = 'Guest';
+			}
+			else
+			{
+				user_id = getCookie('DiHuangUser');
+			}
+			//get product id
+			var pageUrl = window.location.href;
+			var product_id = pageUrl.substr(parseInt(pageUrl.lastIndexOf('='))+1);
+			//getting maxpick of this product
+			var maxpick = $('input[name="mx"]').val();
+			//calling the function to set cookie
+			setCookieForProduct(user_id,Quantity,product_id,speci_length,maxpick);
+		}
+		else
+		{
+			//alerting the error
+			var msg = '<b>Warning: You Can Not Select 0 Quantity</b>';
+			alertWarning(msg);
+			//reload the page
+			location.reload();
+		}
+	});
+	
+	//deleting a product from cart
+	$(document).on('click', '.btn-rmv', function() { 
+		var name = $(this).attr('name');
+		//var cookies = document.cookie.split(";");
 		if(getCookie('DiHuangUser') == "")
 		{
 			user_id = 'Guest';
@@ -29,20 +61,6 @@ $(document).ready(function(e) {
 		{
 			user_id = getCookie('DiHuangUser');
 		}
-		//get product id
-		var pageUrl = window.location.href;
-		var product_id = pageUrl.substr(parseInt(pageUrl.lastIndexOf('='))+1);
-		//getting maxpick of this product
-		var maxpick = $('input[name="mx"]').val();
-		//calling the function to set cookie
-		setCookieForProduct(user_id,Quantity,product_id,speci_length,maxpick);
-	});
-	
-	//deleting a product from cart
-	$(document).on('click', '.btn-rmv', function() { 
-		var name = $(this).attr('name');
-		//var cookies = document.cookie.split(";");
-		var user_id = getCookie('DiHuangUser');
 		if(getCookie(user_id+name) != "")
 		{
 			//get value of this cookie
@@ -89,7 +107,15 @@ $(document).ready(function(e) {
 	//for empty the cart
 	$(document).on('click', '#empty_cart', function(){ 
 		//getting user_id
-		var user_id = getCookie('DiHuangUser');
+		if(getCookie('DiHuangUser') == "")
+		{
+			user_id = 'Guest';
+		}
+		else
+		{
+			user_id = getCookie('DiHuangUser');
+		}
+		
 		//get total product no cookie
 		var product_no = getCookie(user_id).split(':');
 		var no_item = product_no[1];
@@ -112,23 +138,68 @@ $(document).ready(function(e) {
 		var maxpick = $(this).attr('name');
 		//getting new quantity
 		var new_quantity = $(this).val();
-		if(parseInt(maxpick) >= parseInt(new_quantity))
+		//checking input value not equal to zero
+		if(parseInt(new_quantity) != 0)
 		{
-			//getting user_id
-			var user_id = getCookie('DiHuangUser');
-			//getting name
-			var name = $(this).attr('id');
-			//get value of this cookie
-			var cookie_value = getCookie(user_id+name);
-			var value_part = cookie_value.split(':');
-			//getting product id
-			var Product_id = value_part[0].substr(parseInt(value_part[0].lastIndexOf('='))+1);
-			//getting values of quantity
-			var quantity = value_part[1].substr(parseInt(value_part[1].lastIndexOf('='))+1);
-			//checking that product selected must not be greater than maxpick
-			var ex_value = checkingMaxpick(user_id,Product_id);
-			
-			if(parseInt(ex_value) + parseInt(new_quantity) > maxpick)
+			if(parseInt(maxpick) >= parseInt(new_quantity))
+			{
+				//getting user_id
+				if(getCookie('DiHuangUser') == "")
+				{
+					user_id = 'Guest';
+				}
+				else
+				{
+					user_id = getCookie('DiHuangUser');
+				}
+				//getting name
+				var name = $(this).attr('id');
+				//get value of this cookie
+				var cookie_value = getCookie(user_id+name);
+				var value_part = cookie_value.split(':');
+				//getting product id
+				var Product_id = value_part[0].substr(parseInt(value_part[0].lastIndexOf('='))+1);
+				//getting values of quantity
+				var quantity = value_part[1].substr(parseInt(value_part[1].lastIndexOf('='))+1);
+				//checking that product selected must not be greater than maxpick
+				var ex_value = checkingMaxpick(user_id,Product_id);
+				
+				if(parseInt(ex_value) - parseInt(quantity) + parseInt(new_quantity) > maxpick)
+				{
+					//alerting the error
+					var msg = '<b>Warning: You Can Not Select This Product More Than ' +maxpick+ ' Times</b>';
+					alertWarning(msg);
+					//reload the page
+					location.reload();
+				}
+				else
+				{
+					//make change of quantity
+					value_part[1] = 'quantity='+new_quantity;
+					//defining an empty string
+					var cookie_str = '';
+					//making the string for cookie value
+					for(c=0; c<value_part.length; c++)
+					{
+						cookie_str = cookie_str+':'+value_part[c];
+					}
+					cookie_str = cookie_str.substr(1);
+					//update cookie
+					createCookie((user_id+name),cookie_str,1);
+					//get total product no cookie
+					var product_no = getCookie(user_id).split(':');
+					//get difference of quantity
+					var qua_diff = parseInt(new_quantity) - parseInt(quantity);
+					//adding the diffenece in product no
+					var new_pro = parseInt(product_no[0]) + parseInt(qua_diff);
+					//setting user id cookie
+					createCookie(user_id,(new_pro+':'+product_no[1]),1);
+					//reload the page
+					location.reload();
+				}
+				
+			}
+			else
 			{
 				//alerting the error
 				var msg = '<b>Warning: You Can Not Select This Product More Than ' +maxpick+ ' Times</b>';
@@ -136,37 +207,11 @@ $(document).ready(function(e) {
 				//reload the page
 				location.reload();
 			}
-			else
-			{
-				//make change of quantity
-				value_part[1] = 'quantity='+new_quantity;
-				//defining an empty string
-				var cookie_str = '';
-				//making the string for cookie value
-				for(c=0; c<value_part.length; c++)
-				{
-					cookie_str = cookie_str+':'+value_part[c];
-				}
-				cookie_str = cookie_str.substr(1);
-				//update cookie
-				createCookie((user_id+name),cookie_str,1);
-				//get total product no cookie
-				var product_no = getCookie(user_id).split(':');
-				//get difference of quantity
-				var qua_diff = parseInt(new_quantity) - parseInt(quantity);
-				//adding the diffenece in product no
-				var new_pro = parseInt(product_no[0]) + parseInt(qua_diff);
-				//setting user id cookie
-				createCookie(user_id,(new_pro+':'+product_no[1]),1);
-				//reload the page
-				location.reload();
-			}
-			
 		}
 		else
 		{
 			//alerting the error
-			var msg = '<b>Warning: You Can Not Select This Product More Than ' +maxpick+ ' Times</b>';
+			var msg = '<b>Warning: You Can Not Select 0 Quantity</b>';
 			alertWarning(msg);
 			//reload the page
 			location.reload();

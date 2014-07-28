@@ -950,10 +950,22 @@
 }
 .pro_des_row{
 	min-height:420px;
+	margin-bottom: 2em;
 }
 
 .img-prod-cart{
 	margin-top: 5em;
+	position: relative;
+}
+.img-prod-cart li{
+	display:inline;
+	position: absolute;
+}
+.img-prod-cart li img{
+}
+
+.img-prod-cart li.show{
+	z-index:500;
 }
 
 .cart-prod-name{

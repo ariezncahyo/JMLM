@@ -130,6 +130,13 @@
                         </div>
                       </div>
                       <div class="form-group">
+                        <label class="col-sm-3 form-v-sign-up control-label">Referral User Id : </label>
+                        <div class="col-sm-9">
+                          <input type="password" class="form-control form-cart" placeholder="Referral User Id" name="ref_user" id="signup_ref_user">
+                          <div class="form-error" id="err_signup_ref_user"></div>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Username : </label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control form-cart" placeholder="Username" name="username" id="signup_username">
@@ -145,24 +152,18 @@
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Password : </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-5">
                           <input type="password" class="form-control form-cart" placeholder="Password" name="password" id="signup_pass">
                           <div class="form-error" id="err_signup_pass"></div>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Confirm Password : </label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-5">
                           <input type="password" class="form-control form-cart" placeholder="Confirm Password" name="con_password" id="signup_con_pass">
                           <div class="form-error" id="err_signup_con_pass"></div>
                         </div>
                       </div>
-                      <!--<div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Password Hint : </label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control form-cart" placeholder="Password Hint" >
-                        </div>
-                      </div>-->
                       <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-10">
                           <button type="button" id="user_signup_btn" class="btn btn-warning checkout-btn">Sign Up</button>

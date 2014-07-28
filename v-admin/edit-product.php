@@ -103,6 +103,13 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Product Value</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" name="pv" value="<?php echo $product_details[0]['product_value'] ?>"/>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Distribution Rate</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="distribution_rate" value="<?php echo $product_details[0]['distribution_rate'] ?>"/>

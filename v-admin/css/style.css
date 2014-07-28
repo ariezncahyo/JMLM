@@ -365,6 +365,7 @@ table.dataTable thead .sorting:after {
 }
 .pro_gal_img{
 	margin:15px 0;
+	height: 300px;
 }
 .previous_page_link{
 	color:#0173FE;
@@ -380,11 +381,31 @@ table.dataTable thead .sorting:after {
 .pro_info_topic{
     padding-left: 0px;
     text-align: right;
-    font-weight: bold;
+    font-weight: 700;
 }
 .pro_info_text{
     color: #111;
     padding-right: 0px;
+}
+.list-pagination{
+	margin-top: -65px;
+	margin-bottom: 5px;
+}
+.order_btn_grp{
+	margin-bottom: 10px;
+	margin-top: -15px;
+}
+.order_btn_grp a{
+	color:inherit;
+}
+.order_btn_grp a:hover{
+	text-decoration:none;
+}
+.filter_order_form{
+	margin:10px 0;
+}
+#filter-todate, #filter-fromdate , #filter-pro, #filter-user, #filter-payment{
+	display:none;
 }
 
 

@@ -54,6 +54,11 @@
 			$upd = $manageData->updateValueWhere('product_info','special_price',$_POST['special_price'],'product_id',$_POST['pid']);
 		}
 		
+		if(isset($_POST['pv']) && !empty($_POST['pv']))
+		{
+			$upd = $manageData->updateValueWhere('product_info','pv',$_POST['pv'],'product_id',$_POST['pid']);
+		}
+		
 		if(isset($_POST['distribution_rate']) && !empty($_POST['distribution_rate']))
 		{
 			$upd = $manageData->updateValueWhere('product_info','distribution_rate',$_POST['distribution_rate'],'product_id',$_POST['pid']);

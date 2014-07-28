@@ -41,7 +41,7 @@
 									$manageContent->getProBasicInfo($pid);
 								}
 								//getting product description
-								if($action == 'description')
+								else if($action == 'description')
 								{
 									$manageContent->getProductDescription($pid);
 								}
@@ -54,7 +54,7 @@
 						?>
                     </div>
                     <!-- previous page link -->
-                   <p class="previous_page_link"><a href="list-product.php">Back To Previous Page</a></p>
+                   <p class="previous_page_link"><a href="list-product.php">Back To Product List Page</a></p>
                 </div>
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-4">

@@ -38,6 +38,10 @@
 			{
 				$_SESSION['invalid'] = 'Email Not Verified';
 			}
+			else
+			{
+				unset($_SESSION['invalid']);
+			}
 		}
 	}
 		

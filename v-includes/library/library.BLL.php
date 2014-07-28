@@ -254,8 +254,17 @@
 				*/
 				if(!empty($pro_details[0]) && (strtotime($pro_details[0]['exp_date']) > strtotime('now')) && $pro_limit < 10)
 				{
+					//getting product image
+					$pro_img = $this->_DAL_Obj->getValueMultipleCondtn('product_image','*',array('product_id','img_order'),array($product['product_id'],1));
+					if(!empty($pro_img[0]))
+					{
+						$img = 'images/product/'.$pro_img[0]['image'];
+					}
+					else
+					{
+						$img = 'images/200x200.gif';
+					}
 					echo '<div class="col-sm-4">
-							
 								<div class="container-products prod-pg">
 									<p class="prod-para">'.$pro_details[0]['name'].'</p>
 									<p>'.substr($pro_details[0]['short_description'],0,100).'</p>
@@ -269,14 +278,13 @@
 										
 										<div class="col-sm-5">
 											<div class="img-container">
-												<img src="images/nest.png" class="img-responsive" />
+												<img src="'.$img.'" class="img-responsive" />
 											</div>
 										</div>
 										
 									</div>
 								</div>
-							
-						</div>';
+							</div>';
 					
 					//increament the counter
 					$pro_limit++;
@@ -310,8 +318,18 @@
 							*/
 							if(strtotime($product['exp_date']) > strtotime('now') && $pro_limit < 20)
 							{
+								//getting product image
+								$pro_img = $this->_DAL_Obj->getValueMultipleCondtn('product_image','*',array('product_id','img_order'),array($product['product_id'],1));
+								if(!empty($pro_img[0]))
+								{
+									$img = 'images/product/'.$pro_img[0]['image'];
+								}
+								else
+								{
+									$img = 'images/200x200.gif';
+								}
+								
 								echo '<div class="col-sm-4">
-							
 										<div class="container-products prod-pg">
 											<p class="prod-para">'.$product['name'].'</p>
 											<p>'.substr($product['short_description'],0,100).'</p>
@@ -325,14 +343,13 @@
 												
 												<div class="col-sm-5">
 													<div class="img-container">
-														<img src="images/nest.png" class="img-responsive" />
+														<img src="'.$img.'" class="img-responsive" />
 													</div>
 												</div>
 												
 											</div>
 										</div>
-									
-								</div>';
+								 	</div>';
 								
 								//increament the counter
 								$pro_limit++;
@@ -422,12 +439,23 @@
 							*/
 							if($product['product_id'] != $product_id && (strtotime($product['exp_date']) > strtotime('now')) && $pro_limit < 4)
 							{
+								//getting product image
+								$pro_image = $this->_DAL_Obj->getValueMultipleCondtn('product_image','*',array('product_id','img_order'),array($product['product_id'],1));
+								if(!empty($pro_image[0]))
+								{
+									$img = 'images/product/'.$pro_image[0]['image'];
+								}
+								else
+								{
+									$img = 'images/250x250.gif';
+								}
+								
 								echo '<div class="col-sm-3">
 										<a href="product-description.php?pro='.$product['product_id'].'">
 											<div class="rel-prod img-thumbnail">
-												<img class="img-responsive" src="images/curly.jpg" />
+												<img class="img-responsive" src="'.$img.'" />
 												<p class="cart-prod-name-rel">'.$product['name'].'</p>
-												<p class="price-cart-rel">'.$product['member_price'].'</p>
+												<p class="price-cart-rel">'.$this->getSystemCurrency('product').$product['member_price'].'</p>
 											</div>
 										</a>
 									</div>';
@@ -807,6 +835,41 @@
 			if(!empty($user_info[0]))
 			{
 				echo 'Welcome '.$user_info[0]['username'];
+			}
+		}
+		
+		/*
+		- method for getting product image
+		- Auth: Dipanjan
+		*/
+		function getProductImageInDetailsPage($product_id)
+		{
+			//get values from database
+			$pro_details = $this->_DAL_Obj->getValueWhereAsc('product_image','*',array('product_id'),array($product_id),'img_order');
+			if(!empty($pro_details[0]))
+			{
+				echo '<div class="img-prod-cart">';
+						/*<li>
+							<img class="img-responsive" src="images/basket-egg.jpg" />
+						</li>
+						<li>
+							<img class="img-responsive" src="images/basket-egg.jpg" />
+						</li>
+						<div class="clearfix"></div>*/
+				foreach($pro_details as $pic)
+				{
+					echo '<li>
+							<img class="img-responsive" src="images/product/'.$pic['image'].'" />
+						</li>';
+				}
+				
+				echo '</div>';
+			}
+			else
+			{
+				echo '<div class="img-prod-cart">
+						<img class="img-responsive" src="images/250x300.gif" />
+					</div>';
 			}
 		}
 		

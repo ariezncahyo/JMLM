@@ -23,6 +23,17 @@
             </div>
             <!-- /.row -->
             <div class="row adm_row">
+            	<div class="col-sm-12">
+                    <ul class="pagination pull-right list-pagination">
+                      <li><a href="#">«</a></li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                      <li><a href="#">»</a></li>
+                    </ul>
+                </div>
                 <div class="col-lg-12">
                     <div class="table-responsive">
                     	<table class="table table-bordered tabe-striped">

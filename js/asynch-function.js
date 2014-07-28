@@ -22,7 +22,7 @@ function sendingRequest(sendingData,returningPlace){
 	}});
 }
 
-//selecting the email id from textbox
+//selecting the email id and username from textbox
 $(document).ready(function(e) {
 	$('#signup_username').change(function() {
 		var username = $(this).val();
@@ -79,6 +79,38 @@ $(document).ready(function(e) {
 		}});
 	});
 	
+	//checking for referral user id
+	$('#signup_ref_user').change(function() {
+		var ref_user = $(this).val();
+		if(ref_user != "")
+		{
+			sendingData = 'ref_user='+ref_user+'&refData=referralChecking';
+			$('#err_signup_ref_user').css('display','block');
+			//calling ajax function
+			$.ajax({
+				type: "POST",
+				url:"v-includes/library/class.fetchData.php",
+				data: sendingData,
+				beforeSend:function(){
+					// this is where we append a loading image
+					$('').html('');
+				  },
+				success:function(result){
+					//console.log(result);
+					if(result == 0)
+					{
+						$('#err_signup_ref_user').html('**Referral User Id Does Not Valid');
+						$('#signup_ref_user').val('');
+						$('#signup_ref_user').focus(function() { 
+							$('#err_signup_ref_user').fadeOut(500);
+						});
+						
+					}
+					return false;
+			}});
+		}
+	});
+	
 	//checking for password character lenght
 	$('#signup_pass').change(function(e) {
         var pasLen = $(this).val().length;
@@ -95,4 +127,44 @@ $(document).ready(function(e) {
 		}
     });
 	
+	//sliding of product image in product description page
+	var fadeDuration=2000;
+	var slideDuration=2000;
+	var currentIndex=1;
+	var nextIndex=1;
+	var theInterval;
+	
+	$('.img-prod-cart li').css({opacity: 0.0});
+	$('.img-prod-cart li:nth-child('+nextIndex+')').addClass('show').animate({opacity: 1.0}, fadeDuration);
+	
+	//function for start slider
+	function startSlide() {
+		theInterval = setInterval(function() { 
+				nextIndex =currentIndex+1;
+				if(nextIndex > $('.img-prod-cart li').length)
+				{
+				nextIndex =1;
+				}
+				$('.img-prod-cart li:nth-child('+nextIndex+')').addClass('show').animate({opacity: 1.0}, fadeDuration);
+				$('.img-prod-cart li:nth-child('+currentIndex+')').animate({opacity: 0.0}, fadeDuration).removeClass('show');
+				currentIndex = nextIndex;
+			},slideDuration);
+	}
+	
+	//function for stop slider
+	function stopSlide() {
+		clearInterval(theInterval);
+	}
+	
+	//starting image slider initially
+	startSlide();
+	
+	//stopping slider in image hover and starting after hover
+	$('.img-prod-cart li').hover(function () {
+		stopSlide();
+	}, function () {
+		startSlide();
+	})
+	
 });
+

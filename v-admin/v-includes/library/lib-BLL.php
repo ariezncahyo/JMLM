@@ -28,6 +28,89 @@
 		}
 		
 		/*
+		- method for getting payment methode
+		- Auth: Dipanjan
+		*/
+		function getPaymentMethod($value)
+		{
+			if($value == 'online')
+			{
+				$method = 'Online Payment';
+			}
+			else if($value == 'bank')
+			{
+				$method = 'Bank Transfer';
+			}
+			else if($value == 'cod')
+			{
+				$method = 'Cash On Delivery';
+			}
+			return $method;
+		}
+		
+		/*
+		- method for member name
+		- Auth: Dipanjan
+		*/
+		function getUserFromUserId($user_id)
+		{
+			if($user_id != 'Guest')
+			{
+				$user_info = $this->manage_content->getValue_where('user_info','*','user_id',$user_id);
+				return $user_info[0]['f_name'].' '.$user_info[0]['l_name'];
+			}
+			else
+			{
+				return 'Guest';
+			}
+		}
+		
+		/*
+		- method for getting product name list
+		- Auth: Dipanjan
+		*/
+		function getSystemProductList($product_id)
+		{
+			//get all values
+			$product = $this->manage_content->getValueMultipleCondtn('product_info','*',array('status'),array(1));
+			if(!empty($product[0]))
+			{
+				foreach($product as $pro)
+				{
+					if($pro['product_id'] == $product_id)
+					{
+						echo '<option value="'.$pro['product_id'].'" selected="selected">'.$pro['name'].'</option>';
+					}
+					else
+					{
+						echo '<option value="'.$pro['product_id'].'">'.$pro['name'].'</option>';
+					}
+				}
+			}
+		}
+		
+		/*
+		- method for getting product name
+		- Auth: Dipanjan
+		*/
+		function getProductNameFromId($product_id)
+		{
+			//get values from database
+			$pro = $this->manage_content->getValue_where('product_info','*','product_id',$product_id);
+			return $pro[0]['name'];
+		}
+		
+		/*
+		- method for getting shiiping cost of system
+		- Auth: Dipanjan
+		*/
+		function getShippingCost()
+		{
+			$sytem_currency = $this->manage_content->getValue_where('shipping_cost_info','*','status',1);
+			return $sytem_currency[0]['shipping_cost'];
+		}
+		
+		/*
 		- method for creating user cookie
 		- Auth: Dipanjan
 		*/
@@ -493,7 +576,7 @@
 				foreach($product_list as $pro)
 				{
 					echo '<div class="col-sm-4 pro_gal_img">
-							<img src="img/'.$pro['image'].'" class="img-responsive center-block" />
+							<img src="../images/product/'.$pro['image'].'" class="img-responsive center-block" />
 						</div>';
 					
 				}
@@ -610,6 +693,435 @@
 				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Product Description</div>
                         <div class="panel-body">'.$pro_details[0]['description'].'</div>';
 			}
+		}
+		
+		/*
+		- method for full order list
+		- Auth: Dipanjan
+		*/
+		function getFullOrderList()
+		{
+			//getting values of order placed
+			$orderList = $this->manage_content->getValueWhereDesc('order_info','*',array('checkout_process'),array(1),'date');
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					//getting values of billing and shipping
+					$order_bill = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($order['order_id'],'Billing'));
+					$order_ship = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($order['order_id'],'Shipping'));
+					
+					echo '<tr>
+							<td>'.$order['order_id'].'</td>
+							<td>'.$order_bill[0]['f_name'].' '.$order_bill[0]['l_name'].'</td>
+							<td>'.$order_ship[0]['f_name'].' '.$order_ship[0]['l_name'].'</td>
+							<td>'.$order['date'].'</td>
+							<td>'.$this->getPaymentMethod($order['payment_method']).'</td>
+							<td>'.$this->getSystemCurrency('product').$order['total_amount'].'</td>
+							<td><a href="order-info.php?oid='.$order['order_id'].'"><button class="btn btn-info">Order Details</button></a></td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="7">No Result Found</td>
+					</tr>';
+			}
+		}
+		
+		/*
+		- method for order basic info
+		- Auth: Dipanjan
+		*/
+		function getOrderBasicInfo($order_id)
+		{
+			//get values from database
+			$order_details = $this->manage_content->getValueMultipleCondtn('order_info','*',array('order_id'),array($order_id));
+			if(!empty($order_details[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Order Basic Info</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Id:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['order_id'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order By:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getUserFromUserId($order_details[0]['user_id']).'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Payment Method:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getPaymentMethod($order_details[0]['payment_method']).'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Shipping Charge:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getSystemCurrency('product').$order_details[0]['shipping_charge'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Total Amount:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getSystemCurrency('product').$order_details[0]['total_amount'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Purchase On:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['date'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Status:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['order_status'].'</div>
+								<div class="clearfix"></div>
+							</div>
+                        </div>';
+			}
+		}
+		
+		/*
+		- method for get order list according to date
+		- Auth: Dipanjan
+		*/
+		function getOrderFromDateLimit($fromDate,$toDate)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process'),array(1));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(strtotime($toDate.' 23:59:59') >= strtotime($order['date']) && strtotime($order['date']) >= strtotime($fromDate.' 00:00:00') && !in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list according to product id
+		- Auth: Dipanjan
+		*/
+		function getOrderFromProductId($product_id)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('product_inventory_info','*',array('product_id'),array($product_id));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					//getting order checkout process
+					$order_checkout = $this->manage_content->getValueMultipleCondtn('order_info','*',array('order_id','checkout_process'),array($order['order_id'],1));
+					if(!empty($order_checkout[0]) && !in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list according to member
+		- Auth: Dipanjan
+		*/
+		function getOrderOfMember($user_value)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process'),array(1));
+			if(!empty($orderList[0]))
+			{
+				if($user_value == 'Guest')
+				{
+					foreach($orderList as $order)
+					{
+						if($order['user_id'] == $user_value && !in_array($order['order_id'],$order_id))
+						{
+							array_push($order_id,$order['order_id']);
+						}
+					}
+				}
+				else if($user_value == 'user')
+				{
+					foreach($orderList as $order)
+					{
+						if($order['user_id'] != 'Guest' && !in_array($order['order_id'],$order_id))
+						{
+							array_push($order_id,$order['order_id']);
+						}
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list according to date
+		- Auth: Dipanjan
+		*/
+		function getOrderFromPaymentMethod($payment)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process','payment_method'),array(1,$payment));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(!in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list
+		- Auth: Dipanjan
+		*/
+		function getFilteredOrderList($order_id)
+		{
+			if(!empty($order_id[0]))
+			{
+				foreach($order_id as $key=>$value)
+				{
+					//getting values of billing and shipping
+					$order_details = $this->manage_content->getValueMultipleCondtn('order_info','*',array('order_id',),array($value));
+					$order_bill = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($value,'Billing'));
+					$order_ship = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($value,'Shipping'));
+					
+					echo '<tr>
+							<td>'.$order_details[0]['order_id'].'</td>
+							<td>'.$order_bill[0]['f_name'].' '.$order_bill[0]['l_name'].'</td>
+							<td>'.$order_ship[0]['f_name'].' '.$order_ship[0]['l_name'].'</td>
+							<td>'.$order_details[0]['date'].'</td>
+							<td>'.$this->getPaymentMethod($order_details[0]['payment_method']).'</td>
+							<td>'.$this->getSystemCurrency('product').$order_details[0]['total_amount'].'</td>
+							<td><a href="order-info.php?oid='.$order_details[0]['order_id'].'"><button class="btn btn-info">Order Details</button></a></td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="7">No Result Found</td>
+					</tr>';
+			}
+		}
+		
+		/*
+		- method for order shipping and billing info
+		- Auth: Dipanjan
+		*/
+		function getOrderShipAndBillInfo($order_id,$info_type)
+		{
+			//get values from database
+			$order_details = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($order_id,$info_type));
+			if(!empty($order_details[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Order '.$info_type.' Info</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Id:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['order_id'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Name:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['f_name'].' '.$order_details[0]['l_name'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Email Id:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['email_id'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Address:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['addr_1'].'<br>'.$order_details[0]['addr_2'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Contact No:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['contact_no'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">City:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['city'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">State:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['state'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Country:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['country'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Postal Code:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['postal_code'].'</div>
+								<div class="clearfix"></div>
+							</div>
+                        </div>';
+			}
+		}
+		
+		/*
+		- method for order product details
+		- Auth: Dipanjan
+		*/
+		function getOrderProductDetails($order_id)
+		{
+			//get values from database
+			$order_details = $this->manage_content->getValueMultipleCondtn('product_inventory_info','*',array('order_id'),array($order_id));
+			if(!empty($order_details[0]))
+			{
+				//initialize counter for total money calculation
+				$amount = 0;
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Order Project Details</div>
+                        <div class="panel-body">
+							<div class="table-responsive">
+							<table class="table table-bordered tabe-striped">
+								<thead>
+									<tr>
+										<th>Product Name</th>
+										<th>Quantity</th>
+										<th>Specification</th>
+										<th>Amount</th>
+									</tr>
+								</thead>
+								<tbody>';
+						
+				foreach($order_details as $order)
+				{
+					echo '<tr>
+							<td>'.$this->getProductNameFromId($order['product_id']).'</td>
+							<td>'.$order['quantity'].'</td>
+							<td>';
+					if(!empty($order['specification']))
+					{
+						$speci = explode(',',$order['specification']);
+						foreach($speci as $key=>$value)
+						{
+							echo $value.'<br>';
+						}
+					}
+							
+								
+					echo '</td>
+						  <td>'.$this->getSystemCurrency('product').$order['price'].'</td>	
+						</tr>';
+					$amount = $amount + intval($order['price']);
+				}
+				//grand total
+				$total_amount = intval($amount) + intval($this->getShippingCost());
+				
+				echo '<tr>
+						<td colspan="3">Sub Total</td>
+						<td>'.$this->getSystemCurrency('product').$amount.'</td>
+					</tr>
+					<tr>
+						<td colspan="3">Shipping Charge</td>
+						<td>'.$this->getSystemCurrency('product').($amount + intval($this->getShippingCost())).'</td>
+					</tr>
+					<tr>
+						<td colspan="3"><b>Grand Total</b></td>
+						<td>'.$this->getSystemCurrency('product').$total_amount.'</td>
+					</tr>';
+							
+				echo '</tbody>
+					</table>
+					</div>
+					</div>';
+			}
+		}
+		
+		/*
+		- method for getting order status
+		- Auth: Dipanjan
+		*/
+		function getOrderChangebleStatus($order_id)
+		{
+			//get values
+			$order_details = $this->manage_content->getValueMultipleCondtn('order_info','*',array('order_id'),array($order_id));
+			if(!empty($order_details[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Order Status</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Status:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['order_status'].'</div>
+								<div class="clearfix"></div>
+							</div>';
+					if(!empty($order_details[0]['notes']))
+					{
+						echo '<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Notes:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['notes'].' '.$order_details[0]['notes'].'</div>
+								<div class="clearfix"></div>
+							</div>';
+					}
+				  //calling order status form
+				  $this->ChangeStatusForm($order_details);
+                  echo    '</div>';
+			}
+		}
+		
+		/*
+		- method for change status and adding notes form
+		- Auth: Dipanjan
+		*/
+		function ChangeStatusForm($order_details)
+		{
+			echo '<form role="form" action="v-includes/functions/function.change-order-status.php" method="post" style="margin-top:25px;">
+					<div class="form-group">
+						<label class="control-label admin_form_label col-sm-3">Order Status</label>
+						<div class="col-sm-8">
+							<select class="form-control" name="order_status">
+								<option value="Processing"'; if($order_details[0]['order_status'] == 'Processing'){ echo 'selected="selected"'; } echo'>Processing</option>
+								<option value="Processed"'; if($order_details[0]['order_status'] == 'Processed'){ echo 'selected="selected"'; } echo'>Processed</option>
+								<option value="Completed"'; if($order_details[0]['order_status'] == 'Completed'){ echo 'selected="selected"'; } echo'>Order Completed</option>
+								<option value="Cancel"'; if($order_details[0]['order_status'] == 'Cancel'){ echo 'selected="selected"'; } echo'>Order Cancel</option>
+							</select>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="form-group">
+						<label class="control-label admin_form_label col-sm-3">Notes For Order</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" rows="4" name="notes">';if(isset($order_details[0]['notes'])){ echo $order_details[0]['notes']; } echo '</textarea>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-5 col-sm-offset-3">
+							<input type="hidden" name="oid" value="'.$order_details[0]['order_id'].'" />
+							<input type="submit" class="btn btn-success btn-lg" value="Submit" />
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</form>';
 		}
 	}
 	

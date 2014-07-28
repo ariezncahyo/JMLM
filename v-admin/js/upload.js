@@ -35,6 +35,7 @@
         
         		//div where we want to add the uploaded image
         		var desiredDiv = $('.crop-picture');
+				console.log(evt.target.responseText);
         		desiredDiv.html('<img src="temp/'+evt.target.responseText+'" data-name="'+evt.target.responseText+'" class="img-responsive" id="cropbox" alt="logo" ">');
         	
 				// enables the crop button	        	
@@ -131,7 +132,7 @@ $( document ).ready(function() {
             success:function(result){
             	//div where we want to add the uploaded image
         		var desiredDiv = $('.crop-picture');
-        		desiredDiv.html('<img src="'+result+'" class="img-responsive" id="cropbox" alt="logo" ">');
+        		//desiredDiv.html('<img src="'+result+'" class="img-responsive" id="cropbox" alt="logo" ">');
 				//desables the crop button	        	
         		$('#cropButton').css("display","none");
         		console.log(result);

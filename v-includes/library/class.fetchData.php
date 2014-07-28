@@ -47,6 +47,24 @@
 		}
 		
 		/*
+		- method for checking referral user
+		- Auth: Dipanjan
+		*/
+		function checkReferralUser($userData)
+		{
+			//get values from database
+			$getValues = $this->manageContent->getValue_where('user_info','*', 'user_id', $userData['ref_user']);
+			if(!empty($getValues[0]) && $getValues[0]['member_level'] != 0)
+			{
+				echo 1;
+			}
+			else 
+			{
+				echo 0;
+			}
+		}
+		
+		/*
 		- method for inserting billing info
 		- Auth: Dipanjan
 		*/
@@ -63,15 +81,13 @@
 			{
 				$order_id = $_SESSION['order_id'];
 			}
-			//setting order status
-			$order_status = 'Processing';
 			//checking that order id is present or not
 			$order = $this->manageContent->getValue_where('order_info','*','order_id',$order_id);
 			if(empty($order[0]['order_id']))
 			{
 				//insert the values in order info table
-				$column_name = array('order_id','user_id','order_status');
-				$column_value = array($order_id,$_SESSION['user_id'],$order_status);
+				$column_name = array('order_id','user_id');
+				$column_value = array($order_id,$_SESSION['user_id']);
 				$insert = $this->manageContent->insertValue('order_info',$column_name,$column_value);
 				
 				//insert values in order shipping info table
@@ -152,6 +168,8 @@
 			//inserting values to product inventory system
 			//initialize total amount variable
 			$total_amount = 0;
+			//setting order status
+			$order_status = 'Processing';
 			//getting no of items selected
 			$pro_value = explode(':',$GLOBALS['_COOKIE'][$_SESSION['user_id']]);
 			$items_selected = $pro_value[1];
@@ -203,7 +221,7 @@
 			$total_quantity = $pro_value[0];
 			$ip = $this->manageUtility->getIpAddress();
 			//update the values
-			$update = $this->manageContent->updateMultipleValueMulCondition('order_info',array('total_amount','total_quantity','date','ip'),array($grand_total,$total_quantity,$date,$ip),array('order_id','user_id'),array($_SESSION['order_id'],$_SESSION['user_id']));
+			$update = $this->manageContent->updateMultipleValueMulCondition('order_info',array('total_amount','total_quantity','date','ip','order_status','checkout_process'),array($grand_total,$total_quantity,$date,$ip,$order_status,1),array('order_id','user_id'),array($_SESSION['order_id'],$_SESSION['user_id']));
 		}
 		
 		/*
@@ -241,6 +259,12 @@
 		case 'emailChecking':
 		{
 			$emailChecking = $fetchData->getUniqueItem($GLOBALS['_POST'],'email');
+			break;
+		}
+		//for referral id checking
+		case 'referralChecking':
+		{
+			$referralUserChecking = $fetchData->checkReferralUser($GLOBALS['_POST']);
 			break;
 		}
 		//for inserting billing info
