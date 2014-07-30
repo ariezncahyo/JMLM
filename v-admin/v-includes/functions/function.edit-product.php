@@ -56,7 +56,7 @@
 		
 		if(isset($_POST['pv']) && !empty($_POST['pv']))
 		{
-			$upd = $manageData->updateValueWhere('product_info','pv',$_POST['pv'],'product_id',$_POST['pid']);
+			$upd = $manageData->updateValueWhere('product_info','point_value',$_POST['pv'],'product_id',$_POST['pid']);
 		}
 		
 		if(isset($_POST['distribution_rate']) && !empty($_POST['distribution_rate']))

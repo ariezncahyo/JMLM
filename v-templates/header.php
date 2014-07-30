@@ -4,6 +4,10 @@
 	include 'v-includes/library/library.BLL.php';
 	$manageContent = new BLL_Library();
 	
+	//include Money Mlm class
+	include 'v-includes/library/library.money-mlm.php';
+	$moneyMLM = new Money_MLM();
+	
 	//checking for cookie and session variable simoultaneously
 	if(isset($GLOBALS['_COOKIE']['DiHuangUser']) && !isset($_SESSION['user_id']) && $GLOBALS['_COOKIE']['DiHuangUser'] != 'Guest')
 	{
@@ -34,7 +38,11 @@
 		if(substr($_SESSION['user_id'],0,4) == 'user')
 		{
 			$userStatus = $manageContent->getMemberValidiation();
-			if($userStatus[0]['email_verification'] == 0)
+			if($userStatus[0]['membership_activation'] != 1)
+			{
+				$_SESSION['invalid'] = 'Membership deactivated';
+			}
+			elseif($userStatus[0]['email_verification'] == 0)
 			{
 				$_SESSION['invalid'] = 'Email Not Verified';
 			}

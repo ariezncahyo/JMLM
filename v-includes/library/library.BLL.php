@@ -7,6 +7,7 @@
 	 
 	 //include the DAL layer
 	 include 'library.DAL.php';
+	 //include 'library.money-mlm.php';
 	 
 	 class BLL_Library
 	 {
@@ -14,9 +15,13 @@
 		
 		function __construct()
 		{
-			//create the DAL
-			$this->_DAL_Obj = new DAL_Library();
-			return $this->_DAL_Obj;
+			if(($this->_DAL_Obj instanceof DAL_Library) != TRUE)
+			{
+				//create the DAL
+				$this->_DAL_Obj = new DAL_Library();
+				return $this->_DAL_Obj;
+			}
+				
 		}
 		
 		/*
@@ -75,6 +80,15 @@
 				$price = 'guest_price';
 			}
 			return $price;
+		}
+		
+		/*
+		- method for getting membership info
+		- Auth: Dipanjan
+		*/
+		function getMembershipInfo()
+		{
+			return $this->_DAL_Obj->getValue_where('membership_info', '*', 'status',1);
 		}
 		
 		/*

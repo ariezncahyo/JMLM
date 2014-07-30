@@ -10,9 +10,13 @@
 		//construct function
 		function __construct()
 		{
-			$db_Connection = new dbConnection();
-			$this->link = $db_Connection->connect();
-			return $this->link;
+			if(($this->link instanceof dbConnection) != TRUE)
+			{
+				$db_Connection = new dbConnection();
+				$this->link = $db_Connection->connect();
+				return $this->link;
+			}
+				
 		}
 		
 		

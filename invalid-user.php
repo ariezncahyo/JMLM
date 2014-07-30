@@ -31,7 +31,20 @@
         <!-- /.col-lg-12 -->
     </div>
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 col-sm-offset-3">
+        	<?php if($_SESSION['invalid'] == 'Membership deactivated') { ?>
+            <div class="email-verify-txt">
+                <h3 class="tnk-u">
+                    Your Membership Is Not Activated
+                </h3>
+                <p class="verified-txt">
+                    You have to purchase membership to become Member of the system
+                </p>
+                <a href="buy-membership.php" class="btn-link-custom clk-prof-btn">
+                    Click here to purchase Membership
+                </a>
+            </div><!-- membership activation text ends -->
+            <?php } else if($_SESSION['invalid'] == 'Email Not Verified') { ?>
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
                     Your Membership Is Invalid
@@ -39,10 +52,8 @@
                 <p class="verified-txt">
                     You have to verify your email by clicking the link send to your email id
                 </p>
-                <!--<a href="profile.php" class="btn-link-custom clk-prof-btn">
-                    Click here to go to your profile
-                </a>-->
             </div><!-- email verifiy text ends -->
+            <?php } ?>
         </div>
     </div>
 </div><!-- container for log in section ends -->

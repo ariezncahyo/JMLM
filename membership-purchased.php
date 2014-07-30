@@ -1,28 +1,18 @@
 <?php
-	$page_title = 'Purchase';
+	$page_title = 'Membership Purchase';
 	//include template files
 	include 'v-templates/header.php';
-	//checking for invalid user
-	if(isset($_SESSION['invalid']))
-	{
-		header("Location: invalid-user.php");
-	}
 ?>
 <?php 
-	//getting previous page name
-	$page_name = substr(strrchr($_SERVER['HTTP_REFERER'],'/'),1);
-	if($page_name != 'checkout.php' || !isset($_SESSION['order_id']))
+	if(!isset($_SESSION['mem_order_id']))
 	{
 		header("Location: index.php");
 	}
 ?>
 <?php
-	$order_id = $_SESSION['order_id'];
-	//unset session and cookie
-	$manageContent->destroyProductCookie();
+	$order_id = $_SESSION['mem_order_id'];
 	//unset product session values
-	unset($_SESSION['order_id']);
-	unset($_SESSION['total_amount']);	
+	unset($_SESSION['mem_order_id']);
 ?>
 <?php
 	//include another template file

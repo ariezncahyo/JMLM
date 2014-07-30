@@ -12,9 +12,14 @@
 		- Auth: Dipanjan
 		*/
 		function __construct()
-		{	
-			$this->manage_content = new ManageContent_DAL();
-			return $this->manage_content;
+		{
+			if(($this->manage_content instanceof ManageContent_DAL) != TRUE)
+			{
+				//create the DAL
+				$this->manage_content = new ManageContent_DAL();
+				return $this->manage_content;
+			}	
+				
 		}
 		
 		/*
@@ -642,6 +647,11 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Point Value:</div>
+                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['point_value'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
                                 <div class="pro_info_topic col-sm-3">Rate:</div>
                                 <div class="pro_info_text col-sm-9">'.$pro_details[0]['distribution_rate'].'</div>
 								<div class="clearfix"></div>
@@ -1122,6 +1132,148 @@
 						<div class="clearfix"></div>
 					</div>
 				</form>';
+		}
+
+		/*
+		- method for change status and adding notes form
+		- Auth: Dipanjan
+		*/
+		function ChangeMembershipStatusForm($order_details)
+		{
+			echo '<form role="form" action="v-includes/functions/function.change-membership-order-status.php" method="post" style="margin-top:25px;">
+					<div class="form-group">
+						<label class="control-label admin_form_label col-sm-3">Order Status</label>
+						<div class="col-sm-8">
+							<select class="form-control" name="order_status">
+								<option value="Processing"'; if($order_details[0]['order_status'] == 'Processing'){ echo 'selected="selected"'; } echo'>Processing</option>
+								<option value="Completed"'; if($order_details[0]['order_status'] == 'Completed'){ echo 'selected="selected"'; } echo'>Order Completed</option>
+								<option value="Cancel"'; if($order_details[0]['order_status'] == 'Cancel'){ echo 'selected="selected"'; } echo'>Order Cancel</option>
+							</select>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="form-group">
+						<label class="control-label admin_form_label col-sm-3">Notes For Order</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" rows="4" name="notes">';if(isset($order_details[0]['notes'])){ echo $order_details[0]['notes']; } echo '</textarea>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-5 col-sm-offset-3">
+							<input type="hidden" name="oid" value="'.$order_details[0]['membership_order_id'].'" />
+							<input type="submit" class="btn btn-success btn-lg" value="Submit" />
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</form>';
+		}
+
+		/*
+		- method for getting membership order list
+		- Auth: Dipanjan
+		*/
+		function getMembershipOrderList($order_status)
+		{
+			//get values from datatbase
+			$order_list = $this->manage_content->getValueWhereDesc('membership_order_info', '*', array('order_status'), array($order_status), 'date');
+			if(!empty($order_list[0]))
+			{
+				foreach($order_list as $order)
+				{	
+					echo '<tr>
+							<td>'.$order['membership_order_id'].'</td>
+							<td>'.$this->getUserFromUserId($order['user_id']).'</td>
+							<td>'.$order['date'].'</td>
+							<td>'.$this->getPaymentMethod($order['payment_method']).'</td>
+							<td>'.$this->getSystemCurrency('product').$order['amount'].'</td>
+							<td><a href="membership-order-info.php?oid='.$order['membership_order_id'].'"><button class="btn btn-info">Order Details</button></a></td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="6">No Result Found</td>
+					</tr>';
+			}
+		}
+
+		/*
+		- method for membership order basic info
+		- Auth: Dipanjan
+		*/
+		function getMembershipOrderBasicInfo($order_id)
+		{
+			//get values from database
+			$order_details = $this->manage_content->getValueMultipleCondtn('membership_order_info','*',array('membership_order_id'),array($order_id));
+			if(!empty($order_details[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Order Basic Info</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Id:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['membership_order_id'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order By:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getUserFromUserId($order_details[0]['user_id']).'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Payment Method:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getPaymentMethod($order_details[0]['payment_method']).'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Total Amount:</div>
+                                <div class="pro_info_text col-sm-9">'.$this->getSystemCurrency('product').$order_details[0]['amount'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Purchase On:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['date'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Status:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['order_status'].'</div>
+								<div class="clearfix"></div>
+							</div>
+                        </div>';
+			}
+		}
+
+		/*
+		- method for getting membership order status
+		- Auth: Dipanjan
+		*/
+		function getMembershipOrderChangebleStatus($order_id)
+		{
+			//get values
+			$order_details = $this->manage_content->getValueMultipleCondtn('membership_order_info','*',array('membership_order_id'),array($order_id));
+			if(!empty($order_details[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Order Status</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Order Status:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['order_status'].'</div>
+								<div class="clearfix"></div>
+							</div>';
+					if(!empty($order_details[0]['notes']))
+					{
+						echo '<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Notes:</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['notes'].' '.$order_details[0]['notes'].'</div>
+								<div class="clearfix"></div>
+							</div>';
+					}
+				  //calling order status form
+				  $this->ChangeMembershipStatusForm($order_details);
+                  echo    '</div>';
+			}
 		}
 	}
 	

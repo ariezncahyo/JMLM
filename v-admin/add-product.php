@@ -90,7 +90,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label admin_form_label col-sm-3">Product Value</label>
+                            <label class="control-label admin_form_label col-sm-3">Point Value</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="pv" />
                             </div>

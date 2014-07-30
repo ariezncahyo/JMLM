@@ -16,7 +16,6 @@
 	//include another template file
 	include 'v-templates/header-user.php';
 ?>
-
 <div class="container">
 	<div class="row">
         <div class="col-lg-12">
