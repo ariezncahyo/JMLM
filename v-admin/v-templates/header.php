@@ -3,6 +3,9 @@
 	//including the bll get data class
 	include 'v-includes/library/lib-BLL.php';
 	$manageContent = new BLL_manageData();
+	//including money mlm class
+	include 'v-includes/library/library.money-mlm.php';
+	$moneyMlm = new Money_MLM();
 	if(!isset($_SESSION['admin']))
 	{
 		header("Location: index.php");

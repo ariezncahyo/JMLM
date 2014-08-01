@@ -1088,7 +1088,7 @@
 					{
 						echo '<div class="pro_info_outline">
                                 <div class="pro_info_topic col-sm-3">Notes:</div>
-                                <div class="pro_info_text col-sm-9">'.$order_details[0]['notes'].' '.$order_details[0]['notes'].'</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['notes'].'</div>
 								<div class="clearfix"></div>
 							</div>';
 					}
@@ -1266,7 +1266,7 @@
 					{
 						echo '<div class="pro_info_outline">
                                 <div class="pro_info_topic col-sm-3">Notes:</div>
-                                <div class="pro_info_text col-sm-9">'.$order_details[0]['notes'].' '.$order_details[0]['notes'].'</div>
+                                <div class="pro_info_text col-sm-9">'.$order_details[0]['notes'].'</div>
 								<div class="clearfix"></div>
 							</div>';
 					}

@@ -2,10 +2,6 @@
 	$pageTitle = 'Membership Order List';
 	include 'v-templates/header.php';
 ?>
-<?php
-	include 'v-includes/library/library.money-mlm.php';
-	$obj = new Money_MLM();
-?>
 	<?php
 		include 'v-templates/left_sidebar.php';
 	?>
@@ -28,6 +24,7 @@
             <!-- /.row -->
             <div class="row adm_row">
             	<div class="col-sm-12">
+            		
                 	<div class="btn-group pull-left order_btn_grp">
                     	<button class="btn btn-success"><a href="list-membership-order.php?list=Processing">On Process</a></button>
                         <button class="btn btn-primary"><a href="list-membership-order.php?list=Completed">Complete Order List</a></button>

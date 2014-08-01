@@ -59,11 +59,6 @@
 			$upd = $manageData->updateValueWhere('product_info','point_value',$_POST['pv'],'product_id',$_POST['pid']);
 		}
 		
-		if(isset($_POST['distribution_rate']) && !empty($_POST['distribution_rate']))
-		{
-			$upd = $manageData->updateValueWhere('product_info','distribution_rate',$_POST['distribution_rate'],'product_id',$_POST['pid']);
-		}
-		
 		if(isset($_POST['stock']) && !empty($_POST['stock']))
 		{
 			$upd = $manageData->updateValueWhere('product_info','stock',$_POST['stock'],'product_id',$_POST['pid']);

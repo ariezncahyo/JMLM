@@ -46,7 +46,7 @@
                                 <a href="list-order.php">Order List</a>
                             </li>
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="list-membership-order.php">Membership Order List</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
