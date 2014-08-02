@@ -83,7 +83,45 @@
 					//calling point value distributive function
 					$this->distributePointValue($user_id, $total_pv, $pv_id);
 					
+					/* code for member level upgradation of user and their parent */
+					//calling fucntion for it
+					$this->checkingLevelOfUserAndParent($user_id);
 				}
+			}
+		}
+
+		/*
+		- method for membership order details
+		- Auth: Dipanjan
+		*/
+		function getMembershipPurchaseDetails($order_id)
+		{
+			//get order details
+			$order_details = $this->_BLL_obj->manage_content->getValue_where('membership_order_info', '*', 'membership_order_id', $order_id);
+			$user_id = $order_details[0]['user_id'];
+			//get user parent
+			$user_mlm = $this->_BLL_obj->manage_content->getValue_where('user_mlm_info','*', 'user_id', $user_id);
+			if(!empty($user_mlm[0]['parent_id']))
+			{
+				//get parent details
+				$parent_mlm = $this->_BLL_obj->manage_content->getValueMultipleCondtn('user_mlm_info','*', array('id'), array($user_mlm[0]['parent_id']));
+				if($parent_mlm[0]['member_level'] != 0)
+				{
+					//get transaction id for referral fee distribution
+					$ref_id = uniqid('trans');
+					//calling referral fee distribution function
+					$ref_fee = $this->calculateReferralFee($parent_mlm[0]['user_id'], $order_details, $ref_id);
+					if($ref_fee != 0)
+					{
+						//insert values to fee transaction info table
+						$insert_referral = $this->_BLL_obj->manage_content->insertValue('fee_transaction_info', array('transaction_id','order_id','product_id','fee_type'), array($ref_id,$order_details[0]['membership_order_id'],$order_details[0]['membership_id'],'RF'));
+						//new system value
+						$new_system_value_per = $this->getSystemMoneyValue() - $ref_fee;
+						//insert distributed amount to system money info
+						$insert_per_amount = $this->_BLL_obj->manage_content->insertValue('system_money_info', array('specification','debit','system_balance'), array($ref_id,$ref_fee,$new_system_value_per));
+					}
+				}
+				
 			}
 		}
 		
@@ -218,6 +256,97 @@
 				$this->distributePointValue($parent_mlm[0]['user_id'], $total_pv, $transaction_id);
 			}
 			
+		}
+
+		/*
+		- method for checking level upgradation of user and their parent
+		- Auth: Dipanjan
+		*/
+		function checkingLevelOfUserAndParent($user_id)
+		{
+			//calling user level upgradation function
+			$this->upgradeMemberLevel($user_id);
+			//getting parent of this user id
+			$user_mlm = $this->_BLL_obj->manage_content->getValue_where('user_mlm_info','*', 'user_id', $user_id);
+			if(!empty($user_mlm[0]['parent_id']))
+			{
+				//get parent details
+				$parent_mlm = $this->_BLL_obj->manage_content->getValueMultipleCondtn('user_mlm_info','*', array('id'), array($user_mlm[0]['parent_id']));
+				//calling parent level upgradation function
+				$this->checkingLevelOfUserAndParent($parent_mlm[0]['user_id']);
+			}
+		}
+
+		/*
+		- method for upgrade member level
+		- Auth: Dipanjan
+		*/
+		function upgradeMemberLevel($user_id)
+		{
+			//get user details
+			$user_details = $this->_BLL_obj->manage_content->getValue_where('user_info', '*', 'user_id', $user_id);
+			//getting user point from point table
+			$user_point = $this->_BLL_obj->manage_content->getLastValue('user_point_info', '*', 'user_id', $user_id, 'id');
+			//getting all level
+			$all_level = $this->_BLL_obj->manage_content->getValueMultipleCondtn('member_level_info', '*', array('status'), array(1));
+			$user_level = 0;
+			foreach($all_level as $level)
+			{
+				if($user_point[0]['total_pv'] >= $level['promotion_pv'])
+				{
+					$user_level = $level['member_level'];
+				}
+			}
+			//checking that member level is changed from its previous state or not
+			if($user_details[0]['member_level'] != $user_level)
+			{
+				//update member level
+				$upd1 = $this->_BLL_obj->manage_content->updateValueWhere('user_info', 'member_level', $user_level, 'user_id', $user_id);
+				$upd2 = $this->_BLL_obj->manage_content->updateValueWhere('user_mlm_info', 'member_level', $user_level, 'user_id', $user_id);
+			}
+		}
+
+		/*
+		- method for calculate referral fee
+		- Auth: Dipanjan
+		*/
+		function calculateReferralFee($user_id,$order_details,$transaction_id)
+		{
+			//get user details
+			$user_details = $this->_BLL_obj->manage_content->getValue_where('user_info','*', 'user_id', $user_id);
+			if($user_details[0]['member_level'] != 0)
+			{
+				//getting user rf
+				$user_level = $this->_BLL_obj->manage_content->getValue_where('member_level_info','*', 'member_level', $user_details[0]['member_level']);
+				if(!empty($user_level[0]['RF']))
+				{
+					$ref_fee = ((intval($user_level[0]['RF']) * $order_details[0]['amount']) / 100);
+					//getting user money from money table
+					$user_money = $this->_BLL_obj->manage_content->getLastValue('user_money_info', '*', 'user_id', $user_id, 'id');
+					if(!empty($user_money[0]['total_money']))
+					{
+						$user_total_money = $user_money[0]['total_money'] + $ref_fee;
+					}
+					else 
+					{
+						$user_total_money = $ref_fee;
+					}
+					
+					//insert values to user money info table
+					$column_name_money = array('user_id','specification','earn_money','total_money');
+					$column_value_money = array($user_id,$transaction_id,$ref_fee,$user_total_money);
+					$insert_money = $this->_BLL_obj->manage_content->insertValue('user_money_info', $column_name_money, $column_value_money);
+					return $ref_fee;
+				}
+				else 
+				{
+					return 0;
+				}
+			}
+			else
+			{
+				return 0;	
+			}
 		}
 	 }
 ?>

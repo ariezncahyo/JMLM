@@ -1,7 +1,10 @@
 <?php
 	session_start();
+	//include money mlm class
+	include '../library/library.money-mlm.php';
+	$money_mlm = new Money_MLM();
 	//include dal file
-	include '../library/lib-DAL.php';
+	include_once '../library/lib-DAL.php';
 	$manageData = new ManageContent_DAL();
 	
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -16,6 +19,16 @@
 			{
 				//update membership
 				$update_membership = $manageData->updateValueWhere('user_info', 'membership_activation', 1, 'user_id', $order_details_updated[0]['user_id']);
+				//inserting values to system money info
+				//getting system balance
+				$system_balance = $manageData->getLastValue('system_money_info', '*', 1, 1, 'id');
+				$new_system_balance = $system_balance[0]['system_balance'] + $order_details_updated[0]['amount'];
+				$column_name = array('specification','credit','system_balance');
+				$column_value = array($_POST['oid'],$order_details_updated[0]['amount'],$new_system_balance);
+				$insert = $manageData->insertValue('system_money_info', $column_name, $column_value);
+				
+				//calling function for distribute money
+				$distribute = $money_mlm->getMembershipPurchaseDetails($_POST['oid']);
 			}
 			
 		}
