@@ -1485,6 +1485,7 @@
 
 .amt-color{
 	color: #c18a14;
+	font-weight: bold;
 }
 
 .panel-custom{
@@ -1590,6 +1591,30 @@
 
 .view_cart_container{
 	min-height:600px;
+}
+
+.wal_pagination{
+	margin-bottom: 10px;
+}
+
+.wal_pagination ul{
+	margin: 0px;
+}
+
+.wal_pagination ul li a{
+	background-color: #eee;
+	color: #c18a14;
+}
+
+.wal_pagination ul>li>a:hover, .wal_pagination ul>li>span:hover, .wal_pagination ul>li>a:focus, .wal_pagination ul>li>span:focus {
+	background-color: #373737;
+	color: #fff;
+}
+
+.wal_pagination ul>.active>a, .wal_pagination ul>.active>span, .wal_pagination ul>.active>a:hover, .wal_pagination ul>.active>span:hover, .wal_pagination ul>.active>a:focus, .wal_pagination ul>.active>span:focus{
+	background-color: #373737;
+	color: #fff;
+	border: 1px solid #ddd;
 }
 
 @media(max-width: 767px){

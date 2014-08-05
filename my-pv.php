@@ -1,5 +1,5 @@
 <?php
-	$page_title = 'My Wallet';
+	$page_title = 'My PV';
 	//include template files
 	include 'v-templates/header.php';
 	if($_SESSION['user_id'] == 'Guest')
@@ -60,14 +60,13 @@
                                     <th>Product Name</th>
                                     <th>Quantity</th>
                                     <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Amount</th>
+                                    <th>Point Value</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php 
-                                	$user_money = $manageContent->getUserMoneyList($page);
-									$manageContent->getUserTotalMoney(); 
+                                	$user_pv = $manageContent->getUserPointValueList($page);
+									$manageContent->getUserTotalPointValue(); 
                                 ?>
                                 
                             </tbody>
@@ -76,7 +75,7 @@
                     
                     <?php 
                     	//calling pagination function
-                    	$manageContent->wallet_pagination($page, $user_money[0], 'my-wallet.php?', $max_index, $user_money[1]);
+                    	$manageContent->wallet_pagination($page, $user_pv[0], 'my-pv.php?', $max_index, $user_pv[1]);
                     ?>
                     
                 </div><!-- col-sm-9 ends -->

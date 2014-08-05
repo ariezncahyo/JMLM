@@ -92,6 +92,109 @@
 		}
 		
 		/*
+		- method for getting fee type
+		- Auth: Dipanjan
+		*/
+		function getFeeType($fee_type)
+		{
+			if($fee_type == 'OF')
+			{
+				$fee_text = 'Overriding Fees';
+			}
+			elseif ($fee_type == 'PC') {
+				$fee_text = 'Personal Commision';
+			}
+			elseif ($fee_type == 'RF') {
+				$fee_text = 'Referral Fees';
+			}
+			elseif ($fee_type == 'PV') {
+				$fee_text = 'Point Value';
+			}
+			return $fee_text;
+		}
+		
+		/*
+		- method for getting the value of the pagination
+		- Auth : Dipanjan
+		*/
+		function wallet_pagination($page,$rows,$pageUrl,$max_no_index,$limit)
+		{	
+			//used in the db for getting o/p
+			$startPoint = $page*$limit ;
+			//no of page to be displayed
+			$no_page = $rows/$limit ;
+			//show pagination when there is more than one page is there
+			if($no_page > 1)
+			{
+				if($rows%$limit == 0)
+				{
+					$no_page = intval($no_page);
+				}
+				else
+				{
+					$no_page = intval($no_page) + 1;
+				}
+				
+				//set no of index to be displayed
+				$no_index = 1 ;
+				
+				//generate the pagination UI
+				echo '<div class="wal_pagination pull-right">
+                    	<ul class="pagination">';
+				//logic for setting the prev button
+				//condition for escaping the -ve page index when $page = 0
+				
+				if( ($page-1) < 0 && $page != 0 )
+				{
+					echo '<li><a href="'.$pageUrl.'p=0">&laquo;</a></li>';
+				}
+				elseif( $page != 0 )
+				{
+					echo '<li><a href="'.$pageUrl.'p='.($page-1).'">&laquo;</a></li>';
+				}
+				/*for the indexes*/
+				//index initilization variable
+				if( ( $page + 1 ) >= ( $no_page - $max_no_index + 1))
+				{
+					$inti_i = $no_page - $max_no_index + 1 ;
+				}
+				else
+				{
+					$inti_i = $page + 1 ;
+				}
+				for( $i = $inti_i ; $i <= $no_page ; $i++ )
+				{
+					if( $i > 0 )
+					{
+						echo '<li ';
+						//codes for active class
+						if( $page == ( $i - 1 ) )
+						{
+							echo ' class="active" ';
+						}
+						echo '><a href="'.$pageUrl.'p='.($i-1).'">'.$i.'</a></li>' ;
+						//increment the index no by 1
+						$no_index++ ;
+						if( $no_index > $max_no_index )
+						{
+							break ;
+						}
+					}
+				}
+				if( $page != ( $no_page - 1 ) )
+				{
+					//for the next button
+					echo '<li><a href="'.$pageUrl.'p='.($page + 1).'">&raquo;</a></li>' ;
+				}
+				//for the last button
+				//echo '<li><a href="'.$PageUrl.'?p='.($no_page - 1).'&limit='.$limit.'">Last</a></li>' ;
+				echo	 '</ul>
+					</div>';
+			}
+			
+		}
+		
+		/*
 		- method for getting product active category list on home page 
 		- Auth: Dipanjan
 		*/
@@ -885,6 +988,172 @@
 						<img class="img-responsive" src="images/250x300.gif" />
 					</div>';
 			}
+		}
+		
+		/*
+		- method for getting user money details
+		- Auth: Dipanjan
+		*/
+		function getUserMoneyList($page)
+		{
+			//setting limit
+			$limit = 20;
+			//calculate the rows number to be shown in this page
+			$startNo = $page*$limit;
+			$endNo = ($page + 1)*$limit;
+			//get values of user money
+			$userMoney = $this->_DAL_Obj->getValueMultipleCondtnDesc('user_money_info', '*', array('user_id'), array($_SESSION['user_id']));
+			//get total row
+			$userRow = $this->_DAL_Obj->getRowValueMultipleCondition('user_money_info', array('user_id'), array($_SESSION['user_id']));
+			if(!empty($userMoney[0]))
+			{
+				//initiate serial no variable
+				$sl_no = 1;
+				//the pagination counter 
+				$page_result = 0;
+				//get system currency
+				$system_currency = $this->getSystemCurrency('product');
+				foreach($userMoney as $money)
+				{
+					if($page_result >= $startNo && $page_result < $endNo)
+					{
+						//getting transaction details
+						$trans_details = $this->_DAL_Obj->getValueMultipleCondtn('fee_transaction_info', '*', array('transaction_id'),array($money['specification']));
+						
+						if(substr($trans_details[0]['order_id'],0,5) == 'order')
+						{
+							//get order details
+							$order_details = $this->_DAL_Obj->getValueMultipleCondtn('product_inventory_info', '*', array('order_id','product_id'),array($trans_details[0]['order_id'],$trans_details[0]['product_id']));
+							$order_info = $this->_DAL_Obj->getValueMultipleCondtn('order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
+							//get product name
+							$product = $this->_DAL_Obj->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
+							echo '<tr>
+	                                <td>'.$sl_no.'</td>
+	                                <td>'.$trans_details[0]['order_id'].'</td>
+	                                <td>'.$product[0]['name'].'</td>
+	                                <td>'.$order_details[0]['quantity'].'</td>
+	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
+	                                <td>'.$this->getFeeType($trans_details[0]['fee_type']).'</td>
+	                                <td>'.$system_currency.$money['earn_money'].'</td>
+	                            </tr>';
+						}
+						if(substr($trans_details[0]['order_id'], 0, 9) == 'mem_order')
+						{
+							//get order details
+							$mem_order_details = $this->_DAL_Obj->getValueMultipleCondtn('membership_order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
+							echo '<tr>
+	                                <td>'.$sl_no.'</td>
+	                                <td>'.$trans_details[0]['order_id'].'</td>
+	                                <td>Membership</td>
+	                                <td>1</td>
+	                                <td>'.substr($mem_order_details[0]['date'],0,strpos($mem_order_details[0]['date'], ' ')).'</td>
+	                                <td>'.$this->getFeeType($trans_details[0]['fee_type']).'</td>
+	                                <td>'.$system_currency.$money['earn_money'].'</td>
+	                            </tr>';
+						}
+					}
+						
+					//increament the counter
+					$sl_no++;
+					$page_result++;
+				}
+			}
+			return array($userRow,$limit);
+		}
+
+		/*
+		- method for getting user money details
+		- Auth: Dipanjan
+		*/
+		function getUserPointValueList($page)
+		{
+			//setting limit
+			$limit = 20;
+			//calculate the rows number to be shown in this page
+			$startNo = $page*$limit;
+			$endNo = ($page + 1)*$limit;
+			//get values of user money
+			$userMoney = $this->_DAL_Obj->getValueMultipleCondtnDesc('user_point_info', '*', array('user_id'), array($_SESSION['user_id']));
+			//get total row
+			$userRow = $this->_DAL_Obj->getRowValueMultipleCondition('user_point_info', array('user_id'), array($_SESSION['user_id']));
+			if(!empty($userMoney[0]))
+			{
+				//initiate serial no variable
+				$sl_no = 1;
+				//the pagination counter 
+				$page_result = 0;
+				foreach($userMoney as $money)
+				{
+					if($page_result >= $startNo && $page_result < $endNo)
+					{
+						//getting transaction details
+						$trans_details = $this->_DAL_Obj->getValueMultipleCondtn('fee_transaction_info', '*', array('transaction_id'),array($money['specification']));
+						
+						if(substr($trans_details[0]['order_id'],0,5) == 'order')
+						{
+							//get order details
+							$order_details = $this->_DAL_Obj->getValueMultipleCondtn('product_inventory_info', '*', array('order_id','product_id'),array($trans_details[0]['order_id'],$trans_details[0]['product_id']));
+							$order_info = $this->_DAL_Obj->getValueMultipleCondtn('order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
+							//get product name
+							$product = $this->_DAL_Obj->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
+							echo '<tr>
+	                                <td>'.$sl_no.'</td>
+	                                <td>'.$trans_details[0]['order_id'].'</td>
+	                                <td>'.$product[0]['name'].'</td>
+	                                <td>'.$order_details[0]['quantity'].'</td>
+	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
+	                                <td>'.$money['earn_pv'].'</td>
+	                            </tr>';
+						}
+					}
+						
+					//increament the counter
+					$sl_no++;
+					$page_result++;
+				}
+			}
+			return array($userRow,$limit);
+		}
+
+		/*
+		- method for getting user total money calculation
+		- Auth: Dipanjan
+		*/
+		function getUserTotalMoney()
+		{
+			//get user total money
+			$grand_total = $this->_DAL_Obj->getLastValue('user_money_info', '*', 'user_id', $_SESSION['user_id'], 'id');
+			$withdraw_money = 0;
+			$net_total = ($grand_total[0]['total_money'] - $withdraw_money);
+			//get system currency
+			$system_currency = $this->getSystemCurrency('product');
+			echo '<tr>
+                    <td class="amt-color" colspan="6" style="text-align: right;">Gross Amount</td>
+                    <td>'.$system_currency.$grand_total[0]['total_money'].'</td>
+                </tr>
+                <tr>
+                    <td class="amt-color" colspan="6" style="text-align: right;">Withdrew Amount</td>
+                    <td>'.$system_currency.$withdraw_money.'</td>
+                </tr>
+                <tr>
+                    <td class="amt-color" colspan="6" style="text-align: right;">Net Amount</td>
+                    <td>'.$system_currency.$net_total.'</td>
+                </tr>';
+		}
+		
+		/*
+		- method for getting user total point value calculation
+		- Auth: Dipanjan
+		*/
+		function getUserTotalPointValue()
+		{
+			//get user total money
+			$total_pv = $this->_DAL_Obj->getLastValue('user_point_info', '*', 'user_id', $_SESSION['user_id'], 'id');
+			
+			echo '<tr>
+                    <td class="amt-color" colspan="5" style="text-align: right;">Total Point Value</td>
+                    <td>'.$total_pv[0]['total_pv'].'</td>
+                </tr>';
 		}
 		
 	 }
