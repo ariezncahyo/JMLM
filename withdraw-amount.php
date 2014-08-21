@@ -44,20 +44,20 @@
                     </div>
                     
                     <h3 class="hd-scnd-profile mrgn-tp-profile">
-                        Total Amount in Your Account: <span class="amt-account">$300.30</span>
+                        Total Amount in Your Account: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$manageContent->getUserNetAmount($_SESSION['user_id']) ?></span>
                     </h1>
                     
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="v-includes/functions/function.withdraw-amount.php" method="post">
                         
                         <div class="form-group">
                             <label class="col-sm-4 col-sm-offset-1 label-profile">Withdraw Amount: </label>
                             <div class="col-sm-offset-1 col-sm-4">
-                                <input class="form-control form-profile" type="text" placeholder="In Figure" />
+                                <input class="form-control form-profile" type="text" name="amount" placeholder="In Figure" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-11">
-                                <input type="checkbox" id="checkbox-1-1" class="regular-checkbox" /><label for="checkbox-1-1"></label>
+                                <input type="checkbox" name="with_pro" value="account" class="regular-checkbox" /><label for="checkbox-1-1"></label>
                                 <span class="label-custom">
                                     Withdraw by Account
                                 </span>

@@ -158,6 +158,8 @@
 					$column_name_money = array('user_id','specification','earn_money','total_money');
 					$column_value_money = array($parent_mlm[0]['user_id'],$transaction_id,$over_fee,$user_total_money);
 					$insert_money = $this->_BLL_obj->manage_content->insertValue('user_money_info', $column_name_money, $column_value_money);
+					//insert values to user profile info
+					$this->_BLL_obj->increaseGrossAmount($parent_mlm[0]['user_id'], $over_fee);
 					
 					//total distributed money
 					$total_distributed_fee = $total_distributed_fee + $over_fee;
@@ -213,6 +215,9 @@
 				$column_name_money = array('user_id','specification','earn_money','total_money');
 				$column_value_money = array($user_id,$transaction_id,$per_commision,$user_total_money);
 				$insert_money = $this->_BLL_obj->manage_content->insertValue('user_money_info', $column_name_money, $column_value_money);
+				//insert values to user profile info
+				$this->_BLL_obj->increaseGrossAmount($user_id, $per_commision);
+				
 				return $per_commision;
 			}
 			else
@@ -336,6 +341,9 @@
 					$column_name_money = array('user_id','specification','earn_money','total_money');
 					$column_value_money = array($user_id,$transaction_id,$ref_fee,$user_total_money);
 					$insert_money = $this->_BLL_obj->manage_content->insertValue('user_money_info', $column_name_money, $column_value_money);
+					//insert values to user profile info
+					$this->_BLL_obj->increaseGrossAmount($user_id, $ref_fee);
+					
 					return $ref_fee;
 				}
 				else 

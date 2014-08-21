@@ -24,6 +24,8 @@
 			$column_value = array($user_id,$_POST['f_name'],$_POST['l_name'],$_POST['gender'],$_POST['dob'],$_POST['addr1'],$_POST['addr2'],$_POST['city'],$_POST['state'],$_POST['country'],$_POST['postal_code'],$_POST['phone'],$_POST['company'],$_POST['username'],$_POST['email'],md5($_POST['password']),0,0,$m_level[0]['member_level'],$status);
 			//insert user info to database
 			$insert = $manageData->insertValue('user_info',$column_name,$column_value);
+			//insert values to user profile info
+			$insert_pro = $manageData->insertValue('user_profile_info', array('user_id'), array($user_id));
 			if($insert == 1)
 			{
 				/* checking for referal user */

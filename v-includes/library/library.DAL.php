@@ -431,9 +431,30 @@
 		- function to get the likely values of two condition of keyword in descending order
 		- auth: Dipanjan
 		*/
-		function getValue_likely_descendingTwoLimit($table_name,$value,$column_name1,$keyword1,$column_name2,$keyword2,$limit)
+		function getValueLikelyMultiple($table_name,$value,$column_name,$keyword,$order_method,$limit)
 		{
-			$query = $this->link->prepare("SELECT $value from $table_name WHERE $column_name1 LIKE '%$keyword1%' AND $column_name2 LIKE '%$keyword2%' ORDER BY `id` DESC LIMIT $limit");
+			/*$query = $this->link->prepare("SELECT $value from $table_name WHERE $column_name1 LIKE '%$keyword1%' AND $column_name2 LIKE '%$keyword2%' ORDER BY `id` DESC LIMIT $limit");
+			$query->execute();
+			$rowcount = $query->rowCount();
+			if($rowcount > 0){
+				$result = $query->fetchAll(PDO::FETCH_ASSOC);
+				return $result;
+			}
+			else{
+				return $rowcount;
+			}*/
+			
+			//declaring variables for preparing the query
+			$column = "";
+			
+			for($i=0;$i<count($column_name);$i++)
+			{
+				$column = $column." AND `".$column_name[$i]."` LIKE '%".$keyword[$i]."%'";
+				
+			}
+			$column = substr($column,5);
+			
+			$query = $this->link->prepare("SELECT ". $value ." FROM ". $table_name ." WHERE ". $column ."ORDER BY `id` ".$order_method." LIMIT $limit");
 			$query->execute();
 			$rowcount = $query->rowCount();
 			if($rowcount > 0){

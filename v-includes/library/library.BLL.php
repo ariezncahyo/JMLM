@@ -1002,9 +1002,9 @@
 			$startNo = $page*$limit;
 			$endNo = ($page + 1)*$limit;
 			//get values of user money
-			$userMoney = $this->_DAL_Obj->getValueMultipleCondtnDesc('user_money_info', '*', array('user_id'), array($_SESSION['user_id']));
+			$userMoney = $this->_DAL_Obj->getValueLikelyMultiple('user_money_info', '*', array('user_id','specification'), array($_SESSION['user_id'],'trans'),'DESC',2000);
 			//get total row
-			$userRow = $this->_DAL_Obj->getRowValueMultipleCondition('user_money_info', array('user_id'), array($_SESSION['user_id']));
+			$userRow = count($userMoney);
 			if(!empty($userMoney[0]))
 			{
 				//initiate serial no variable
@@ -1123,21 +1123,47 @@
 		{
 			//get user total money
 			$grand_total = $this->_DAL_Obj->getLastValue('user_money_info', '*', 'user_id', $_SESSION['user_id'], 'id');
-			$withdraw_money = 0;
-			$net_total = ($grand_total[0]['total_money'] - $withdraw_money);
+			//user withdraw money
+			$money = $this->_DAL_Obj->getValue_where('user_profile_info', '*', 'user_id', $_SESSION['user_id']);
+			if(!empty($money[0]['withdraw_amount']))
+			{
+				$withdraw_money = $money[0]['withdraw_amount'];
+			}
+			else
+			{
+				$withdraw_money = 0;
+			}
+			//withdraw processing amount
+			if(!empty($money[0]['processing_withdraw_amount']))
+			{
+				$with_pro_amount = $money[0]['processing_withdraw_amount'];
+			}
+			else
+			{
+				$with_pro_amount = 0;
+			}
+			
 			//get system currency
 			$system_currency = $this->getSystemCurrency('product');
 			echo '<tr>
                     <td class="amt-color" colspan="6" style="text-align: right;">Gross Amount</td>
-                    <td>'.$system_currency.$grand_total[0]['total_money'].'</td>
+                    <td>'.$system_currency.$money[0]['gross_amount'].'</td>
                 </tr>
                 <tr>
                     <td class="amt-color" colspan="6" style="text-align: right;">Withdrew Amount</td>
                     <td>'.$system_currency.$withdraw_money.'</td>
-                </tr>
-                <tr>
+                </tr>';
+			if(!empty($money[0]['processing_withdraw_amount']))
+			{
+				echo '<tr>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">Processing Withdraw Amount</td>
+	                    <td>'.$system_currency.$with_pro_amount.'</td>
+	                </tr>';
+			}
+			
+            echo '<tr>
                     <td class="amt-color" colspan="6" style="text-align: right;">Net Amount</td>
-                    <td>'.$system_currency.$net_total.'</td>
+                    <td>'.$system_currency.$money[0]['net_amount'].'</td>
                 </tr>';
 		}
 		
@@ -1154,6 +1180,20 @@
                     <td class="amt-color" colspan="5" style="text-align: right;">Total Point Value</td>
                     <td>'.$total_pv[0]['total_pv'].'</td>
                 </tr>';
+		}
+		
+		/*
+		- method for getting user net amount
+		- Auth: Dipanjan
+		*/
+		function getUserNetAmount($user_id)
+		{
+			//user withdraw money
+			$money = $this->_DAL_Obj->getValue_where('user_profile_info', '*', 'user_id', $user_id);
+			//net amount
+			$net_total = $money[0]['net_amount'];
+			
+			return $net_total;
 		}
 		
 	 }

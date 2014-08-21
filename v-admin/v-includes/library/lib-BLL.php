@@ -652,11 +652,6 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="pro_info_outline">
-                                <div class="pro_info_topic col-sm-3">Rate:</div>
-                                <div class="pro_info_text col-sm-9">'.$pro_details[0]['distribution_rate'].'</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="pro_info_outline">
                                 <div class="pro_info_topic col-sm-3">Stock:</div>
                                 <div class="pro_info_text col-sm-9">'.$pro_details[0]['stock'].'</div>
 								<div class="clearfix"></div>
@@ -1274,6 +1269,22 @@
 				  $this->ChangeMembershipStatusForm($order_details);
                   echo    '</div>';
 			}
+		}
+
+		/*
+		- method for increase user gross amount
+		- Auth: Dipanjan
+		*/
+		function increaseGrossAmount($user_id,$amount)
+		{
+			//get user profile details
+			$user_profile = $this->manage_content->getValue_where('user_profile_info', '*', 'user_id', $user_id);
+			$new_gross_amount = $user_profile[0]['gross_amount'] + $amount;
+			$new_net_amount = $user_profile[0]['net_amount'] + $amount;
+			
+			//update user gross amount
+			$update_gross = $this->manage_content->updateValueWhere('user_profile_info', 'gross_amount', $new_gross_amount, 'user_id', $user_id);
+			$update_net = $this->manage_content->updateValueWhere('user_profile_info', 'net_amount', $new_net_amount, 'user_id', $user_id);
 		}
 	}
 	

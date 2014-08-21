@@ -1,8 +1,8 @@
 <?php
 
-	//include 'v-includes/library/library.DAL.php';
+	include 'v-includes/library/library.DAL.php';
 
-	//$obj = new DAL_Library();
+	$obj = new DAL_Library();
 
 	//$ans = $obj->updateValueMultipleCondition("chat_info","message","dipanjan",array("id"),array(1));
 	
@@ -38,13 +38,16 @@
 	//$result = $obj->decreamentValue('product_info','stock',5,'product_id','pro53b13cba9cc8f');
 	
 	
-	include 'v-includes/library/class.mail.php';
+	//include 'v-includes/library/class.mail.php';
 	
-	$mail = new mailFunction();
+	//$mail = new mailFunction();
 	
 	//echo $result = $mail->activationLink('vdipanjan@gmail.com','Dipa0904','user53bd43c5325d5');
 	
-
+	$values = $obj->getValueLikelyMultiple('user_money_info', '*', array('user_id','specification'), array('user53bd','trans'), 'ASC', 10);
 	
+	echo '<pre>';
+	print_r($values);
+	echo '</pre>';
 	
 ?>
