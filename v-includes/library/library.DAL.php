@@ -433,17 +433,6 @@
 		*/
 		function getValueLikelyMultiple($table_name,$value,$column_name,$keyword,$order_method,$limit)
 		{
-			/*$query = $this->link->prepare("SELECT $value from $table_name WHERE $column_name1 LIKE '%$keyword1%' AND $column_name2 LIKE '%$keyword2%' ORDER BY `id` DESC LIMIT $limit");
-			$query->execute();
-			$rowcount = $query->rowCount();
-			if($rowcount > 0){
-				$result = $query->fetchAll(PDO::FETCH_ASSOC);
-				return $result;
-			}
-			else{
-				return $rowcount;
-			}*/
-			
 			//declaring variables for preparing the query
 			$column = "";
 			

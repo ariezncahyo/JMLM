@@ -3,7 +3,7 @@
 	//include php mailer autoload class
 	require 'mail/PHPMailerAutoload.php';
 	
-	;
+	
 	class mailFunction
 	{
 		//defining public variable

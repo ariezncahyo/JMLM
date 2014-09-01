@@ -193,6 +193,25 @@
 			}
 			
 		}
+
+		/*
+		- method for getting user info details 
+		- Auth: Dipanjan
+		*/
+		function getUserInfoDetails($user_id)
+		{
+			return $this->_DAL_Obj->getValue_where('user_info', '*', 'user_id', $user_id);
+		}
+		
+		/*
+		- method for getting user level details 
+		- Auth: Dipanjan
+		*/
+		function getUserLevelDetails($user_level)
+		{
+			//get values of user level
+			return $this->_DAL_Obj->getValue_where('member_level_info', '*', 'member_level', $user_level);
+		}
 		
 		/*
 		- method for getting product active category list on home page 
@@ -1096,14 +1115,25 @@
 							$order_info = $this->_DAL_Obj->getValueMultipleCondtn('order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
 							//get product name
 							$product = $this->_DAL_Obj->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
+							
 							echo '<tr>
-	                                <td>'.$sl_no.'</td>
-	                                <td>'.$trans_details[0]['order_id'].'</td>
-	                                <td>'.$product[0]['name'].'</td>
-	                                <td>'.$order_details[0]['quantity'].'</td>
-	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
-	                                <td>'.$money['earn_pv'].'</td>
-	                            </tr>';
+	                                	<td>'.$sl_no.'</td>
+	                                	<td>'.$trans_details[0]['order_id'].'</td>
+	                                	<td>'.$product[0]['name'].'</td>
+	                                	<td>'.$order_details[0]['quantity'].'</td>';
+										//to show the purchased by field - auth:riju
+	                                	if($order_info[0]['user_id']==$_SESSION['user_id'])
+										{
+	                                		echo '<td> Himself </td>';
+										}
+										else
+										{
+											echo '<td> Child </td>';
+										}
+
+	                         echo  '<td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
+	                                	<td>'.$money['earn_pv'].'</td>
+	                            	 </tr>';
 						}
 					}
 						
@@ -1177,7 +1207,7 @@
 			$total_pv = $this->_DAL_Obj->getLastValue('user_point_info', '*', 'user_id', $_SESSION['user_id'], 'id');
 			
 			echo '<tr>
-                    <td class="amt-color" colspan="5" style="text-align: right;">Total Point Value</td>
+                    <td class="amt-color" colspan="6" style="text-align: right;">Total Point Value</td>
                     <td>'.$total_pv[0]['total_pv'].'</td>
                 </tr>';
 		}
@@ -1194,6 +1224,16 @@
 			$net_total = $money[0]['net_amount'];
 			
 			return $net_total;
+		}
+
+		/*
+		- method for getting user bank details
+		- Auth: Riju
+		*/
+		function getUserBankDetails()
+		{
+			$details=$this->_DAL_Obj->getValue_where('user_bank_info','*','user_id', $_SESSION['user_id']);
+			return $details;
 		}
 		
 	 }

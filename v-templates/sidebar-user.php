@@ -4,18 +4,18 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-sm-12 col-md-4 pad-min">
-                        <img class="img-responsive center-block" src="images/prod1.png" />
+                    <div class="col-sm-12 col-md-12 pad-min">
+                        <img class="img-responsive center-block userLevelImg" src="<?php echo $userLevelDetails[0]['image_link'] ?>" />
                     </div>
-                    <div class="col-sm-12 col-md-8">
-                        <h4 class="prof-h">Lorem ipsum dolor sit</h4>
+                    <div class="col-sm-12 col-md-12">
+                        <h4 class="prof-h"><?php echo $userDetails[0]['f_name'].' '.$userDetails[0]['l_name'] ?></h4>
                         <p class="prof-p">
-                            Lorem ipsum dolor
+                            <?php echo $_SESSION['user_id'] ?>
                         </p>
-                        <button type="button" class="btn btn-custom-prof hidden-sm hidden-md center-block">Lorem Ipsum</button>
+                        <button type="button" class="btn btn-custom-prof hidden-sm hidden-md center-block"><?php echo $userLevelDetails[0]['member_category'] ?></button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-custom-prof visible-sm visible-md center-block">Lorem Ipsum</button>
+                <button type="button" class="btn btn-custom-prof visible-sm visible-md center-block"><?php echo $userLevelDetails[0]['member_category'] ?></button>
             </div>
         </div>
     </div><!-- prof pic ends -->
@@ -23,17 +23,23 @@
     <div class="btm-prof-2 mrgn-lt-sm">
         <div class="row">
             <div class="col-sm-12">
-                <a href="#" class="tble-hd">
-                    lorem Ipsum Lorem
+                <a class="tble-hd">
+                    Profile Info Links
                 </a>
-                <a href="#" class="tble-para">
-                    <img src="images/rings.png" /> Lorem ipsum dolor
+                <a href="my-wallet.php" class="tble-para">
+                    <img src="images/rings.png" /> My Wallet
                 </a>
-                <a href="#" class="tble-para">
-                    <img src="images/hand.png" /> Lorem ipsum dolor
+                <a href="my-pv.php" class="tble-para">
+                    <img src="images/hand.png" /> Point Value Details
                 </a>
-                <a href="#" class="tble-para brdr-none">
-                    <img src="images/eye.png" /> Lorem ipsum dolor
+                <a href="profile-setting.php" class="tble-para">
+                    <img src="images/hand.png" /> Profile Setting
+                </a>
+                <a href="bank-account.php" class="tble-para">
+                    <img src="images/hand.png" /> Bank Account Details
+                </a>
+                <a href="withdraw-amount.php" class="tble-para brdr-none">
+                    <img src="images/eye.png" /> Withdraw Amount
                 </a>
             </div>
         </div>

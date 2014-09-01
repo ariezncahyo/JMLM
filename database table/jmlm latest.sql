@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2014 at 04:50 PM
+-- Generation Time: Sep 01, 2014 at 08:38 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -89,30 +89,20 @@ CREATE TABLE IF NOT EXISTS `fee_transaction_info` (
   `fee_type` varchar(200) DEFAULT NULL,
   `notes` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `fee_transaction_info`
 --
 
 INSERT INTO `fee_transaction_info` (`id`, `transaction_id`, `order_id`, `product_id`, `fee_type`, `notes`) VALUES
-(1, 'trans53dcdfb6debaf', 'order53da538d44a73', 'pro53b7aca05a35a', 'OF', NULL),
-(2, 'trans53dcdfb72147c', 'order53da538d44a73', 'pro53b7aca05a35a', 'PV', NULL),
-(3, 'trans53dcdfb79b9a1', 'order53da538d44a73', 'pro53b2b3c82c476', 'OF', NULL),
-(4, 'trans53dcdfb7d056d', 'order53da538d44a73', 'pro53b2b3c82c476', 'PV', NULL),
-(5, 'trans53dcdfb8237de', 'order53da538d44a73', 'pro53b13cba9cc8f', 'OF', NULL),
-(6, 'trans53dcdfb85646a', 'order53da538d44a73', 'pro53b13cba9cc8f', 'PV', NULL),
-(7, 'trans53dce03eb6641', 'order53da538d44a73', 'pro53b7aca05a35a', 'OF', NULL),
-(8, 'trans53dce03ee92cd', 'order53da538d44a73', 'pro53b7aca05a35a', 'PC', NULL),
-(9, 'trans53dce03f1775d', 'order53da538d44a73', 'pro53b7aca05a35a', 'PV', NULL),
-(10, 'trans53dce03f4ea3a', 'order53da538d44a73', 'pro53b2b3c82c476', 'OF', NULL),
-(11, 'trans53dce03f7d45d', 'order53da538d44a73', 'pro53b2b3c82c476', 'PC', NULL),
-(12, 'trans53dce03f9dbec', 'order53da538d44a73', 'pro53b2b3c82c476', 'PV', NULL),
-(13, 'trans53dce03fd1c00', 'order53da538d44a73', 'pro53b13cba9cc8f', 'OF', NULL),
-(14, 'trans53dce04023ae9', 'order53da538d44a73', 'pro53b13cba9cc8f', 'PC', NULL),
-(15, 'trans53dce040465a1', 'order53da538d44a73', 'pro53b13cba9cc8f', 'PV', NULL),
-(16, 'trans53dcf11b026dd', 'mem_order53d8ac754cea0', 'membership53d7867d58827', 'RF', NULL),
-(17, 'trans53dcf1e2eda4a', 'mem_order53d8ac754cea0', 'membership53d7867d58827', 'RF', NULL);
+(1, 'trans53e9f5f9064e1', 'order53da538d44a73', 'pro53b7aca05a35a', 'OF', NULL),
+(2, 'trans53e9f5f967b90', 'order53da538d44a73', 'pro53b7aca05a35a', 'PC', NULL),
+(3, 'trans53e9f5f98e8b1', 'order53da538d44a73', 'pro53b7aca05a35a', 'PV', NULL),
+(4, 'trans53e9f5fa1286d', 'order53da538d44a73', 'pro53b2b3c82c476', 'OF', NULL),
+(5, 'trans53e9f5fa6be32', 'order53da538d44a73', 'pro53b2b3c82c476', 'PV', NULL),
+(6, 'trans53e9f5fa9b025', 'order53da538d44a73', 'pro53b13cba9cc8f', 'OF', NULL),
+(7, 'trans53e9f5fc2942d', 'order53da538d44a73', 'pro53b13cba9cc8f', 'PV', NULL);
 
 -- --------------------------------------------------------
 
@@ -176,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `member_level_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `member_category` varchar(500) DEFAULT NULL,
   `member_level` varchar(50) DEFAULT NULL,
+  `image_link` varchar(100) DEFAULT NULL,
   `promotion_pv` varchar(200) DEFAULT NULL,
   `RF` varchar(200) DEFAULT NULL,
   `OF` varchar(200) DEFAULT NULL,
@@ -188,13 +179,13 @@ CREATE TABLE IF NOT EXISTS `member_level_info` (
 -- Dumping data for table `member_level_info`
 --
 
-INSERT INTO `member_level_info` (`id`, `member_category`, `member_level`, `promotion_pv`, `RF`, `OF`, `PC`, `status`) VALUES
-(1, 'Member', '0', '0', NULL, '2%', NULL, '1'),
-(2, 'Agent', '1', '500', '5%', '2%', '2%', '1'),
-(3, 'Retailer', '2', '1500', '7%', '2%', '4%', '1'),
-(4, 'Whole Saler', '3', '3000', '9%', '2%', '6%', '1'),
-(5, 'Local Distributor', '4', '5000', '10%', '2%', '8%', '1'),
-(6, 'Global Distributor', '5', '8000', '15%', '2%', '10%', '1');
+INSERT INTO `member_level_info` (`id`, `member_category`, `member_level`, `image_link`, `promotion_pv`, `RF`, `OF`, `PC`, `status`) VALUES
+(1, 'Member', '0', 'images/Member.png', '0', NULL, '2%', NULL, '1'),
+(2, 'Agent', '1', 'images/Agent.png', '500', '5%', '2%', '2%', '1'),
+(3, 'Retailer', '2', 'images/Retailer.png', '1500', '7%', '2%', '4%', '1'),
+(4, 'Whole Saler', '3', 'images/Whole Saler.png', '3000', '9%', '2%', '6%', '1'),
+(5, 'Local Distributor', '4', 'images/Local Distributor.png', '5000', '10%', '2%', '8%', '1'),
+(6, 'Global Distributor', '5', 'images/Global Distributor.png', '8000', '15%', '2%', '10%', '1');
 
 -- --------------------------------------------------------
 
@@ -565,7 +556,7 @@ CREATE TABLE IF NOT EXISTS `system_money_info` (
   `system_balance` varchar(5000) DEFAULT NULL,
   `notes` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `system_money_info`
@@ -573,19 +564,10 @@ CREATE TABLE IF NOT EXISTS `system_money_info` (
 
 INSERT INTO `system_money_info` (`id`, `specification`, `credit`, `debit`, `system_balance`, `notes`) VALUES
 (1, 'order53da538d44a73', '2938', NULL, '2938', NULL),
-(2, 'trans53dcdfb6debaf', NULL, '48', '2890', NULL),
-(3, 'trans53dcdfb79b9a1', NULL, '19.92', '2870.08', NULL),
-(4, 'trans53dcdfb8237de', NULL, '107.76', '2762.32', NULL),
-(5, 'order53da538d44a73', '2938', NULL, '5700.32', NULL),
-(6, 'trans53dce03eb6641', NULL, '48', '5652.32', NULL),
-(7, 'trans53dce03ee92cd', NULL, '16', '5636.32', NULL),
-(8, 'trans53dce03f4ea3a', NULL, '19.92', '5616.4', NULL),
-(9, 'trans53dce03f7d45d', NULL, '6.64', '5609.76', NULL),
-(10, 'trans53dce03fd1c00', NULL, '107.76', '5502', NULL),
-(11, 'trans53dce04023ae9', NULL, '35.92', '5466.08', NULL),
-(12, 'mem_order53d8ac754cea0', '20', NULL, '5486.08', NULL),
-(13, 'mem_order53d8ac754cea0', '20', NULL, '5506.08', NULL),
-(14, 'trans53dcf1e2eda4a', NULL, '1.4', '5504.68', NULL);
+(2, 'trans53e9f5f9064e1', NULL, '48', '2890', NULL),
+(3, 'trans53e9f5f967b90', NULL, '16', '2874', NULL),
+(4, 'trans53e9f5fa1286d', NULL, '19.92', '2854.08', NULL),
+(5, 'trans53e9f5fa9b025', NULL, '107.76', '2746.32', NULL);
 
 -- --------------------------------------------------------
 
@@ -598,6 +580,24 @@ CREATE TABLE IF NOT EXISTS `tax_info` (
   `tax` varchar(100) DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_bank_info`
+--
+
+CREATE TABLE IF NOT EXISTS `user_bank_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(200) NOT NULL,
+  `ac_holder_name` varchar(500) NOT NULL,
+  `ac_number` varchar(500) NOT NULL,
+  `bank_name` varchar(500) NOT NULL,
+  `branch_name` varchar(500) DEFAULT NULL,
+  `ifsc_code` varchar(500) DEFAULT NULL,
+  `tax_number` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -637,10 +637,10 @@ CREATE TABLE IF NOT EXISTS `user_info` (
 --
 
 INSERT INTO `user_info` (`id`, `user_id`, `f_name`, `l_name`, `gender`, `dob`, `addr_1`, `addr_2`, `city`, `state`, `country`, `postal_code`, `phone`, `company`, `username`, `email_id`, `password`, `email_verification`, `membership_activation`, `member_level`, `status`) VALUES
-(1, 'user53bd43c5325d5', 'Dipanjan', 'Bagchi', 'male', '1992-07-06', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', 'WB', 'India', '700115', '1234565', '', 'Dipa0904', 'vdipanjan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '2', '1'),
-(2, 'user53d8abab1de6c', 'abcd', 'abcd', 'male', '1996-02-06', 'aaadfsaf', 'sdfsdfsa', 'Ljubljana', 'WB', 'India', '700060', '324234', 'vvvv', 'dipa_test', 'dipanjan.bagchi91@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '2', '1'),
-(3, 'user53d8ac70513d3', 'abcd', 'bcda', 'male', '1995-02-06', 'aaadfsaf', 'sdfsdfsa', 'sdsa', 'West Bengal', 'India', '700114', '54545454', '', 'abcd', 'abcd@abc.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '2', '1'),
-(4, 'user53da00743ca87', 'dipanjan', 'bcda', 'male', '2001-03-11', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', 'West Bengal', 'India', '700060', '345', 'vvvv', 'rrrrr', 'abcd@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '2', '1'),
+(1, 'user53bd43c5325d5', 'Dipanjan', 'Bagchi', 'male', '1992-07-06', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', 'WB', 'India', '700115', '1234565', '', 'Dipa0904', 'vdipanjan@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '1', '1'),
+(2, 'user53d8abab1de6c', 'abcd', 'abcd', 'male', '1996-02-06', 'aaadfsaf', 'sdfsdfsa', 'Ljubljana', 'WB', 'India', '700060', '324234', 'vvvv', 'dipa_test', 'dipanjan.bagchi91@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '1', '1'),
+(3, 'user53d8ac70513d3', 'abcd', 'bcda', 'male', '1995-02-06', 'aaadfsaf', 'sdfsdfsa', 'sdsa', 'West Bengal', 'India', '700114', '54545454', '', 'abcd', 'abcd@abc.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '1', '1'),
+(4, 'user53da00743ca87', 'dipanjan', 'bcda', 'male', '2001-03-11', 'aaadfsaf', 'sdfsdfsa', 'Kolkata', 'West Bengal', 'India', '700060', '345', 'vvvv', 'rrrrr', 'abcd@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '1', '1'),
 (5, 'user53da010780637', 'abcd', 'bcda', 'male', '2014-07-01', 'aaadfsaf', 'sdfsdfsa', 'Ljubljana', 'WB', 'India', '1000', '23423', '', 'test2', 'aaaa@ffff.com', 'e10adc3949ba59abbe56e057f20f883e', '1', '1', '0', '1');
 
 -- --------------------------------------------------------
@@ -664,10 +664,10 @@ CREATE TABLE IF NOT EXISTS `user_mlm_info` (
 --
 
 INSERT INTO `user_mlm_info` (`id`, `user_id`, `parent_id`, `child_id`, `member_level`, `status`) VALUES
-(1, 'user53bd43c5325d5', NULL, '2', 2, '1'),
-(2, 'user53d8abab1de6c', '1', '3,5', 2, '1'),
-(3, 'user53d8ac70513d3', '2', '4', 2, '1'),
-(4, 'user53da00743ca87', '3', NULL, 2, '1'),
+(1, 'user53bd43c5325d5', NULL, '2', 1, '1'),
+(2, 'user53d8abab1de6c', '1', '3,5', 1, '1'),
+(3, 'user53d8ac70513d3', '2', '4', 1, '1'),
+(4, 'user53da00743ca87', '3', NULL, 1, '1'),
 (5, 'user53da010780637', '2', NULL, 0, '1');
 
 -- --------------------------------------------------------
@@ -681,39 +681,28 @@ CREATE TABLE IF NOT EXISTS `user_money_info` (
   `user_id` varchar(200) NOT NULL,
   `specification` varchar(200) DEFAULT NULL,
   `earn_money` varchar(100) DEFAULT NULL,
+  `deduct_money` varchar(200) DEFAULT NULL,
   `total_money` varchar(100) DEFAULT NULL,
   `notes` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `user_money_info`
 --
 
-INSERT INTO `user_money_info` (`id`, `user_id`, `specification`, `earn_money`, `total_money`, `notes`) VALUES
-(1, 'user53d8ac70513d3', 'trans53dcdfb6debaf', '16', '16', NULL),
-(2, 'user53d8abab1de6c', 'trans53dcdfb6debaf', '16', '16', NULL),
-(3, 'user53bd43c5325d5', 'trans53dcdfb6debaf', '16', '16', NULL),
-(4, 'user53d8ac70513d3', 'trans53dcdfb79b9a1', '6.64', '22.64', NULL),
-(5, 'user53d8abab1de6c', 'trans53dcdfb79b9a1', '6.64', '22.64', NULL),
-(6, 'user53bd43c5325d5', 'trans53dcdfb79b9a1', '6.64', '22.64', NULL),
-(7, 'user53d8ac70513d3', 'trans53dcdfb8237de', '35.92', '58.56', NULL),
-(8, 'user53d8abab1de6c', 'trans53dcdfb8237de', '35.92', '58.56', NULL),
-(9, 'user53bd43c5325d5', 'trans53dcdfb8237de', '35.92', '58.56', NULL),
-(10, 'user53d8ac70513d3', 'trans53dce03eb6641', '16', '74.56', NULL),
-(11, 'user53d8abab1de6c', 'trans53dce03eb6641', '16', '74.56', NULL),
-(12, 'user53bd43c5325d5', 'trans53dce03eb6641', '16', '74.56', NULL),
-(13, 'user53da00743ca87', 'trans53dce03ee92cd', '16', '16', NULL),
-(14, 'user53d8ac70513d3', 'trans53dce03f4ea3a', '6.64', '81.2', NULL),
-(15, 'user53d8abab1de6c', 'trans53dce03f4ea3a', '6.64', '81.2', NULL),
-(16, 'user53bd43c5325d5', 'trans53dce03f4ea3a', '6.64', '81.2', NULL),
-(17, 'user53da00743ca87', 'trans53dce03f7d45d', '6.64', '22.64', NULL),
-(18, 'user53d8ac70513d3', 'trans53dce03fd1c00', '35.92', '117.12', NULL),
-(19, 'user53d8abab1de6c', 'trans53dce03fd1c00', '35.92', '117.12', NULL),
-(20, 'user53bd43c5325d5', 'trans53dce03fd1c00', '35.92', '117.12', NULL),
-(21, 'user53da00743ca87', 'trans53dce04023ae9', '35.92', '58.56', NULL),
-(22, 'user53d8abab1de6c', 'trans53dcf11b026dd', '1.4', '118.52', NULL),
-(23, 'user53d8abab1de6c', 'trans53dcf1e2eda4a', '1.4', '119.92', NULL);
+INSERT INTO `user_money_info` (`id`, `user_id`, `specification`, `earn_money`, `deduct_money`, `total_money`, `notes`) VALUES
+(1, 'user53d8ac70513d3', 'trans53e9f5f9064e1', '16', NULL, '16', NULL),
+(2, 'user53d8abab1de6c', 'trans53e9f5f9064e1', '16', NULL, '16', NULL),
+(3, 'user53bd43c5325d5', 'trans53e9f5f9064e1', '16', NULL, '16', NULL),
+(4, 'user53da00743ca87', 'trans53e9f5f967b90', '16', NULL, '16', NULL),
+(5, 'user53d8ac70513d3', 'trans53e9f5fa1286d', '6.64', NULL, '22.64', NULL),
+(6, 'user53d8abab1de6c', 'trans53e9f5fa1286d', '6.64', NULL, '22.64', NULL),
+(7, 'user53bd43c5325d5', 'trans53e9f5fa1286d', '6.64', NULL, '22.64', NULL),
+(8, 'user53d8ac70513d3', 'trans53e9f5fa9b025', '35.92', NULL, '58.56', NULL),
+(9, 'user53d8abab1de6c', 'trans53e9f5fa9b025', '35.92', NULL, '58.56', NULL),
+(10, 'user53bd43c5325d5', 'trans53e9f5fa9b025', '35.92', NULL, '58.56', NULL),
+(11, 'user53bd43c5325d5', 'withdraw53ea0c6b6a145', NULL, '35.74', '22.82', NULL);
 
 -- --------------------------------------------------------
 
@@ -729,37 +718,76 @@ CREATE TABLE IF NOT EXISTS `user_point_info` (
   `total_pv` varchar(1000) DEFAULT NULL,
   `notes` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `user_point_info`
 --
 
 INSERT INTO `user_point_info` (`id`, `user_id`, `specification`, `earn_pv`, `total_pv`, `notes`) VALUES
-(1, 'user53da00743ca87', 'trans53dcdfb72147c', '110', '110', NULL),
-(2, 'user53d8ac70513d3', 'trans53dcdfb72147c', '110', '110', NULL),
-(3, 'user53d8abab1de6c', 'trans53dcdfb72147c', '110', '110', NULL),
-(4, 'user53bd43c5325d5', 'trans53dcdfb72147c', '110', '110', NULL),
-(5, 'user53da00743ca87', 'trans53dcdfb7d056d', '74', '184', NULL),
-(6, 'user53d8ac70513d3', 'trans53dcdfb7d056d', '74', '184', NULL),
-(7, 'user53d8abab1de6c', 'trans53dcdfb7d056d', '74', '184', NULL),
-(8, 'user53bd43c5325d5', 'trans53dcdfb7d056d', '74', '184', NULL),
-(9, 'user53da00743ca87', 'trans53dcdfb85646a', '600', '784', NULL),
-(10, 'user53d8ac70513d3', 'trans53dcdfb85646a', '600', '784', NULL),
-(11, 'user53d8abab1de6c', 'trans53dcdfb85646a', '600', '784', NULL),
-(12, 'user53bd43c5325d5', 'trans53dcdfb85646a', '600', '784', NULL),
-(13, 'user53da00743ca87', 'trans53dce03f1775d', '110', '894', NULL),
-(14, 'user53d8ac70513d3', 'trans53dce03f1775d', '110', '894', NULL),
-(15, 'user53d8abab1de6c', 'trans53dce03f1775d', '110', '894', NULL),
-(16, 'user53bd43c5325d5', 'trans53dce03f1775d', '110', '894', NULL),
-(17, 'user53da00743ca87', 'trans53dce03f9dbec', '74', '968', NULL),
-(18, 'user53d8ac70513d3', 'trans53dce03f9dbec', '74', '968', NULL),
-(19, 'user53d8abab1de6c', 'trans53dce03f9dbec', '74', '968', NULL),
-(20, 'user53bd43c5325d5', 'trans53dce03f9dbec', '74', '968', NULL),
-(21, 'user53da00743ca87', 'trans53dce040465a1', '600', '1568', NULL),
-(22, 'user53d8ac70513d3', 'trans53dce040465a1', '600', '1568', NULL),
-(23, 'user53d8abab1de6c', 'trans53dce040465a1', '600', '1568', NULL),
-(24, 'user53bd43c5325d5', 'trans53dce040465a1', '600', '1568', NULL);
+(1, 'user53da00743ca87', 'trans53e9f5f98e8b1', '110', '110', NULL),
+(2, 'user53d8ac70513d3', 'trans53e9f5f98e8b1', '110', '110', NULL),
+(3, 'user53d8abab1de6c', 'trans53e9f5f98e8b1', '110', '110', NULL),
+(4, 'user53bd43c5325d5', 'trans53e9f5f98e8b1', '110', '110', NULL),
+(5, 'user53da00743ca87', 'trans53e9f5fa6be32', '74', '184', NULL),
+(6, 'user53d8ac70513d3', 'trans53e9f5fa6be32', '74', '184', NULL),
+(7, 'user53d8abab1de6c', 'trans53e9f5fa6be32', '74', '184', NULL),
+(8, 'user53bd43c5325d5', 'trans53e9f5fa6be32', '74', '184', NULL),
+(9, 'user53da00743ca87', 'trans53e9f5fc2942d', '600', '784', NULL),
+(10, 'user53d8ac70513d3', 'trans53e9f5fc2942d', '600', '784', NULL),
+(11, 'user53d8abab1de6c', 'trans53e9f5fc2942d', '600', '784', NULL),
+(12, 'user53bd43c5325d5', 'trans53e9f5fc2942d', '600', '784', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profile_info`
+--
+
+CREATE TABLE IF NOT EXISTS `user_profile_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(200) NOT NULL,
+  `gross_amount` varchar(200) DEFAULT NULL,
+  `withdraw_amount` varchar(200) DEFAULT NULL,
+  `processing_withdraw_amount` varchar(200) DEFAULT NULL,
+  `net_amount` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `user_profile_info`
+--
+
+INSERT INTO `user_profile_info` (`id`, `user_id`, `gross_amount`, `withdraw_amount`, `processing_withdraw_amount`, `net_amount`) VALUES
+(1, 'user53bd43c5325d5', '58.56', '35.74', '0', '22.82'),
+(2, 'user53d8abab1de6c', '58.56', NULL, NULL, '58.56'),
+(3, 'user53d8ac70513d3', '58.56', NULL, NULL, '58.56'),
+(4, 'user53da00743ca87', '16', NULL, NULL, '16'),
+(5, 'user53da010780637', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdraw_info`
+--
+
+CREATE TABLE IF NOT EXISTS `withdraw_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `withdraw_id` varchar(300) NOT NULL,
+  `user_id` varchar(200) NOT NULL,
+  `withdraw_method` varchar(200) NOT NULL,
+  `amount` varchar(100) NOT NULL,
+  `date` datetime NOT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `withdraw_info`
+--
+
+INSERT INTO `withdraw_info` (`id`, `withdraw_id`, `user_id`, `withdraw_method`, `amount`, `date`, `status`) VALUES
+(1, 'withdraw53ea0c6b6a145', 'user53bd43c5325d5', 'account', '35.74', '2014-08-12 02:08:31', '0');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

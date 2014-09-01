@@ -50,6 +50,7 @@
                                     <option value="product" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'product') { echo 'selected="selected"'; } ?>>Product Name</option>
                                     <option value="user" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'user') { echo 'selected="selected"'; } ?>>User Category</option>
                                     <option value="payment_method" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'payment_method') { echo 'selected="selected"'; } ?>>Payment Method</option>
+                                    <option value="ord_status" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'ord_status') { echo 'selected="selected"'; } ?>>Order Status</option>
                                 </select>
                             </div>
                             <div class="clearfix"></div>
@@ -105,6 +106,18 @@
                                     <option value="cod" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'payment_method' && $_GET['value'] == 'cod') { echo 'selected="selected"'; } ?>>Cash On Delivery</option>
                                 </select>
                             </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group" id="filter-ord">
+                            <label class="control-label admin_form_label col-sm-3">Order Status</label>
+                            <div class="col-sm-5">
+                               <select name="ord_status" class="form-control">
+                                	<option value="Processing" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'ord_status' && $_GET['value'] == 'Processing') { echo 'selected="selected"'; } ?>>Processing</option>
+                                    <option value="Processed" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'ord_status' && $_GET['value'] == 'Processed') { echo 'selected="selected"'; } ?>>Processed</option>
+                                    <option value="Completed" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'ord_status' && $_GET['value'] == 'Completed') { echo 'selected="selected"'; } ?>>Completed</option>
+                                    <option value="Cancelled" <?php if(isset($GLOBALS['_GET']['filter']) && $_GET['filter'] == 'ord_status' && $_GET['value'] == 'Cancelled') { echo 'selected="selected"'; } ?>>Cancelled</option>
+                                </select>
+							</div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="form-group">

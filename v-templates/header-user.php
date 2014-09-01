@@ -30,6 +30,10 @@
 <?php
 	//checking for user and guest navbar
 	if($_SESSION['user_id'] != 'Guest' && substr($_SESSION['user_id'],0,4) == 'user') {
+		//get user details
+		$userDetails = $manageContent->getUserInfoDetails($_SESSION['user_id']);
+		//get user level details
+		$userLevelDetails = $manageContent->getUserLevelDetails($userDetails[0]['member_level']);
 ?>
 		<!-- header -->
 				
@@ -116,13 +120,14 @@
                         <!-- navbar elements for toggling -->
                         <div class="collapse navbar-collapse" id="collapsenavscndprof">
                             <ul class="nav navbar-nav nav-custom-scnd-prof">
-                                <li><a href="index.php"><span class="active-scnd-prof">HOME</span></a></li>
-                                <li><a href="products.php"><span class="hvr-scnd-prof">PRODUCT</span></a></li>
-                                <li><a href="profile.php"><span class="hvr-scnd-prof">PROFILE</span></a></li>
-                                <li><a href="bank-account.php"><span class="hvr-scnd-prof">BANK ACCOUNT</span></a></li>
-                                <li><a href="my-wallet.php"><span class="hvr-scnd-prof">MY WALLET</span></a></li>
-                                <li><a href="profile-setting.php"><span class="hvr-scnd-prof">PROFILE SETTING</span></a></li>
-                                <li><a href="withdraw-amount.php"><span class="hvr-scnd-prof">WITHDRAW AMOUNT</span></a></li>
+                                <!-- php tag codes are written for dynamically change the under line under the menus -->		
+                                <li><a href="index.php"><span class="<?php if($page_title=='Home') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">HOME</span></a></li>
+                                <li><a href="products.php"><span class="<?php if($page_title=='Product') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">PRODUCT</span></a></li>
+                                <li><a href="profile.php"><span class="<?php if($page_title=='Profile') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">PROFILE</span></a></li>
+                                <li><a href="bank-account.php"><span class="<?php if($page_title=='Bank Account') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">BANK ACCOUNT</span></a></li>
+                                <li><a href="my-wallet.php"><span class="<?php if($page_title=='My Wallet') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">MY WALLET</span></a></li>
+                                <li><a href="profile-setting.php"><span class="<?php if($page_title=='Profile Setting') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">PROFILE SETTING</span></a></li>
+                                <li><a href="withdraw-amount.php"><span class="<?php if($page_title=='WithDraw') { echo "active-scnd-prof"; } else { echo "hvr-scnd-prof"; } ?>">WITHDRAW AMOUNT</span></a></li>
                             </ul>
                             
                             <ul class="nav navbar-nav navbar-right nav-custom-scnd-prof">

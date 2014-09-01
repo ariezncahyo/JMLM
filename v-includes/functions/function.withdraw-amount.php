@@ -29,7 +29,7 @@
 					//insert values to withdraw info table
 					$insert = $manageData->insertValue('withdraw_info', array('withdraw_id','user_id','withdraw_method','amount','date','status'), array($withdraw_id,$_SESSION['user_id'],$_POST['with_pro'],$amount,$date,0));
 					
-				 	$new_processing_amount = $money[0]['withdraw_amount'] + $amount;
+				 	$new_processing_amount = $money[0]['processing_withdraw_amount'] + $amount;
 					$new_net_amount = $money[0]['net_amount'] - $amount;
 					//update the value
 					$update = $manageData->updateMultipleValueMulCondition('user_profile_info', array('processing_withdraw_amount','net_amount'), array($new_processing_amount,$new_net_amount), array('user_id'), array($_SESSION['user_id']));

@@ -52,25 +52,22 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Member Details<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Lorem Ipsum</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="member-list.php">Member List</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-folder-open fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-folder-open fa-fw"></i> Manage Components<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="user-withdraw-info.php">User Withdraw Info</a>
                             </li>
                             <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="member-level-list.php">Member Level Details</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

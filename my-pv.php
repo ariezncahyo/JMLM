@@ -59,6 +59,7 @@
                                     <th>Order Id</th>
                                     <th>Product Name</th>
                                     <th>Quantity</th>
+                                    <th>Purchased By</th>
                                     <th>Date</th>
                                     <th>Point Value</th>
                                 </tr>

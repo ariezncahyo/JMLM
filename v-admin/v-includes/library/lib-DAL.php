@@ -507,5 +507,33 @@
 			return $count;
 		}
 		
+		/*
+		- function to get the likely values of two condition of keyword in descending order
+		- auth: Dipanjan
+		*/
+		function getValueLikelyMultiple($table_name,$value,$column_name,$keyword,$order_method,$limit)
+		{
+			//declaring variables for preparing the query
+			$column = "";
+			
+			for($i=0;$i<count($column_name);$i++)
+			{
+				$column = $column." AND `".$column_name[$i]."` LIKE '%".$keyword[$i]."%'";
+				
+			}
+			$column = substr($column,5);
+			
+			$query = $this->link->prepare("SELECT ". $value ." FROM ". $table_name ." WHERE ". $column ."ORDER BY `id` ".$order_method." LIMIT $limit");
+			$query->execute();
+			$rowcount = $query->rowCount();
+			if($rowcount > 0){
+				$result = $query->fetchAll(PDO::FETCH_ASSOC);
+				return $result;
+			}
+			else{
+				return $rowcount;
+			}
+		}
+		
 	}
 ?>

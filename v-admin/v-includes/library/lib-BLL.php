@@ -1286,6 +1286,773 @@
 			$update_gross = $this->manage_content->updateValueWhere('user_profile_info', 'gross_amount', $new_gross_amount, 'user_id', $user_id);
 			$update_net = $this->manage_content->updateValueWhere('user_profile_info', 'net_amount', $new_net_amount, 'user_id', $user_id);
 		}
+
+		/*
+		- method for getting full member list
+		- Auth: Dipanjan
+		*/
+		function getFullMemberList()
+		{
+			//getting all members
+			$memberList = $this->manage_content->getValue('user_info', '*');
+			//defining an empty array in which user id is stored
+			$user_id = array();
+			if(!empty($memberList[0]))
+			{
+				foreach($memberList as $member)
+				{
+					if(!in_array($member['user_id'],$user_id))
+					{
+						array_push($user_id,$member['user_id']);
+					}
+				}
+			}
+			//calling funtion to display the list
+			$userList = $this->showMemberList($user_id);
+		}
+
+		/*
+		- method for showing member list in UI
+		- Auth: Dipanjan
+		*/
+		function showMemberList($user_id)
+		{
+			if(!empty($user_id))
+			{
+				foreach($user_id as $key=>$value)
+				{
+					//get user details
+					$userDetails = $this->manage_content->getValue_where('user_info', '*', 'user_id', $value);
+					
+					if($userDetails[0]['email_verification'] == 1 && $userDetails[0]['membership_activation'] == 1)
+					{
+						$status = 'Valid Member';
+					}
+					else
+					{
+						$status = 'Invalid Member';
+					}
+					
+					echo '<tr>
+							<td>'.$value.'</td>
+							<td>'.$userDetails[0]['f_name'].' '.$userDetails[0]['l_name'].'</td>
+							<td>'.$userDetails[0]['username'].'</td>
+							<td>'.$userDetails[0]['email_id'].'</td>
+							<td>'.$status.'</td>
+							<td><a href="member-info.php?uid='.$value.'"><button class="btn btn-info">Member Details</button></a></td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="6">No Member Found</td>
+					</tr>';
+			}
+		}
+		
+		/*
+		- method for getting basic member info
+		- Auth: Debojyoti
+		*/
+		
+		function getMemBasicInfo($user_id)
+		{
+			//getting member info
+			$mem_details = $this->manage_content->getValue_where('user_info','*','user_id',$user_id);
+			if(!empty($mem_details[0]))
+			{
+				echo ' <div class="col-lg-8">
+                    <div class="panel panel-default"><div class="panel-heading"><i class="fa fa-list fa-fw"></i> Member Basic Info</div>
+                        <div class="panel-body">
+                        	<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Name:</div>
+                                <div class="pro_info_text col-sm-9">'.$mem_details[0]['f_name'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">City:</div>
+                                <div class="pro_info_text col-sm-9">'.$mem_details[0]['city'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">State:</div>
+                                <div class="pro_info_text col-sm-9">'.$mem_details[0]['state'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Country:</div>
+                                <div class="pro_info_text col-sm-9">'.$mem_details[0]['country'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Phone:</div>
+                                <div class="pro_info_text col-sm-9">'.$mem_details[0]['phone'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Email-Id:</div>
+                                <div class="pro_info_text col-sm-9">'.$mem_details[0]['email_id'].'</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						</div>
+                    <!-- previous page link -->
+                   <p class="previous_page_link"><a href="member-list.php">Back To Member List Page</a></p>
+                </div>';
+			}
+		}
+
+		/*
+		- method for getting member money info
+		- Auth: Debojyoti
+		*/
+		
+		function getMemmoneyInfo($uid)
+		{
+			echo '<div class="col-lg-8">
+					<div class="panel panel-default">
+						<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Member Money  Info</div>
+						<div class="panel-body">
+                    		<div class="table-responsive">
+			                    	<table class="table table-bordered tabe-striped">
+			                        	<thead>
+			                            	<tr>
+			                                	<th>No</th>
+			                                    <th>Order Id</th>
+			                                    <th>Product Name</th>
+			                                    <th>Quantity</th>
+			                                    <th>Date</th>
+			                                    <th>Type</th>
+			                                    <th>Amount</th>
+			                                </tr>
+			                            </thead>';
+			                            $user_money=$this->getUserMoneyList($uid);
+										$this->getUserTotalMoney($uid);
+			                	echo'</table>
+			                 </div>
+			             </div>
+			         </div>
+			      </div>';
+        }
+        
+		/*
+		- method for getting member points info
+		- Auth: Debojyoti
+		*/
+		
+		function getMempointsInfo($user_id)
+		{
+			echo '<div class="col-sm-12">
+            		<div class="row mrgn-btm">
+					  <div class="col-sm-8">
+					  	<div class="panel panel-default">
+					  		<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Member Points Info</div>
+					  		<div class="panel-body">
+                    			<div class="table-responsive">
+                        			<table class="table table-bordered tabe-striped">
+                            			<thead>
+                                			<tr>
+			                                    <th>No.</th>
+			                                    <th>Order Id</th>
+			                                    <th>Product Name</th>
+			                                    <th>Quantity</th>
+			                                    <th>Purchased by</th>
+			                                    <th>Date</th>
+			                                    <th>Point Value</th>	
+                                			</tr>
+                            			</thead>
+                            			<tbody>';
+                               			$user_pv = $this->getUserPointValueList($user_id);
+										$this->getUserTotalPointValue($user_id); 
+	                              echo '</tbody>
+		                        	</table>
+		                    	</div>
+                    		</div>
+	               		</div>
+	               </div>';
+				   
+		}
+
+		/*
+		- method for getting user money list
+		- Auth: Debojyoti
+		*/
+		
+		function getUserMoneyList($uid)
+		{
+			echo "<tbody>";	
+			//get values of user money
+			$userMoney = $this->manage_content->getValueLikelyMultiple('user_money_info', '*', array('user_id','specification'), array($uid,'trans'),'DESC',2000);
+			//get system currency
+			$system_currency = $this->getSystemCurrency('product');
+			//get total row
+			$userRow = count($userMoney);
+			if(!empty($userMoney[0]))
+			{
+				//initiate serial no variable
+				$sl_no = 1;
+				foreach($userMoney as $money)
+				{
+					//getting transaction details
+					$trans_details = $this->manage_content->getValueMultipleCondtn('fee_transaction_info', '*', array('transaction_id'),array($money['specification']));
+						if(substr($trans_details[0]['order_id'],0,5) == 'order')
+						{
+							//get order details
+							$order_details = $this->manage_content->getValueMultipleCondtn('product_inventory_info', '*', array('order_id','product_id'),array($trans_details[0]['order_id'],$trans_details[0]['product_id']));
+							$order_info = $this->manage_content->getValueMultipleCondtn('order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
+							//get product name
+							$product = $this->manage_content->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
+							echo '<tr>
+	                                <td>'.$sl_no.'</td>
+	                                <td><a href="order-info.php?oid='.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
+	                                <td>'.$product[0]['name'].'</td>
+	                                <td>'.$order_details[0]['quantity'].'</td>
+	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
+	                                <td>'.$this->getFeeType($trans_details[0]['fee_type']).'</td>
+	                                <td>'.$system_currency.$money['earn_money'].'</td>
+	                            </tr>';
+						}
+                        if(substr($trans_details[0]['order_id'], 0, 9) == 'mem_order')
+						{
+							//get order details
+							$mem_order_details = $this->manage_content->getValueMultipleCondtn('membership_order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
+							echo '<tr>
+	                                <td>'.$sl_no.'</td>
+	                                <td><a href="membership-order-info.php?oid='.$trans_details[0][order_id].'">'.$trans_details[0]['order_id'].'</a></td>
+	                                <td>Membership</td>
+	                                <td>1</td>
+	                                <td>'.substr($mem_order_details[0]['date'],0,strpos($mem_order_details[0]['date'], ' ')).'</td>
+	                                <td>'.$this->getFeeType($trans_details[0]['fee_type']).'</td>
+	                                <td>'.$system_currency.$money['earn_money'].'</td>
+	                            </tr>';
+						}
+					//incrementing serial number by 1
+					$sl_no++;
+					
+				}
+			}
+			else 
+			{
+				echo '<tr><td colspan=7 align="center">No result found</td></tr>';
+			}
+			echo "</tbody>";
+		}
+
+		/*
+		- method for getting member fee type
+		- Auth: Debojyoti
+		*/
+		
+		function getFeeType($fee_type)
+		{
+			if($fee_type == 'OF')
+			{
+				$fee_text = 'Overriding Fees';
+			}
+			elseif ($fee_type == 'PC') {
+				$fee_text = 'Personal Commision';
+			}
+			elseif ($fee_type == 'RF') {
+				$fee_text = 'Referral Fees';
+			}
+			elseif ($fee_type == 'PV') {
+				$fee_text = 'Point Value';
+			}
+			return $fee_text;
+		}
+
+		/*
+		- method for getting member total money
+		- Auth: Debojyoti
+		*/
+		
+		function getUserTotalMoney($uid)
+		{
+			//get system currency
+			$system_currency = $this->getSystemCurrency('product');	
+			//get user total money
+			$grand_total = $this->manage_content->getLastValue('user_money_info', '*', 'user_id', $uid, 'id');
+			if(!empty($grand_total[0]))
+			{
+				//user withdraw money
+				$money = $this->manage_content->getValue_where('user_profile_info', '*', 'user_id', $uid);
+				if(!empty($money[0]['withdraw_amount']))
+				{
+					$withdraw_money = $money[0]['withdraw_amount'];
+				}
+				else
+				{
+					$withdraw_money = 0;
+				}
+				//withdraw processing amount
+				if(!empty($money[0]['processing_withdraw_amount']))
+				{
+					$with_pro_amount = $money[0]['processing_withdraw_amount'];
+				}
+				else
+				{
+					$with_pro_amount = 0;
+				}
+				echo '<tr>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">Gross Amount</td>
+	                    <td>'.$system_currency.$money[0]['gross_amount'].'</td><!-- echoing total money -->
+	                </tr>
+	                <tr>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">Withdrew Amount</td>
+	                    <td>'.$system_currency.$withdraw_money.'</td><!-- echoing withdraw money -->
+	                </tr>';
+				if(!empty($money[0]['processing_withdraw_amount']))
+				{
+					echo '<tr>
+		                    <td class="amt-color" colspan="6" style="text-align: right;">Processing Withdraw Amount</td>
+		                    <td>'.$system_currency.$with_pro_amount.'</td>
+		                </tr>';
+				}
+				
+	            echo '<tr>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">Net Amount</td>
+	                    <td>'.$system_currency.$money[0]['net_amount'].'</td>
+	                </tr>';
+        	}
+			else
+			{
+				echo '<tr>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">Gross Amount</td>
+	                    <td>'.$system_currency.'0</td>
+	                </tr>';
+			}
+		}
+
+		/*
+		- method for getting total user points
+		- Auth: Debojyoti
+		*/
+		
+		function getUserTotalPointValue($userid)
+		{
+			//get user total points
+			$total_pv = $this->manage_content->getLastValue('user_point_info', '*', 'user_id', $userid, 'id');
+			if(!empty($total_pv[0]))
+			{
+				echo '<tr>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">Total Point Value</td>
+	                    <td>'.$total_pv[0]['total_pv'].'</td>
+	                </tr>';//echoing the value of total points of the member
+            }
+			else 
+			{
+				echo '<tr>
+                    <td class="amt-color" colspan="6" style="text-align: right;">Total Point Value</td>
+                    <td>0</td>
+                </tr>';//echoing the value of total points of the member
+			}
+		}
+
+		/*
+		- method for getting user point list
+		- Auth: Debojyoti
+		*/
+		
+		function getUserPointValueList($userid)
+		{
+			//get values of user money
+			$userMoney = $this->manage_content->getValueMultipleCondtnDesc('user_point_info', '*', array('user_id'), array($userid));
+			//get total row
+			$userRow = $this->manage_content->getRowValueMultipleCondition('user_point_info', array('user_id'), array($userid));
+			if(!empty($userMoney[0]))
+			{
+				//initiate serial no variable
+				$sl_no = 1;
+				foreach($userMoney as $money)
+				{
+					//getting transaction details
+					$trans_details = $this->manage_content->getValueMultipleCondtn('fee_transaction_info', '*', array('transaction_id'),array($money['specification']));
+					if(substr($trans_details[0]['order_id'],0,5) == 'order')
+						{
+							//get order details
+							$order_details = $this->manage_content->getValueMultipleCondtn('product_inventory_info', '*', array('order_id','product_id'),array($trans_details[0]['order_id'],$trans_details[0]['product_id']));
+							$order_info = $this->manage_content->getValueMultipleCondtn('order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
+							//get product name
+							$product = $this->manage_content->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
+							//getting userid from order_info table through orderid and comparing it to $userid of this page
+							$id = $this->manage_content->getValue_where('order_info','*','order_id',$trans_details[0]['order_id']);
+							if($id[0]['user_id']==$userid)
+							{
+								$person="Himself";
+							}
+							else 
+							{
+								$person="Child";
+							}
+							echo '<tr>
+	                                <td>'.$sl_no.'</td>
+	                                <td>'.$trans_details[0]['order_id'].'</td>
+	                                <td>'.$product[0]['name'].'</td>
+	                                <td>'.$order_details[0]['quantity'].'</td>
+	                                <td>'.$person.'</td>
+	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
+	                                <td>'.$money['earn_pv'].'</td>
+	                            </tr>';
+						}
+					//increment the counter
+					$sl_no++;
+				}
+			}
+			else 
+			{
+				echo '<tr><td colspan=7 align="center">No result found</td></tr>';
+			}
+			return array($userRow);
+		}
+
+		/*
+		- method for getting member withdraw info
+		- Auth: Debojyoti
+		*/
+		
+		function getMemwithdrawInfo($userid)
+		{
+			echo '<div class="col-sm-12">
+            		<div class="row mrgn-btm">
+					  <div class="col-sm-8">
+					  	<div class="panel panel-default">
+					  		<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Member Withdrawal Info</div>
+					  		<div class="panel-body">
+                    			<div class="table-responsive">
+                        			<table class="table table-bordered tabe-striped">
+                            			<thead>
+                                			<tr>
+			                                    <th>Withdraw Id</th>
+			                                    <th>Withdraw Method</th>
+			                                    <th>Date</th>
+			                                    <th>Amount</th>
+			                                    <th>Status</th>	
+                                			</tr>
+                            			</thead>
+                            			<tbody>';
+                               			$user_with = $this->getUserWithdrawValueList($userid);
+										$this->getUserTotalwithdrawamount($userid); 
+								  echo '</tbody>
+		                        	</table>
+		                    	</div>
+                    		</div>
+	               		</div>
+	               </div>';
+		}
+
+		/*
+		- method for getting member withdraw info list
+		- Auth: Debojyoti
+		*/
+		
+		function getUserWithdrawValueList($userid)
+		{
+			//get system currency
+			$system_currency = $this->getSystemCurrency('product');	
+			//get values of user withdrawal
+			$userwithdraw = $this->manage_content->getValueMultipleCondtnDesc('withdraw_info', '*', array('user_id'), array($userid));
+			//get total row
+			$userRow = $this->manage_content->getRowValueMultipleCondition('withdraw_info', array('user_id'), array($userid));
+			if(!empty($userwithdraw[0]))
+			{
+				foreach($userwithdraw as $withdraw)
+				{
+				
+					if($withdraw['status']==0)
+					{
+						$process="Processing";
+					}
+					else
+					{
+						$process="Processed";
+					}
+					$date=substr($withdraw['date'],0,10);
+					echo '<tr>
+		                      <td>'.$withdraw['withdraw_id'].'</td>
+		                      <td>'.$withdraw['withdraw_method'].'</td>
+		                      <td>'.$date.'</td>
+		                      <td>'.$system_currency.$withdraw['amount'].'</td>
+		                      <td>'.$process.'</td>
+	                       </tr>';
+				}
+			}
+			else 
+				{
+					echo '<tr><td colspan=5 align="center">No result found</td></tr>';
+				}
+		}
+
+		/*
+		- method for getting total withdraw processing money and total withdrawn money
+		- Auth: Debojyoti
+		*/
+		function getUserTotalwithdrawamount($userid)
+		{
+			//get system currency
+			$system_currency = $this->getSystemCurrency('product');		
+			//get user total withdraw processing and processed amount
+			$total_withdraw = $this->manage_content->getValue_where('user_profile_info', '*', 'user_id', $userid);
+			if(!empty($total_withdraw[0]))
+			{
+				echo '<tr>
+	                    <td class="amt-color" colspan="4" style="text-align: right;">Total Withdraw Amount</td>
+	                    <td>';
+	                    if(empty($total_withdraw[0]['withdraw_amount']))
+						{
+	                    	echo $system_currency."0";
+						}
+						else
+						{
+							//echoing the value of total withdraw amount of the member	
+							echo $system_currency.$total_withdraw[0]['withdraw_amount'];
+						}
+			  echo '</td>
+	                </tr>
+	                <tr>
+	                    <td class="amt-color" colspan="4" style="text-align: right;">Total Withdraw Processing Amount</td>
+	                    <td>';
+	                    if(empty($total_withdraw[0]['processing_withdraw_amount']))
+	                    {
+	                    	echo $system_currency."0";
+	                    }
+						else 
+						{
+							//echoing the value of total withdraw amount processing of the member	
+							echo $system_currency.$total_withdraw[0]['processing_withdraw_amount'];
+						}
+			  echo '</td>
+	                </tr>';
+            }
+			else 
+			{
+				echo '<tr>
+                    <td class="amt-color" colspan="4" style="text-align: right;">Total Withdraw Amount</td>
+                    <td style="text-align: center;">$system_currency0</td>
+                </tr><tr>
+	                    <td class="amt-color" colspan="4" style="text-align: right;">Total Withdraw Processing Amount</td>
+	                    <td>$system_currency0</td>
+	                </tr>';
+			}
+		}
+
+		/*
+		- method for getting all orderids of user
+		- Auth: Debojyoti
+		*/
+		function getMemorderIds($userid)
+		{
+				
+			//defining an empty array which contains order id
+			$order_id = array();	
+			$order_list = $this->manage_content->getValue_where('order_info', 'order_id', 'user_id', $userid);
+			if(!empty($order_list[0]))
+			{
+				foreach($order_list as $order)
+				{
+					array_push($order_id,$order['order_id']);
+				}
+			}
+			echo '<div class="col-sm-12">
+            		<div class="row mrgn-btm">
+					  <div class="col-sm-8">
+					  	<div class="panel panel-default">
+					  		<div class="panel-heading"><i class="fa fa-list fa-fw"></i> Member Order Info</div>
+					  		<div class="panel-body">
+                    			<div class="table-responsive table-scroll">
+                        			<table class="table table-bordered tabe-striped">
+                            			<thead>
+                                			<tr>
+			                                    <th>Order Id</th>
+			                                    <th>Bill To Name</th>
+			                                    <th>Ship To Name</th>
+			                                    <th>Purchased On</th>
+			                                    <th>Method</th>
+			                                    <th>Payment Amount</th>	
+			                                    <th>Details</th>	
+                                			</tr>
+                            			</thead>
+                            			<tbody>';
+                               			//calling the function for showing the list
+										$this->getFilteredOrderList($order_id);
+								  echo '</tbody>
+		                        	</table>
+		                    	</div>
+                    		</div>
+	               		</div>
+	               </div>';
+		}
+
+		/*
+		- method for getting child list of member
+		- Auth: Debojyoti
+		*/
+		function getMemChildList($userid)
+		{
+			echo '<div class="col-lg-8">
+                    <div class="panel panel-default"><div class="panel-heading"> Member Child Info</div>
+                        <div class="panel-body">
+                        	<div class="row">
+                        		<div class="col-sm-4">
+                        			<div class="img-thumbnail">
+                        				<img src="img/profile-pic.png" class="img-responsive" />
+                        			</div>
+                        			<div class="pro_info_outline">
+		                                <div class="pro_info_topic txt-lt">User Id</div>
+		                                <div class="pro_info_text">'.$userid.'</div>
+										<div class="clearfix"></div>
+									</div>
+                        		</div>
+                        		<div class="col-sm-2 pad-null">
+                        			<div class="ln-indict"></div>
+                        		</div>
+                        		<div class="col-sm-6 pad-lt-null brdr-lt">';	
+			//getting child details from userid
+			$child_details = $this->manage_content->getValue_where('user_mlm_info','*','user_id',$userid);
+			if(!empty($child_details[0]['child_id']))
+			{
+				//getting child ids	
+				$child_id_array=explode(",",$child_details[0]['child_id']);	
+				foreach($child_id_array as $child)
+				{
+					//getting userid from childid by comparing childid to id	
+					$child_user_id = $this->manage_content->getValue_where('user_mlm_info','*','id',$child);
+					//getting respective userid of child
+					$id=$child_user_id[0]['user_id'];
+					//if there is no userid of child a message will be sent with no anchor tagged
+					$message=(empty($id)) ? "No USERID found" : "<a href=member-child-info.php?uid=$id><img src=img/profile-pic.png class=img-responsive /></a>" ;
+					echo '<div class="row">
+                        				<div class="col-sm-5">
+                        					<div class="ln-indict"></div>
+                        				</div>
+                        				<div class="col-sm-6">
+                        					<div class="img-thumbnail">
+		                        				'.$message.'
+		                        			</div>
+		                        			<div class="pro_info_outline">
+				                                <div class="pro_info_topic txt-lt">User Id</div>
+				                                <div class="pro_info_text">'.$id.'</div>
+												<div class="clearfix"></div>
+											</div>
+                        				</div>
+                        			</div>';
+				}
+			}
+			else
+			{
+				echo '<div class="row">
+                        				<div class="col-sm-5">
+                        					<div class="ln-indict"></div>
+                        				</div>
+                        				<div class="col-sm-6">
+                        					<div class="pro_info_outline">
+				                                <div class="pro_info_topic txt-lt">NO CHILD</div>
+				                            </div>
+                        				</div>
+                        			</div>';
+			}
+							echo '</div>
+				                </div>
+				             </div>
+				           </div>
+				         </div>';
+		}
+
+		/*
+		- method for getting order info from processing status
+		- Auth: Debojyoti
+		*/
+		function getOrderFromStatus($user_value)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('order_status'),array($user_value));
+			print_r($orderlist);
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(!in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+
+		/*
+		- method for getting member level info 
+		- Auth: Debojyoti
+		*/
+		function getMemberLevelInfoList()
+		{
+			//getting all members
+			$memberList = $this->manage_content->getValue('member_level_info', '*');
+			if(!empty($memberList[0]))
+			{
+				foreach($memberList as $member)
+				{
+					echo '<tr>
+							<td>'.$member['member_category'].'</td>
+							<td>'.$member['promotion_pv'].'</td>
+							<td>'.$member['RF'].'</td>
+							<td>'.$member['OF'].'</td>
+							<td>'.$member['PC'].'</td>
+							<td><a href="member-level-update.php?uid='.$member['id'].'"><button class="btn btn-info">Update Details</button></a></td>
+						</tr>';
+				}
+			}
+		}
+		
+		/*
+		- method for updating member level info 
+		- Auth: Debojyoti
+		*/
+		function getMemberLevelDetails($uid)
+		{
+			//getting all members
+			$memberupdList = $this->manage_content->getValue_where('member_level_info', '*', 'id', $uid);
+			if(!empty($memberupdList[0]))
+			{
+				return $memberupdList;
+			}
+		}
+		
+		/*
+		- method for fetching withdrawal info list
+		- Auth: Debojyoti
+		*/
+		function getMembersWithdrawListByStatus($status)
+		{
+			//getting all members withdraw list
+			$memberwithdrawList = $this->manage_content->getValue_where('withdraw_info', '*', 'status', $status);
+			$currency = $this->getSystemCurrency('product');
+			if(!empty($memberwithdrawList[0]))
+			{
+				foreach($memberwithdrawList as $withdraw)
+				{
+					$date=substr($withdraw['date'],0,10);	
+					echo '<tr>
+							<td>'.$withdraw['withdraw_id'].'</td>
+							<td>'.$withdraw['user_id'].'</td>
+							<td>'.$withdraw['withdraw_method'].'</td>
+							<td>'.$currency.$withdraw['amount'].'</td>
+							<td>'.$date.'</td>';
+							if($status == 0)
+							{
+								echo '<td><a href="v-includes/functions/function.withdraw-status-update.php?userid='.$withdraw['user_id'].'&amount='.$withdraw['amount'].'&withdraw_id='.$withdraw['withdraw_id'].'"><button class="btn btn-info">Confirm</button></a></td>';
+							} 
+					echo '</tr>';
+				}
+			}
+			else 
+			{
+				echo '<tr><td align="center" colspan="5">No Value</td></tr>';
+			}
+		}
 	}
 	
 ?>

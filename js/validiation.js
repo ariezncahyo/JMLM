@@ -239,6 +239,24 @@ function validateSignupForm(form_name)
 	document.getElementById(form_name).submit();
 }
 
+/*
+- method for validate bank account form for insert
+- Auth: Riju
+*/
+
+function validateBankAccountForm(form_name)
+{
+	validateRequiredField('bnk_ac_holder_name','err_ac_holder_name');
+	validateRequiredField('bnk_ac_number','err_ac_number');
+	validateRequiredField('bnk_bank_name','err_bank_name');
+	validateRequiredField('bnk_branch_name','err_branch_name');
+	validateRequiredField('bnk_ifsc_code','err_ifsc_code');
+	validateRequiredField('bnk_tax_number','err_tax_number');
+	
+	document.getElementById(form_name).submit();
+
+}
+
 
 //validiation of billing form
 function validateBillingForm()
@@ -342,6 +360,12 @@ $(document).ready(function(e) {
 	$('#userTicketBtn').click(function(e) {
         //calling validiation function
 		validiateUserTicketForm('userTicketForm');
+    });
+    
+    //event for validate bank account form  Auth:Riju
+    $('#user_bank_btn').click(function(e) {
+        //calling validiation function for bank details form
+		validateBankAccountForm('user_bank_frm');
     });
 });
 

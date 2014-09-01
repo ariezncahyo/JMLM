@@ -50,4 +50,6 @@
 	print_r($values);
 	echo '</pre>';
 	
+	echo md5('geheim');
+	
 ?>

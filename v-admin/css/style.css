@@ -404,10 +404,12 @@ table.dataTable thead .sorting:after {
 .filter_order_form{
 	margin:10px 0;
 }
-#filter-todate, #filter-fromdate , #filter-pro, #filter-user, #filter-payment{
+#filter-todate, #filter-fromdate , #filter-pro, #filter-user, #filter-payment, #filter-ord{
 	display:none;
 }
-
+.table-scroll{
+	overflow-x: scroll;
+}
 
 
 
@@ -423,4 +425,25 @@ table.dataTable thead .sorting:after {
 		-ms-overflow-style: -ms-autohiding-scrollbar;
 		border: 1px solid #ddd;
 	}
+}
+
+/*
+ * @author Thakur 
+*/
+
+.txt-lt{
+ text-align: left;
+}
+.ln-indict{
+ border-bottom: 3px solid #b8b8b8;
+ margin-top: 40%;
+}
+.pad-null{
+ padding: 0;
+}
+.brdr-lt{
+ border-left: 4px solid #000000;
+}
+.pad-lt-null{
+ padding-left: 0;
 }

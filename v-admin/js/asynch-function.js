@@ -184,6 +184,11 @@ $(document).ready(function(e) {
 	{
 		$('#filter-payment').css('display', 'block');
 	}
+	//auth.Debojyoti
+	if($('#order_filter').val() == 'ord_status')
+	{
+		$('#filter-ord').css('display', 'block');
+	}
 	
 	//showing order filter order option
 	$('#order_filter').change(function() {
@@ -195,6 +200,7 @@ $(document).ready(function(e) {
 			$('#filter-pro').css('display', 'none');
 			$('#filter-user').css('display', 'none');
 			$('#filter-payment').css('display', 'none');
+			$('#filter-ord').css('display', 'none');
 		}
 		else if(filter_value == 'product')
 		{
@@ -203,6 +209,7 @@ $(document).ready(function(e) {
 			$('#filter-pro').css('display', 'block');
 			$('#filter-user').css('display', 'none');
 			$('#filter-payment').css('display', 'none');
+			$('#filter-ord').css('display', 'none');
 		}
 		else if(filter_value == 'user')
 		{
@@ -211,6 +218,7 @@ $(document).ready(function(e) {
 			$('#filter-pro').css('display', 'none');
 			$('#filter-user').css('display', 'block');
 			$('#filter-payment').css('display', 'none');
+			$('#filter-ord').css('display', 'none');
 		}
 		else if(filter_value == 'payment_method')
 		{
@@ -219,6 +227,16 @@ $(document).ready(function(e) {
 			$('#filter-pro').css('display', 'none');
 			$('#filter-user').css('display', 'none');
 			$('#filter-payment').css('display', 'block');
+			$('#filter-ord').css('display', 'none');
+		}
+		else if(filter_value == 'ord_status')
+		{
+			$('#filter-fromdate').css('display', 'none');
+			$('#filter-todate').css('display', 'none');
+			$('#filter-pro').css('display', 'none');
+			$('#filter-user').css('display', 'none');
+			$('#filter-payment').css('display', 'none');
+			$('#filter-ord').css('display', 'block');
 		}
 		else
 		{
@@ -227,6 +245,7 @@ $(document).ready(function(e) {
 			$('#filter-pro').css('display', 'none');
 			$('#filter-user').css('display', 'none');
 			$('#filter-payment').css('display', 'none');
+			$('#filter-ord').css('display', 'none');
 		}
     });
 	
