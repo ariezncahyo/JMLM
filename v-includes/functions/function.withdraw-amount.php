@@ -3,7 +3,9 @@
 	//include DAL file
 	include '../library/library.DAL.php';
 	$manageData = new DAL_Library();
-	
+	//include class mail file
+	include '../library/class.mail.php';
+	$manageMail = new mailFunction();
 	//checking for values
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
@@ -37,6 +39,17 @@
 					$insert_money = $manageData->insertValue('user_money_info', array('user_id','specification','deduct_money','total_money'), array($_SESSION['user_id'],$withdraw_id,$amount,$new_net_amount));
 					 
 					$_SESSION['success'] = 'Your Request Has Been Sent. Your Order Id Is '.$withdraw_id;
+					//getting user email id
+					$userEmail = $manageData->getValue_where('user_info', "*", 'user_id', $_SESSION['user_id']);
+					$toEmail = $userEmail[0]['email_id'];
+					//getting username
+					$toUsername = $userEmail[0]['f_name']." ".$userEmail[0]['l_name'];
+					$userEmail1 = $manageData->getValue_where('withdraw_info', "*", 'user_id', $_SESSION['user_id']);
+					//getting withdraw method
+					$withdraw_method = $userEmail1[0]['withdraw_method'];
+					//getting datetime
+					$datetime = $userEmail1[0]['date'];
+					$manageMail->mailForWithdrawInvoices($toEmail, $toUsername, $withdraw_id,$withdraw_method,$datetime);
 				}
 				else
 				{

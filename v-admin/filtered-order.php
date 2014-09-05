@@ -166,6 +166,10 @@
 									{
 										$manageContent->getOrderFromPaymentMethod($_GET['value']);
 									}
+									else if($filter == 'ord_status')
+							        {
+							            $manageContent->getOrderFromStatus($_GET['value']);
+							        }
 								?>
                             </tbody>
                         </table>

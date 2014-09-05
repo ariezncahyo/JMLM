@@ -1048,7 +1048,7 @@
 							$product = $this->_DAL_Obj->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
-	                                <td>'.$trans_details[0]['order_id'].'</td>
+	                                <td><a href="order-details.php?oid='.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
 	                                <td>'.$product[0]['name'].'</td>
 	                                <td>'.$order_details[0]['quantity'].'</td>
 	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
@@ -1062,7 +1062,7 @@
 							$mem_order_details = $this->_DAL_Obj->getValueMultipleCondtn('membership_order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
-	                                <td>'.$trans_details[0]['order_id'].'</td>
+	                                <td><a href="membership-order-details.php?mid='.$mem_order_details[0]['membership_order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
 	                                <td>Membership</td>
 	                                <td>1</td>
 	                                <td>'.substr($mem_order_details[0]['date'],0,strpos($mem_order_details[0]['date'], ' ')).'</td>
@@ -1234,6 +1234,203 @@
 		{
 			$details=$this->_DAL_Obj->getValue_where('user_bank_info','*','user_id', $_SESSION['user_id']);
 			return $details;
+		}
+		
+		/*
+		- method for getting page details
+		- Auth: Debojyoti
+		*/
+		function getPageDetails($id)
+		{
+			$details=$this->_DAL_Obj->getValue_where('mypage','*','page_id', $id);
+			if(isset($details[0]) && !empty($details[0]))
+			return $details[0];
+		}
+
+		/*
+		- method for getting order history for user
+		- Auth: Riju
+		*/
+		function getOrderHistory()
+		{
+			$orders = $this->_DAL_Obj->getValueWhere_descending('order_info', '*', 'user_id', $_SESSION['user_id']);
+			if(!empty($orders[0]))
+			{
+				foreach($orders as $order)
+				{
+					
+					echo '<tr>
+							<td><a href="order-details.php?oid='.$order['order_id'].'">'.$order['order_id'].'</a></td>
+							<td>'.substr($order['date'], 0, strpos($order['date'], ' ')).'</td>
+							<td>'.$this->getPaymentMethod($order['payment_method']).'</td>
+							<td>'.$this->getSystemCurrency('product').$order['total_amount'].'</td>
+							<td>'.$order['order_status'].'</td>
+						</tr>';
+				}
+				
+			}
+		}
+
+		/*
+		- method for getting payment method
+		- Auth: riju
+		*/
+		function getPaymentMethod($value)
+		{
+			if($value == 'online')
+			{
+				$method = 'Online Payment';
+			}
+			else if($value == 'bank')
+			{
+				$method = 'Bank Transfer';
+			}
+			else if($value == 'cod')
+			{
+				$method = 'Cash On Delivery';
+			}
+			return $method;
+		}
+		
+		/*
+		- method for getting order basic details for user
+		- Auth: riju
+		*/
+		function getUserOrderBasicDetails($order_id)
+		{
+			$basic = $this->_DAL_Obj->getValueMultipleCondtn('order_info', '*', array('order_id'), array($order_id));
+			return $basic;
+			
+		}
+		
+		/*
+		- method for getting member name
+		- Auth: Riju
+		*/
+		function getUserFromUserId($user_id)
+		{
+			if($user_id != 'Guest')
+			{
+				$user_info = $this->_DAL_Obj->getValue_where('user_info','*','user_id',$user_id);
+				return $user_info[0]['f_name'].' '.$user_info[0]['l_name'];
+			}
+			else
+			{
+				return 'Guest';
+			}
+		}
+		
+		/*
+		- method for order billing and shipping details for user
+		- Auth: Riju
+		*/
+		function getUserBillingAndShippingDetails($order_id,$add_mode)
+		{
+			$bill_details = $this->_DAL_Obj->getValueMultipleCondtn('order_shipping_info', '*', array('order_id','address_mode'), array($order_id,$add_mode));
+			return $bill_details;
+			
+		}
+
+		/*
+		- method for ordered product details for user
+		- Auth: Riju
+		*/
+		function getUserProductDetails($order_id)
+		{
+			$pro_details = $this->_DAL_Obj->getValueMultipleCondtn('product_inventory_info','*',array('order_id'),array($order_id));
+			if(!empty($pro_details[0]))
+			{
+				$amount = 0;
+				foreach($pro_details as $product)
+				{
+					echo '<tr>
+							<td>'.$this->getProductNameFromId($product['product_id']).'</td>
+							<td>'.$product['quantity'].'</td>
+							<td>';
+					if(!empty($product['specification']))
+					{
+						$speci = explode(',',$product['specification']);
+						foreach($speci as $key=>$value)
+						{
+							echo $value.'<br>';
+						}
+					}
+							
+								
+					echo '	</td>
+						  	<td>'.$this->getSystemCurrency('product').$product['price'].'</td>	
+						</tr>';
+					$amount = $amount + $product['price'];
+				 }
+					$grand_total = intval($amount) + intval($this->getShippingCost());
+					echo '<tr>
+							<td colspan="3">Sub Total</td>
+							<td>'.$this->getSystemCurrency('product').$amount.'</td>
+						</tr>
+						<tr>
+							<td colspan="3">Shipping Charge</td>
+							<td>'.$this->getSystemCurrency('product').$this->getShippingCost().'</td>
+						</tr>
+						<tr>
+							<td colspan="3"><b>Grand Total</b></td>
+							<td>'.$this->getSystemCurrency('product').$grand_total.'</td>
+						</tr>';
+				
+					
+			}
+		}
+
+		/*
+		- method for getting product name
+		- Auth: Riju
+		*/
+		function getProductNameFromId($product_id)
+		{
+			//get values from database
+			$pro = $this->_DAL_Obj->getValue_where('product_info','*','product_id',$product_id);
+			return $pro[0]['name'];
+		}
+		
+		/*
+		- method for getting withdraw history for user
+		- Auth: Riju
+		*/
+		function getWithdrawHistory()
+		{
+			$withdraws = $this->_DAL_Obj->getValueWhere_descending('withdraw_info', '*', 'user_id', $_SESSION['user_id']);
+			if(!empty($withdraws[0]))
+			{
+				foreach($withdraws as $withdraw)
+				{
+					echo '<tr>
+							<td>'.$withdraw['withdraw_id'].'</td>
+							<td>'.$withdraw['withdraw_method'].'</td>
+							<td>'.$withdraw['date'].'</td>
+							<td>'.$this->getSystemCurrency('product').$withdraw['amount'].'</td>
+							<td>';
+							if($withdraw['status']==0)
+							{
+								echo 'Processing';
+							}
+							else 
+							{
+								echo 'Processed';
+							}
+					
+					echo '</td></tr>';			
+							
+				}
+			}
+		}
+		
+		/*
+		- method for getting membership order details
+		- Auth: Riju
+		*/
+		function getMembershipOrderDetails($order)
+		{
+			$mem_order = $this->_DAL_Obj->getValue_Where('membership_order_info', '*','membership_order_id',$order);
+			return $mem_order;
 		}
 		
 	 }

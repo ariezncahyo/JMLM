@@ -4,12 +4,15 @@
 	include 'library.DAL.php';
 	//include utility class
 	include 'class.utility.php';
+	//include mail class
+	include 'class.mail.php';
 	
 	//class for fetching data of ajax request
 	class fetchData
 	{
 		public $manageContent;
 		public $manageUtility;
+		public $manageMail;
 		
 		/*
 		- method for constructing DAL, Utility, Mail class
@@ -19,6 +22,7 @@
 		{
 			$this->manageContent = new DAL_Library();
 			$this->manageUtility = new utility();
+			$this->manageMail = new mailFunction();
 		}
 		
 		/*
@@ -165,6 +169,8 @@
 		*/
 		function insertFinalOrderInfo($userData)
 		{
+			//getting order details in a string to send in email
+			$order_details = "";	
 			//inserting values to product inventory system
 			//initialize total amount variable
 			$total_amount = 0;
@@ -187,6 +193,7 @@
 				$maxSpeciLength = substr(strrchr(end($allValue),'='),1);
 				//getting product details
 				$pro_details = $this->manageContent->getValue_where('product_info','*','product_id',$pid);
+				
 				if(!empty($pro_details[0]))
 				{
 					//getting usre price
@@ -207,13 +214,22 @@
 					$column_name = array('order_id','product_id','quantity','specification','price');
 					$column_value = array($_SESSION['order_id'],$pid,$quantity,$pro_speci,$amount);
 					$insert = $this->manageContent->insertValue('product_inventory_info',$column_name,$column_value);
+					
 				}
 				//calculating total amount
 				$total_amount = $total_amount + $amount;
 				/* decreasing product quantity from stock */
 				$decreament = $this->manageContent->decreamentValue('product_info','remaining_stock',intval($quantity),'product_id',$pid);
+				//initializing string data to send to class.mail.php
+				$product_specifications = str_replace(',', '<br>', $pro_speci);
+				$order_details = $order_details."<tr>
+									<td>".$pro_details[0]['name']."</td>
+									<td>".$product_specifications."</td>
+									<td>".$user_price."</td>
+									<td>".$quantity."</td>
+									<td>".$amount."</td>
+								  </tr>";	
 			}//end of for loop
-			
 			//updating order table
 			$grand_total = $_SESSION['total_amount'];
 			$date = date('Y-m-d h:m:s a');
@@ -222,6 +238,29 @@
 			$ip = $this->manageUtility->getIpAddress();
 			//update the values
 			$update = $this->manageContent->updateMultipleValueMulCondition('order_info',array('total_amount','total_quantity','date','ip','order_status','checkout_process'),array($grand_total,$total_quantity,$date,$ip,$order_status,1),array('order_id','user_id'),array($_SESSION['order_id'],$_SESSION['user_id']));
+			//getting shipping charge
+			$order_info = $this->manageContent->getValueMultipleCondtn('order_info', '*',array('order_id','user_id'),array($_SESSION['order_id'],$_SESSION['user_id']));
+			//getting username and user emailid
+			$user_info = $this->manageContent->getValue_where('user_info', '*', 'user_id', $_SESSION['user_id']);
+			$userEmailId = $user_info[0]['email_id'];
+			$userName = $user_info[0]['f_name']." ".$user_info[0]['l_name'];
+			//sending final data string to email
+			$order_details = $order_details."<tr>
+												<td style='colspan:4'>Subtotal</td>
+												<td>".$total_amount."</td>
+											 </tr>
+											 <tr>	 
+												<td style='colspan:4'>
+												Shipping & Handling Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun
+												</td>
+												<td>".$order_info[0]["shipping_charge"]."</td>
+											 </tr>
+											 <tr>
+											 	<td style='colspan:4'>Grand Total</td>	
+												<td>".$grand_total."</td>
+											 </tr>";
+			//calling method from class.mail.php								 
+			$this->manageMail->mailForproductPurchase($order_details,$userName,$userEmailId);
 		}
 		
 		/*

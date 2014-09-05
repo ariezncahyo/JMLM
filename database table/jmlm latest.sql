@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2014 at 08:38 AM
+-- Generation Time: Sep 05, 2014 at 10:58 AM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.16
 
@@ -190,6 +190,40 @@ INSERT INTO `member_level_info` (`id`, `member_category`, `member_level`, `image
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mypage`
+--
+
+CREATE TABLE IF NOT EXISTS `mypage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_id` varchar(255) NOT NULL,
+  `page_name` varchar(255) NOT NULL,
+  `page_content` varchar(20000) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `mypage`
+--
+
+INSERT INTO `mypage` (`id`, `page_id`, `page_name`, `page_content`, `image`, `date`, `time`, `status`) VALUES
+(1, 'p5404265064286', 'testing purpose 1', '<p><strong>test</strong></p>\r\n', NULL, '2014-09-01', '01:24:56', '1'),
+(2, 'p540428375366e', 'testing purpose 2', '<p>test2</p>\r\n', NULL, '2014-09-01', '01:33:03', '1'),
+(3, 'p540429fc44b4e', 'testing purpose 3', '<p>test 3</p>\r\n', NULL, '2014-09-01', '01:40:36', '1'),
+(4, 'p540429fc5cbb8', 'test2', '', NULL, '2014-09-01', '01:40:36', '1'),
+(5, 'p54043ec1d9c36', 'TESTING5', '<p>testing5</p>\r\n', NULL, '2014-09-01', '03:09:13', '1'),
+(6, 'p54044cf448d01', 'testing 6', '<p>testing 6</p>\r\n', NULL, '2014-09-01', '04:09:48', '1'),
+(7, 'p54044e763ed3c', 'testing7', '<p>test 7</p>\r\n', NULL, '2014-09-01', '04:16:14', '1'),
+(8, 'p540450aba1245', 'testing 8', '<p>test</p>\r\n', NULL, '2014-09-01', '04:25:39', '1'),
+(9, 'p5406a98814e60', 'Help', '<p><strong>Lorem ipsum dolor</strong>&nbsp;consectetur&nbsp;<strong>sed do eiusmo&nbsp;</strong>incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.</p>\r\n', NULL, '2014-09-03', '11:09:20', '1'),
+(10, 'p54086379eb61c', 'testing', '<p>sdf sdfrwer werfwec</p>\r\n', 'p54086379eb61c.jpg', '2014-09-04', '03:04:57', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `order_info`
 --
 
@@ -207,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `order_info` (
   `checkout_process` int(11) NOT NULL,
   `notes` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `order_info`
@@ -218,7 +252,9 @@ INSERT INTO `order_info` (`id`, `order_id`, `user_id`, `shipping_charge`, `payme
 (3, 'order53c4fafe0611c', 'user53bd43c5325d5', '10', 'bank', '3700', 6, '2014-07-15 03:07:36', '::1', 'Completed', 1, 'Its for checking purpose'),
 (4, 'order53ce233843408', 'Guest', '10', 'cod', '43', 1, '2014-07-22 10:07:53', '::1', 'Processing', 1, NULL),
 (5, 'order53cf647dd082c', 'Guest', '10', 'cod', '3010', 10, '2014-07-23 09:07:46', '::1', 'Processing', 1, NULL),
-(6, 'order53da538d44a73', 'user53da00743ca87', '10', 'online', '2938', 5, '2014-07-31 04:07:53', '::1', 'Completed', 1, 'Its for checking purpose...');
+(6, 'order53da538d44a73', 'user53da00743ca87', '10', 'online', '2938', 5, '2014-07-31 04:07:53', '::1', 'Completed', 1, 'Its for checking purpose...'),
+(7, 'order540418d9a54a4', 'user53bd43c5325d5', '10', 'bank', '674', 2, '2014-09-01 08:09:35', '::1', 'Processing', 1, NULL),
+(8, 'order54072382aad2d', 'user53bd43c5325d5', '10', 'online', '1806', 2, '2014-09-03 04:09:06', '::1', 'Processing', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -241,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `order_shipping_info` (
   `country` varchar(200) NOT NULL,
   `address_mode` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `order_shipping_info`
@@ -257,7 +293,11 @@ INSERT INTO `order_shipping_info` (`id`, `order_id`, `f_name`, `l_name`, `addr_1
 (9, 'order53cf647dd082c', 'Vasu', 'Naman', 'aaadfsaf', 'sdfsdfsa', 'abcd@abc.com', '65756756', '700115', 'Kolkata', 'West Bengal', 'India', 'Billing'),
 (10, 'order53cf647dd082c', 'Vasu', 'Naman', 'aaadfsaf', 'sdfsdfsa', 'abcd@abc.com', '324234', '700115', 'Kolkata', 'West Bengal', 'India', 'Shipping'),
 (11, 'order53da538d44a73', 'dipanjan', 'bcda', 'aaadfsaf', 'sdfsdfsa', 'abcd@gmail.com', '345', '700060', 'Kolkata', 'West Bengal', 'India', 'Billing'),
-(12, 'order53da538d44a73', 'dipanjan', 'bcda', 'aaadfsaf', 'sdfsdfsa', 'abcd@gmail.com', '345', '700060', 'Kolkata', 'West Bengal', 'India', 'Shipping');
+(12, 'order53da538d44a73', 'dipanjan', 'bcda', 'aaadfsaf', 'sdfsdfsa', 'abcd@gmail.com', '345', '700060', 'Kolkata', 'West Bengal', 'India', 'Shipping'),
+(13, 'order540418d9a54a4', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Billing'),
+(14, 'order540418d9a54a4', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Shipping'),
+(15, 'order54072382aad2d', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Billing'),
+(16, 'order54072382aad2d', 'Dipanjan', 'Bagchi', 'aaadfsaf', 'sdfsdfsa', 'vdipanjan@gmail.com', '1234565', '700115', 'Kolkata', 'WB', 'India', 'Shipping');
 
 -- --------------------------------------------------------
 
@@ -271,6 +311,7 @@ CREATE TABLE IF NOT EXISTS `product_category` (
   `parentId` varchar(50) DEFAULT NULL,
   `childId` varchar(50) DEFAULT NULL,
   `level` varchar(20) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `date` datetime NOT NULL,
   `active` varchar(20) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
@@ -281,42 +322,42 @@ CREATE TABLE IF NOT EXISTS `product_category` (
 -- Dumping data for table `product_category`
 --
 
-INSERT INTO `product_category` (`categoryId`, `name`, `parentId`, `childId`, `level`, `date`, `active`, `status`) VALUES
-(1, 'Crow', '', '9,10,11', '1', '2014-07-01 09:50:36', '1', '1'),
-(2, 'Sparrow', '', '12,13', '1', '2014-07-01 09:50:36', '1', '1'),
-(3, 'Eagle', '', '14,15', '1', '2014-07-01 09:50:36', '1', '1'),
-(4, 'Pigeon', '', '16,17,18', '1', '2014-07-01 09:50:36', '1', '1'),
-(5, 'Owl', '', '19,20,21', '1', '2014-07-01 09:50:36', '1', '1'),
-(6, 'Kite', '', '22,23', '1', '2014-07-01 09:50:36', '1', '1'),
-(7, 'Kinglet', '', '24', '1', '2014-07-01 09:50:36', '1', '1'),
-(8, 'Oriole', '', NULL, '1', '2014-07-01 09:50:36', '1', '1'),
-(9, 'Blue', '1', NULL, '2', '2014-07-01 09:50:36', '0', '1'),
-(10, 'White', '1', NULL, '2', '2014-07-01 09:53:13', '0', '1'),
-(11, 'Mexican', '1', '25', '2', '2014-07-01 09:53:41', '0', '1'),
-(12, 'Black-chinned', '2', NULL, '2', '2014-07-01 09:54:22', '0', '1'),
-(13, 'Blue-throated', '2', '31,34', '2', '2014-07-01 09:54:35', '0', '1'),
-(14, 'Jackdaw', '3', '28,35', '2', '2014-07-01 09:55:04', '0', '1'),
-(15, 'Eurasian', '3', '27,33', '2', '2014-07-01 09:55:16', '0', '1'),
-(16, 'Common', '4', NULL, '2', '2014-07-01 09:56:06', '0', '1'),
-(17, 'Hooded', '4', NULL, '2', '2014-07-01 09:56:20', '0', '1'),
-(18, 'Red-breasted', '4', NULL, '2', '2014-07-01 09:56:29', '0', '1'),
-(19, 'Black', '5', NULL, '2', '2014-07-01 09:57:14', '0', '1'),
-(20, 'Eastern', '5', NULL, '2', '2014-07-01 09:57:28', '0', '1'),
-(21, 'Sayâ€™s', '5', NULL, '2', '2014-07-01 09:57:37', '0', '1'),
-(22, 'California', '6', NULL, '2', '2014-07-01 09:57:56', '0', '1'),
-(23, 'Gambel', '6', NULL, '2', '2014-07-01 09:58:13', '0', '1'),
-(24, 'Montezuma', '7', '29', '2', '2014-07-01 09:58:23', '0', '1'),
-(25, 'Pectoral', '11', '26', '3', '2014-07-01 09:59:02', '0', '1'),
-(26, 'Rock', '25', '30,32', '4', '2014-07-01 09:59:24', '0', '1'),
-(27, 'Semipalmated', '15', NULL, '3', '2014-07-01 10:00:36', '0', '1'),
-(28, 'Solitary', '14', NULL, '3', '2014-07-01 10:00:56', '0', '1'),
-(29, 'Spotted', '24', NULL, '3', '2014-07-01 10:01:11', '0', '1'),
-(30, 'Red', '26', NULL, '5', '2014-07-02 12:39:53', '0', '1'),
-(31, 'Blue Hack', '13', NULL, '3', '2014-07-02 12:42:03', '0', '1'),
-(32, 'Reddish Feather', '26', NULL, '5', '2014-07-02 12:43:01', '0', '1'),
-(33, 'Blue Bird', '15', NULL, '3', '2014-07-02 12:47:20', '0', '1'),
-(34, 'Sharp Eagle', '13', NULL, '3', '2014-07-02 12:49:51', '0', '1'),
-(35, 'Big Sharp Eagle', '14', NULL, '3', '2014-07-02 12:52:48', '0', '1');
+INSERT INTO `product_category` (`categoryId`, `name`, `parentId`, `childId`, `level`, `image`, `date`, `active`, `status`) VALUES
+(1, 'Crow', '', '9,10,11', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(2, 'Sparrow', '', '12,13', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(3, 'Eagle', '', '14,15', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(4, 'Pigeon', '', '16,17,18', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(5, 'Owl', '', '19,20,21', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(6, 'Kite', '', '22,23', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(7, 'Kinglet', '', '24', '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(8, 'Oriole', '', NULL, '1', NULL, '2014-07-01 09:50:36', '1', '1'),
+(9, 'Blue', '1', NULL, '2', NULL, '2014-07-01 09:50:36', '0', '1'),
+(10, 'White', '1', NULL, '2', NULL, '2014-07-01 09:53:13', '0', '1'),
+(11, 'Mexican', '1', '25', '2', NULL, '2014-07-01 09:53:41', '0', '1'),
+(12, 'Black-chinned', '2', NULL, '2', NULL, '2014-07-01 09:54:22', '0', '1'),
+(13, 'Blue-throated', '2', '31,34', '2', NULL, '2014-07-01 09:54:35', '0', '1'),
+(14, 'Jackdaw', '3', '28,35', '2', NULL, '2014-07-01 09:55:04', '0', '1'),
+(15, 'Eurasian', '3', '27,33', '2', NULL, '2014-07-01 09:55:16', '0', '1'),
+(16, 'Common', '4', NULL, '2', NULL, '2014-07-01 09:56:06', '0', '1'),
+(17, 'Hooded', '4', NULL, '2', NULL, '2014-07-01 09:56:20', '0', '1'),
+(18, 'Red-breasted', '4', NULL, '2', NULL, '2014-07-01 09:56:29', '0', '1'),
+(19, 'Black', '5', NULL, '2', NULL, '2014-07-01 09:57:14', '0', '1'),
+(20, 'Eastern', '5', NULL, '2', NULL, '2014-07-01 09:57:28', '0', '1'),
+(21, 'Sayâ€™s', '5', NULL, '2', NULL, '2014-07-01 09:57:37', '0', '1'),
+(22, 'California', '6', NULL, '2', NULL, '2014-07-01 09:57:56', '0', '1'),
+(23, 'Gambel', '6', NULL, '2', NULL, '2014-07-01 09:58:13', '0', '1'),
+(24, 'Montezuma', '7', '29', '2', NULL, '2014-07-01 09:58:23', '0', '1'),
+(25, 'Pectoral', '11', '26', '3', NULL, '2014-07-01 09:59:02', '0', '1'),
+(26, 'Rock', '25', '30,32', '4', NULL, '2014-07-01 09:59:24', '0', '1'),
+(27, 'Semipalmated', '15', NULL, '3', NULL, '2014-07-01 10:00:36', '0', '1'),
+(28, 'Solitary', '14', NULL, '3', NULL, '2014-07-01 10:00:56', '0', '1'),
+(29, 'Spotted', '24', NULL, '3', NULL, '2014-07-01 10:01:11', '0', '1'),
+(30, 'Red', '26', NULL, '5', NULL, '2014-07-02 12:39:53', '0', '1'),
+(31, 'Blue Hack', '13', NULL, '3', NULL, '2014-07-02 12:42:03', '0', '1'),
+(32, 'Reddish Feather', '26', NULL, '5', NULL, '2014-07-02 12:43:01', '0', '1'),
+(33, 'Blue Bird', '15', NULL, '3', NULL, '2014-07-02 12:47:20', '0', '1'),
+(34, 'Sharp Eagle', '13', NULL, '3', NULL, '2014-07-02 12:49:51', '0', '1'),
+(35, 'Big Sharp Eagle', '14', NULL, '3', NULL, '2014-07-02 12:52:48', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -419,8 +460,8 @@ CREATE TABLE IF NOT EXISTS `product_info` (
 --
 
 INSERT INTO `product_info` (`id`, `product_id`, `category`, `name`, `short_description`, `description`, `old_price`, `guest_price`, `member_price`, `special_price`, `point_value`, `stock`, `remaining_stock`, `exp_date`, `maxpick`, `date`, `status`) VALUES
-(1, 'pro53b13cba9cc8f', 1, 'Crow Product 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<p>lorem Ipsum : Lorem ipsum<br />\r\nlorem ipsum : loremm ipsum lorem 2525 lorem.</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor: Lorem ips sit.<br />\r\nLorem ipsum dolor: Lorem ips.<br />\r\nLorem ipsum dolor: Lorem ipsum<br />\r\nLorem ipsum dolor: Lorem ipsum dolor</p>\r\n', '87', '100', '898', '66', '300', 222, 217, '2014-10-21 00:00:00', 4, '2014-06-30 12:32:26', '1'),
-(2, 'pro53b13f6c4adce', 11, 'Crow Product 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<div><span style="background-color:rgb(250, 250, 250); font-family:helvetica neue,helvetica,arial,sans-serif; font-size:17px">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>\r\n', '12', '33', '332', '66', '40', 200, 194, '2014-12-27 00:00:00', 8, '2014-06-30 12:43:56', '1'),
+(1, 'pro53b13cba9cc8f', 1, 'Crow Product 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<p>lorem Ipsum : Lorem ipsum<br />\r\nlorem ipsum : loremm ipsum lorem 2525 lorem.</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>\r\n\r\n<h4>Lorem ipsum dolor sit amet</h4>\r\n\r\n<p>Lorem ipsum dolor: Lorem ips sit.<br />\r\nLorem ipsum dolor: Lorem ips.<br />\r\nLorem ipsum dolor: Lorem ipsum<br />\r\nLorem ipsum dolor: Lorem ipsum dolor</p>\r\n', '87', '100', '898', '66', '300', 222, 215, '2014-10-21 00:00:00', 4, '2014-06-30 12:32:26', '1'),
+(2, 'pro53b13f6c4adce', 11, 'Crow Product 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<div><span style="background-color:rgb(250, 250, 250); font-family:helvetica neue,helvetica,arial,sans-serif; font-size:17px">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>\r\n', '12', '33', '332', '66', '40', 200, 192, '2014-12-27 00:00:00', 8, '2014-06-30 12:43:56', '1'),
 (3, 'pro53b2b35a7a564', 10, 'Crow Product 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<div><span style="background-color:rgb(250, 250, 250); font-family:helvetica neue,helvetica,arial,sans-serif; font-size:17px">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></div>\r\n', '87', '33', '787', '2323', '45', 5454, 5454, '2015-03-28 00:00:00', 5, '2014-07-01 03:10:50', '1'),
 (4, 'pro53b2b3c82c476', 9, 'Crow Product 4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<p><strong><span style="background-color:rgb(250, 250, 250); color:rgb(55, 55, 55); font-family:helvetica neue,helvetica,arial,sans-serif; font-size:17px">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></strong></p>\r\n', '120', '788', '332', '660', '74', 230, 227, '2015-05-26 00:00:00', 4, '2014-07-01 03:12:40', '1'),
 (5, 'pro53b2b40797daa', 11, 'Crow Product 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', '<p><em><span style="background-color:rgb(250, 250, 250); color:rgb(55, 55, 55); font-family:helvetica neue,helvetica,arial,sans-serif; font-size:17px">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></em></p>\r\n', '87', '33', '31', '66', '10', 222, 222, '2014-11-28 00:00:00', 7, '2014-07-01 03:13:43', '1'),
@@ -459,7 +500,7 @@ CREATE TABLE IF NOT EXISTS `product_inventory_info` (
   `specification` varchar(2000) DEFAULT NULL,
   `price` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `product_inventory_info`
@@ -476,7 +517,9 @@ INSERT INTO `product_inventory_info` (`id`, `order_id`, `product_id`, `quantity`
 (8, 'order53cf647dd082c', 'pro53b7b0f88e5c9', 5, '', '500'),
 (9, 'order53da538d44a73', 'pro53b7aca05a35a', 2, '', '800'),
 (10, 'order53da538d44a73', 'pro53b2b3c82c476', 1, '', '332'),
-(11, 'order53da538d44a73', 'pro53b13cba9cc8f', 2, 'color:red,size:14 inch', '1796');
+(11, 'order53da538d44a73', 'pro53b13cba9cc8f', 2, 'color:red,size:14 inch', '1796'),
+(12, 'order540418d9a54a4', 'pro53b13f6c4adce', 2, 'color:orange,size:55', '664'),
+(13, 'order54072382aad2d', 'pro53b13cba9cc8f', 2, 'color:red,size:14 inch', '1796');
 
 -- --------------------------------------------------------
 

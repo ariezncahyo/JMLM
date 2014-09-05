@@ -62,6 +62,91 @@
 		}
 		
 		/*
+		- method for sending withdraw invoice mail
+		- Auth: Debojyoti
+		*/
+		
+		function mailForWithdrawInvoices($toEmail, $toUsername, $withdraw_id,$withdraw_method,$datetime)
+		{
+			$subject = 'Withdraw Invoice';
+			$htmlBody = '<table>
+							<thead>
+								<tr>
+									<td>USERNAME</td>
+									<td>WITHDRAW ID</td>
+									<td>WITHDRAW METHOD</td>
+									<td>DATETIME</td>
+								</tr>
+							</thead>
+							<tbody>	
+								<tr>
+									<td>'.$toUsername.'</td>
+									<td>'.$withdraw_id.'</td>
+									<td>'.$withdraw_method.'</td>
+									<td>'.$datetime.'</td>
+								</tr>
+							</tbody>	
+						</table>';
+			$mailSent = $this->fireMail($toEmail,$toUsername,$subject,$htmlBody);
+		}
+		
+		/*
+		 - method for sending product purchase mail
+		 - Auth: Debojyoti
+		*/
+		 
+		 function mailForproductPurchase($order_details,$userName,$userEmailId)
+		 {
+		 	$datastring = '<table>
+		 			<thead>
+		 				<tr>
+		 					<td>Product Name</td>
+		 					<td>Specification</td>
+		 					<td>Price</td>
+		 					<td>Quantity</td>
+		 					<td>Sub Total</td>
+		 				</tr>
+		 			</thead>
+		 			<tbody>
+		 				'.$order_details.'
+		 			<tbody>
+		 		  </table>';
+			$mailSent = $this->fireMail($userEmailId, $userName, "Product Purchase Invoice" , $datastring);
+		 }
+		
+		/*
+		 - method for sending membership product purchase mail
+		 - Auth: Debojyoti
+		*/
+		 
+		 function mailForMembershipProductPurchase($userEmailId, $username, $mem_order_id, $membershipId, $paymentMethod, $amount, $date)
+		 {
+		 	$datastring = '<table>
+		 			<thead>
+		 				<tr>
+		 					<td>Username</td>
+		 					<td>Membership Order Id</td>
+		 					<td>Membership Id</td>
+		 					<td>Payment Method</td>
+		 					<td>Amount</td>
+		 					<td>Date</td>
+		 				</tr>
+		 			</thead>
+		 			<tbody>
+		 				<tr>
+		 					<td>'.$username.'</td>
+		 					<td>'.$mem_order_id.'</td>
+		 					<td>'.$membershipId.'</td>
+		 					<td>'.$paymentMethod.'</td>
+		 					<td>'.$amount.'</td>
+		 					<td>'.$date.'</td>
+		 				</tr>
+		 			<tbody>
+		 		  </table>';
+			$mailSent = $this->fireMail($userEmailId, $userName, "Membership Product Purchase Invoice" , $datastring);
+		 }
+		
+		/*
 		- method for sending mail
 		- Auth: Dipanjan
 		*/

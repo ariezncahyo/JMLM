@@ -247,6 +247,7 @@ html a:focus {
 .banner-spn{
 	border-top: 3px solid #b69c64;
 	padding: 1em 0em;
+	text-transform: uppercase;
 }
 
 .banner-h{

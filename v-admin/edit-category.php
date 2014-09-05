@@ -1,6 +1,15 @@
 <?php
-	$pageTitle = 'Add Category';
+	$pageTitle = 'Edit Category';
+	if(!isset($GLOBALS['_GET']['id']))
+	{
+		header("Location: admin.php");
+	}
+	$cat = $GLOBALS['_GET']['id'];
 	include 'v-templates/header.php';
+?>
+<?php 
+	//get values of category id
+	$catDetails = $manageContent->getCategoryDetailsFromId($cat);
 ?>
 	<?php
 		include 'v-templates/left_sidebar.php';
@@ -17,19 +26,36 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Add Category</h1>
+                    <h1 class="page-header">Edit Category</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row adm_row">
                 <div class="col-lg-12">
-                    <form role="form" action="v-includes/functions/function.add-category.php" method="post">
+                    <form role="form" action="v-includes/functions/function.edit-category.php" method="post">
                         <h4 class="page_form_caption">Fill Up Category Information</h4>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Category Name</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" name="name" />
+                                <input type="text" class="form-control" name="name" value="<?php echo $catDetails[0]['name'] ?>"/>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Nested Under</label>
+                            <div class="col-sm-7">
+                            	<?php
+                            		if(!empty($catDetails[0]['parentId']))
+									{
+										echo '<input type="text" class="form-control" readonly="readonly" value="'.$manageContent->getValueFromId('product_category', 'categoryId', $catDetails[0]['parentId'], 'name').'"/>';
+									}
+									else
+									{
+										echo '<input type="text" class="form-control" readonly="readonly" value="Root Category"/>';
+									}
+                            	?>
+                                
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -56,7 +82,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6 col-sm-offset-3">
-                                <input type="submit" class="btn btn-success btn-lg" value="Submit Data" />
+                            	<input type="hidden" name="id" value="<?php echo $cat; ?>" />
+                                <input type="submit" class="btn btn-success btn-lg" value="Update Data" />
                             </div>
                             <div class="clearfix"></div>
                         </div>

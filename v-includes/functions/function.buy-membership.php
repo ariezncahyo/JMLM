@@ -27,6 +27,14 @@
 		$column_value = array($mem_order_id,$membership_details[0]['membership_id'],$_SESSION['user_id'],$_POST['buy_mem'],$amount,$date,$ip,$order_status);
 		$insert = $manageData->insertValue('membership_order_info', $column_name, $column_value);
 		
+		//getting userinfo
+		$userinfo = $manageData->getValue_where('user_info', '*', 'user_id', $_SESSION['user_id']);
+		$username = $userinfo[0]['f_name'].' '.$userinfo[0]['l_name'];
+		$userEmailId = $userinfo[0]['email_id'];
+		$membershipId = $membership_details[0]['membership_id'];
+		$paymentMethod = $_POST['buy_mem'];
+		$mail->mailForMembershipProductPurchase($userEmailId, $username, $mem_order_id, $membershipId, $paymentMethod, $amount, $date);
+		
 		if($insert == 1)
 		{
 			$_SESSION['mem_order_id'] = $mem_order_id;
@@ -37,5 +45,6 @@
 			$_SESSION['warning'] = 'Processing Unsuccessfull!!';
 			header("Location: ../../buy-membership.php");
 		}
+		
 	}
 ?>

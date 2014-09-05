@@ -29,6 +29,12 @@
                 <a href="my-wallet.php" class="tble-para">
                     <img src="images/rings.png" /> My Wallet
                 </a>
+                <a href="my-order-history.php" class="tble-para">
+                    <img src="images/hand.png" /> My Order History
+                </a>
+                <a href="my-withdraw-history.php" class="tble-para">
+                    <img src="images/hand.png" /> My Withdraw History
+                </a>
                 <a href="my-pv.php" class="tble-para">
                     <img src="images/hand.png" /> Point Value Details
                 </a>

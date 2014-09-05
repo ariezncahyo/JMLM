@@ -446,6 +446,7 @@
 								<td><input type="checkbox" name="parent_cat[]" class="parent_cat" value="'.$parent['categoryId'].'" '.$active.' />'.$parent['name'].'</td>
 								<td>'.$child_no.'</td>
 								<td>'.$parent['date'].'</td>
+								<td><a href="edit-category.php?id='.$parent['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
 								<td>'.$btn.'</td>
 							</tr>';
 						
@@ -505,6 +506,7 @@
 					  echo '<td>'.$child_details[0]['name'].'</td>
 							<td>'.$nested_child_no.'</td>
 							<td>'.$child_details[0]['date'].'</td>
+							<td><a href="edit-category.php?id='.$child_details[0]['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
 							<td>'.$btn.'</td>
 						</tr>';
 					//getting child detail
@@ -1048,7 +1050,7 @@
 					</tr>
 					<tr>
 						<td colspan="3">Shipping Charge</td>
-						<td>'.$this->getSystemCurrency('product').($amount + intval($this->getShippingCost())).'</td>
+						<td>'.$this->getSystemCurrency('product').($this->getShippingCost()).'</td>
 					</tr>
 					<tr>
 						<td colspan="3"><b>Grand Total</b></td>
@@ -1968,7 +1970,7 @@
 			$order_id = array();
 			//getting all order list
 			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('order_status'),array($user_value));
-			print_r($orderlist);
+			
 			if(!empty($orderList[0]))
 			{
 				foreach($orderList as $order)
@@ -2052,6 +2054,139 @@
 			{
 				echo '<tr><td align="center" colspan="5">No Value</td></tr>';
 			}
+		}
+		
+		/*
+		- method for getting system money info
+		- Auth: Riju
+		*/
+		function getSystemMoneyInfo()
+		{
+			$credit_amount=0;
+			$debit_amount=0;
+			$balance = $this->manage_content->getLastValue('system_money_info','*','1','1','id');
+			$money = $this->manage_content->getValue('system_money_info','*');
+			if(!empty($money[0]))
+			{
+				foreach($money as $result)
+				{
+					$credit_amount = $credit_amount + $result['credit'];
+					$debit_amount = $debit_amount + $result['debit'];
+				}
+			}
+			return array($balance[0]['system_balance'],$credit_amount,$debit_amount);
+		}
+		
+		/*
+		- method for getting mypage list
+		- Auth: Dipanjan
+		*/
+		function getMypageList()
+		{
+			//get values from database
+			$pageList = $this->manage_content->getValue('mypage','*');
+			if(!empty($pageList[0]))
+			{
+				foreach($pageList as $page)
+				{
+					//getting status
+					if($page['status'] == 1)
+					{
+						$cur_status = '<button class="btn btn-success">Activated</button>';
+						$form_Action = '<input type="hidden" name="id" value="'.$page['page_id'].'" />
+										<input type="hidden" name="status" value="0" />
+										<input type="hidden" name="action" value="UPDATE" />
+										<input type="submit" name="sub" class="btn btn-danger" value="Deactivate" />';
+					}
+					else
+					{
+						$cur_status = '<button class="btn btn-danger">Deactivated</button>';
+						$form_Action = '<input type="hidden" name="id" value="'.$page['page_id'].'" />
+										<input type="hidden" name="status" value="1" />
+										<input type="hidden" name="action" value="UPDATE" />
+										<input type="submit" name="sub" class="btn btn-success" value="Activate" />';
+					}
+					//showing the result
+					echo '<tr>
+							<td>'.$page['page_id'].'</td>
+							<td>'.$page['page_name'].'</td>
+							<td><a href="addPage.php?id='.$page['page_id'].'&action=edit"><button class="btn btn-info">Edit Details</button></a></td>
+							<td>'.$cur_status.'</td>
+							<td>
+								<form action="v-includes/functions/function.addPage.php" method="post">
+									
+									'.$form_Action.'
+								</form>
+							</td>
+						</tr>';
+				}
+			}
+		}
+		
+		/*
+		- method for getting mypage details
+		- Auth: Dipanjan
+		*/
+		function getMyPageDetails($id)
+		{
+			//get values from database
+			$pageValue = $this->manage_content->getValue_where('mypage','*','page_id',$id);
+			if(!empty($pageValue[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-edit fa-fw"></i> Edit MyPage Details</div>
+                        <div class="panel-body">
+                        	<form action="v-includes/functions/function.addPage.php" role="form" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Page Title</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" name="name" value="'.$pageValue[0]['page_name'].'"/>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Page Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="des" id="editor1">'.$pageValue[0]['page_content'].'</textarea>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Update Image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" name="image" class="form-control">
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Status</label>
+                                    <div class="col-sm-4">
+                                        <select name="status" class="form-control">
+                                        	<option value="1"'; if($pageValue[0]['status'] == 1) { echo 'selected="selected"'; } echo '>Active</option>
+                                            <option value="0"'; if($pageValue[0]['status'] == 0) { echo 'selected="selected"'; } echo '>Deactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-7 col-sm-offset-3">
+                                    	<input type="hidden" name="id" value="'.$pageValue[0]['page_id'].'" />
+										<input type="hidden" name="action" value="UPDATE" />
+                                        <input type="submit" class="btn btn-success btn-lg" value="UPDATE" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        </div>';
+			}
+		}
+
+		/*
+		- method for getting category details from id
+		- Auth: Dipanjan
+		*/
+		function getCategoryDetailsFromId($cat)
+		{
+			return $this->manage_content->getValue_where('product_category', '*', 'categoryId', $cat);
 		}
 	}
 	

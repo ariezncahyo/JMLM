@@ -69,68 +69,20 @@
                             <li>
                                 <a href="member-level-list.php">Member Level Details</a>
                             </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Lorem Ipsum</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="system-money-info.php">System Money Information</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-folder-open fa-fw"></i> My Page Details<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">Second Level Item</a>
+                                <a href="addPage.php">Add New Page</a>
                             </li>
                             <li>
-                                <a href="#">Second Level Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Third Level <span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Item</a>
-                                    </li>
-                                </ul>
-                                <!-- /.nav-third-level -->
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-files-o fa-fw"></i> Lorem Ipsum<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
-                            </li>
-                            <li>
-                                <a href="#">Lorem Ipsum</a>
+                                <a href="pageList.php">My Page List</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

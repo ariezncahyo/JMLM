@@ -31,6 +31,7 @@
                                 	<th>Category Name</th>
                                     <th>Child Element</th>
                                     <th>Upload Date</th>
+                                    <th>Edit</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>

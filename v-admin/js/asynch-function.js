@@ -273,5 +273,10 @@ $(document).ready(function(e) {
 			var payment_method = $('.filter_order_form').find('[name="payment_method"]').val();
 			window.location.href = 'filtered-order.php?filter='+filter_value+'&value='+payment_method;
 		}
+		else if(filter_value == 'ord_status')
+		{
+		    var order_status = $('.filter_order_form').find('[name="ord_status"]').val();
+		    window.location.href = 'filtered-order.php?filter='+filter_value+'&value='+order_status;
+		}
     });
 });

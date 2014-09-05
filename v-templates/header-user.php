@@ -177,7 +177,7 @@
 											</ul>
 										</li>
 										
-										<li><a href="#" class="custom-brdr-li">HELP</a></li>
+										<li><a href="myPage.php?id=p5406a98814e60" class="custom-brdr-li">HELP</a></li>
 										<li><a href="contact-us.php" class="custom-brdr-li">CONTACT</a></li>
 									</ul><!-- navbar nav -->
 									
