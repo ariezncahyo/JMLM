@@ -11,13 +11,11 @@
 <?php
 	//include another template file
 	include 'v-templates/header-user.php';
-?>		
-		<?php /*		
+?>				
         <div class="row row-mrgn-nul hd-carousel">
             <div class="col-sm-12">
             </div>
         </div>
-		*/ ?>
         
 <!-- slider -->
     <div class="container">

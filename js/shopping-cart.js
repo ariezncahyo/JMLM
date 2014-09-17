@@ -437,7 +437,7 @@ function setCookieForProduct(user_id,Quantity,Product_id,speci_length,maxpick)
 					createCookie(user_id,((new_quantity)+':'+(new_pro_cookie)),1);
 					//alerting the success
 					//changing cart value
-					$('.cart-value').html(' CART '+new_quantity);
+					$('.cart-value').children('span').html(new_quantity);
 					var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
 					alertSuccess(msg);
 				}
@@ -449,7 +449,7 @@ function setCookieForProduct(user_id,Quantity,Product_id,speci_length,maxpick)
 				getProductSpecification(user_id,Quantity,Product_id,speci_length,1);
 				//alerting the success
 				//changing cart value
-				$('.cart-value').html(' CART '+Quantity);
+				$('.cart-value').children('span').html(Quantity);
 				var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
 				alertSuccess(msg);
 			}
@@ -462,7 +462,7 @@ function setCookieForProduct(user_id,Quantity,Product_id,speci_length,maxpick)
 			getProductSpecification(user_id,Quantity,Product_id,speci_length,1);
 			//alerting the success
 			//changing cart value
-			$('.cart-value').html(' CART '+Quantity);
+			$('.cart-value').children('span').html(Quantity);
 			var msg = '<b>Success: The Product Have Added Successfully In The Cart</b>';
 			alertSuccess(msg);
 		}
@@ -529,7 +529,7 @@ function checkingMaxpick(user_id,Product_id)
 			ex_value = parseInt(ex_value) + parseInt(exist_quan);
 		}
 	}
-	return ex_value
+	return ex_value;
 }
 
 

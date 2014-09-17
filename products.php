@@ -85,7 +85,7 @@
          	</div>      
         </div>                
     </div>
-          
+</div>
 						
 <?php
 	include 'v-templates/footer.php';

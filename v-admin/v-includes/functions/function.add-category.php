@@ -10,11 +10,20 @@
 	
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
-		//for uploading image of category
-		$filename_desired = uniqid('cat');
-		$input_name = $_FILES['picture'];
-		$path = '../../../images/category/';
-		$uplod = $upload->upload_file($filename_desired, $input_name, $path);
+		if(!empty($_FILES['picture']['name']))
+		{
+			//for uploading image of category
+			$filename_desired = uniqid('cat');
+			$input_name = $_FILES['picture'];
+			$path = '../../../images/category/';
+			$uplod = $upload->upload_file($filename_desired, $input_name, $path);
+			$img_db = 'image/category'.$uplod;
+		}
+		else
+		{
+			$img_db = '';
+		}
+			
 		
 		if($_POST['cat'][0] != -1)
 		{
@@ -44,7 +53,7 @@
 			$active = 0;
 			//inserting values to database
 			$column_name = array('name','parentId','level','image','date','active','status');
-			$column_value = array($_POST['name'],$parentId,$level,'image/category'.$uplod,$datetime,$active,$status);
+			$column_value = array($_POST['name'],$parentId,$level,$img_db,$datetime,$active,$status);
 			$insert = $manageData->insertValue('product_category',$column_name,$column_value);
 			
 			/* updating parent's childId field */

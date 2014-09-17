@@ -33,7 +33,7 @@
             <!-- /.row -->
             <div class="row adm_row">
                 <div class="col-lg-12">
-                    <form role="form" action="v-includes/functions/function.edit-category.php" method="post">
+                    <form role="form" action="#" method="post" enctype="multipart/form-data">
                         <h4 class="page_form_caption">Fill Up Category Information</h4>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Category Name</label>

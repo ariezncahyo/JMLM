@@ -56,15 +56,15 @@
                                 <h4 class="rgt-col-hd">
                                     Order Basic Info
                                 </h4>
-                                <p class="rgt-col-para brdr-none">
-                                 <b>Order Id:</b> <?php echo $basic[0]['order_id']; ?><br><br>
-                                 Order By: <?php echo $user; ?><br><br>
-                                 Payment Method: <?php echo $payment; ?><br><br>
-                                 Shipping Charge: <?php echo $currency.$basic[0]['shipping_charge']; ?><br><br>
-                                 Total Amount: <?php echo $currency.$basic[0]['total_amount']; ?><br><br>
-                                 Purchase On: <?php echo $basic[0]['date']; ?><br><br>
-                                 Order status: <?php echo $basic[0]['order_status']; ?>
-                                </p>
+                                <div class="rgt-col-para brdr-none">
+                                 <p><b>Order Id:</b><span> <?php echo $basic[0]['order_id']; ?></span></p>
+                                 <p><b>Order By: </b><span> <?php echo $user; ?></span></p>
+                                 <p><b>Payment Method: </b><span> <?php echo $payment; ?></span></p>
+                                 <p><b>Shipping Charge: </b><span> <?php echo $currency.$basic[0]['shipping_charge']; ?></span></p>
+                                 <p><b>Total Amount: </b><span> <?php echo $currency.$basic[0]['total_amount']; ?></span></p>
+                                 <p><b>Purchase On: </b><span> <?php echo $basic[0]['date']; ?></span></p>
+                                 <p><b>Order status: </b><span> <?php echo $basic[0]['order_status']; ?></span></p>
+                                </div>
                             </div>
                         </div>
                     </div><!-- right column divs ends -->
@@ -76,16 +76,16 @@
                                 <h4 class="rgt-col-hd">
                                     Order Billing Info
                                 </h4>
-                                <p class="rgt-col-para brdr-none">
-                                   Name: <?php echo $billing[0]['f_name'].' '. $billing[0]['l_name']; ?><br><br>
-                                   Email Id: <?php echo $billing[0]['email_id']; ?><br><br>
-                                   Address: <?php echo $billing[0]['addr_1'].' '.$billing[0]['addr_2']; ?><br><br>
-                                   Contact No: <?php echo $billing[0]['contact_no']; ?><br><br>
-                                   City: <?php echo $billing[0]['city']; ?><br><br>
-                                   State: <?php echo $billing[0]['state']; ?><br><br>
-                                   Country: <?php echo $billing[0]['country']; ?><br><br>
-                                   Postal Code: <?php echo $billing[0]['postal_code']; ?><br><br>
-                                </p>
+                                <div class="rgt-col-para brdr-none">
+                                   <p><b>Name: </b><span> <?php echo $billing[0]['f_name'].' '. $billing[0]['l_name']; ?></span></p>
+                                   <p><b>Email Id: </b><span> <?php echo $billing[0]['email_id']; ?></span></p>
+                                   <p><b>Address: </b><span> <?php echo $billing[0]['addr_1'].' '.$billing[0]['addr_2']; ?></span></p>
+                                   <p><b>Contact No: </b><span> <?php echo $billing[0]['contact_no']; ?></span></p>
+                                   <p><b>City: </b><span> <?php echo $billing[0]['city']; ?></span></p>
+                                   <p><b>State: </b><span> <?php echo $billing[0]['state']; ?></span></p>
+                                   <p><b>Country: </b><span> <?php echo $billing[0]['country']; ?></span></p>
+                                   <p><b>Postal Code: </b><span> <?php echo $billing[0]['postal_code']; ?></span></p>
+                                </div>
                             </div>
                         </div>
                     </div><!-- right column divs ends -->
@@ -97,16 +97,16 @@
                                 <h4 class="rgt-col-hd">
                                     Order Shipping Details
                                 </h4>
-                                <p class="rgt-col-para brdr-none">
-                                   Name: <?php echo $shipping[0]['f_name'].' '. $shipping[0]['l_name']; ?><br><br>
-                                   Email Id: <?php echo $shipping[0]['email_id']; ?><br><br>
-                                   Address: <?php echo $shipping[0]['addr_1'].' '.$shipping[0]['addr_2']; ?><br><br>
-                                   Contact No: <?php echo $shipping[0]['contact_no']; ?><br><br>
-                                   City: <?php echo $shipping[0]['city']; ?><br><br>
-                                   State: <?php echo $shipping[0]['state']; ?><br><br>
-                                   Country: <?php echo $shipping[0]['country']; ?><br><br>
-                                   Postal Code: <?php echo $shipping[0]['postal_code']; ?><br><br>
-                                </p>
+                                <div class="rgt-col-para brdr-none">
+                                   <p><b>Name: </b><span> <?php echo $shipping[0]['f_name'].' '. $shipping[0]['l_name']; ?></span></p>
+                                   <p><b>Email Id: </b><span> <?php echo $shipping[0]['email_id']; ?></span></p>
+                                   <p><b>Address: </b><span> <?php echo $shipping[0]['addr_1'].' '.$shipping[0]['addr_2']; ?></span></p>
+                                   <p><b>Contact No: </b><span> <?php echo $shipping[0]['contact_no']; ?></span></p>
+                                   <p><b>City: </b><span> <?php echo $shipping[0]['city']; ?></span></p>
+                                   <p><b>State: </b><span> <?php echo $shipping[0]['state']; ?></span></p>
+                                   <p><b>Country: </b><span> <?php echo $shipping[0]['country']; ?></span></p>
+                                   <p><b>Postal Code: </b><span> <?php echo $shipping[0]['postal_code']; ?></span></p>
+                                </div>
                             </div>
                         </div>
                     </div><!-- right column divs ends -->
@@ -118,10 +118,10 @@
                                 <h4 class="rgt-col-hd">
                                     Product Details
                                 </h4>
-                                <p class="rgt-col-para brdr-none">
+                                <div class="rgt-col-para brdr-none">
                                      <div class="panel-body">
 										<div class="table-responsive">
-											<table class="table table-bordered tabe-striped">
+											<table class="table table-hover table-custom">
 												<thead>
 													<tr>
 														<th>Product Name</th>
@@ -136,7 +136,7 @@
 											</table>
 											</div>
 										</div>
-								</p>
+								</div>
                             </div>
                         </div>
                     </div><!-- right column divs ends -->

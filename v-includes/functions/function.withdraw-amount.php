@@ -48,8 +48,10 @@
 					//getting withdraw method
 					$withdraw_method = $userEmail1[0]['withdraw_method'];
 					//getting datetime
-					$datetime = $userEmail1[0]['date'];
-					$manageMail->mailForWithdrawInvoices($toEmail, $toUsername, $withdraw_id,$withdraw_method,$datetime);
+					$date = substr($userEmail1[0]['date'], 0, 10);
+					//getting system currency
+					$currency = $manageData->getValue_where('system_currency','*','field', 'product');
+					$withdrawMail = $manageMail->mailForWithdrawInvoices($toEmail, $toUsername, $withdraw_id,$withdraw_method,$date,$amount,$currency[0]['currency']);
 				}
 				else
 				{

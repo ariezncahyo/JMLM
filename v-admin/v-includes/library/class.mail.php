@@ -1,20 +1,18 @@
 <?php
-class Mail{
-		
-		/*
-		*  The basic message which we will send to the user after signup
-		*/
- 		private $activationMessage = 'Thanks for joining MojoLife and please click on the link to activate your account ';
+	//session_start();
+	//include php mailer autoload class
+	require 'mail/PHPMailerAutoload.php';
+	
+	
+	class mailFunction
+	{
+		//defining public variable
+		public $mail;
 		
 		/*
          * top domail url for activation.php
          */ 		
-        private $link = 'http://www.mojlife.com/';
-         
-		/*
-		*  The mail id of the system
-		*/
-		private $sysMail = '';
+        private $link = 'http://www.vyrazu.com/running-projects/j-mlm/';
 		
 		
 		/*
@@ -26,274 +24,236 @@ class Mail{
 		*  Message which will be send to the user
 		*/
 		
-		private $subject = 'Thanks for Joining MojoLife';
+		private $subject = 'Thanks for Joining Abcd';
 		
-
 
 		/*
 		*  Public variable which is used to from where this person is getting the mail
 		*/
 		
 		public $from = 'admin@vyrazu.com';
-		
-		
-		
-		function getDataForRegistration($to,$membershipId){
-			$this->to = $to;
-			$whethermailsent = $this->activationLink($this->to,$membershipId);
-			return $whethermailsent;
-		}
-		
-		function activationLink($to,$membershipId){
-		    
-			$this->activationMessage .= $this->link.'activation.php?activated=true&mid='.$membershipId.'&mail='.$to;
-			
-			$headers = "From: sales@mojlife.com" . "\r\n";
-
-			$retval  = mail($to,$this->subject,$this->activationMessage,$headers);		
-			
-			//temp codes ends here
-			
-			if( $retval == 1 )  
-			   {
-			  return 'mailsent';
-			   }
-			 else
-			  {
-				  return "Message could not be sent";
-			   }
-
-		}
-		
-		function mailPassword($to,$password){
-		    
-			$msg = "Your Password For Mojolife Account is: ".$password;
-			
-			$subject = "!Important Mail From Mojolife";
-			
-			$headers = "From: sales@mojlife.com" . "\r\n";
-
-			$retval  = mail($to,$subject,$msg,$headers);		
-			
-			//temp codes ends here
-			
-			if( $retval == 1 )  
-			   {
-			  return 'mailsent';
-			   }
-			 else
-			  {
-				  return "Message could not be sent";
-			   }
-
-		}
-				
+		public $fromname = array('DiHuang Admin');
 		
 		/*
-		*Function to send a mail to the admin for customer query using contact page
+		- method for constructing PHP Mailer class
+		- Auth: Dipanjan
+		*/	
+		function __construct()
+		{
+			$this->mail = new PHPMailer;
+		}
+		
+		/*
+		- method for sending activation link to new user
+		- Auth: Dipanjan
 		*/
+		function activationLink($toEmail,$toUsername,$user_id)
+		{
+			$activationMessage = $this->link.'email-verification.php?activated=true&uid='.$user_id.'&mail='.$toEmail;
+			$subject = 'Email Verification Of Your Account';
+			$htmlBody = '<p>To verify your account please click on the following link.. </p>
+							<p>'.$activationMessage.'</p>
+							<p>Thanks And Regards</p>
+							<p>DiHuang</p>';
+			
+			//calling firemail
+			$mailSent = $this->fireMail($toEmail,$toUsername,$subject,$htmlBody);
+			return $mailSent;
+		}
 		
-				function querymail($name,$phone,$email,$title,$subject,$message){
-					$to = "sales@mojlife.com";
-					$sub = $subject;
-					$msg = $title."\n".$message."\n Phone number:".$phone;
-					$header = "From:".$email."\r\n";
-					
-					$retval = mail($to,$sub,$msg,$header);
-					
-					if( $retval == 1 )  
-				   {
-				  return 'mailsent';
-				   }
-				 else
-				  {
-					  return "Message could not be sent";
-				   }
-				}
-				
-			/*
-				Function to send invoice to the customer with the details
-			*/	
-			function invoiceOfOrder($to,$order_id,$price,$product_list,$quantity){
-				$message = '<p><img src="mojlife.com/img/logo.png"></p>
-						<h3 style="color:#0080FF">Potrdilo naročila</h3>
-						<p>Hvala za naročilo ponudbe: </p>
-						
-						<table style="width:100%; border:1px solid;">
-							<thead>
-								<tr style="background-color:#E9E9E9;">
-									<th style="border:1px solid;">Product List</th>
-									<th style="border:1px solid;">Quantity</th>
-									<th style="border:1px solid;">Total Amount</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="border:1px solid;">'.$product_list.'</td>
-									<td style="border:1px solid;">'.$quantity.'</td>
-									<td style="border:1px solid;"> € '.$price.'</td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<p>Izbrali ste način plačila "Plačilo prek plačilnega naloga". Plačilni nalog lahko plačate preko vašega načina e-poslovanja (Klik, Bank@net itd.) ali ga natisnete in plačate na najbližji pošti ali banki. Plačilo lahko opravite takoj in najkasneje naslednji delovni dan do 24. ure.</p>
-						<p>Plačila izvedena s plačilnim nalogom (UPN) na delovnik do 15. ure (do takrat obratuje plačilni promet bank), bodo aktivirana en delovni dan po prejetju plačila ali do dva delovna dni od plačila, če je plačilo opravljeno preko Pošte. Po prejemu plačila aktiviramo vaše naročilo, ki ga lahko vidite v vaš račun na spletni strani <a href="www.mojlife.com">www.mojlife.com</a>, ter na vaš e-mail vam pošljemo obvestilo o aktivaciji.</p>
-						<p>Plačilni nalog si lahko ogledate spodaj, ali pa če že imate aktiviran račun na <a href="www.mojlife.com">www.mojlife.com </a>(prijavite se s svojim emailom in geslom) v zavihku »login«.</p>
-						<p style="font-weight:bold;font-size:18px;">Plačilni nalog UPN</p>
-						<p>Izbrali ste plačilo po plačilnem nalogu UPN. Spodaj so podatki, kam je potrebno izvesti plačilo, ki ga morate pravilno izpolniti prek vaše spletne banke ali neposredno na banki ali pošti.</p>
-				
-				<table style="width:100%; border:1px solid; text-align:center;">
-					<caption style="border:1px solid; font-size:20px;">Prejemnik MojLife</caption>
-					<tbody>
-						<tr>
-							<td style="border:1px solid;">Naziv:</td>
-							<td style="border:1px solid;">DASE d.o.o.</td>
-						</tr>
-						<tr>
-							<td style="border:1px solid;">Naslov:</td>
-							<td style="border:1px solid;">Ulica Hermana Potočnika 41</td>
-						</tr>
-						<tr>
-							<td style="border:1px solid;">Kraj:</td>
-							<td style="border:1px solid;">1000 Ljubljana</td>
-						</tr>
-						<tr>
-							<td style="border:1px solid;">Država:</td>
-							<td style="border:1px solid;">Slovenija</td>
-						</tr>
-						<tr>
-							<td style="border:1px solid;">IBAN / TRR:</td>
-							<td style="border:1px solid;">SI56 10100 00483 99988</td>
-						</tr>
-						<tr>
-							<td style="border:1px solid;">Referenčna številka:</td>
-							<td style="border:1px solid;"><b>RF 99 '.substr($order_id,6).'</b></td>
-						</tr>
-						<tr>
-							<td style="border:1px solid;">Cena:</td>
-							<td style="border:1px solid;"> € '.$price.'</td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<p>Za pomoč smo vam na voljo na tel.: + 386 51 358 868 ali <a href="#">order@mojlife.si</a></p>
-				<p>Lep pozdrav,</p>
-				<p>MOJLIFE</p>';
-				
-				$sub = 'Invoice From mojlife.com';
-				$headers = "From: sales@mojlife.com"."\r\n";
-				
-				$headers .= "MIME-Version: 1.0\r\n";
-				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-				
-				$retval = mail($to,$sub,$message,$headers);
-				if($retval == 1 )  
-				{
-				 	return 'mailsent';
-				}
-				else
-				{
-					return "Message could not be sent";
-				}
-			}
+		/*
+		 * method for getting email template
+		 * Auth: Debojyoti
+		*/
+		 function getEmailTemplate($string)
+		 {
+		 	$html_body = '<div style="width: 98%;border: 1px solid #E4E4E4; margin: 0 auto;">
+										<div style="background-color: #B69C64;display: inline-block;width: 96%;padding: 3px 15px;">
+										  <img src="http://test.dip.com.sg/mlm/images/logo.png" style="width: 30px;vertical-align:middle" />&nbsp&nbsp<span style = "color:white;vertical-align:middle">Di Huang Account Details</span>
+										</div>
+										<div style="padding: 5%;">'.$string.'
+										   <p>Thanking you</p>
+										   <p>Di Huang Admin</p>
+					   					</div>
+									</div>';
+				return $html_body;
+		   }
 
 		/*
-			Function to send confirmation of order to the customer with the details
-		*/	
-		function confirmationOfOrderAccount($to,$order_id,$product_list,$quantity,$price){
-			$message = '<p><img src="mojlife.com/img/logo.png"></p>
-						<h3 style="color:#0080FF">Potrdilo naročila</h3>
-						<p>Vaše naročilo smo obravnavali uspešno. </p>
-						<p>Hvala za naročilo.</p>
-						<p>Vaše naročilo: </p>
-						
-						<table style="width:100%; border:1px solid;">
-							<thead>
-								<tr style="background-color:#E9E9E9;">
-									<th style="border:1px solid;">Product List</th>
-									<th style="border:1px solid;">Quantity</th>
-									<th style="border:1px solid;">Total Amount</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="border:1px solid;">'.$product_list.'</td>
-									<td style="border:1px solid;">'.$quantity.'</td>
-									<td style="border:1px solid;"> € '.$price.'</td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<p>Za pomoč smo vam na voljo na tel.: + 386 51 358 868 ali <a href="#">order@mojlife.si</a></p>
-						<p>Lep pozdrav,</p>
-						<p>MOJLIFE</p>';
-			
-			$sub = 'Confirmation of Order From mojlife.com';
-			$headers = "From: sales@mojlife.com"."\r\n";
-			
-			$headers .= "MIME-Version: 1.0\r\n";
-			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-			
-			$retval = mail($to,$sub,$message,$headers);
-			if($retval == 1 )  
+		 * method for sending overriding fee details to parent user
+		 * Auth: Debojyoti
+		*/
+		 function sendOFMail($username, $emailId, $over_fee, $user_total_money, $order_id, $currency_type)
+		 {
+		 	$subject = "Di Hyuang Account Message "; 
+			$string = '<p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
+					   <p>Transaction details of your Di Huang Account are given below:</p>
+					   <p><strong>Order Id: </strong> '.$order_id.'</p>
+					   <p><strong>Fee Type: </strong>Overriding Fee</p>
+					   <p><strong>Fee Amount: </strong>'.$currency_type.$over_fee.'</p>
+					   <p><strong>Total Amount: </strong>'.$currency_type.$user_total_money.'</p>';
+					   
+					   
+			$toSendData = $this->getEmailTemplate($string);
+			$mailSent = $this->fireMail($emailId, $username, $subject , $toSendData);
+			return $mailSent;
+		 }
+		 
+		 /*
+		 * method for sending personal commission details to user
+		 * Auth: Debojyoti
+		 */
+		 function sendPCMail($username, $emailId, $per_commision, $user_total_money,$order_id, $currency_type)
+		 {
+		 	$subject = "Di Hyuang Account Message "; 
+			$string = '<p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
+					   <p>Transaction details of your Di Huang Account are given below:</p>
+					   <p><strong>Order Id: </strong> '.$order_id.'</p>
+					   <p><strong>Fee Type: </strong>Personal Commission</p>
+					   <p><strong>Fee Amount: </strong>'.$currency_type.$per_commision.'</p>
+					   <p><strong>Total Amount: </strong>'.$currency_type.$user_total_money.'</p>';
+				   
+			$toSendData = $this->getEmailTemplate($string);
+			$mailSent = $this->fireMail($emailId, $username, $subject , $toSendData);
+			return $mailSent;
+		 }
+		 
+		 /*
+		 * method for sending point value details to user
+		 * Auth: Debojyoti
+		 */
+		 function sendPVMail($username, $emailId, $total_pv, $user_total_pv,$order_id)
+		 {
+		 	$subject = "Di Hyuang Account Message "; 
+			$string = '<p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
+					   <p>Transaction details of your Di Huang Account are given below:</p>
+					   <p><strong>Order Id: </strong> '.$order_id.'</p>
+					   <p><strong>Fee Type: </strong>Points</p>
+					   <p><strong>Fee Value: </strong>'.$total_pv.'</p>
+					   <p><strong>Total Value: </strong>'.$user_total_pv.'</p>';
+					   
+			$toSendData = $this->getEmailTemplate($string);
+			$mailSent = $this->fireMail($emailId, $username, $subject , $toSendData);
+			return $mailSent;
+		 }
+
+		/*
+		 * method for sending status mail for product purchase
+		 * Auth: Debojyoti
+		 */
+		 function orderStatusMail($username, $useremail, $order_id, $payment_method, $total_amount, $system_currency, $order_status)
+		 {
+		 	$statusDetails = $this->statusCheck($order_status);	
+			$subject = 'Di Hyuang Account Message';
+			$string = '<p><strong>'.$statusDetails.'</strong></p>
+					   <p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
+					   <p>Transaction details of your Di Huang Account are given below:</p>
+					   <p><strong>Order Id: </strong> '.$order_id.'</p>
+					   <p><strong>Amount: </strong>'.$system_currency.$total_amount.'</p>
+					   <p><strong>Date: </strong>'.date('Y-m-d').'</p>
+					   <p><strong>Payment Method: </strong>'.$payment_method.'</p>';
+					   
+			$toSendData = $this->getEmailTemplate($string);
+			$mailSent = $this->fireMail($emailId, $username, $subject , $toSendData);
+		 	return $mailSent;
+		 }
+		 
+		 /*
+		 * method for sending membership order details to user
+		 * Auth: Debojyoti
+		 */
+		 function membershipEmail($username, $useremail, $membership_order_id, $payment_method, $amount, $system_currency, $status)
+		 {
+			$statusDetails = $this->statusCheck($status);	
+			$subject = 'Di Hyuang Account Message';
+			$string = '<p><strong>'.$statusDetails.'</strong></p>
+					   <p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
+					   <p>Transaction details of your Di Huang Account are given below:</p>
+					   <p><strong>Membership Order Id: </strong> '.$membership_order_id.'</p>
+					   <p><strong>Amount: </strong>'.$system_currency.$amount.'</p>
+					   <p><strong>Date: </strong>'.date('Y-m-d').'</p>
+					   <p><strong>Payment Method: </strong>'.$payment_method.'</p>';
+					   
+			$toSendData = $this->getEmailTemplate($string);
+			$mailSent = $this->fireMail($emailId, $username, $subject , $toSendData);
+			return $mailSent;
+		 }
+		 
+		 /*
+		 * method for getting status message according to status 
+		 * Auth: Debojyoti
+		*/
+		function statusCheck($status)
+		{
+			if(isset($status) && !empty($status))
 			{
-				return 'mailsent';
-			}
-			else
-			{
-				return "Message could not be sent";
+				if($status == "Processing")
+				{
+					$string = "Your order status is on processing.";
+					return $string;
+				}
+				if($status == "Processed")
+				{
+					$string = "Your order has been processed.";
+					return $string;
+				}
+				if($status == "Completed")
+				{
+					$string = "Your order is Completed.";
+					return $string;
+				}
+				if($status == "Cancel")
+				{
+					$string = "Your order is cancelled.";
+					return $string;
+				}
 			}
 		}
 		
 		/*
-			Function to send confirmation of order to the customer with the details
-		*/	
-		function confirmationOfOrderPaypal($to,$order_id,$product_list,$quantity,$price){
-			$message = '<p><img src="mojlife.com/img/logo.png"></p>
-						<h3 style="color:#0080FF">Potrdilo naročila</h3>
-						<p>Vaše naročilo smo obravnavali uspešno. </p>
-						<p>Hvala za naročilo.</p>
-						<p>Vaše naročilo: </p>
-						
-						<table style="width:100%; border:1px solid;">
-							<thead>
-								<tr style="background-color:#E9E9E9;">
-									<th style="border:1px solid;">Product List</th>
-									<th style="border:1px solid;">Quantity</th>
-									<th style="border:1px solid;">Total Amount</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td style="border:1px solid;">'.$product_list.'</td>
-									<td style="border:1px solid;">'.$quantity.'</td>
-									<td style="border:1px solid;"> € '.$price.'</td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<p>Za pomoč smo vam na voljo na tel.: + 386 51 358 868 ali <a href="#">order@mojlife.si</a></p>
-						<p>Lep pozdrav,</p>
-						<p>MOJLIFE</p>';
+		- method for sending mail
+		- Auth: Dipanjan
+		*/
+		function fireMail($toEmail,$toUsername,$subject,$htmlBody)
+		{
+			$this->mail->From = $this->from;
+			$this->mail->FromName = $this->fromname[0];
+			$this->mail->addAddress($toEmail, $toUsername);     // Add a recipient
+			//$this->mail->WordWrap = 50;   // Set word wrap to 50 characters
+			$this->mail->isHTML(true);      // Set email format to HTML
+			$this->mail->Subject = $subject;
+			$this->mail->Body = $htmlBody;
+			//$this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 			
-			$sub = 'Confirmation of Order From mojlife.com';
-			$headers = "From: sales@mojlife.com"."\r\n";
-			
-			$headers .= "MIME-Version: 1.0\r\n";
-			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-			
-			$retval = mail($to,$sub,$message,$headers);
-			if($retval == 1 )  
-			{
-				return 'mailsent';
-			}
-			else
-			{
-				return "Message could not be sent";
+			if(!$this->mail->send()) {
+				return 0;
+				//echo 'Mailer Error: ' . $this->mail->ErrorInfo;
+			} else {
+				return 1;
 			}
 		}
-	
-}
-
-
-?>
+		
+		
+		
+		function sendingMail()
+		{
+			$this->mail->From = $this->from;
+			$this->mail->FromName = 'Mailer';
+			$this->mail->addAddress('vdipanjan@gmail.com', 'Dipanjan');     // Add a recipient
+			//$this->$mail->addAddress('dipanjan.electrical@gmail.com', 'Dipanjan');   // Name is optional
+			$this->mail->WordWrap = 50;   // Set word wrap to 50 characters
+			$this->mail->isHTML(true);                                  // Set email format to HTML
+			$this->mail->Subject = 'Testing With Class';
+			$this->mail->Body    = 'This is the HTML message body <b>in Progress</b>';
+			$this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+			
+			if(!$this->mail->send()) {
+				return 'Message could not be sent.';
+				//echo 'Mailer Error: ' . $this->mail->ErrorInfo;
+			} else {
+				return 'Message has been sent';
+			}
+		}
+		
+		 
+	}

@@ -45,7 +45,7 @@
             <div class="head-banner">
                 <div class="banner-link">
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-6">
                             <a href="mypage.php?id=<?php echo $pageid; ?>" class="banner-h"><span class="banner-spn"><?php echo $data['page_name'];?></span> ></a>
                         </div>
                     </div>
@@ -63,15 +63,21 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="contact-container">
-	            <div class="row">
-	                <div class="col-sm-8">
+	            <div class="row mypage_details">
+	                <div class="col-sm-12">
 	                    <h2 class="cmpny-hstry-hd"><?php echo $data['page_name'];?></h2>
-	                    <!-- <img src="images/company-history-banner.png" class="img-responsive img-future-banner" /> -->
+	                    <?php
+	                    	//getting mypage image
+	                    	if(!empty($data['image']))
+							{
+								echo '<img src="images/'.$data['image'].'" class="img-responsive img-future-banner" />';
+							}
+	                    ?>
 	                </div>
 	            </div>
 	            
-	            <div class="row">
-	                <div class="col-sm-9">
+	            <div class="row mypage_details">
+	                <div class="col-sm-12">
 	                	<?php
 	                		echo $data['page_content'];
 	                	?>

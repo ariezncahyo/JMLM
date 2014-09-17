@@ -6,6 +6,9 @@
 	//include dal file
 	include_once '../library/lib-DAL.php';
 	$manageData = new ManageContent_DAL();
+	//include email class file
+	include_once '../library/class.mail.php';
+	$sendEmail = new mailFunction();
 	
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
@@ -29,6 +32,19 @@
 				
 				//calling function for distribute money
 				$distribute = $money_mlm->getMembershipPurchaseDetails($_POST['oid']);
+			}
+			
+			//sending mail to user for order status
+			if($order_details_prev[0]['order_status'] != $order_details_updated[0]['order_status'])
+			{
+				//Auth: Debojyoti
+				//getting userinfo
+				$userinfo = $manageData->getValue_where('user_info', '*', 'user_id', $order_details_updated[0]['user_id']);
+				//getting system currency
+				$system_currency = $manageData->getValue_where('system_currency', '*', 'field', 'product');
+				//calling membershipEmail method on class.mail.php
+				$sendEmail->membershipEmail($userinfo[0]['username'], $userinfo[0]['email_id'], $order_details_updated[0]['membership_order_id'], $order_details_updated[0]['payment_method'], $order_details_updated[0]['amount'], $system_currency[0]['currency'], $_POST['order_status']);
+				//Auth: Debojyoti
 			}
 			
 		}

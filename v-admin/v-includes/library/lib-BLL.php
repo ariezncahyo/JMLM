@@ -2039,7 +2039,7 @@
 					$date=substr($withdraw['date'],0,10);	
 					echo '<tr>
 							<td>'.$withdraw['withdraw_id'].'</td>
-							<td>'.$withdraw['user_id'].'</td>
+							<td>'.$this->getUserFromUserId($withdraw['user_id']).'</td>
 							<td>'.$withdraw['withdraw_method'].'</td>
 							<td>'.$currency.$withdraw['amount'].'</td>
 							<td>'.$date.'</td>';
@@ -2052,7 +2052,7 @@
 			}
 			else 
 			{
-				echo '<tr><td align="center" colspan="5">No Value</td></tr>';
+				echo '<tr><td align="center"'; if($status == 0) { echo 'colspan="6"'; } else { echo 'colspan="5"'; } echo '>No Value</td></tr>';
 			}
 		}
 		

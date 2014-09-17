@@ -37,13 +37,22 @@
 					include 'v-templates/sidebar-user.php';
 				?>
 				<?php
-					if(isset($GLOBALS['_GET']['p']))
+					if(isset($GLOBALS['_GET']['p1']))
 					{
-						$page = $GLOBALS['_GET']['p'];
+						$page1 = $GLOBALS['_GET']['p1'];
 					}
 					else
 					{
-						$page = 0;
+						$page1 = 0;
+					}
+					
+					if(isset($GLOBALS['_GET']['p2']))
+					{
+						$page2 = $GLOBALS['_GET']['p2'];
+					}
+					else
+					{
+						$page2 = 0;
 					}
 					//set max index
 					$max_index = 10;
@@ -66,17 +75,46 @@
                             </thead>
                             <tbody>
                                 <?php 
-                                	$user_pv = $manageContent->getUserPointValueList($page);
-									$manageContent->getUserTotalPointValue(); 
+                                	$user_pv_child = $manageContent->getUserPointValueListByChild($page1);
+									$manageContent->getUserTotalPointValueByChild($_SESSION['user_id']); 
                                 ?>
                                 
                             </tbody>
                         </table>
                     </div>
                     
-                    <?php 
+                    <?php
                     	//calling pagination function
-                    	$manageContent->wallet_pagination($page, $user_pv[0], 'my-pv.php?', $max_index, $user_pv[1]);
+                    	$manageContent->Uipagination($page1, $user_pv_child[0], 'my-pv.php?', $max_index, $user_pv_child[1],'p1');
+                    ?>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Order Id</th>
+                                    <th>Product Name</th>
+                                    <th>Quantity</th>
+                                    <th>Date</th>
+                                    <th>Point Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                	$user_pv = $manageContent->getUserPointValueListByHimself($page2);
+									$manageContent->getUserTotalPointValueByHimself($_SESSION['user_id']); 
+									//get user total point value
+									$manageContent->getUserTotalPointValue();
+                                ?>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <?php
+                    	//calling pagination function
+                    	$manageContent->Uipagination($page1, $user_pv[0], 'my-pv.php?', $max_index, $user_pv[1],'p2');
                     ?>
                     
                 </div><!-- col-sm-9 ends -->

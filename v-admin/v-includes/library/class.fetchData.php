@@ -29,7 +29,7 @@
 			$this->manageContent = new ManageContent_DAL();
 			$this->manageUtility = new utility();
 			$this->manageFileUploader = new FileUpload();
-			$this->mailSent = new Mail();
+			$this->mailSent = new mailFunction();
 		}
 		
 		/*

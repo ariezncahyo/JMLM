@@ -10,8 +10,16 @@ switch ($_POST['action']) {
 	case 'INSERT':
 		//set unique page name
 		$page_id = uniqid('p');
-		//upload image to desired folder
-		$imageName = $upload->upload_file($page_id,$_FILES['image'],'../../../images/');
+		if(!empty($_FILES['image']['name']))
+		{
+			//upload image to desired folder
+			$imageName = $upload->upload_file($page_id,$_FILES['image'],'../../../images/');
+		}
+		else
+		{
+			$imageName = '';
+		}
+			
 		$curdate = date('Y-m-d');
 		$curtime = date('h:i:s');
 		//$extension = end(explode('.',$_FILES['image']['name']));

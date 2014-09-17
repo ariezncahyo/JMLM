@@ -222,14 +222,15 @@
 				$decreament = $this->manageContent->decreamentValue('product_info','remaining_stock',intval($quantity),'product_id',$pid);
 				//initializing string data to send to class.mail.php
 				$product_specifications = str_replace(',', '<br>', $pro_speci);
-				$order_details = $order_details."<tr>
-									<td>".$pro_details[0]['name']."</td>
-									<td>".$product_specifications."</td>
-									<td>".$user_price."</td>
-									<td>".$quantity."</td>
-									<td>".$amount."</td>
-								  </tr>";	
+				$order_details = $order_details.'<tr style="text-align: center;">
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$pro_details[0]["name"].'</td>
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$product_specifications.'</td>
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$user_price.'</td>
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$quantity.'</td>
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$amount.'</td>
+						</tr>';	
 			}//end of for loop
+			
 			//updating order table
 			$grand_total = $_SESSION['total_amount'];
 			$date = date('Y-m-d h:m:s a');
@@ -246,18 +247,18 @@
 			$userName = $user_info[0]['f_name']." ".$user_info[0]['l_name'];
 			//sending final data string to email
 			$order_details = $order_details."<tr>
-												<td style='colspan:4'>Subtotal</td>
-												<td>".$total_amount."</td>
+												<td style='colspan:4;text-align: center;'>Subtotal</td>
+												<td style='border: 1px solid #E4E4E4;padding: 5px;'>".$total_amount."</td>
 											 </tr>
 											 <tr>	 
-												<td style='colspan:4'>
+												<td style='colspan:4;text-align: center;'>
 												Shipping & Handling Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun
 												</td>
-												<td>".$order_info[0]["shipping_charge"]."</td>
+												<td style='border: 1px solid #E4E4E4;padding: 5px;'>".$order_info[0]["shipping_charge"]."</td>
 											 </tr>
 											 <tr>
-											 	<td style='colspan:4'>Grand Total</td>	
-												<td>".$grand_total."</td>
+											 	<td style='colspan:4;text-align: center;'>Grand Total</td>	
+												<td  style='border: 1px solid #E4E4E4;padding: 5px;'>".$grand_total."</td>
 											 </tr>";
 			//calling method from class.mail.php								 
 			$this->manageMail->mailForproductPurchase($order_details,$userName,$userEmailId);

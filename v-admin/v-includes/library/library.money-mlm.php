@@ -7,13 +7,17 @@
 	 
 	 //include the BLL layer
 	 include_once 'lib-BLL.php';
+	 //include the class mail
+	 include_once 'class.mail.php';
 	 
 	 class Money_MLM extends BLL_manageData
 	 {
 	 	private $_BLL_obj;
+		public $_mail_obj;
 		
 		function __construct()
 		{
+			$this->_mail_obj = new mailFunction();
 			if(($this->_BLL_obj instanceof BLL_manageData) != TRUE)
 			{
 				$this->_BLL_obj = new BLL_manageData();
@@ -44,7 +48,7 @@
 					//get transaction id for overriding fee
 					$over_id = uniqid('trans');
 					//calling overriding fee function
-					$distributed_overriding = $this->distributeOverridingFee($user_id, $order['price'], $dis_over, $user_level, $over_id);
+					$distributed_overriding = $this->distributeOverridingFee($user_id, $order['price'], $dis_over, $user_level, $over_id,$order_id);
 					if($distributed_overriding != 0)
 					{
 						//insert values to fee transaction info table
@@ -59,7 +63,7 @@
 					//get transaction id for personal comm calculation
 					$per_id = uniqid('trans');
 					//calling personal commision function
-					$per_comm = $this->calculatePersonalCommision($user_id, $order['price'], $per_id);
+					$per_comm = $this->calculatePersonalCommision($user_id, $order['price'], $per_id,$order_id);
 					//checking for non empty personal commision
 					if($per_comm != 0)
 					{
@@ -80,8 +84,10 @@
 					$total_pv = $product_details[0]['point_value'] * $order['quantity'];
 					//insert values to fee transaction info table
 					$insert_point = $this->_BLL_obj->manage_content->insertValue('fee_transaction_info', array('transaction_id','order_id','product_id','fee_type'), array($pv_id,$order_id,$order['product_id'],'PV'));
+					//insert pv to system
+					$system_pv = $this->insertSystemPV($pv_id, $total_pv);
 					//calling point value distributive function
-					$this->distributePointValue($user_id, $total_pv, $pv_id);
+					$this->distributePointValue($user_id, $total_pv, $pv_id, $order_id);
 					
 					/* code for member level upgradation of user and their parent */
 					//calling fucntion for it
@@ -129,7 +135,7 @@
 		- method for distribute overriding fees
 		- Auth: Dipanjan
 		*/
-		function distributeOverridingFee($user_id,$product_value,$total_distributed_fee,$user_level,$transaction_id)
+		function distributeOverridingFee($user_id,$product_value,$total_distributed_fee,$user_level,$transaction_id,$order_id)
 		{
 			//getting parent of this user id
 			$user_mlm = $this->_BLL_obj->manage_content->getValue_where('user_mlm_info','*', 'user_id', $user_id);
@@ -158,6 +164,14 @@
 					$column_name_money = array('user_id','specification','earn_money','total_money');
 					$column_value_money = array($parent_mlm[0]['user_id'],$transaction_id,$over_fee,$user_total_money);
 					$insert_money = $this->_BLL_obj->manage_content->insertValue('user_money_info', $column_name_money, $column_value_money);
+					//auth: Debojyoti
+					$user_info = $this->_BLL_obj->manage_content->getValue_where('user_info', '*', 'user_id', $parent_mlm[0]['user_id']);
+					
+					//getting currency type
+					$currency_type = $this->_BLL_obj->getSystemCurrency('product');
+					//calling sendOFMail method from mail class
+					$sendOFmail = $this->_mail_obj->sendOFMail($user_info[0]['username'], $user_info[0]['email_id'], $over_fee, $user_total_money, $order_id, $currency_type);
+					//auth: Debojyoti
 					//insert values to user profile info
 					$this->_BLL_obj->increaseGrossAmount($parent_mlm[0]['user_id'], $over_fee);
 					
@@ -168,7 +182,7 @@
 					if(intval($user_level) < 5)
 					{
 						//calling ditributing function for overriding
-						$total_distributed_fee = $this->distributeOverridingFee($parent_mlm[0]['user_id'], $product_value, $total_distributed_fee, $user_level, $transaction_id);
+						$total_distributed_fee = $this->distributeOverridingFee($parent_mlm[0]['user_id'], $product_value, $total_distributed_fee, $user_level, $transaction_id,$order_id);
 					}
 				}
 			}
@@ -190,7 +204,7 @@
 		- method for calculate personal commision
 		- Auth: Dipanjan
 		*/
-		function calculatePersonalCommision($user_id,$product_value,$transaction_id)
+		function calculatePersonalCommision($user_id,$product_value,$transaction_id,$order_id)
 		{
 			//getting user details
 			$user_details = $this->_BLL_obj->manage_content->getValue_where('user_info','*', 'user_id', $user_id);
@@ -210,7 +224,12 @@
 				{
 					$user_total_money = $per_commision;
 				}
-				
+				//auth: Debojyoti
+				//getting currency type
+				$currency_type = $this->_BLL_obj->getSystemCurrency('product');
+				//calling sendPCMail method from mail class
+				$PCmail = $this->_mail_obj->sendPCMail($user_details[0]['username'], $user_details[0]['email_id'], $per_commision, $user_total_money,$order_id, $currency_type);
+				//auth: Debojyoti
 				//insert values to user money info table
 				$column_name_money = array('user_id','specification','earn_money','total_money');
 				$column_value_money = array($user_id,$transaction_id,$per_commision,$user_total_money);
@@ -231,7 +250,7 @@
 		- method for distribute point value to member
 		- Auth: Dipanjan
 		*/
-		function distributePointValue($user_id,$total_pv,$transaction_id)
+		function distributePointValue($user_id,$total_pv,$transaction_id,$order_id)
 		{
 			//getting user details
 			$user_details = $this->_BLL_obj->manage_content->getValue_where('user_info','*', 'user_id', $user_id);
@@ -250,7 +269,12 @@
 			$column_name_point = array('user_id','specification','earn_pv','total_pv');
 			$column_value_point = array($user_id,$transaction_id,$total_pv,$user_total_pv);
 			$insert_point = $this->_BLL_obj->manage_content->insertValue('user_point_info', $column_name_point, $column_value_point);
-			
+			//auth: Debojyoti
+			//getting currency type
+			$currency_type = $this->_BLL_obj->getSystemCurrency('product');
+			//calling sendPVMail method from mail class
+			$PVmail = $this->_mail_obj->sendPVMail($user_details[0]['username'], $user_details[0]['email_id'], $total_pv, $user_total_pv,$order_id);
+			//auth: Debojyoti
 			//getting parent of this user id
 			$user_mlm = $this->_BLL_obj->manage_content->getValue_where('user_mlm_info','*', 'user_id', $user_id);
 			if(!empty($user_mlm[0]['parent_id']))
@@ -258,7 +282,7 @@
 				//get parent user_id
 				$parent_mlm = $this->_BLL_obj->manage_content->getValue_where('user_mlm_info','*', 'id', $user_mlm[0]['parent_id']);
 				//call distribute point value function
-				$this->distributePointValue($parent_mlm[0]['user_id'], $total_pv, $transaction_id);
+				$this->distributePointValue($parent_mlm[0]['user_id'], $total_pv, $transaction_id,$order_id);
 			}
 			
 		}
@@ -356,5 +380,30 @@
 				return 0;	
 			}
 		}
+
+		/*
+		- method for insert point value to system pv info
+		- Auth: Dipanjan
+		*/
+		function insertSystemPV($transaction_id,$total_pv)
+		{
+			//get last pv value
+			$system_pv = $this->_BLL_obj->manage_content->getLastValue('system_pv_info', '*', 1, 1, 'id');
+			//new system pv
+			if(!empty($system_pv[0]))
+			{
+				$new_pv = $system_pv[0]['system_pv_balance'] + $total_pv;
+			}
+			else
+			{
+				$new_pv = $total_pv;
+			}
+			//insert the value
+			$column_name = array('specification','credit','system_pv_balance','date');
+			$column_value = array($transaction_id,$total_pv,$new_pv,date('Y-m-d h:m:s a'));
+			$insert = $this->_BLL_obj->manage_content->insertValue('system_pv_info', $column_name, $column_value);
+		}
+		
+		
 	 }
 ?>
