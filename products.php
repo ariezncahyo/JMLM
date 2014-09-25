@@ -58,14 +58,11 @@
         	<?php include 'v-templates/category-sidebar.php'; ?>
         </div>
         <div class="col-sm-9">
-            <div class="banner">    
-                <div class="row">
-                    <div class="col-sm-offset-1 col-sm-2 pad-social">
-                        <div class="products-btn">
-                            <a href="products.php">PRODUCTS</a>
-                        </div>
-                    </div>
-                </div>
+            <div id="products-banner">  
+            	<img src="images/banners/products-banner.jpg" title="Products" />   
+				<div class="products-banner-title">
+					<a href="products.php">PRODUCTS</a>
+				</div>
             </div>
             <!-- banner ends -->
             

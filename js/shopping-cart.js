@@ -21,7 +21,7 @@ $(document).ready(function(e) {
 		//validiation for integer field
 		validiateIntegerField('pro_quan','err_pro_quan');
 		var Quantity = parseInt($('#pro_quan').val());
-		if(Quantity != 0)
+		if(Quantity > 0)
 		{
 			if(getCookie('DiHuangUser') == "")
 			{
@@ -139,7 +139,7 @@ $(document).ready(function(e) {
 		//getting new quantity
 		var new_quantity = $(this).val();
 		//checking input value not equal to zero
-		if(parseInt(new_quantity) != 0)
+		if(parseInt(new_quantity) > 0)
 		{
 			if(parseInt(maxpick) >= parseInt(new_quantity))
 			{
@@ -355,6 +355,20 @@ $(document).ready(function(e) {
 		}
 		else
 		{
+			//for checkout button active
+			var value = $('input[name="payment_info"]:checked').val();
+			
+			if(value == 'online')
+			{
+				$('#paypal_btn').css('display','block');
+				$('#cod_btn').css('display','none');
+			}
+			else if(value == 'bank' || value == 'cod')
+			{
+				$('#cod_btn').css('display','block');
+				$('#paypal_btn').css('display','none');
+			}
+			
 			var form_data = $('#payment_info').serialize();
 			sendingData = form_data+'&refData=payment_info';
 			//console.log(sendingData);

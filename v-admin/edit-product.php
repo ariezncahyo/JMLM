@@ -149,6 +149,7 @@
                             <div class="clearfix"></div>
                         </div>
                     </form>
+                    <a class="previous_page_link" href="product-info.php?pid=<?php echo $product_details[0]['product_id'] ?>">Back to Previous Page</a>
                 </div>
                 <!-- /.col-lg-8 -->
             </div>

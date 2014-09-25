@@ -43,21 +43,12 @@
     </div>
     <div class="row row-cart pro_des_row">
         <div class="col-sm-3">
-            <!--<div class="img-prod-cart">
-            	<li>
-                	<img class="img-responsive" src="images/basket-egg.jpg" />
-                </li>
-                <li>
-                	<img class="img-responsive" src="images/basket-egg.jpg" />
-                </li>
-                <div class="clearfix"></div>
-            </div>-->
             <?php
 				//getting product pic details
 				$manageContent->getProductImageInDetailsPage($product_id);
 			?>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-5">
             <h3 class="cart-prod-name"><?php echo $pro_details[0]['name'] ?></h3>
             <p class="stock-avail">In Stock <span class="status-stk">(<?php echo $pro_details[0]['remaining_stock'] ?> items available)</span></p>
             <p class="price-cart">
@@ -66,7 +57,7 @@
 			?>
             </p>
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-10">
                     <div class="det-cont-form">
                         <form method="post" role="form" name="shopping-cart">
                         	<div class="specification_details">
@@ -77,7 +68,11 @@
                             </div>
                             <div class="form-group">
                                 <label class="lbl-cart">Quantity</label>
-                                <input type="text" class="form-control form-cart quant-cart" name="quantity" id="pro_quan"/>
+                                <div>
+	                                <input type="Button" id='MinusButton' value="-" />
+									<input type="text" class="form-cart quant-cart" name="quantity" id="pro_quan" value="1" />
+									<input type="Button" id='AddButton' value="+" />
+								</div>
                                 <div class="form-error" id="err_pro_quan"></div>
                             </div>
                             <div class="form-group">
@@ -111,9 +106,9 @@
               <div class="tab-pane fade" id="des2">
                 <div class="tab-content">
                     <div class="row">
-                        <div class="col-sm-12 mrgn-tp-cart">
+                        <div class="col-sm-8 mrgn-tp-cart">
                             <?php
-								echo $pro_details[0]['description'];
+								$manageContent->getProductReview($product_id);
 							?>
                         </div>
                     </div>

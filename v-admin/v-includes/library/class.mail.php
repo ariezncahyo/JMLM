@@ -12,7 +12,7 @@
 		/*
          * top domail url for activation.php
          */ 		
-        private $link = 'http://www.vyrazu.com/running-projects/j-mlm/';
+        private $link = 'http://test.dip.com.sg/mlm/';
 		
 		
 		/*
@@ -69,7 +69,7 @@
 		 {
 		 	$html_body = '<div style="width: 98%;border: 1px solid #E4E4E4; margin: 0 auto;">
 										<div style="background-color: #B69C64;display: inline-block;width: 96%;padding: 3px 15px;">
-										  <img src="http://test.dip.com.sg/mlm/images/logo.png" style="width: 30px;vertical-align:middle" />&nbsp&nbsp<span style = "color:white;vertical-align:middle">Di Huang Account Details</span>
+										  <img src="http://test.dip.com.sg/mlm/images/logo.png" style="width: 30px;vertical-align:middle;font-weight:bold;" /> <span style = "color:white;vertical-align:middle">Di Huang Account Details</span>
 										</div>
 										<div style="padding: 5%;">'.$string.'
 										   <p>Thanking you</p>
@@ -85,7 +85,7 @@
 		*/
 		 function sendOFMail($username, $emailId, $over_fee, $user_total_money, $order_id, $currency_type)
 		 {
-		 	$subject = "Di Hyuang Account Message "; 
+		 	$subject = "Di Huang Account Message "; 
 			$string = '<p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
 					   <p>Transaction details of your Di Huang Account are given below:</p>
 					   <p><strong>Order Id: </strong> '.$order_id.'</p>
@@ -105,7 +105,7 @@
 		 */
 		 function sendPCMail($username, $emailId, $per_commision, $user_total_money,$order_id, $currency_type)
 		 {
-		 	$subject = "Di Hyuang Account Message "; 
+		 	$subject = "Di Huang Account Message "; 
 			$string = '<p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
 					   <p>Transaction details of your Di Huang Account are given below:</p>
 					   <p><strong>Order Id: </strong> '.$order_id.'</p>
@@ -124,7 +124,7 @@
 		 */
 		 function sendPVMail($username, $emailId, $total_pv, $user_total_pv,$order_id)
 		 {
-		 	$subject = "Di Hyuang Account Message "; 
+		 	$subject = "Di Huang Account Message "; 
 			$string = '<p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
 					   <p>Transaction details of your Di Huang Account are given below:</p>
 					   <p><strong>Order Id: </strong> '.$order_id.'</p>
@@ -144,7 +144,7 @@
 		 function orderStatusMail($username, $useremail, $order_id, $payment_method, $total_amount, $system_currency, $order_status)
 		 {
 		 	$statusDetails = $this->statusCheck($order_status);	
-			$subject = 'Di Hyuang Account Message';
+			$subject = 'Di Huang Account Message';
 			$string = '<p><strong>'.$statusDetails.'</strong></p>
 					   <p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
 					   <p>Transaction details of your Di Huang Account are given below:</p>
@@ -165,7 +165,7 @@
 		 function membershipEmail($username, $useremail, $membership_order_id, $payment_method, $amount, $system_currency, $status)
 		 {
 			$statusDetails = $this->statusCheck($status);	
-			$subject = 'Di Hyuang Account Message';
+			$subject = 'Di Huang Account Message';
 			$string = '<p><strong>'.$statusDetails.'</strong></p>
 					   <p style="margin: 0;padding: 4px;">Hi '.$username.',</p>
 					   <p>Transaction details of your Di Huang Account are given below:</p>

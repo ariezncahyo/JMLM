@@ -33,7 +33,7 @@
             <!-- /.row -->
             <div class="row adm_row">
                 <div class="col-lg-12">
-                    <form role="form" action="#" method="post" enctype="multipart/form-data">
+                    <form role="form" action="v-includes/functions/function.edit-category.php" method="post" enctype="multipart/form-data">
                         <h4 class="page_form_caption">Fill Up Category Information</h4>
                         <div class="form-group">
                             <label class="control-label admin_form_label col-sm-3">Category Name</label>
@@ -56,6 +56,22 @@
 									}
                             	?>
                                 
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Image Present</label>
+                            <div class="col-sm-7">
+                            	<?php
+                            		if(!empty($catDetails[0]['image']))
+									{
+										echo '<img src="../'.$catDetails[0]['image'].'" class="img-responsive center-block" />';
+									}
+									else
+									{
+										echo '<span class="page_form_caption" style="color:#000;">noimage.jpg</span>';
+									}
+                            	?>
                             </div>
                             <div class="clearfix"></div>
                         </div>

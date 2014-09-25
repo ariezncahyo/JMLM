@@ -69,6 +69,17 @@
                             </div>
                             <div class="clearfix"></div>
                         </div>
+                        <?php
+                        //Auth: Debo
+                        if($info[0]['member_category'] == 'Global Distributor'){ ?>
+						<div class="form-group">
+                            <label class="control-label admin_form_label col-sm-3">Pool Sharing</label>
+                            <div class="col-sm-7">
+                            	<input type="text" class="form-control" name="ps" value="<?php echo $info[0]['PS'] ?>"/>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <?php } ?>
                         <div class="form-group">
                             <div class="col-sm-6 col-sm-offset-3">
                             	<!-- sending member level id -->

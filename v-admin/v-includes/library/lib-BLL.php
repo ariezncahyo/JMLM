@@ -325,10 +325,20 @@
 					if($product['status'] == 1)
 					{
 						$btn = '<button class="btn btn-success">Active</button>';
+						$action = '<form action="v-includes/functions/function.product-action.php" method="post">
+									<input type="hidden" name="id" value="'.$product['product_id'].'" />
+									<input type="hidden" name="action" value="0" />
+									<input type="submit" class="btn btn-danger" value="Deactivate" />
+								</form>';
 					}
 					else
 					{
 						$btn = '<button class="btn btn-danger">Deactive</button>';
+						$action = '<form action="v-includes/functions/function.product-action.php" method="post">
+									<input type="hidden" name="id" value="'.$product['product_id'].'" />
+									<input type="hidden" name="action" value="1" />
+									<input type="submit" class="btn btn-success" value="Activate" />
+								</form>';
 					}
 					//checking for video link
 					$video = $this->manage_content->getValueMultipleCondtn('product_video','*',array('product_id','status'),array($product['product_id'],1));
@@ -348,7 +358,8 @@
 							<td>'.$product['exp_date'].'</td>
 							<td>'.$feature_status.'</td>
 							<td><a href="product-info.php?pid='.$product['product_id'].'"><button class="btn btn-info">Product Details</button></a></td>
-							<td>'.$btn.'</td>     	
+							<td>'.$btn.'</td>  
+							<td>'.$action.'</td>  	
 						  </tr>';
 				}
 			}
@@ -448,6 +459,7 @@
 								<td>'.$parent['date'].'</td>
 								<td><a href="edit-category.php?id='.$parent['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
 								<td>'.$btn.'</td>
+								<td><a href="v-includes/functions/function.delete-category.php?id='.$parent['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
 							</tr>';
 						
 						//getting child detail
@@ -508,6 +520,7 @@
 							<td>'.$child_details[0]['date'].'</td>
 							<td><a href="edit-category.php?id='.$child_details[0]['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
 							<td>'.$btn.'</td>
+							<td><a href="v-includes/functions/function.delete-category.php?id='.$child_details[0]['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
 						</tr>';
 					//getting child detail
 					if($nested_child_no != 0)
@@ -1561,6 +1574,9 @@
 			elseif ($fee_type == 'PV') {
 				$fee_text = 'Point Value';
 			}
+			elseif ($fee_type == 'PS') {
+				$fee_text = 'Pool Sharing';
+			}
 			return $fee_text;
 		}
 
@@ -1679,13 +1695,15 @@
 							$product = $this->manage_content->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
 							//getting userid from order_info table through orderid and comparing it to $userid of this page
 							$id = $this->manage_content->getValue_where('order_info','*','order_id',$trans_details[0]['order_id']);
-							if($id[0]['user_id']==$userid)
+							if($id[0]['user_id'] == $userid)
 							{
 								$person="Himself";
 							}
 							else 
 							{
-								$person="Child";
+								//getting user details
+								$userDetails = $this->manage_content->getValue_where('user_info', '*', 'user_id', $id[0]['user_id']);
+								$person = $userDetails[0]['f_name'].' '.$userDetails[0]['l_name'];
 							}
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
@@ -1847,7 +1865,7 @@
 				
 			//defining an empty array which contains order id
 			$order_id = array();	
-			$order_list = $this->manage_content->getValue_where('order_info', 'order_id', 'user_id', $userid);
+			$order_list = $this->manage_content->getValueMultipleCondtnDesc('order_info', 'order_id', array('user_id', 'checkout_process'), array($userid, 1));
 			if(!empty($order_list[0]))
 			{
 				foreach($order_list as $order)
@@ -1969,7 +1987,7 @@
 			//defining an empty array which contains order id
 			$order_id = array();
 			//getting all order list
-			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('order_status'),array($user_value));
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('order_status', 'checkout_process'),array($user_value, 1));
 			
 			if(!empty($orderList[0]))
 			{
@@ -2003,6 +2021,7 @@
 							<td>'.$member['RF'].'</td>
 							<td>'.$member['OF'].'</td>
 							<td>'.$member['PC'].'</td>
+							<td>'.$member['PS'].'</td>
 							<td><a href="member-level-update.php?uid='.$member['id'].'"><button class="btn btn-info">Update Details</button></a></td>
 						</tr>';
 				}
@@ -2118,6 +2137,12 @@
 									'.$form_Action.'
 								</form>
 							</td>
+							<td>
+								<form action="v-includes/functions/function.delete-page.php" method="post">
+								<input type = "hidden" name = "id"	value ="'.$page['page_id'].'" />
+								<input type="submit" name="sub" class="btn btn-danger" value="DELETE" />
+								</form>
+							</td>
 						</tr>';
 				}
 			}
@@ -2148,6 +2173,28 @@
                                     <div class="col-sm-9">
                                         <textarea class="form-control" name="des" id="editor1">'.$pageValue[0]['page_content'].'</textarea>
                                     </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Banner Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="banner_des">'.$pageValue[0]['page_banner_desc'].'</textarea>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Banner Image Present</label>';
+                                    if(!empty($pageValue[0]['image']))
+									{
+                                    echo '<div class="col-sm-4">
+                                        <img src="../images/'.$pageValue[0]['image'].'" class="img-responsive center-block" />';
+                                    }  
+									else
+									{
+										echo '<div class="col-sm-9">
+													<span class="page_form_caption" style="color:#000;">NoImage.jpg</span>';	
+									}		 
+                                    echo '</div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
@@ -2188,6 +2235,233 @@
 		{
 			return $this->manage_content->getValue_where('product_category', '*', 'categoryId', $cat);
 		}
+
+		/*
+		- method for getting pool sharing details
+		- Auth: Dipanjan
+		*/
+		function getPoolShareDetails()
+		{
+			//get info from database
+			$poolshare = $this->manage_content->getLastValue('pool_sharing_info', '*', 1, 1, 'id');
+			if(!empty($poolshare[0]))
+			{
+				//checking that next date is greter than today or not
+				if(strtotime(date('Y-m-d h:m:s a')) > strtotime($poolshare[0]['next_date']))
+				{
+					echo '<p>You can pool share system point value</p>
+                        	<form action="v-includes/functions/function.pool-share.php" method="post">
+                        		<input type="submit" class="btn btn-lg btn-success" value="POOL SHARE" />
+                        	</form>';
+				}
+				else
+				{
+					echo '<p>Your next date of pool sharing is '.$poolshare[0]['next_date'].'</p>';
+				}
+					
+			}
+			else
+			{
+				//get total pv in the system
+				$system_pv = $this->manage_content->getLastValue('system_pv_info', '*', 1, 1, 'id');
+				if($system_pv[0]['system_pv_balance'] > 0)
+				{
+					echo '<p>You can pool share system point value</p>
+                        	<form action="v-includes/functions/function.pool-share.php" method="post">
+                        		<input type="submit" class="btn btn-lg btn-success" value="POOL SHARE" />
+                        	</form>';
+				}
+				else
+				{
+					echo $system_pv[0]['system_pv_balance'];
+					echo '<p>Your system point value is insufficient</p>';
+				}
+			}
+				
+		}
+
+		/*
+		- method for getting pool sharing list
+		- Auth: Dipanjan
+		*/
+		function getPoolShareList()
+		{
+			$poolshare = $this->manage_content->getValue_where('pool_sharing_info', '*', 1, 1);
+			if(!empty($poolshare[0]))
+			{
+				foreach($poolshare as $pool)
+				{
+					echo '<tr>
+							<td>'.$pool['specification'].'</td>
+							<td>'.$pool['distributed_pv'].'</td>
+							<td>'.$pool['date_from'].'</td>
+							<td>'.$pool['date_to'].'</td>
+							<td>'.$pool['distributed_date'].'</td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="5">No Details Found</td>
+					</tr>';
+			}
+		}
+
+		/*
+		- method for getting membership product price
+		- Auth: Riju
+		*/
+		function getMemProductPrice()
+		{
+			$price = $this->manage_content->getValue_where('membership_info', '*', 'id', 1);
+			return $price[0]['price'];
+		}
+		
+		/*
+		- method for getting mypage link list
+		- Auth: Debojyoti 
+		*/
+		function getMypageLinkList()
+		{
+			//get values from database
+			$pageLinkList = $this->manage_content->getValue('mypage_links','*');
+			if(!empty($pageLinkList[0]))
+			{
+				foreach($pageLinkList as $pagelink)
+				{
+					//getting status
+					if($pagelink['status'] == 1)
+					{
+						$cur_status = '<button class="btn btn-success">Activated</button>';
+					}
+					else
+					{
+						$cur_status = '<button class="btn btn-danger">Deactivated</button>';
+					}
+					//showing the result
+					echo '<tr>
+							<td>'.$pagelink['name'].'</td>
+							<td>'.$pagelink['page_link'].'</td>';
+							if($pagelink['top_links'] == 1)
+							{
+								$top = 'ON';
+							}
+							else
+							{
+								$top = 'OFF';	
+							}
+							if($pagelink['navbar_links'] == 1)
+							{
+								$nav = 'ON';
+							}
+							else
+							{
+								$nav = 'OFF';	
+							}
+							if($pagelink['footer_links'] == 1)
+							{
+								$footer = 'ON';
+							}
+							else
+							{
+								$footer = 'OFF';	
+							}
+					  echo '<td>'.$top.'</td>
+							<td>'.$nav.'</td>
+							<td>'.$footer.'</td>
+							<td><a href="addPageLink.php?id='.$pagelink['id'].'&action=edit"><button class="btn btn-info">Edit</button></a></td>
+							<td>'.$cur_status.'</td>
+							<td>
+								<form action="v-includes/functions/function.delete-page-link.php" method="post">
+								<input type = "hidden" name = "id"	value ="'.$pagelink['id'].'" />
+								<input type="submit" name="sub" class="btn btn-danger" value="DELETE" />
+								</form>
+							</td>
+						</tr>';
+				}
+			}
+		}
+		/*
+		- method for updating page link details
+		- Auth: Debojyoti
+		*/
+		function getMyPageLinkDetails($id)
+		{
+			//get values from database
+			$pageValue = $this->manage_content->getValue_where('mypage_links','*','id',$id);
+			if(!empty($pageValue[0]))
+			{
+				echo '<div class="panel-heading"><i class="fa fa-edit fa-fw"></i> Edit MyPage Link Details</div>
+                        <div class="panel-body">
+                        	<form action="v-includes/functions/function.add-page-link.php" role="form" method="post">
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Page Name</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" name="pgname" value="'.$pageValue[0]['name'].'"/>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Page Link</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="pglink">'.$pageValue[0]['page_link'].'</textarea>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Top Link</label>
+                                    <div class="col-sm-4">
+                                        <select name="toplink" class="form-control">
+                                        	<option value="1"'; if($pageValue[0]['top_links'] == 1) { echo 'selected="selected"'; } echo '>ON</option>
+                                            <option value="0"'; if($pageValue[0]['top_links'] == 0) { echo 'selected="selected"'; } echo '>OFF</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Navbar</label>
+                                    <div class="col-sm-4">
+                                        <select name="navbar" class="form-control">
+                                        	<option value="1"'; if($pageValue[0]['navbar_links'] == 1) { echo 'selected="selected"'; } echo '>ON</option>
+                                            <option value="0"'; if($pageValue[0]['navbar_links'] == 0) { echo 'selected="selected"'; } echo '>OFF</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Footer Link</label>
+                                    <div class="col-sm-4">
+                                        <select name="footerlink" class="form-control">
+                                        	<option value="1"'; if($pageValue[0]['footer_links'] == 1) { echo 'selected="selected"'; } echo '>ON</option>
+                                            <option value="0"'; if($pageValue[0]['footer_links'] == 0) { echo 'selected="selected"'; } echo '>OFF</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Status</label>
+                                    <div class="col-sm-4">
+                                        <select name="status" class="form-control">
+                                        	<option value="1"'; if($pageValue[0]['status'] == 1) { echo 'selected="selected"'; } echo '>Active</option>
+                                            <option value="0"'; if($pageValue[0]['status'] == 0) { echo 'selected="selected"'; } echo '>Deactive</option>
+                                        </select>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-7 col-sm-offset-3">
+                                    	<input type="hidden" name="id" value="'.$pageValue[0]['id'].'" />
+										<input type="hidden" name="action" value="UPDATE" />
+                                        <input type="submit" class="btn btn-success btn-lg" value="UPDATE" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        </div>';
+			}
+		}
+		
 	}
 	
 ?>

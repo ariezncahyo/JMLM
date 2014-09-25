@@ -19,6 +19,10 @@
 			{
 				$upd = $manageData->updateValueWhere('member_level_info','promotion_pv',$_POST['pv'],'member_level',$_POST['member_level']);
 			}	
+			if(isset($_POST['ps']) && !empty($_POST['ps']))
+			{
+				$upd = $manageData->updateValueWhere('member_level_info','PS',$_POST['ps'],'member_level',$_POST['member_level']);
+			}
 		}
 		
 		if(isset($_POST['of']) && !empty($_POST['of']))

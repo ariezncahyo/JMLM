@@ -27,6 +27,7 @@
     <div class="row">
         <div class="col-sm-12">
             
+            <!-- Supposingly to be breadcrumb - should be renamed or load this to header block for dynamic breadcrumb generation -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="head-banner">
@@ -40,27 +41,14 @@
                     </div><!-- head banner -->
                 </div>
             </div>
+            <!-- End breadcrumb -->
             
-            <div class="banner">
-                        
-                <div class="row">
-                    <div class="col-sm-offset-1 col-sm-2 pad-social">
-                    
-                        <div class="opportunity-btn">
-                            <a href="#">OPPORTUNITY</a>
-                        </div>
-                    
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-sm-offset-1 col-sm-4">
-                        <p class="banner-para">
-                            Lorem ipsum dolor sit amet,<br /> consectetur adipisicing elit<br />sed do eiusmod tempor incididunt 
-                        </p>
-                    </div>
-                </div>
-                
+            <div id="banner">
+				<img src="images/banners/banner.jpg" title="Opportunity" />        
+                <div class="banner-txt">
+					<p class="banner-title"><a href="#">OPPORTUNITY</a></p>
+                    <p class="banner-desc">Our difference is demonstrated through our opportunity. Professional distributor leaders thrive as they inspire and empower others.</p>
+                </div> 
             </div><!-- banner -->
                 
             
@@ -73,79 +61,69 @@
 <!-- products section -->
 
 <div class="container">
-    <div class="row opp-prod">
+    <div class="row module-group">
             
-                <div class="col-sm-6 pd-rt-nul">
-                    <a href="#" class="opp-prod-link">
-                        <div class="opp-prod-content">
-                            <h3 class="opp-prod-head">Lorem Ipsum</h3>
-                            <p class="opp-prod-para">
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum
+                <div id="module" class="col-sm-6">
+                    <a href="#" class="module-link">
+                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                        <div class="module-content">
+                            <p class="module-title">JOIN OUR TEAM</p>
+                            <p class="module-desc">
+                                Sign up as a distributor.<br />Create an account to purchase products.<br />Enroll in our Rewards program.
                             </p>
-                            <p class="prod-name">Lorem Ipsum</p>
+                            <p class="module-name">Get Started Now</p>
                         </div><!-- opportunity products content -->
                     </a>
                 </div>
                 
-                <div class="col-sm-6">
-                    <a href="#" class="opp-prod-link">
-                        <div class="opp-prod-content">
-                            <h3 class="opp-prod-head">Lorem Ipsum</h3>
-                            <p class="opp-prod-para">
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum
+                <div id="module" class="col-sm-6">
+                    <a href="#" class="module-link">
+                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                        <div class="module-content">
+                            <p class="module-title">JOIN OUR TEAM</p>
+                            <p class="module-desc">
+                                Sign up as a distributor.<br />Create an account to purchase products.<br />Enroll in our Rewards program.
                             </p>
-                            <p class="prod-name">Lorem Ipsum</p>
+                            <p class="module-name">Get Started Now</p>
                         </div><!-- opportunity products content -->
                     </a>
                 </div>
                 
-                <div class="col-sm-6 pd-rt-nul">
-                    <a href="#" class="opp-prod-link">
-                        <div class="opp-prod-content">
-                            <h3 class="opp-prod-head">Lorem Ipsum</h3>
-                            <p class="opp-prod-para">
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum
+                <div id="module" class="col-sm-6">
+                    <a href="#" class="module-link">
+                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                        <div class="module-content">
+                            <p class="module-title">JOIN OUR TEAM</p>
+                            <p class="module-desc">
+                                Sign up as a distributor.<br />Create an account to purchase products.<br />Enroll in our Rewards program.
                             </p>
-                            <p class="prod-name">Lorem Ipsum</p>
+                            <p class="module-name">Get Started Now</p>
                         </div><!-- opportunity products content -->
                     </a>
                 </div>
                 
-                <div class="col-sm-6">
-                    <a href="#" class="opp-prod-link">
-                        <div class="opp-prod-content">
-                            <h3 class="opp-prod-head">Lorem Ipsum</h3>
-                            <p class="opp-prod-para">
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum
+                <div id="module" class="col-sm-6">
+                    <a href="#" class="module-link">
+                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                        <div class="module-content">
+                            <p class="module-title">JOIN OUR TEAM</p>
+                            <p class="module-desc">
+                                Sign up as a distributor.<br />Create an account to purchase products.<br />Enroll in our Rewards program.
                             </p>
-                            <p class="prod-name">Lorem Ipsum</p>
+                            <p class="module-name">Get Started Now</p>
                         </div><!-- opportunity products content -->
                     </a>
                 </div>
                 
-                <div class="col-sm-6 pd-rt-nul">
-                    <a href="#" class="opp-prod-link">
-                        <div class="opp-prod-content">
-                            <h3 class="opp-prod-head">Lorem Ipsum</h3>
-                            <p class="opp-prod-para">
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum<br />
-                                Lorem ipsum dolor sit amet,Lorem ipsum
+                <div id="module" class="col-sm-6">
+                    <a href="#" class="module-link">
+                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                        <div class="module-content">
+                            <p class="module-title">JOIN OUR TEAM</p>
+                            <p class="module-desc">
+                                Sign up as a distributor.<br />Create an account to purchase products.<br />Enroll in our Rewards program.
                             </p>
-                            <p class="prod-name">Lorem Ipsum</p>
+                            <p class="module-name">Get Started Now</p>
                         </div><!-- opportunity products content -->
                     </a>
                 </div>

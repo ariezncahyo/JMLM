@@ -75,7 +75,7 @@
 								<div class="radio">
 								  <label>
 								    <input type="radio" name="gender" value="female" <?php if($profile_value[0]['gender']=='female'){ echo 'checked="checked"'; } ?> >
-								    Femele
+								    Female
 								  </label>
 								</div>
 	                        </div>
@@ -83,7 +83,7 @@
                       	<div class="form-group">
                             <label class="col-sm-3 col-sm-offset-1 label-profile">Date of Birth: </label>
                             <div class="col-sm-offset-1 col-sm-6">
-                                <input class="form-control form-profile" type="text" name="dob" value="<?php echo $profile_value[0]['dob'];  ?>" />
+                                <input class="form-control form-profile dob" type="text" name="dob" value="<?php echo $profile_value[0]['dob'];  ?>" />
                             </div>
                         </div> 
                         <div class="form-group">

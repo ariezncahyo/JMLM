@@ -62,7 +62,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-            <div class="contact-container">
+            <!-- <div class="contact-container"> Uncomment Jacky -->
+            	<?php /* Uncomment Jacky
 	            <div class="row mypage_details">
 	                <div class="col-sm-12">
 	                    <h2 class="cmpny-hstry-hd"><?php echo $data['page_name'];?></h2>
@@ -75,7 +76,25 @@
 	                    ?>
 	                </div>
 	            </div>
-	            
+                */ ?>
+                
+                <!-- Added Jacky -->
+                <?php if(!empty($data['image'])) { ?>
+					<div id="banner">
+						<?php if(!empty($data['image'])) {
+							echo '<img src="images/'.$data['image'].'" title="'.$data['page_name'].'" />';
+						} ?>        
+						<div class="banner-txt">
+							<p class="banner-title"><a href="#"><?php echo $data['page_name'];?></a></p>
+							
+							<p class="banner-desc"><?php echo $data['page_banner_desc'];?> <!-- add and echo banner_desc --></p>
+						</div> 
+					</div><!-- banner -->
+				<?php } else { ?>
+                	<h2 class="cmpny-hstry-hd"><?php echo $data['page_name'];?></h2>
+				<?php } ?>
+	            <!-- End Added Jacky -->
+                
 	            <div class="row mypage_details">
 	                <div class="col-sm-12">
 	                	<?php
@@ -83,7 +102,7 @@
 	                	?>
 	                </div>
 	            </div>
-            </div><!-- contact-container ends -->
+            <!-- </div> Uncomment Jacky --> <!-- contact-container ends -->
         </div><!-- cols ends -->
     </div><!-- row ends -->
 </div><!-- container ends -->

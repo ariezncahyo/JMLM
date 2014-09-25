@@ -25,6 +25,7 @@
 		
 		$column_name = array('membership_order_id','membership_id','user_id','payment_method','amount','date','ip','order_status');
 		$column_value = array($mem_order_id,$membership_details[0]['membership_id'],$_SESSION['user_id'],$_POST['buy_mem'],$amount,$date,$ip,$order_status);
+		
 		$insert = $manageData->insertValue('membership_order_info', $column_name, $column_value);
 		
 		//getting userinfo

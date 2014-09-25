@@ -17,7 +17,7 @@
 			$input_name = $_FILES['picture'];
 			$path = '../../../images/category/';
 			$uplod = $upload->upload_file($filename_desired, $input_name, $path);
-			$img_db = 'image/category'.$uplod;
+			$img_db = 'images/category/'.$uplod;
 		}
 		else
 		{

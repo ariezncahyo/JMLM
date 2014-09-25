@@ -46,6 +46,13 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Banner Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="banner_des"></textarea>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label p_label col-sm-3">Image</label>
                                     <div class="col-sm-9">
                                         <input type="file" name="image" class="form-control">

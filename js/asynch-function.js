@@ -128,7 +128,7 @@ $(document).ready(function(e) {
     });
 	
 	//sliding of product image in product description page
-	var fadeDuration=2000;
+	/*var fadeDuration=2000;
 	var slideDuration=2000;
 	var currentIndex=1;
 	var nextIndex=1;
@@ -164,7 +164,32 @@ $(document).ready(function(e) {
 		stopSlide();
 	}, function () {
 		startSlide();
-	})
+	});*/
+	
+	
+	$('input[name="buy_mem"]').click(function(){
+		var pay = $('input[name="buy_mem"]:checked').val();
+		if(pay == 'online')
+		{
+			$('#cash_btn').css('display','none');
+			$('#online_paypal_btn').css('display','block');
+		}
+		else if(pay == 'bank')
+		{
+			$('#online_paypal_btn').css('display','none');
+			$('#cash_btn').css('display','block');
+		}
+	});
+	
+	$(document).on('click', '.thumb_image > img', function(){
+		var sub_img = $(this).attr('src');
+		var sub_id = $(this).parent().attr('id');
+		var main_img = $('#prod_main').children('img').attr('src');
+		//changing html sub img to main img and vice versa
+		//console.log(sub_id);
+		$('#prod_main').html('<img class="img-responsive" src="'+sub_img+'" />');
+		$('#'+sub_id).html('<img class="img-responsive" src="'+main_img+'" />');
+	});
 	
 });
 

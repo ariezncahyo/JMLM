@@ -404,6 +404,51 @@
 			$insert = $this->_BLL_obj->manage_content->insertValue('system_pv_info', $column_name, $column_value);
 		}
 		
+		/*
+		- method for distribute pool sharing pv
+		- Auth: Dipanjan
+		*/
+		function distributePsPointValue($transaction_id,$system_pv)
+		{
+			//distributed pv
+			$distributed_pv = 0;
+			//getting global distributor
+			$globals = $this->_BLL_obj->manage_content->getValue_where('user_info', '*', 'member_level', 5);
+			if(!empty($globals[0]))
+			{
+				//count no of global distributor
+				$no = count($globals);
+				//getting user PS
+				$user_ps = $this->_BLL_obj->manage_content->getValue_where('member_level_info','*', 'member_level', 5);
+				$per_pv = ((($system_pv * $user_ps[0]['PS'])/100)/$no);
+				
+				foreach($globals as $global_dis)
+				{
+					//getting user point from point table
+					$user_point = $this->_BLL_obj->manage_content->getLastValue('user_point_info', '*', 'user_id', $global_dis['user_id'], 'id');
+					if(!empty($user_point[0]['total_pv']))
+					{
+						$user_total_pv = $user_point[0]['total_pv'] + $per_pv;
+					}
+					else
+					{
+						$user_total_pv = $per_pv;	
+					}
+					//insert value to user point info table
+					$column_name_point = array('user_id','specification','earn_pv','total_pv');
+					$column_value_point = array($user_id,$transaction_id,$per_pv,$user_total_pv);
+					$insert_point = $this->_BLL_obj->manage_content->insertValue('user_point_info', $column_name_point, $column_value_point);
+					
+					//add distributing pv
+					$distributed_pv = $distributed_pv + $per_pv;
+					//calling member upgrade function
+					$this->upgradeMemberLevel($global_dis['user_id']);
+				}
+			}
+			
+			return $distributed_pv;
+		}
+		
 		
 	 }
 ?>

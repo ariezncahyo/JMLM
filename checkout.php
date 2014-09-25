@@ -48,7 +48,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="checkout-one">
-                      Billing Information 
+                      Billing Information
                     </a>
                   </h4>
                 </div>
@@ -342,16 +342,16 @@
                             </h4>
                             <form role="form" id="payment_info">
                                 <div class="col-sm-10">
-                                    <div class="radio" id="online">
-                                      <label>
-                                        <input type="radio" name="payment_info" value="online" checked="checked">
-                                        <h4 class="ship-text ship-text-span">Online Payment</h4>
-                                      </label>
-                                    </div>
                                     <div class="radio" id="bank">
                                       <label>
-                                        <input type="radio" name="payment_info" value="bank">
+                                        <input type="radio" name="payment_info" value="bank" checked="checked">
                                         <h4 class="ship-text ship-text-span">Cheque / Bank Transfer (Your order will be on hold until the full payment is received)</h4>
+                                      </label>
+                                    </div>
+                                    <div class="radio" id="online">
+                                      <label>
+                                        <input type="radio" name="payment_info" value="online">
+                                        <h4 class="ship-text ship-text-span">Online Payment</h4>
                                       </label>
                                     </div>
                                     <div class="radio" id="cod">
@@ -389,7 +389,41 @@
                         <h4 class="head-bill">
                             Order Review
                         </h4>
-                        <form role="form" id="order_info">
+                        <div  id="cod_btn">
+	                        <form role="form" id="order_info">
+	                            <div class="col-sm-10">
+	                                <table class="table table-bordered table-order-review">
+	                                    <thead>
+	                                        <tr><th>Product Name</th>
+	                                        <th>Specification</th>
+	                                        <th>Price</th>
+	                                        <th>Qty</th>
+	                                        <th>Subtotal</th>
+	                                    </tr></thead>
+	                                    <tbody>
+	                                        
+	                                        <?php
+												//get order details
+												$manageContent->getAmountDetailsInCheckoutPage();
+											?>
+	                                        
+	                                    </tbody>
+	                                </table>
+	                             </div>
+	                            <div class="row mrgn-tp-cart">
+	                                <div class="col-md-6">
+	                                   <a href="view-cart.php" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
+	                                </div>
+	                                <div class="col-md-6">
+	                                    <div class="cart-btn">
+	                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn">CHECKOUT</button>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </form>
+                        </div>
+                        
+                        <div id="paypal_btn">
                             <div class="col-sm-10">
                                 <table class="table table-bordered table-order-review">
                                     <thead>
@@ -415,11 +449,28 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="cart-btn">
-                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn">CHECKOUT</button>
+                                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+											<input type="hidden" name="cmd" value="_xclick">
+											<input type="hidden" name="business" value="K5DS2MUFW8KXN">
+											<input type="hidden" name="lc" value="SG">
+											<input type="hidden" name="item_name" value="Total Price">
+											<input type="hidden" name="item_number" value="<?php $manageContent->getTotalProductInCart(); ?>">
+											<input type="hidden" name="amount" value="<?php echo $_SESSION['total_amount']; ?>">
+											<input type="hidden" name="currency_code" value="SGD">
+											<input type="hidden" name="button_subtype" value="services">
+											<input type="hidden" name="no_note" value="0">
+											<input type="hidden" name="no_shipping" value="2">
+											<input type="hidden" name="rm" value="1">
+											<input type="hidden" name="return" value="http://test.dip.com.sg/mlm/v-includes/functions/function.paypal-return.php?action=<?php echo md5('order_success'); ?>">
+											<input type="hidden" name="cancel_return" value="http://test.dip.com.sg/mlm/v-includes/functions/function.paypal-return.php?action=<?php echo md5('order_decline'); ?>">
+											<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHosted">
+											<input type="submit" class="btn btn-warning checkout-btn" value="PAYPAL PAYMENT"/>
+										</form>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        
                     </div>
                   </div>
                 </div>

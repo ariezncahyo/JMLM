@@ -11,10 +11,15 @@
 <?php 
 	//getting previous page name
 	$page_name = substr(strrchr($_SERVER['HTTP_REFERER'],'/'),1);
-	if($page_name != 'checkout.php' || !isset($_SESSION['order_id']))
+
+	/*if($page_name != 'function.paypal-return.php' || !isset($GLOBALS['_GET']))
 	{
-		header("Location: index.php");
-	}
+		if($page_name != 'checkout.php' || !isset($_SESSION['order_id']))
+		{
+			header("Location: index.php");
+		}
+	}*/
+		
 ?>
 <?php
 	$order_id = $_SESSION['order_id'];
@@ -22,7 +27,7 @@
 	$manageContent->destroyProductCookie();
 	//unset product session values
 	unset($_SESSION['order_id']);
-	unset($_SESSION['total_amount']);	
+	unset($_SESSION['total_amount']);
 ?>
 <?php
 	//include another template file

@@ -6,19 +6,23 @@
 		<div class="col-sm-12">
         	<div id="footer-nav">
 				<ul class="footer-nav">
-					<li class="first"><a href="myPage.php?id=<?php echo 'p541836a6dd1da'; ?>">Company History</a></li>
-					<li><a href="myPage.php?id=<?php echo 'p54183ceaf255b'; ?>">Culture</a></li>
-					<li><a href="myPage.php?id=<?php echo 'p54183fca07ee9'; ?>">Future</a></li>
-					<li><a href="myPage.php?id=<?php echo 'p541841628c586'; ?>">Opportunity</a></li>
-					<li><a href="myPage.php?id=<?php echo 'p54184a5d7dd30'; ?>">Our Team</a></li>
-					<li class="last"><a href="products.php">Products</a></li>
+					<?php
+						$links = $manageContent->getFooterPageLinks();
+						if(!empty($links[0]['id']))
+						{
+							foreach($links as $link)
+							{
+								echo '<li><a href='.$link['page_link'].'>'.$link['name'].'</a></li>';
+							}
+						}
+					?>
 				</ul>
             </div>
             <div id="footer-social">
             	<div>
-					<a href="#"><img src="images/facebook.png" class="img-social-foot" /></a>
-					<a href="#"><img src="images/twitter.png" class="img-social-foot" /></a>
-					<a href="#"><img src="images/g-plus.png" class="img-social-foot" /></a>
+					<a href="https://www.facebook.com/" title="Facebook" target="_blank"><img src="images/icons/facebook.png" class="img-social-foot" /></a>
+					<a href="https://twitter.com/" title="Twitter" target="_blank"><img src="images/icons/twitter.png" class="img-social-foot" /></a>
+					<a href="https://plus.google.com/" title="Google Plus" target="_blank"><img src="images/icons/g-plus.png" class="img-social-foot" /></a>
 				</div>
             </div>
 		</div>
@@ -57,6 +61,20 @@
 		yearRange: '1900:2014',
 		showTrigger: '#calImg'
 	});
+	
+	$('#AddButton').on('click', function () {
+    	var input = $('#pro_quan');
+    	input.val(parseFloat(input.val(), 10) + 1);
+	})
+
+	$('#MinusButton').on('click', function () {
+	    var input = $('#pro_quan');
+	    if(parseFloat(input.val(), 10) > 0)
+	    {
+	    	input.val(parseFloat(input.val(), 10) - 1);
+	    }
+	    
+	})
 </script>
 	<?php
 		//checking for session variable and showing the result

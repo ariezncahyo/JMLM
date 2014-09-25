@@ -46,6 +46,7 @@
                                     <th>Featured</th>
                                     <th>Details</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

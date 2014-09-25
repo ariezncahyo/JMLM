@@ -12,11 +12,12 @@
 	include 'v-templates/header-user.php';
 ?>
 
+<?php /*
 <div class="row row-mrgn-nul row-mrgn-cart hd-carousel">
     <div class="col-sm-12">
     </div>
 </div>
-
+*/ ?>
 <!-- log in section -->
 
 <div class="container">

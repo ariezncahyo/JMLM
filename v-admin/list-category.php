@@ -33,6 +33,7 @@
                                     <th>Upload Date</th>
                                     <th>Edit</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

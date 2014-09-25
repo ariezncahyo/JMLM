@@ -31,6 +31,7 @@
                                             <th>Edit</th>
                                             <th>Current status</th>
                                             <th>Action</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>

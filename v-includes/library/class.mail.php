@@ -1,5 +1,5 @@
 <?php
-	session_start();
+
 	//include php mailer autoload class
 	require 'mail/PHPMailerAutoload.php';
 	
@@ -12,7 +12,7 @@
 		/*
          * top domail url for activation.php
         */ 		
-        private $link = 'http://www.vyrazu.com/running-projects/j-mlm/';
+        private $link = 'http://test.dip.com.sg/mlm/';
 		
 		
 		/*
@@ -73,7 +73,8 @@
 			{
 				$method = 'By bank account';
 			}
-			$datastring ='<thead>
+			$datastring ='<table style="width: 100%;border-spacing: 0;">
+						<thead>
 		 					<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">USERNAME</th>
 		 					<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">WITHDRAW ID</th>
 		 					<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">WITHDRAW AMOUNT</th>
@@ -88,7 +89,8 @@
 		 					<td style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">'.$method.'</td>
 		 					<td style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">'.$date.'</td>
 		 				</tr>
-		 			</tbody>';
+		 			</tbody>
+		 			</table>';
 			$toSendData = 	$this->getEmailTemplate($datastring,$toUsername,$subject);
 			$mailSent = $this->fireMail($toEmail,$toUsername,$subject,$toSendData);
 			return $mailSent;
@@ -99,19 +101,22 @@
 		 - Auth: Debojyoti
 		*/
 		 
-		 function mailForproductPurchase($order_details,$userName,$userEmailId)
+		 function mailForproductPurchase($order_details,$userName,$userEmailId,$order_id)
 		 {
 		 	$subject = 'Product Purchase Invoice';	
-		 	$datastring = '<thead>
-						<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Product Name</th>
-						<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Specification</th>
-						<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Price</th>
-						<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Quantity</th>
-						<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Sub Total</th>
-					</thead>
-		 			<tbody>
-		 				'.$order_details.'
-		 			</tbody>';
+		 	$datastring = '<p style="margin: 0;padding: 4px;">Order Id: '.$order_id.'</p>
+		 				<table style="width: 100%;border-spacing: 0;">
+				 			<thead>
+								<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Product Name</th>
+								<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Specification</th>
+								<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Price</th>
+								<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Quantity</th>
+								<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Sub Total</th>
+							</thead>
+				 			<tbody>
+				 				'.$order_details.'
+				 			</tbody>
+			 			</table>';
 			$toSendData = $this->getEmailTemplate($datastring,$userName,$subject);
 			$mailSent = $this->fireMail($userEmailId, $userName, $subject , $toSendData);	 
 			return $mailSent;
@@ -125,7 +130,8 @@
 		 function mailForMembershipProductPurchase($userEmailId, $username, $mem_order_id, $membershipId, $paymentMethod, $amount, $date)
 		 {
 		 	$subject = 'Membership Product Purchase Invoice';	
-		 	$datastring = '<thead>
+		 	$datastring = '<table style="width: 100%;border-spacing: 0;">
+		 				<thead>
 		 					<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Username</th>
 		 					<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Membership Order Id</th>
 		 					<th style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">Membership Id</th>
@@ -142,11 +148,27 @@
 		 					<td style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">'.$amount.'</td>
 		 					<td style="text-align: center;border: 1px solid #E4E4E4;padding: 5px;">'.$date.'</td>
 		 				</tr>
-		 			<tbody>';
+		 			<tbody>
+		 			</table>';
 			$toSendData = $this->getEmailTemplate($datastring,$username,$subject);
 			$mailSent = $this->fireMail($userEmailId, $username, $subject, $toSendData);
 			return $mailSent;
 		 }
+
+		/*
+		 - method for forgot password email
+		 - Auth: Riju
+		*/
+		function forgotPasswordMail($userEmailId, $username, $password, $name)
+		{
+			$subject = 'Password is changed,';
+			$dataString = '<p><strong>User Name: </strong> '.$username.'</p>
+							<p><strong>Email Id: </strong> '.$userEmailId.'</p>
+							<p><strong>New Password: </strong> '.$password.'</p>';
+			$template = $this->getEmailTemplate($dataString, $name, $subject);
+			$mailSent = $this->fireMail($userEmailId, $username, $subject, $template);
+			return $mailSent;						   
+		}
 		 
 		/*
 		 * method for getting email template
@@ -157,14 +179,12 @@
 		 {
 		 	$html_body = '<div style="width: 90%;border: 1px solid #E4E4E4; margin: 0 auto;">
 						<div style="background-color: #B69C64;display: inline-block;width: 96%;padding: 5px 15px;">
-						  <img src="http://test.dip.com.sg/mlm/images/logo.png" style="width: 30px;vertical-align:middle" />&nbsp&nbsp<span style = "color:white;vertical-align:middle">Di Huang Account Details</span>
+						  <img src="http://test.dip.com.sg/mlm/images/logo.png" style="width: 30px;vertical-align:middle" /> <span style = "color:white;vertical-align:middle;font-weight:bold;">Di Huang Account Details</span>
 						</div>
 						<div style="padding: 5%;">
 							<p style="margin: 0;padding: 4px;">Hi, '.$userName.'</p>
 							<p style="margin: 0;padding: 4px;">Your '.$subject.' details are given below:</p>
-							<table style="width: 100%;border-spacing: 0;">
 							'.$string.'
-							</table>
 							<p>Thanking you</p>
 							<p>Di Huang Admin</p>
 						</div>

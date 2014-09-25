@@ -169,6 +169,8 @@
 		*/
 		function insertFinalOrderInfo($userData)
 		{
+			//getting system currency	
+			$system_currency = $this->manageContent->getValue_where('system_currency', '*', 'field', 'product');
 			//getting order details in a string to send in email
 			$order_details = "";	
 			//inserting values to product inventory system
@@ -225,9 +227,9 @@
 				$order_details = $order_details.'<tr style="text-align: center;">
 							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$pro_details[0]["name"].'</td>
 							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$product_specifications.'</td>
-							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$user_price.'</td>
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$system_currency[0]['currency'].$user_price.'</td>
 							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$quantity.'</td>
-							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$amount.'</td>
+							<td style="border: 1px solid #E4E4E4;padding: 5px;">'.$system_currency[0]['currency'].$amount.'</td>
 						</tr>';	
 			}//end of for loop
 			
@@ -242,26 +244,26 @@
 			//getting shipping charge
 			$order_info = $this->manageContent->getValueMultipleCondtn('order_info', '*',array('order_id','user_id'),array($_SESSION['order_id'],$_SESSION['user_id']));
 			//getting username and user emailid
-			$user_info = $this->manageContent->getValue_where('user_info', '*', 'user_id', $_SESSION['user_id']);
+			$user_info = $this->manageContent->getValueMultipleCondtn('order_shipping_info', '*',array('order_id','address_mode'),array($_SESSION['order_id'],'Billing'));
 			$userEmailId = $user_info[0]['email_id'];
 			$userName = $user_info[0]['f_name']." ".$user_info[0]['l_name'];
 			//sending final data string to email
 			$order_details = $order_details."<tr>
-												<td style='colspan:4;text-align: center;'>Subtotal</td>
-												<td style='border: 1px solid #E4E4E4;padding: 5px;'>".$total_amount."</td>
+												<td colspan='4' style='border: 1px solid #E4E4E4;text-align: center;'>Subtotal</td>
+												<td style='border: 1px solid #E4E4E4;padding: 5px;'>".$system_currency[0]['currency'].$total_amount."</td>
 											 </tr>
 											 <tr>	 
-												<td style='colspan:4;text-align: center;'>
-												Shipping & Handling Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun
+												<td colspan='4' style='border: 1px solid #E4E4E4;text-align: center;'>
+												Shipping & Handling Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun)
 												</td>
-												<td style='border: 1px solid #E4E4E4;padding: 5px;'>".$order_info[0]["shipping_charge"]."</td>
+												<td style='border: 1px solid #E4E4E4;padding: 5px;'>".$system_currency[0]['currency'].$order_info[0]["shipping_charge"]."</td>
 											 </tr>
 											 <tr>
-											 	<td style='colspan:4;text-align: center;'>Grand Total</td>	
-												<td  style='border: 1px solid #E4E4E4;padding: 5px;'>".$grand_total."</td>
+											 	<td colspan='4' style='border: 1px solid #E4E4E4;text-align: center;'>Grand Total</td>	
+												<td  style='border: 1px solid #E4E4E4;padding: 5px;'>".$system_currency[0]['currency'].$grand_total."</td>
 											 </tr>";
 			//calling method from class.mail.php								 
-			$this->manageMail->mailForproductPurchase($order_details,$userName,$userEmailId);
+			$this->manageMail->mailForproductPurchase($order_details,$userName,$userEmailId,$_SESSION['order_id']);
 		}
 		
 		/*

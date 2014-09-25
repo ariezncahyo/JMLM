@@ -29,6 +29,9 @@
                 <a href="my-wallet.php" class="tble-para">
                     <img src="images/rings.png" /> My Wallet
                 </a>
+                <a href="tree.php" class="tble-para">
+                    <img src="images/rings.png" /> Tree Details
+                </a>
                 <a href="my-order-history.php" class="tble-para">
                     <img src="images/hand.png" /> My Order History
                 </a>
@@ -40,6 +43,9 @@
                 </a>
                 <a href="profile-setting.php" class="tble-para">
                     <img src="images/hand.png" /> Profile Setting
+                </a>
+                <a href="change-password.php" class="tble-para">
+                    <img src="images/hand.png" /> Change Password
                 </a>
                 <a href="bank-account.php" class="tble-para">
                     <img src="images/hand.png" /> Bank Account Details

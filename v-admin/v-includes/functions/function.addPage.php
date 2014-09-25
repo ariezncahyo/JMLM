@@ -23,8 +23,8 @@ switch ($_POST['action']) {
 		$curdate = date('Y-m-d');
 		$curtime = date('h:i:s');
 		//$extension = end(explode('.',$_FILES['image']['name']));
-		$column_name = array('page_id','page_name','page_content','image','date','time','status');
-		$column_value = array($page_id,$_POST['name'],$_POST['des'],$imageName,$curdate,$curtime,$_POST['status']);
+		$column_name = array('page_id','page_name','page_content','page_banner_desc','image','date','time','status');
+		$column_value = array($page_id,$_POST['name'],$_POST['des'],$_POST['banner_des'],$imageName,$curdate,$curtime,$_POST['status']);
 		//insert the values
 		$insert = $manageData->insertValue('mypage',$column_name,$column_value);
 		if($insert == 1)
@@ -47,6 +47,10 @@ switch ($_POST['action']) {
 		{
 			$upd2 = $manageData->updateValueWhere('mypage','page_content',$_POST['des'],'page_id',$_POST['id']);
 		}
+		if(isset($_POST['banner_des']) && !empty($_POST['banner_des']))
+		{
+			$upd6 = $manageData->updateValueWhere('mypage','page_banner_desc',$_POST['banner_des'],'page_id',$_POST['id']);
+		}
 		if(isset($_POST['status']))
 		{
 			$upd3 = $manageData->updateValueWhere('mypage','status',$_POST['status'],'page_id',$_POST['id']);
@@ -60,7 +64,7 @@ switch ($_POST['action']) {
 			$upd4 = $manageData->updateValueWhere('mypage','image',$upd5,'page_id',$_POST['id']);
 			
 		}
-		if($upd1==1 || $upd2==1 ||$upd3==1 ||(($upd4==1) || (($upd4==0) && (!empty($upd5)))))
+		if($upd1==1 || $upd2==1 ||$upd6==1 ||$upd3==1 ||(($upd4==1) || (($upd4==0) && (!empty($upd5)))))
 		{
 			$_SESSION['success'] = 'Update Successfull';
 		}

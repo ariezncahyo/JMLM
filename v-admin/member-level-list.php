@@ -33,6 +33,7 @@
                                     <th>Referral Fee</th>
                                     <th>Overriding Fee</th>
                                     <th>Personal Commission</th>
+                                    <th>Pool Sharing</th>
                                     <th>Update</th>
                                  </tr>
                             </thead>

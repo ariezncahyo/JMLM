@@ -19,7 +19,7 @@
 			}
 			else
 			{
-				$category == end($_POST['cat']);
+				$category = end($_POST['cat']);
 			}
 			$upd = $manageData->updateValueWhere('product_info','category',$category,'product_id',$_POST['pid']);
 		}

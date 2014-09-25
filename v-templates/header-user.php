@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="dist/css/jquery.datepick.css" />
 <link rel="stylesheet" type="text/css" href="dist/css/style.css" />
 
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="dist/js/bootstrap.min.js"></script>
 
@@ -70,12 +71,16 @@
 						<a href="#" class="dropdown-toggle custom-brdr-li" data-toggle="dropdown">LINKS<b class="caret caret-custom"></b></a>
 											
 						<ul class="dropdown-menu drop-menu-custom">
-							<li><a href="myPage.php?id=<?php echo 'p541836a6dd1da'; ?>">Company History</a></li>
-							<li><a href="myPage.php?id=<?php echo 'p54183ceaf255b'; ?>">Culture</a></li>
-							<li><a href="myPage.php?id=<?php echo 'p54183fca07ee9'; ?>">Future</a></li>
-							<li><a href="myPage.php?id=<?php echo 'p541841628c586'; ?>">Opportunity</a></li>
-							<li><a href="myPage.php?id=<?php echo 'p54184a5d7dd30'; ?>">Our Team</a></li>
-							<li><a href="products.php">Products</a></li>
+							<?php
+								$links = $manageContent->getHeaderPageLinks();
+								if(!empty($links[0]['id']))
+								{
+									foreach($links as $link)
+									{
+										echo '<li><a href='.$link['page_link'].'>'.$link['name'].'</a></li>';
+									}
+								}
+							?>
 						</ul>					
 					</li>
 					
@@ -144,10 +149,16 @@
 				</div>
 				<div id="navbar-collapse-grid" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav custom-navbar-nav">
-						<li><a href="our-team.php">PEOPLE</a></li>
-						<li><a href="products.php">PRODUCT</a></li>
-						<li><a href="culture.php">CULTURE</a></li>
-						<li><a href="opportunity.php">OPPORTUNITY</a></li>
+						<?php
+							$links = $manageContent->getNavbarPageLinks();
+							if(!empty($links[0]['id']))
+							{
+								foreach($links as $link)
+								{
+									echo '<li><a href='.$link['page_link'].'>'.$link['name'].'</a></li>';
+								}
+							}
+						?>
 					</ul>
 				</div>
 			</div>

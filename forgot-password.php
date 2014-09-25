@@ -16,9 +16,9 @@
 	//include another template file
 	include 'v-templates/header-user.php';
 ?>
-						
-<!-- navbar second profile -->
 
+<?php /*
+<!-- navbar second profile -->
 <nav class="navbar navbar-scnd-prof" role="navigation">
     <div class="container">
         
@@ -51,7 +51,7 @@
     <div class="col-sm-12">
     </div>
 </div>
-
+*/ ?>
 
 <!-- log in section -->
 
@@ -73,11 +73,11 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
             <div class="log-in-content">
-                <form class="form-horizontal" action="email-verification.php" method="post" role="form">
+                <form class="form-horizontal" action="v-includes/functions/function.forgot-password.php" method="post" role="form">
                     <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control form-cart" placeholder="Email">
+                          <input type="email" class="form-control form-cart" placeholder="Email" name="forgot_email">
                         </div>
                       </div>
                     <div class="form-group">

@@ -110,6 +110,9 @@
 			elseif ($fee_type == 'PV') {
 				$fee_text = 'Point Value';
 			}
+			elseif ($fee_type == 'PS') {
+				$fee_text = 'Pool Sharing';
+			}
 			return $fee_text;
 		}
 		
@@ -313,7 +316,7 @@
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="img-container">
-												<img src="images/prod1.png" class="img-responsive center-block" />
+												<img src="'.$value['image'].'" class="img-responsive center-block" />
 											</div>
 										</div>
 									</div>
@@ -868,9 +871,6 @@
 								<div class="col-sm-1">
 									<div class="rmv"><button class="btn btn-link btn-rmv" name="pro:'.$i.'">x</button></div>
 								</div>
-								<div class="col-sm-2 col-xs-5">
-									<img src="images/curly.jpg" class="img-responsive" />
-								</div>
 								<div class="col-sm-5 col-xs-7">
 									<p class="prod-v-crt-name">'.$pro_details[0]['name'].'</p>';
 						if($maxSpeciLength != 0)
@@ -1065,22 +1065,40 @@
 			$pro_details = $this->_DAL_Obj->getValueWhereAsc('product_image','*',array('product_id'),array($product_id),'img_order');
 			if(!empty($pro_details[0]))
 			{
-				echo '<div class="img-prod-cart">';
-						/*<li>
-							<img class="img-responsive" src="images/basket-egg.jpg" />
-						</li>
-						<li>
-							<img class="img-responsive" src="images/basket-egg.jpg" />
-						</li>
-						<div class="clearfix"></div>*/
-				foreach($pro_details as $pic)
+				/* new code */
+				echo '<div class="img-prod-cart" id="prod_main">
+						<img class="img-responsive" src="images/product/'.$pro_details[0]['image'].'" />
+					</div>';
+				
+				echo '<div class="row">';
+					
+				if(!empty($pro_details[1]))
 				{
-					echo '<li>
-							<img class="img-responsive" src="images/product/'.$pic['image'].'" />
-						</li>';
+					echo '<div class="col-sm-3 thumb_image" id="prod_img1">
+							<img class="img-responsive" src="images/product/'.$pro_details[1]['image'].'" />
+						</div>';
+				}
+				if(!empty($pro_details[2]))
+				{
+					echo '<div class="col-sm-3 thumb_image" id="prod_img2">
+							<img class="img-responsive" src="images/product/'.$pro_details[2]['image'].'" />
+						</div>';
+				}
+				if(!empty($pro_details[3]))
+				{
+					echo '<div class="col-sm-3 thumb_image" id="prod_img3">
+							<img class="img-responsive" src="images/product/'.$pro_details[3]['image'].'" />
+						</div>';
+				}
+				if(!empty($pro_details[4]))
+				{
+					echo '<div class="col-sm-3 thumb_image" id="prod_img4">
+							<img class="img-responsive" src="images/product/'.$pro_details[4]['image'].'" />
+						</div>';
 				}
 				
 				echo '</div>';
+				
 			}
 			else
 			{
@@ -1140,7 +1158,7 @@
 						if(substr($trans_details[0]['order_id'], 0, 9) == 'mem_order')
 						{
 							//get order details
-							$mem_order_details = $this->_DAL_Obj->getValueMultipleCondtn('membership_order_info', '*', array('membership_order_id'),array($trans_details[0]['order_id']));
+							$mem_order_details = $this->_DAL_Obj->getValueMultipleCondtn('membership_order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
 	                                <td><a href="membership-order-details.php?mid='.$mem_order_details[0]['membership_order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
@@ -1345,7 +1363,7 @@
 			
 			echo '<tr>
                     <td class="amt-color" colspan="5" style="text-align: right;">Total Point Value</td>
-                    <td>'.$total_pv[0]['total_pv'].'</td>
+                    <td>'; if(!empty($total_pv[0]['total_pv'])) { echo $total_pv[0]['total_pv'] ; } else { echo 0;}  echo '</td>
                 </tr>';
 		}
 		
@@ -1460,7 +1478,7 @@
 		*/
 		function getOrderHistory()
 		{
-			$orders = $this->_DAL_Obj->getValueWhere_descending('order_info', '*', 'user_id', $_SESSION['user_id']);
+			$orders = $this->_DAL_Obj->getValueMultipleCondtnDesc('order_info', '*', array('user_id','checkout_process'), array($_SESSION['user_id'],1));
 			if(!empty($orders[0]))
 			{
 				foreach($orders as $order)
@@ -1475,6 +1493,12 @@
 						</tr>';
 				}
 				
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="5">Order History is Empty</td>
+					</tr>';
 			}
 		}
 
@@ -1551,7 +1575,9 @@
 				foreach($pro_details as $product)
 				{
 					echo '<tr>
-							<td>'.$this->getProductNameFromId($product['product_id']).'</td>
+							<td>'.$this->getProductNameFromId($product['product_id']).'
+								<a href = "product-review.php?proid='.$product['product_id'].'"><button class="btn">Review</button></a>
+							</td>
 							<td>'.$product['quantity'].'</td>
 							<td>';
 					if(!empty($product['specification']))
@@ -1615,14 +1641,14 @@
 							<td>'.$withdraw['date'].'</td>
 							<td>'.$this->getSystemCurrency('product').$withdraw['amount'].'</td>
 							<td>';
-								if($withdraw['status']==0)
-								{
-									echo 'Processing';
-								}
-								else 
-								{
-									echo 'Processed';
-								}
+							if($withdraw['status']==0)
+							{
+								echo 'Processing';
+							}
+							else 
+							{
+								echo 'Processed';
+							}
 					
 					echo '</td></tr>';			
 							
@@ -1644,6 +1670,194 @@
 		{
 			$mem_order = $this->_DAL_Obj->getValue_Where('membership_order_info', '*','membership_order_id',$order);
 			return $mem_order;
+		}
+		
+		/*
+		- method for getting tree data
+		- Auth: Debojyoti 
+		*/
+		function getTreeData($id, $level)
+		{
+			//getting data about the id passed	
+			$userData = $this->_DAL_Obj->getValue_where('user_mlm_info', '*', 'user_id', $id);	
+			if($level==1)
+			{
+				$parentName = $this->_DAL_Obj->getValue_where('user_info', '*', 'user_id', $id);	
+				$user_level = $this->getUserLevelDetails($parentName[0]['member_level']);	
+				echo '<div class="wholesaler-block pull-left wholesaler-outline">
+	                		<img src="images/user-icon.png" class="img-responsive" />
+                    		<div class="text-center wholsaler-textblock">
+                    			<p class="wholesaler"><b>'.$parentName[0]['f_name']." ".$parentName[0]['l_name'].'</b></p>
+                    			<p class="subhead">'.$user_level[0]['member_category'].'</p>
+                    			<p class="user">'.$id.'</p>
+                    		</div>
+                    	</div>';
+				//echoing 1st level child starting div if parent has a 1st level child
+				if(!empty($userData[0]['child_id']))
+				{
+					echo '<div class="local-member-block left-outline pull-left">';
+				}
+				else 
+				{
+					echo '<div style ="margin-top:8%" class="local-member-block left-outline pull-left">';
+				}		
+            }
+			//checking if the user has child 
+			if(!empty($userData[0]['child_id']))
+			{
+				$childIds = explode(',', $userData[0]['child_id']);
+				foreach($childIds as $childId)
+				{
+					//getting data of child
+					$childData = $this->_DAL_Obj->getValue_where('user_mlm_info', '*', 'id', $childId);	
+					$childName = $this->_DAL_Obj->getValue_where('user_info', '*', 'user_id', $childData[0]['user_id']);
+					$childLevel = $this->getUserLevelDetails($childName[0]['member_level']);
+					//if level = 1,div class local-block local-small-outline pull-left will be echoed
+					if($level == 1)
+					{
+						echo '<div class="local-block local-small-outline pull-left">
+	                    			<a href ="tree.php?id='.$childData[0]['user_id'].'"><img src="'.$childLevel[0]['user_icon_link'].'" alt="local" class="img-responsive subicon-align" /></a>
+		                    		<div class="text-center local-textblock">
+		                    			<p class="local-small"><b>'.$childName[0]['f_name']." ".$childName[0]['l_name'].'</b></p>
+		                    			<p class="subhead-small">'.$childLevel[0]['member_category'].'</p>
+		                    			<p class="user-small">'.$childData[0]['user_id'].'</p>
+		                    		</div>
+	                    		</div>';
+					}	
+					//if level = 2,div class member-outline-small will be echoed;all of these divs will be under div class local-block member-outline pull-left
+					if($level == 2)
+					{
+						echo '<div class="member-outline-small">
+	                    			<a href = "tree.php?id='.$childData[0]['user_id'].'"><img src="'.$childLevel[0]['user_icon_link'].'" alt="member" class="img-responsive subicon-align" /></a>
+		                    		<div class="text-center member-textblock">
+		                    			<p class="local-small"><b>'.$childName[0]['f_name']." ".$childName[0]['l_name'].'</b></p>
+		                    			<p class="subhead-small">'.$childLevel[0]['member_category'].'</p>
+		                    			<p class="user-small">'.$childData[0]['user_id'].'</p>
+		                    		</div> 
+                    			</div>';
+					}	
+					//checking child will be discontinued if level will be equal to two
+					if($level != 2)
+					{
+						//checking if this id has child
+						if(!empty($childData[0]['child_id']))
+						{
+							//setting level variable to two	in case of level 2 members
+							$level = 2;
+							echo '<div class="local-block member-outline pull-left">';
+							$this->getTreeData($childData[0]['user_id'], $level);
+							echo '</div>';
+							echo '<div class="clearfix"></div>';
+							//setting level variable to one after echoing all level two members
+							$level = 1;
+						}
+						else
+						{
+							echo '<div class="local-block member-outline pull-left" style = "margin-top:11%"><p class="wholesaler" style = "margin-left:5%;margin-top: 15%;margin-bottom: 10%;"><b>NO CHILD</b></p></div>';
+							//echoing this div which would have been echoed if the present id had a child	
+							echo '<div class="clearfix"></div>';
+						}
+					}
+				}
+			}
+			//echoing 1st level child ending div if parent has a 1st level child
+			if(!empty($userData[0]['child_id']) && $level == 1)
+			{
+				echo '</div>';
+			}
+			if(empty($userData[0]['child_id']) && $level == 1)
+			{
+				echo '<p class="wholesaler" style = "margin-left:5%;margin-top: 5%;"><b>NO CHILD</b></p></div>';
+						//echoing this div which would have been echoed if the present id had a child	
+						echo '<div class="clearfix"></div>';
+			}
+			
+		}
+
+		/*
+		- method for getting product review
+		- Auth: Debojyoti 
+		*/
+		function getProductReview($product_id)
+		{
+			$reviews = $this->_DAL_Obj->getValueWhere_descending('product_review_info', '*', 'product_id', $product_id);
+			if(empty($reviews[0]['review']))
+			{
+				echo '<div class="col-sm-12">
+						<p class="cart-prod-name-rel">No Reviews Available</p>
+					  </div>';
+			}
+			else
+			{
+				$count = 1;		
+				foreach($reviews as $review)
+				{
+					$userdata = $this->_DAL_Obj->getValue_where('user_info', '*', 'user_id', $review['user_id']);
+					
+					echo '<div class="review_outline">
+								<h4 class="review_user">
+									'.$userdata[0]['f_name'].' '.$userdata[0]['l_name'].'
+								</h4>
+								<p style="color: #838383;width: 70%;">
+									'.$review['review'].'
+								</p>
+								<p>'.$review['date'].'</p>
+							</div>';
+					if($count >= 10)
+					{
+						break;
+					}
+					$count++;
+				}
+			}	
+		}
+		
+		/*
+		- method for knowing whether user has already reviewed or not 
+		- Auth: Debojyoti
+		*/
+		function userReviewCheck($userid, $productid)
+		{
+			$column_name = array('product_id', 'user_id');
+			$column_values = array($productid, $userid);	
+			$reviewCheck = $this->_DAL_Obj->getValueMultipleCondtn('product_review_info', '*', $column_name, $column_values);
+			return $reviewCheck;
+		}
+
+		/*
+		- method for getting header page links
+		- Auth: Debojyoti 
+		*/
+		function getHeaderPageLinks()
+		{
+			$column_name = array('top_links', 'status');	
+			$column_value = array(1, 1);
+			$links = $this->_DAL_Obj->getValueMultipleCondtn('mypage_links', '*', $column_name, $column_value);
+			return $links;
+		}
+		
+		/*
+		- method for getting navbar page links
+		- Auth: Debojyoti 
+		*/
+		function getNavbarPageLinks()
+		{
+			$column_name = array('navbar_links', 'status');	
+			$column_value = array(1, 1);
+			$links = $this->_DAL_Obj->getValueMultipleCondtn('mypage_links', '*', $column_name, $column_value);
+			return $links;
+		}
+		
+		/*
+		- method for getting footer page links
+		- Auth: Debojyoti 
+		*/
+		function getFooterPageLinks()
+		{
+			$column_name = array('footer_links', 'status');	
+			$column_value = array(1, 1);
+			$links = $this->_DAL_Obj->getValueMultipleCondtn('mypage_links', '*', $column_name, $column_value);
+			return $links;
 		}
 		
 	 }

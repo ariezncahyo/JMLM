@@ -60,14 +60,14 @@
                                 <h4 class="rgt-col-hd">
                                     Member Order Details
                                 </h4>
-                                <div class="rgt-col-para brdr-none">
-                                 <p><b>Order Id:</b> <span><?php echo $mem_order[0]['membership_order_id']; ?></span></p>
-                                 <p><b>Order By:</b> <span> <?php echo $user;  ?></span></p>
-                                 <p><b>Payment Method:</b> <span>  <?php echo $payment; ?></span></p>
-                                 <p><b>Total Amount:</b> <span> <?php echo $currency.$mem_order[0]['amount']; ?></span></p>
-                                 <p><b>Purchase On:</b> <span> <?php echo $mem_order[0]['date']; ?></span></p>
-                                 <p><b>Order status:</b> <span> <?php echo $mem_order[0]['order_status']; ?></span></p>
-                                </div>
+                                <p class="rgt-col-para brdr-none">
+                                 Order Id: <?php echo $mem_order[0]['membership_order_id']; ?><br><br>
+                                 Order By: <?php echo $user;  ?><br><br>
+                                 Payment Method: <?php echo $payment; ?><br><br>
+                                 Total Amount: <?php echo $currency.$mem_order[0]['amount']; ?><br><br>
+                                 Purchase On: <?php echo $mem_order[0]['date']; ?><br><br>
+                                 Order status: <?php echo $mem_order[0]['order_status']; ?>
+                                </p>
                             </div>
                         </div>
                     </div><!-- right column divs ends -->

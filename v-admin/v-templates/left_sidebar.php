@@ -72,6 +72,12 @@
                             <li>
                                 <a href="system-money-info.php">System Money Information</a>
                             </li>
+                            <li>
+                                <a href="poolShareList.php">Pool Sharing Details</a>
+                            </li>
+                            <li>
+                                <a href="misc-details.php">Miscellaneous Details</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -83,6 +89,18 @@
                             </li>
                             <li>
                                 <a href="pageList.php">My Page List</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-folder-open fa-fw"></i> My Page Links<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="addPageLink.php">Add New Page Link</a>
+                            </li>
+                            <li>
+                                <a href="page-link-list.php">Page Link List</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
