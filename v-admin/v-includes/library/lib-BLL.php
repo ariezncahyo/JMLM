@@ -418,7 +418,7 @@
 		function getCategoryList()
 		{
 			//getting all root category
-			$root = $this->manage_content->getValueMultipleCondtn('product_category','*',array('status'),array(1));
+			$root = $this->manage_content->getValueMultipleCondtn('product_category','*',array(1),array(1));
 			if(!empty($root[0]))
 			{
 				foreach($root as $parent)
@@ -447,11 +447,11 @@
 						//checking for status
 						if($parent['status'] == 1)
 						{
-							$btn = '<button class="btn btn-success">Active</button>';
+							$btn = '<a href="v-includes/functions/function.delete-category.php?op=deactivate&id='.$parent['categoryId'].'"><button class="btn btn-danger">Deactivate</button></a>';
 						}
 						else
 						{
-							$btn = '<button class="btn btn-danger">Deactive</button>';
+							$btn = '<a href="v-includes/functions/function.delete-category.php?op=activate&id='.$parent['categoryId'].'"><button class="btn btn-success">Activate</button></a>';
 						}
 						echo '<tr>
 								<td><input type="checkbox" name="parent_cat[]" class="parent_cat" value="'.$parent['categoryId'].'" '.$active.' />'.$parent['name'].'</td>
@@ -459,7 +459,7 @@
 								<td>'.$parent['date'].'</td>
 								<td><a href="edit-category.php?id='.$parent['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
 								<td>'.$btn.'</td>
-								<td><a href="v-includes/functions/function.delete-category.php?id='.$parent['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
+								<td><a href="v-includes/functions/function.delete-category.php?op=del&id='.$parent['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
 							</tr>';
 						
 						//getting child detail
@@ -501,11 +501,11 @@
 					//checking for status
 					if($child_details[0]['status'] == 1)
 					{
-						$btn = '<button class="btn btn-success">Active</button>';
+						$btn = '<a href="v-includes/functions/function.delete-category.php?op=deactivate&id='.$child_details[0]['categoryId'].'"><button class="btn btn-danger">Deactivate</button></a>';
 					}
 					else
 					{
-						$btn = '<button class="btn btn-danger">Deactive</button>';
+						$btn = '<a href="v-includes/functions/function.delete-category.php?op=activate&id='.$child_details[0]['categoryId'].'"><button class="btn btn-success">Activate</button></a>';
 					}
 					
 					
@@ -520,7 +520,7 @@
 							<td>'.$child_details[0]['date'].'</td>
 							<td><a href="edit-category.php?id='.$child_details[0]['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
 							<td>'.$btn.'</td>
-							<td><a href="v-includes/functions/function.delete-category.php?id='.$child_details[0]['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
+							<td><a href="v-includes/functions/function.delete-category.php?op=del&id='.$child_details[0]['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
 						</tr>';
 					//getting child detail
 					if($nested_child_no != 0)

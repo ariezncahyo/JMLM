@@ -32,7 +32,7 @@
                                     <th>Child Element</th>
                                     <th>Upload Date</th>
                                     <th>Edit</th>
-                                    <th>Status</th>
+                                    <th>Status Change</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

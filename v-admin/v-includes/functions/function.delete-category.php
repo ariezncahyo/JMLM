@@ -8,67 +8,98 @@
 	
 	include '../library/lib-DAL.php';
 	$manageData = new ManageContent_DAL();
-	//getting data of product 
-	$productData = $manageData->getValue_where('product_category', '*', 'categoryId', $id);
-	//checking if product has a parent 
-	if(!empty($productData[0]['parentId']))
-	{
-		//getting parent data of the product	
-		$parentData = $manageData->getValue_where('product_category', '*','categoryId', $productData[0]['parentId']);
-		//getting childids of the parent of the product
-		$child_db = $parentData[0]['childId'];
-		//converting string into array
-		$childIds = explode(',', $child_db);
-		if(!empty($childIds))
-		{
-			foreach($childIds as $key=>$value)
+	
+	switch ($GLOBALS['_GET']['op']) {
+		case 'del':
+			
+			//getting data of product 
+			$productData = $manageData->getValue_where('product_category', '*', 'categoryId', $id);
+			//checking if product has a parent 
+			if(!empty($productData[0]['parentId']))
 			{
-				//checking if value of an element of the array is equal to the product id	
-				if($value == $id)
+				//getting parent data of the product	
+				$parentData = $manageData->getValue_where('product_category', '*','categoryId', $productData[0]['parentId']);
+				//getting childids of the parent of the product
+				$child_db = $parentData[0]['childId'];
+				//converting string into array
+				$childIds = explode(',', $child_db);
+				if(!empty($childIds))
 				{
-					$index = $key;
-					break;
+					foreach($childIds as $key=>$value)
+					{
+						//checking if value of an element of the array is equal to the product id	
+						if($value == $id)
+						{
+							$index = $key;
+							break;
+						}
+					}
+				}
+				//removing the product from childid array of the parent
+				unset($childIds[$index]);
+				//rearranging the position of the array values
+				$childIds = array_values($childIds);
+				//making string of parent child ids of the array
+				if( !empty($childIds) )
+				{
+					$val_str = "";
+					foreach ($childIds as $val)
+					{
+							$val_str = $val.",";
+					}
+					$childIds = substr($val_str, 0, -1);
+				}
+				else 
+				{
+					$childIds = 'NULL';
+				}
+				
+				//update value
+				$updParent = $manageData->updateValueWhere('product_category', 'childId', $childIds ,'categoryId', $productData[0]['parentId']);
+				
+			}
+			//recursive function to delete subsequent childids
+			function recursiveChildDeletion($id, $manageData)
+			{
+				$childData = $manageData->getValue_where('product_category', '*', 'categoryId', $id);
+				$manageData->deleteValue('product_category', 'categoryId', $id);	
+				if(!empty($childData[0]['childId']))
+				{
+					$childIdArray = explode(',', $childData[0]['childId']);
+					foreach($childIdArray as $childId)
+					{
+						recursiveChildDeletion($childId, $manageData);
+					}
 				}
 			}
-		}
-		//removing the product from childid array of the parent
-		unset($childIds[$index]);
-		//rearranging the position of the array values
-		$childIds = array_values($childIds);
-		//making string of parent child ids of the array
-		if( !empty($childIds) )
-		{
-			$val_str = "";
-			foreach ($childIds as $val)
-			{
-					$val_str = $val.",";
-			}
-			$childIds = substr($val_str, 0, -1);
-		}
-		else 
-		{
-			$childIds = 'NULL';
-		}
+			//calling child deletion function
+			recursiveChildDeletion($id, $manageData);
+			
+			break;
 		
-		//update value
-		$updParent = $manageData->updateValueWhere('product_category', 'childId', $childIds ,'categoryId', $productData[0]['parentId']);
-		
-	}
-	//recursive function to delete subsequent childids
-	function recursiveChildDeletion($id, $manageData)
-	{
-		$childData = $manageData->getValue_where('product_category', '*', 'categoryId', $id);
-		$manageData->deleteValue('product_category', 'categoryId', $id);	
-		if(!empty($childData[0]['childId']))
-		{
-			$childIdArray = explode(',', $childData[0]['childId']);
-			foreach($childIdArray as $childId)
+		case 'activate':
+			
+			$productData = $manageData->getValue_where('product_category', '*', 'categoryId', $id);
+			if($productData[0]['status'] != 1)
 			{
-				recursiveChildDeletion($childId, $manageData);
+				$updStatus = $manageData->updateValueWhere('product_category', 'status', 1, 'categoryId', $id);
 			}
-		}
+			break;
+		
+		case 'deactivate':
+			
+			$productData = $manageData->getValue_where('product_category', '*', 'categoryId', $id);
+			if($productData[0]['status'] != 0)
+			{
+				$updStatus = $manageData->updateValueWhere('product_category', 'status', 0, 'categoryId', $id);
+			}
+			break;
+		
+		default:
+			
+			break;
 	}
-	//calling child deletion function
-	recursiveChildDeletion($id, $manageData);
+	
+	
 	header("location:../../list-category.php");	
 ?>
