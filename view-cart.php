@@ -109,7 +109,42 @@
         <!--</form>-->
     </div><!-- row ends -->
 </div><!-- container ends -->
-				
+
+<?php if($_SESSION['user_id'] == 'Guest'){ ?>
+
+<!-- Modal -->
+<div class="modal fade" id="viewCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Lorem Ipsum</h4>
+      </div>
+      <div class="modal-body">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a href="login.php"><button type="button" class="btn btn-primary">Go to Login</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$('#viewCartModal').modal({
+		  keyboard: false
+		})
+	});
+</script>
+<?php } ?>
+
 <?php
 	include 'v-templates/footer.php';
 ?>

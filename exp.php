@@ -44,12 +44,5 @@
 	
 	//echo $result = $mail->activationLink('vdipanjan@gmail.com','Dipa0904','user53bd43c5325d5');
 	
-	$values = $obj->getValueLikelyMultiple('user_money_info', '*', array('user_id','specification'), array('user53bd','trans'), 'ASC', 10);
-	
-	echo '<pre>';
-	print_r($values);
-	echo '</pre>';
-	
-	echo md5('geheim');
 	
 ?>

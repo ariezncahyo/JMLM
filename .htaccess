@@ -1,0 +1,4 @@
+﻿Options +FollowSymLinks
+
+#RewriteEngine On
+#RewriteRule ^myPage/([a-zA-Z0-9]+)$ myPage.php?id=$1

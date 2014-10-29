@@ -1859,6 +1859,5 @@
 			$links = $this->_DAL_Obj->getValueMultipleCondtn('mypage_links', '*', $column_name, $column_value);
 			return $links;
 		}
-		
 	 }
 ?>

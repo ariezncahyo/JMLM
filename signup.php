@@ -11,6 +11,18 @@
 	{
 		header("Location: invalid-user.php");
 	}
+	//checking for get value
+	if(isset($GLOBALS['_GET']['refid']))
+	{
+		//get ref id details
+		$refUser = $manageContent->getUserInfoDetails($GLOBALS['_GET']['refid']);
+		
+		if(empty($refUser) || $refUser[0]['member_level'] == 0)
+		{
+			$_SESSION['warning'] = 'This user does not have permission to refer to anyone';
+			header("Location: index.php");
+		}
+	}
 ?>
 <?php
 	//include another template file
@@ -129,6 +141,9 @@
                           <input type="text" class="form-control form-cart" placeholder="Company" name="company">
                         </div>
                       </div>
+                      <?php
+                      	if(!isset($GLOBALS['_GET']['refid'])){
+                      ?>
                       <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Referral User Id : </label>
                         <div class="col-sm-9">
@@ -136,6 +151,7 @@
                           <div class="form-error" id="err_signup_ref_user"></div>
                         </div>
                       </div>
+                      <?php } ?>
                       <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Username : </label>
                         <div class="col-sm-9">
@@ -166,6 +182,10 @@
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-10">
+                        	<?php
+                        		if(isset($GLOBALS['_GET']['refid'])){ echo '<input type="hidden" name="ref_user" value="'.$GLOBALS['_GET']['refid'].'"/>'; }
+                        	?>
+                        	
                           <button type="button" id="user_signup_btn" class="btn btn-warning checkout-btn">Sign Up</button>
                         </div>
                       </div>

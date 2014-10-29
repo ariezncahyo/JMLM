@@ -1377,6 +1377,9 @@
 			$mem_details = $this->manage_content->getValue_where('user_info','*','user_id',$user_id);
 			if(!empty($mem_details[0]))
 			{
+				//get member level details
+				$member_level = $this->getMemberLevelDetails($mem_details[0]['member_level']);
+				
 				echo ' <div class="col-lg-8">
                     <div class="panel panel-default"><div class="panel-heading"><i class="fa fa-list fa-fw"></i> Member Basic Info</div>
                         <div class="panel-body">
@@ -1408,6 +1411,11 @@
 							<div class="pro_info_outline">
                                 <div class="pro_info_topic col-sm-3">Email-Id:</div>
                                 <div class="pro_info_text col-sm-9">'.$mem_details[0]['email_id'].'</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="pro_info_outline">
+                                <div class="pro_info_topic col-sm-3">Position:</div>
+                                <div class="pro_info_text col-sm-9">'.$member_level[0]['member_category'].'</div>
 								<div class="clearfix"></div>
 							</div>
 						</div>
@@ -1909,16 +1917,21 @@
 		*/
 		function getMemChildList($userid)
 		{
+			//getting user info
+			$user_info = $this->manage_content->getValue_where('user_info', '*', 'user_id', $userid);
+			//getting user member level info
+			$user_mem_info = $this->getMemberLevelDetails($user_info[0]['member_level']);
+			
 			echo '<div class="col-lg-8">
                     <div class="panel panel-default"><div class="panel-heading"> Member Child Info</div>
                         <div class="panel-body">
                         	<div class="row">
                         		<div class="col-sm-4">
                         			<div class="img-thumbnail">
-                        				<img src="img/profile-pic.png" class="img-responsive" />
+                        				<img src="../'.$user_mem_info[0]['image_link'].'" class="img-responsive" />
                         			</div>
                         			<div class="pro_info_outline">
-		                                <div class="pro_info_topic txt-lt">User Id</div>
+		                                <div class="pro_info_topic txt-lt">'.$user_info[0]['f_name'].' '.$user_info[0]['l_name'].'</div>
 		                                <div class="pro_info_text">'.$userid.'</div>
 										<div class="clearfix"></div>
 									</div>
@@ -1937,10 +1950,14 @@
 				{
 					//getting userid from childid by comparing childid to id	
 					$child_user_id = $this->manage_content->getValue_where('user_mlm_info','*','id',$child);
+					//getting child info 
+					$child_info = $this->manage_content->getValue_where('user_info', '*', 'user_id', $child_user_id[0]['user_id']);
+					//getting user member level info
+					$child_mem_info = $this->getMemberLevelDetails($child_info[0]['member_level']);
 					//getting respective userid of child
 					$id=$child_user_id[0]['user_id'];
 					//if there is no userid of child a message will be sent with no anchor tagged
-					$message=(empty($id)) ? "No USERID found" : "<a href=member-child-info.php?uid=$id><img src=img/profile-pic.png class=img-responsive /></a>" ;
+					$message=(empty($id)) ? "No USERID found" : "<a href=member-child-info.php?uid=$id><img src=../".$child_mem_info[0]['image_link']." class=img-responsive /></a>" ;
 					echo '<div class="row">
                         				<div class="col-sm-5">
                         					<div class="ln-indict"></div>
@@ -1950,7 +1967,7 @@
 		                        				'.$message.'
 		                        			</div>
 		                        			<div class="pro_info_outline">
-				                                <div class="pro_info_topic txt-lt">User Id</div>
+				                                <div class="pro_info_topic txt-lt">'.$child_info[0]['f_name'].' '.$child_info[0]['l_name'].'</div>
 				                                <div class="pro_info_text">'.$id.'</div>
 												<div class="clearfix"></div>
 											</div>
@@ -2035,7 +2052,7 @@
 		function getMemberLevelDetails($uid)
 		{
 			//getting all members
-			$memberupdList = $this->manage_content->getValue_where('member_level_info', '*', 'id', $uid);
+			$memberupdList = $this->manage_content->getValue_where('member_level_info', '*', 'member_level', $uid);
 			if(!empty($memberupdList[0]))
 			{
 				return $memberupdList;
