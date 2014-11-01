@@ -33,7 +33,7 @@ $(document).ready(function(e) {
 			}
 			//get product id
 			var pageUrl = window.location.href;
-			var product_id = pageUrl.substr(parseInt(pageUrl.lastIndexOf('='))+1);
+			var product_id = pageUrl.substr(parseInt(pageUrl.lastIndexOf('/'))+1);
 			//getting maxpick of this product
 			var maxpick = $('input[name="mx"]').val();
 			//calling the function to set cookie

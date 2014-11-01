@@ -42,7 +42,7 @@
                                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                                                 <div class="nav-elem">
                                                     <span class="nav-lbl">COMPANY</span>
-                                                    <img src="images/down-arrow.png" />
+                                                    <img src="<?php echo $baseUrl;?>images/down-arrow.png" />
                                                 </div>
                                             </a>
                                             
@@ -62,7 +62,7 @@
                                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                                                 <div class="nav-elem nav-elem-cm-his">
                                                     <span class="nav-lbl">COMPANY HISTORY</span>
-                                                    <img src="images/down-arrow.png" />
+                                                    <img src="<?php echo $baseUrl;?>images/down-arrow.png" />
                                                 </div>
                                             </a>
                                             
@@ -99,20 +99,20 @@
 	            <div class="row">
 	                <div class="col-sm-8">
 	                    <h2 class="cmpny-hstry-hd">Company History</h2>
-	                    <img src="images/company-history-banner.png" class="img-responsive img-future-banner" />
+	                    <img src="<?php echo $baseUrl;?>images/company-history-banner.png" class="img-responsive img-future-banner" />
 	                </div>
 	                
 	                <div class="col-sm-4">
 	                    <table class="table tble-custm table-bordered">
 	                        <tbody>
 	                            <tr>
-	                                <td><a href="company-history.php">COMPANY HISTORY</a></td>
+	                                <td><a href="<?php echo $baseUrl;?>company-history/">COMPANY HISTORY</a></td>
 	                            </tr>
 	                            <tr>
-	                                <td><a href="future.php">THE FUTURE</a></td>
+	                                <td><a href="<?php echo $baseUrl;?>future/">THE FUTURE</a></td>
 	                            </tr>
 	                            <tr>
-	                                <td><a href="our-team.php">OUR TEAM</a></td>
+	                                <td><a href="<?php echo $baseUrl;?>our-team/">OUR TEAM</a></td>
 	                            </tr>
 	                        </tbody>
 	                    </table>

@@ -5,7 +5,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -35,7 +35,7 @@
                         <div class="banner-link">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <a href="products.php" class="banner-h"><span class="banner-spn">CULTURE</span> ></a>
+                                    <a href="<?php echo $baseUrl;?>products/" class="banner-h"><span class="banner-spn">CULTURE</span> ></a>
                                 </div>
                             </div>
                         </div><!-- banner link -->
@@ -45,7 +45,7 @@
             <!-- End breadcrumb -->
             
             <div id="banner">
-				<img src="images/banners/banner.jpg" title="Culture" />        
+				<img src="<?php echo $baseUrl;?>images/banners/banner.jpg" title="Culture" />        
                 <div class="banner-txt">
 					<p class="banner-title"><a href="#">CULTURE</a></p>
                     <p class="banner-desc">Our difference is demonstrated through our opportunity. Professional distributor leaders thrive as they inspire and empower others.</p>
@@ -66,7 +66,7 @@
             
                 <div id="module" class="col-sm-6">
                     <a href="#" class="module-link">
-                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                    	<img src="<?php echo $baseUrl;?>images/banners/join-us-banner.jpg" title="Join Us" />
                         <div class="module-content">
                             <p class="module-title">JOIN OUR TEAM</p>
                             <p class="module-desc">
@@ -79,7 +79,7 @@
                 
                 <div id="module" class="col-sm-6">
                     <a href="#" class="module-link">
-                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                    	<img src="<?php echo $baseUrl;?>images/banners/join-us-banner.jpg" title="Join Us" />
                         <div class="module-content">
                             <p class="module-title">JOIN OUR TEAM</p>
                             <p class="module-desc">
@@ -92,7 +92,7 @@
                 
                 <div id="module" class="col-sm-6">
                     <a href="#" class="module-link">
-                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                    	<img src="<?php echo $baseUrl;?>images/banners/join-us-banner.jpg" title="Join Us" />
                         <div class="module-content">
                             <p class="module-title">JOIN OUR TEAM</p>
                             <p class="module-desc">
@@ -105,7 +105,7 @@
                 
                 <div id="module" class="col-sm-6">
                     <a href="#" class="module-link">
-                    	<img src="images/banners/join-us-banner.jpg" title="Join Us" />
+                    	<img src="<?php echo $baseUrl;?>images/banners/join-us-banner.jpg" title="Join Us" />
                         <div class="module-content">
                             <p class="module-title">JOIN OUR TEAM</p>
                             <p class="module-desc">

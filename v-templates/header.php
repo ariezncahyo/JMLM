@@ -52,5 +52,7 @@
 			}
 		}
 	}
-		
+	
+	//including the base url
+	$baseUrl = $manageContent->getBaseUrl();	
 ?>

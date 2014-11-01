@@ -123,7 +123,7 @@
 			$mail->mailForproductPurchase($order_details,$userName,$userEmailId,$_SESSION['order_id']);
 			/* code for final order info insertion ends */
 			
-			header("Location: ../../purchased.php");
+			header("Location: ../../purchased/");
 			break;
 		}
 		case md5('order_decline'):
@@ -160,7 +160,7 @@
 			}
 			
 			//set get value for cancel payment
-			header("Location: ../../membership-purchased.php");
+			header("Location: ../../membership-purchased/");
 			break;
 		}
 		case md5('mem_order_decline'):

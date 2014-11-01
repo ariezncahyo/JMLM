@@ -7,6 +7,8 @@
 	$price = $manageContent->getMemProductPrice();
 	//for geting shipping cost
 	$shipping = $manageContent->getShippingCost();
+	//for getting base url
+	$baseUrl = $manageContent->getBaseUrl();
 ?>
 	<?php
 		include 'v-templates/left_sidebar.php';
@@ -113,6 +115,35 @@
                 </div>
             </div>
             <!-- /.row -->
+            <div class="row">
+            	<div class="col-lg-12">
+                	<div class="panel panel-default">
+                    	
+                        <div class="panel-heading"><i class="fa fa-plus-circle fa-fw"></i> Edit Base Url</div>
+                        <div class="panel-body">
+                        	<form action="v-includes/functions/function.edit-misc-details.php" role="form" method="post">
+                                <div class="form-group">
+                                    <label class="control-label p_label col-sm-3">Base Url</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" name="base_url" value="<?php echo $baseUrl; ?>" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-7 col-sm-offset-3">
+                                    	<input type="hidden" name="fn" value="<?php echo md5('edit_baseUrl') ?>" />
+                                        <input type="submit" class="btn btn-success btn-lg" value="UPDATE" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </div>
         </div>
         <!-- /#page-wrapper -->
 

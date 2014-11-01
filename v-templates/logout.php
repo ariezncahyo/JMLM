@@ -8,5 +8,5 @@
 	//set session value
 	$_SESSION['user_id'] = 'Guest';
 	
-	header("Location: ../login.php");
+	header("Location: ../login/");
 ?>

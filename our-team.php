@@ -5,7 +5,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -41,7 +41,7 @@
                                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                                                 <div class="nav-elem">
                                                     <span class="nav-lbl">COMPANY</span>
-                                                    <img src="images/down-arrow.png" />
+                                                    <img src="<?php echo $baseUrl;?>images/down-arrow.png" />
                                                 </div>
                                             </a>
                                             
@@ -61,7 +61,7 @@
                                             <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                                                 <div class="nav-elem">
                                                     <span class="nav-lbl">OUR TEAM</span>
-                                                    <img src="images/down-arrow.png" />
+                                                    <img src="<?php echo $baseUrl;?>images/down-arrow.png" />
                                                 </div>
                                             </a>
                                             
@@ -110,7 +110,7 @@
 	                            <h4 class="team-name">LOREM IPSUM</h4>
 	                        </div>
 	                        <div class="col-sm-3">
-	                            <img src="images/team-1.png" class="img-responsive" />
+	                            <img src="<?php echo $baseUrl;?>images/team-1.png" class="img-responsive" />
 	                        </div>
 	                    </div>
 	                    
@@ -125,7 +125,7 @@
 	                            <h4 class="team-name">LOREM IPSUM</h4>
 	                        </div>
 	                        <div class="col-sm-3">
-	                            <img src="images/team-2.png" class="img-responsive" />
+	                            <img src="<?php echo $baseUrl;?>images/team-2.png" class="img-responsive" />
 	                        </div>
 	                    </div>
 	                    
@@ -140,7 +140,7 @@
 	                            <h4 class="team-name">LOREM IPSUM</h4>
 	                        </div>
 	                        <div class="col-sm-3">
-	                            <img src="images/team-3.png" class="img-responsive" />
+	                            <img src="<?php echo $baseUrl;?>images/team-3.png" class="img-responsive" />
 	                        </div>
 	                    </div>
 	                </div>
@@ -149,13 +149,13 @@
 	                    <table class="table tble-custm table-bordered">
 	                        <tbody>
 	                            <tr>
-	                                <td><a href="company-history.php">COMPANY HISTORY</a></td>
+	                                <td><a href="<?php echo $baseUrl;?>company-history/">COMPANY HISTORY</a></td>
 	                            </tr>
 	                            <tr>
-	                                <td><a href="future.php">THE FUTURE</a></td>
+	                                <td><a href="<?php echo $baseUrl;?>future/">THE FUTURE</a></td>
 	                            </tr>
 	                            <tr>
-	                                <td><a href="our-team.php">OUR TEAM</a></td>
+	                                <td><a href="<?php echo $baseUrl;?>our-team/">OUR TEAM</a></td>
 	                            </tr>
 	                        </tbody>
 	                    </table>

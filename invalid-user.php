@@ -40,7 +40,7 @@
                 <p class="verified-txt">
                     You have to purchase membership to become Member of the system
                 </p>
-                <a href="buy-membership.php" class="btn-link-custom clk-prof-btn">
+                <a href="<?php echo $baseUrl;?>buy-membership/" class="btn-link-custom clk-prof-btn">
                     Click here to purchase Membership
                 </a>
             </div><!-- membership activation text ends -->

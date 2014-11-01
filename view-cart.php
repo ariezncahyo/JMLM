@@ -5,7 +5,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -95,10 +95,10 @@
 							</div>
 							<div class="row btn-cust-row">
 								<div class="col-xs-6">
-									<a href="products.php"><button class="btn btn-warning pull-left">Continue Shopping</button></a>
+									<a href="'.$baseUrl.'products/"><button class="btn btn-warning pull-left">Continue Shopping</button></a>
 								</div>
 								<div class="col-xs-6">
-									<a href="checkout.php"><button class="btn btn-warning pull-right">Go To Checkout</button></a>
+									<a href="'.$baseUrl.'checkout/"><button class="btn btn-warning pull-right">Go To Checkout</button></a>
 								</div>
 							</div>
 						</div>';
@@ -130,7 +130,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <a href="login.php"><button type="button" class="btn btn-primary">Go to Login</button></a>
+        <a href="<?php echo $baseUrl;?>login/"><button type="button" class="btn btn-primary">Go to Login</button></a>
       </div>
     </div>
   </div>

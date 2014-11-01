@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label class="control-label p_label col-sm-3">Page Link</label>
                                     <div class="col-sm-7">
-                                        <input type="text" class="form-control" name="pglink" placeholder="e.g: myPage.php?id=[your page id] or any other page link"/>
+                                        <input type="text" class="form-control" name="pglink" placeholder="e.g: myPage/[your page id] or any other page link"/>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>

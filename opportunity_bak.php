@@ -5,7 +5,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -33,7 +33,7 @@
                         <div class="banner-link">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <a href="products.php" class="banner-h"><span class="banner-spn">OPPORTUNITY</span> ></a>
+                                    <a href="<?php echo $baseUrl;?>products/" class="banner-h"><span class="banner-spn">OPPORTUNITY</span> ></a>
                                 </div>
                             </div>
                         </div><!-- banner link -->

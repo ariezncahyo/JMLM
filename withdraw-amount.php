@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -47,7 +47,7 @@
                         Total Amount in Your Account: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$manageContent->getUserNetAmount($_SESSION['user_id']) ?></span>
                     </h1>
                     
-                    <form class="form-horizontal" action="v-includes/functions/function.withdraw-amount.php" method="post">
+                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.withdraw-amount.php" method="post">
                         
                         <div class="form-group">
                             <label class="col-sm-4 col-sm-offset-1 label-profile">Withdraw Amount: </label>

@@ -71,5 +71,5 @@
 		}
 	}
 
-	header("Location: ../../withdraw-amount.php");
+	header("Location: ../../withdraw-amount/");
 ?>

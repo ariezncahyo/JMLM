@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -46,7 +46,7 @@
                     </div>
                     <?php if(!empty($bank_value)) { ?>
                     
-                    <form class="form-horizontal" action="v-includes/functions/function.edit-bank_details.php" method="post" id="user_bank_frm">
+                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.edit-bank_details.php" method="post" id="user_bank_frm">
                         
                         <div class="form-group mrgn-tp-profile">
                             <label class="col-sm-4 col-sm-offset-1 label-profile">Account Holder Name</label>
@@ -99,7 +99,7 @@
                     </form>
                     <?php } else { ?>
                     
-                    <form class="form-horizontal" action="v-includes/functions/function.create-bank_details.php" method="post" id="user_bank_frm" >
+                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.create-bank_details.php" method="post" id="user_bank_frm" >
                         
                         <div class="form-group mrgn-tp-profile">
                             <label class="col-sm-4 col-sm-offset-1 label-profile">Account Holder Name</label>

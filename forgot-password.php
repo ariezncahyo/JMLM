@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
             <div class="log-in-content">
-                <form class="form-horizontal" action="v-includes/functions/function.forgot-password.php" method="post" role="form">
+                <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.forgot-password.php" method="post" role="form">
                     <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
                         <div class="col-sm-9">

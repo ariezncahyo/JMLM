@@ -79,7 +79,7 @@
 		
 	}
 	
-			header("Location: ../../profile-setting.php");
+			header("Location: ../../profile-setting/");
 			
 ?>
 	

@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 	if(!empty($_GET['id']) && isset($_GET['id']))
 	{

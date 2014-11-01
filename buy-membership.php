@@ -51,7 +51,7 @@
                         You have to pay for Membership: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$membership[0]['price'];  ?></span>
                     </h1>
                     
-                    <form class="form-horizontal" action="v-includes/functions/function.buy-membership.php" method="post">
+                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.buy-membership.php" method="post">
                         
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-11">

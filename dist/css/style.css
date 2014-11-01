@@ -1969,7 +1969,10 @@ body {
 	color: #c18a14;
 	margin-top: 0px;
 }
-
+.no-product-found-label {
+		margin-top: 2em;
+	}
+	
 @media (max-width: 480px) {
 	#module .module-title{
 		font-size: 1.0em;

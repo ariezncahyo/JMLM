@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 	//checking for get value
 	if(isset($GLOBALS['_GET']['refid']))
@@ -54,7 +54,7 @@
     <div class="row">
         <div class="col-sm-10">
             <div class="sign-up-content">
-                <form class="form-horizontal" method="post" action="v-includes/functions/function.signup.php" role="form" id="user_signup">
+                <form class="form-horizontal" method="post" action="<?php echo $baseUrl;?>v-includes/functions/function.signup.php" role="form" id="user_signup">
                     <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">First Name : </label>
                         <div class="col-sm-9">

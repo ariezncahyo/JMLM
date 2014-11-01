@@ -27,6 +27,6 @@
 				break;
 		}	
 		
-		header("location:../../product-review.php?proid=".$_POST['proid']);
+		header("location:../../product-review/".$_POST['proid']);
 	}
 ?>

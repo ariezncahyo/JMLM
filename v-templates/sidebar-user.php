@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 pad-min">
-                        <img class="img-responsive center-block userLevelImg" src="<?php echo $userLevelDetails[0]['image_link'] ?>" />
+                        <img class="img-responsive center-block userLevelImg" src="<?php echo $baseUrl.$userLevelDetails[0]['image_link'] ?>" />
                     </div>
                     <div class="col-sm-12 col-md-12">
                         <h4 class="prof-h"><?php echo $userDetails[0]['f_name'].' '.$userDetails[0]['l_name'] ?></h4>
@@ -26,32 +26,32 @@
                 <a class="tble-hd">
                     Profile Info Links
                 </a>
-                <a href="my-wallet.php" class="tble-para">
-                    <img src="images/rings.png" /> My Wallet
+                <a href="<?php echo $baseUrl;?>my-wallet/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/rings.png" /> My Wallet
                 </a>
-                <a href="tree.php" class="tble-para">
-                    <img src="images/rings.png" /> Tree Details
+                <a href="<?php echo $baseUrl;?>tree/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/rings.png" /> Tree Details
                 </a>
-                <a href="my-order-history.php" class="tble-para">
-                    <img src="images/hand.png" /> My Order History
+                <a href="<?php echo $baseUrl;?>my-order-history/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> My Order History
                 </a>
-                <a href="my-withdraw-history.php" class="tble-para">
-                    <img src="images/hand.png" /> My Withdraw History
+                <a href="<?php echo $baseUrl;?>my-withdraw-history/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> My Withdraw History
                 </a>
-                <a href="my-pv.php" class="tble-para">
-                    <img src="images/hand.png" /> Point Value Details
+                <a href="<?php echo $baseUrl;?>my-pv/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Point Value Details
                 </a>
-                <a href="profile-setting.php" class="tble-para">
-                    <img src="images/hand.png" /> Profile Setting
+                <a href="<?php echo $baseUrl;?>profile-setting/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Profile Setting
                 </a>
-                <a href="change-password.php" class="tble-para">
-                    <img src="images/hand.png" /> Change Password
+                <a href="<?php echo $baseUrl;?>change-password/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Change Password
                 </a>
-                <a href="bank-account.php" class="tble-para">
-                    <img src="images/hand.png" /> Bank Account Details
+                <a href="<?php echo $baseUrl;?>bank-account/" class="tble-para">
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Bank Account Details
                 </a>
-                <a href="withdraw-amount.php" class="tble-para brdr-none">
-                    <img src="images/eye.png" /> Withdraw Amount
+                <a href="<?php echo $baseUrl;?>withdraw-amount/" class="tble-para brdr-none">
+                    <img src="<?php echo $baseUrl;?>images/eye.png" /> Withdraw Amount
                 </a>
             </div>
         </div>
@@ -64,7 +64,7 @@
                     lorem Ipsum Lorem
                 </a>
                 <a href="#" class="tble-para brdr-none">
-                    <img src="images/facebook.png" /> Lorem ipsum dolor
+                    <img src="<?php echo $baseUrl;?>images/facebook.png" /> Lorem ipsum dolor
                 </a>
             </div>
         </div>

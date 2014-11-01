@@ -40,7 +40,7 @@
 		
 	}
 	
-	header("Location: ../../bank-account.php");
+	header("Location: ../../bank-account/");
 	
 		
 		

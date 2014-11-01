@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -35,7 +35,7 @@
         <!-- navbar elements for toggling -->
         <div class="collapse navbar-collapse" id="collapsenavscndprof">
             <ul class="nav navbar-nav nav-custom-scnd-prof">
-                <li><a href="index.php"><span class="active-scnd-prof">HOME</span></a></li>
+                <li><a href="<?php echo $baseUrl;?>index.php"><span class="active-scnd-prof">HOME</span></a></li>
                 <li><a href="#"><span class="hvr-scnd-prof">ABOUT US</span></a></li>
                 <li><a href="#"><span class="hvr-scnd-prof">SERVICES</span></a></li>
                 <li><a href="#"><span class="hvr-scnd-prof">MEDIA</span></a></li>
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
             <div class="log-in-content">
-                <form class="form-horizontal" action="email-verification.php" method="post" role="form">
+                <form class="form-horizontal" action="<?php echo $baseUrl;?>email-verification.php" method="post" role="form">
                     <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
                         <div class="col-sm-9">

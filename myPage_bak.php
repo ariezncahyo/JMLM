@@ -15,7 +15,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -46,7 +46,7 @@
                 <div class="banner-link">
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="mypage.php?id=<?php echo $pageid; ?>" class="banner-h"><span class="banner-spn"><?php echo $data['page_name'];?></span> ></a>
+                            <a href="<?php echo $baseUrl;?>mypage.php?id=<?php echo $pageid; ?>" class="banner-h"><span class="banner-spn"><?php echo $data['page_name'];?></span> ></a>
                         </div>
                     </div>
                 </div><!-- banner link -->
@@ -70,7 +70,7 @@
 	                    	//getting mypage image
 	                    	if(!empty($data['image']))
 							{
-								echo '<img src="images/'.$data['image'].'" class="img-responsive img-future-banner" />';
+								echo '<img src="'.$baseUrl.'images/'.$data['image'].'" class="img-responsive img-future-banner" />';
 							}
 	                    ?>
 	                </div>

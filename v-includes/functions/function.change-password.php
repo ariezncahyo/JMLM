@@ -34,5 +34,5 @@
 		}
 	}
 	
-	header("Location: ../../change-password.php");
+	header("Location: ../../change-password/");
 ?>

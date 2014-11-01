@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 	//checking get value
 	if(!isset($GLOBALS['_GET']['proid']))
@@ -54,7 +54,7 @@
                         Give Product Review
                     </h1>
                     
-	                    <form class="form-horizontal" action="v-includes/functions/function.product-review.php" method="post">
+	                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.product-review.php" method="post">
 	                    <?php 
 	                    	$userReview = $manageContent->userReviewCheck($_SESSION['user_id'], $_GET['proid']);
 							if(empty($userReview[0]['review'])) { ?>

@@ -5,7 +5,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -39,7 +39,7 @@
                                 </p>
                             </div>
                             <div class="col-xs-4 col-sm-4">
-                                <img src="images/contact.png" class="img-responsive" />
+                                <img src="<?php echo $baseUrl;?>images/contact.png" class="img-responsive" />
                             </div>
                         </div>
                     </div><!-- banner contact ends -->

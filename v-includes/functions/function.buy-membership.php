@@ -39,12 +39,12 @@
 		if($insert == 1)
 		{
 			$_SESSION['mem_order_id'] = $mem_order_id;
-			header("Location: ../../membership-purchased.php");
+			header("Location: ../../membership-purchased/");
 		}
 		else
 		{
 			$_SESSION['warning'] = 'Processing Unsuccessfull!!';
-			header("Location: ../../buy-membership.php");
+			header("Location: ../../buy-membership/");
 		}
 		
 	}

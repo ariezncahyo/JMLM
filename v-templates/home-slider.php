@@ -11,19 +11,19 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="images/slideshow/s-lion-king.jpg" alt="S Lion King" title="S Lion King">
+      <img src="<?php echo $baseUrl;?>images/slideshow/s-lion-king.jpg" alt="S Lion King" title="S Lion King">
     </div>
     <div class="item">
-      <img src="images/slideshow/s-lion-juice.jpg" alt="S Lion Juice" title="S Lion Juice">
+      <img src="<?php echo $baseUrl;?>images/slideshow/s-lion-juice.jpg" alt="S Lion Juice" title="S Lion Juice">
     </div>
     <div class="item">
-      <img src="images/slideshow/s-for-men.jpg" alt="S for Men" title="S for Men">
+      <img src="<?php echo $baseUrl;?>images/slideshow/s-for-men.jpg" alt="S for Men" title="S for Men">
     </div>
     <div class="item">
-      <img src="images/slideshow/s-for-women.jpg" alt="S for Women" title="S for Women">
+      <img src="<?php echo $baseUrl;?>images/slideshow/s-for-women.jpg" alt="S for Women" title="S for Women">
     </div>
     <div class="item">
-      <img src="images/slideshow/hi-detox.jpg" alt="Hi Detox Fiber Drink with Prebiotics" title="Hi Detox Fiber Drink with Prebiotics">
+      <img src="<?php echo $baseUrl;?>images/slideshow/hi-detox.jpg" alt="Hi Detox Fiber Drink with Prebiotics" title="Hi Detox Fiber Drink with Prebiotics">
     </div>
   </div>
 

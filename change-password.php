@@ -9,7 +9,7 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
@@ -48,7 +48,7 @@
                         Change your password here
                     </h1>
                     
-	                    <form class="form-horizontal" action="v-includes/functions/function.change-password.php" method="post">
+	                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.change-password.php" method="post">
 	                        
 	                    <div class="form-group">
 	                        <label class="col-sm-3 col-sm-offset-1 label-profile">Old Password </label>

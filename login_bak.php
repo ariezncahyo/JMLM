@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
             <div class="log-in-content">
-                <form class="form-horizontal" action="v-includes/functions/function.login.php" role="form" method="post">
+                <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.login.php" role="form" method="post">
                     <div class="form-group">
                         <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
                         <div class="col-sm-9">
@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 nul-pad col-sm-9">
-                            <a href="forgot-password.php"><button type="button" class="btn btn-link btn-link-custom">Forgot password</button></a>
+                            <a href="<?php echo $baseUrl;?>forgot-password/"><button type="button" class="btn btn-link btn-link-custom">Forgot password</button></a>
                         </div>
                     </div>
                 </form>

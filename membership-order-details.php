@@ -10,12 +10,12 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 	//checking for get values
 	if(!isset($GLOBALS['_GET']['mid']))
 	{
-		header("Location: login.php");
+		header("Location: login/");
 	}
 ?>
 <?php

@@ -68,18 +68,18 @@
 				$mailSend = $mail->activationLink($_POST['email'],$_POST['username'],$user_id);
 				
 				$_SESSION['success'] = 'Registration Successfull!!';
-				header("Location: ../../buy-membership.php");
+				header("Location: ../../buy-membership/");
 			}
 			else
 			{
 				$_SESSION['warning'] = 'Registration Unsuccessfull!!';
-				header("Location: ../../signup.php");
+				header("Location: ../../signup/");
 			}
 		}
 		else
 		{
 			$_SESSION['warning'] = 'Password Fields Not Matched';
-			header("Location: ../../signup.php");
+			header("Location: ../../signup/");
 		}
 	}
 ?>

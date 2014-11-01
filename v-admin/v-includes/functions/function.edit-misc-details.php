@@ -35,6 +35,17 @@
 			header("Location: ../../misc-details.php");
 			break;
 		}
+		
+		case md5('edit_baseUrl'):
+		{
+			if(isset($_POST['base_url']) && !empty($_POST['base_url']))
+			{
+				$update = $manageData->updateValueWhere('admin_info','base_url', $_POST['base_url'], 'id',1);
+			}
+			header("Location: ../../misc-details.php");
+			break;
+		}
+
 		default:
 		{
 			break;

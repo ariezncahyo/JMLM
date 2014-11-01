@@ -43,7 +43,7 @@
                 <p class="verified-txt">
                     Your email has been verified
                 </p>
-                <a href="profile.php" class="btn-link-custom clk-prof-btn">
+                <a href="<?php echo $baseUrl;?>profile/" class="btn-link-custom clk-prof-btn">
                     Click here to go to your profile
                 </a>
             </div><!-- email verifiy text ends -->

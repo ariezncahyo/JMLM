@@ -22,13 +22,18 @@
 				if($mailsent == 1)
 				{
 					$_SESSION['success'] = 'Your new password is send to your mail';
-					header("Location: ../../forgot-password.php");
+					header("Location: ../../forgot-password/");
 				}
 				else 
 				{
 					$_SESSION['warning'] = 'Changing password is unsuccessfull';
-					header("Location: ../../forgot-password.php");	
+					header("Location: ../../forgot-password/");	
 				}
+			}
+			else 
+			{
+				$_SESSION['warning'] = 'Email Id can\'t be matched.';	
+				header("Location: ../../forgot-password/");	
 			}
 			
 		}

@@ -5,14 +5,14 @@
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
-		header("Location: invalid-user.php");
+		header("Location: invalid-user/");
 	}
 ?>
 <?php
 	//checking for empty cart
 	if(!isset($GLOBALS['_COOKIE'][$_SESSION['user_id']]))
 	{
-		header("Location: view-cart.php");
+		header("Location: view-cart/");
 	}
 ?>
 <?php
@@ -412,7 +412,7 @@
 	                             </div>
 	                            <div class="row mrgn-tp-cart">
 	                                <div class="col-md-6">
-	                                   <a href="view-cart.php" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
+	                                   <a href="<?php echo $baseUrl;?>view-cart/" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <div class="cart-btn">
@@ -445,7 +445,7 @@
                              </div>
                             <div class="row mrgn-tp-cart">
                                 <div class="col-md-6">
-                                   <a href="view-cart.php" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
+                                   <a href="<?php echo $baseUrl;?>view-cart/" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="cart-btn">

@@ -35,12 +35,12 @@
 					}
 					
 					$_SESSION['success'] = 'Login Successfull';
-					header("Location: ../../profile.php");
+					header("Location: ../../profile/");
 				}
 				else
 				{
 					$_SESSION['warning'] = 'Username Or Password Not Matched';
-					header("Location: ../../login.php");
+					header("Location: ../../login/");
 				}
 			}
 			else

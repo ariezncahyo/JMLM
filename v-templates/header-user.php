@@ -4,14 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" type="text/css" href="dist/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="dist/css/bootstrap-theme.min.css" />
-<link rel="stylesheet" type="text/css" href="dist/css/jquery.datepick.css" />
-<link rel="stylesheet" type="text/css" href="dist/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl;?>dist/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl;?>dist/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl;?>dist/css/jquery.datepick.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $baseUrl;?>dist/css/style.css" />
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="dist/js/bootstrap.min.js"></script>
+<script src="<?php echo $baseUrl;?>dist/js/bootstrap.min.js"></script>
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
@@ -33,7 +33,7 @@
 	<div id="header-logo" class="container">
 		<div id="logo">
         	<div class="logo-inner">
-				<a href="index.php"><img src="images/logo.png" /></a>
+				<a href="<?php echo $baseUrl;?>"><img src="<?php echo $baseUrl;?>images/logo.png" /></a>
 			</div>
 		</div>
 	</div>
@@ -77,7 +77,7 @@
 								{
 									foreach($links as $link)
 									{
-										echo '<li><a href='.$link['page_link'].'>'.$link['name'].'</a></li>';
+										echo '<li><a href='.$baseUrl.$link['page_link'].'>'.$link['name'].'</a></li>';
 									}
 								}
 							?>
@@ -94,24 +94,24 @@
 						$userLevelDetails = $manageContent->getUserLevelDetails($userDetails[0]['member_level']); //get user level details
 					?>
                     
-                    <li><a href="v-templates/logout.php" class="custom-brdr-li">LOG OUT</a></li>
+                    <li><a href="<?php echo $baseUrl;?>v-templates/logout.php" class="custom-brdr-li">LOG OUT</a></li>
                     <li class="dropdown">
 						<a href="#" class="dropdown-toggle custom-brdr-li active-nav" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;MY ACCOUNT<b class="caret caret-custom"></b></a>
 											
 						<ul class="dropdown-menu drop-menu-custom">
                         	<li class="nav-welcome"><?php $manageContent->getUsernameOfUser(); ?></li>	
-                            <li><a href="profile.php">Profile</a></li>
-                            <li><a href="bank-account.php">Bank Account</a></li>
-                            <li><a href="my-wallet.php">My Wallet</a></li>
-                            <li><a href="profile-setting.php">Profile Setting</a></li>
-                            <li><a href="withdraw-amount.php">Withdraw Amount</a></li>
+                            <li><a href="<?php echo $baseUrl;?>profile/">Profile</a></li>
+                            <li><a href="<?php echo $baseUrl;?>bank-account/">Bank Account</a></li>
+                            <li><a href="<?php echo $baseUrl;?>my-wallet/">My Wallet</a></li>
+                            <li><a href="<?php echo $baseUrl;?>profile-setting/">Profile Setting</a></li>
+                            <li><a href="<?php echo $baseUrl;?>withdraw-amount/">Withdraw Amount</a></li>
 						</ul>					
 					</li>
                     
                     <?php } else if($_SESSION['user_id'] == 'Guest') { ?>
                     
-					<li class="custom-brdr-li"><a href="login.php">LOG IN</a></li>
-					<li><a href="signup.php" class="active-nav"><span class="glyphicon glyphicon-play"></span>&nbsp;&nbsp;READY TO SIGN UP ?</a></li>
+					<li class="custom-brdr-li"><a href="<?php echo $baseUrl;?>login/">LOG IN</a></li>
+					<li><a href="<?php echo $baseUrl;?>signup/" class="active-nav"><span class="glyphicon glyphicon-play"></span>&nbsp;&nbsp;READY TO SIGN UP ?</a></li>
                     <?php } ?>
 				</ul>
 									
@@ -126,7 +126,7 @@
 		<div class="row col-sm-offset-6 col-sm-6 cart-search">
 			<div id="header-cart">
 				<div class="cart">
-					<a href="view-cart.php"><span class="glyphicon glyphicon-shopping-cart icon"></span>
+					<a href="<?php echo $baseUrl;?>view-cart/"><span class="glyphicon glyphicon-shopping-cart icon"></span>
 						<div class="cart-txt"><span class="cart-label">Cart</span></div>
 						<div class="cart-value"><span><?php $manageContent->getTotalProductInCart(); ?></span></div>
 					</a>
@@ -155,7 +155,7 @@
 							{
 								foreach($links as $link)
 								{
-									echo '<li><a href='.$link['page_link'].'>'.$link['name'].'</a></li>';
+									echo '<li><a href='.$baseUrl.$link['page_link'].'>'.$link['name'].'</a></li>';
 								}
 							}
 						?>

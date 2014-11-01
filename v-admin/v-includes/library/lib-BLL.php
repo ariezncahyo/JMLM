@@ -2479,6 +2479,16 @@
 			}
 		}
 		
+		/*
+		- method for getting the base url
+		- Auth: Debojyoti 
+		*/
+		function getBaseUrl()
+		{
+			$baseUrl = $this->manage_content->getValue('admin_info', '*');
+			return $baseUrl[0]['base_url'];
+		}
+		
 	}
 	
 ?>
