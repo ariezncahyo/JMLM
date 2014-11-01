@@ -11,5 +11,7 @@ RewriteRule ^tree/([^/]+)$ tree.php?id=$1
 RewriteRule ^([^/]+)/invalid-user/$ invalid-user/
 RewriteRule ^([^/]+)/$ $1.php
 RewriteRule ^JMLM/v-templates/login/$ JMLM/login/
+RewriteRule ^JMLM/index/$ JMLM/
+ErrorDocument 404 /vyrazu/JMLM/404/
 
 

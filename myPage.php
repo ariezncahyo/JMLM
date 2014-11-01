@@ -9,7 +9,7 @@
 	{
 		header("Location: index.php");
 	}
-	$data = $manageContent->getPageDetails($pageid);
+	$data = $manageContent->getPageDetails($pageid, $baseUrl);
 	$page_title = $data['page_name'];
 	
 	//checking for invalid user
@@ -17,6 +17,8 @@
 	{
 		header("Location: invalid-user/");
 	}
+	//checking for false url input
+	
 ?>
 <?php
 	

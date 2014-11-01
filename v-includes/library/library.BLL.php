@@ -1475,11 +1475,15 @@
 		- method for getting page details
 		- Auth: Debojyoti
 		*/
-		function getPageDetails($id)
+		function getPageDetails($id, $baseUrl)
 		{
 			$details=$this->_DAL_Obj->getValue_where('mypage','*','page_id', $id);
 			if(isset($details[0]) && !empty($details[0]))
 			return $details[0];
+			else 
+			{
+				header('Location:'.$baseUrl.'404/');
+			}
 		}
 
 		/*

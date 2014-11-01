@@ -1960,6 +1960,9 @@ body {
 .local-block {
 	width: 50%;
 }
+.e-404 {
+	min-height: 180px;
+}
 
 /* for product review page */
 .review_outline{
