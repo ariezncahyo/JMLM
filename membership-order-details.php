@@ -25,7 +25,7 @@
 <?php
 	$mid = $GLOBALS['_GET']['mid'];
 	//to get member order details
-	$mem_order = $manageContent->getMembershipOrderDetails($mid);
+	$mem_order = $manageContent->getMembershipOrderDetails($mid ,$baseUrl);
 	//to get the order payment method
 	$payment = $manageContent->getPaymentMethod($mem_order[0]['payment_method']);
 	//to get the system currency

@@ -1,4 +1,7 @@
 <?php
+	
+	ob_start(); 
+	
 	/*
 	 * Fetches data from DAL and creates UI
 	 * The UI calls the method to get full HTML output
@@ -333,10 +336,16 @@
 		- method for showing product details in product details page
 		- Auth: Dipanjan
 		*/
-		function getProductDetailsInDescriptionPage($product_id)
+		function getProductDetailsInDescriptionPage($product_name, $baseUrl)
 		{
 			//get product details
-			return $this->_DAL_Obj->getValue_where('product_info','*','product_id',$product_id);
+			$details = $this->_DAL_Obj->getValue_where('product_info','*','name',$product_name);
+			if(isset($details[0]) && !empty($details[0]))
+			return $details;
+			else 
+			{
+				header('Location:'.$baseUrl.'404/');
+			}
 		}
 		
 		/*
@@ -497,7 +506,7 @@
 										<div class="col-sm-7">
 											<p>'.substr($pro_details[0]['short_description'],0,50).'</p>
 											
-											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['product_id'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
 										</div>
 										
 										<div class="col-sm-5">
@@ -563,7 +572,7 @@
 												<div class="col-sm-7">
 													<p>'.substr($product['short_description'],0,50).'</p>
 													
-													<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$product['product_id'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+													<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$product['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
 												</div>
 												
 												<div class="col-sm-5">
@@ -677,7 +686,7 @@
 								}
 								
 								echo '<div class="col-sm-3">
-										<a href="'.$baseUrl.'product-description/'.$product['product_id'].'">
+										<a href="'.$baseUrl.'product-description/'.$product['name'].'">
 											<div class="rel-prod img-thumbnail">
 												<img class="img-responsive" src="'.$baseUrl.$img.'" />
 												<p class="cart-prod-name-rel">'.$product['name'].'</p>
@@ -859,7 +868,7 @@
 				//get each value part in an array
 				$allValue = explode(':',$get_cookie_value);
 				//getting product id
-				$pid = substr(strrchr($allValue[0],'='),1);
+				$pid = substr(strrchr($allValue[0],'='),1);	
 				//getting quantity
 				$quantity = substr(strrchr($allValue[1],'='),1);
 				//getting max length of specification
@@ -1477,7 +1486,7 @@
 		*/
 		function getPageDetails($id, $baseUrl)
 		{
-			$details=$this->_DAL_Obj->getValue_where('mypage','*','page_id', $id);
+			$details=$this->_DAL_Obj->getValue_where('mypage','*','page_name', $id);
 			if(isset($details[0]) && !empty($details[0]))
 			return $details[0];
 			else 
@@ -1485,7 +1494,18 @@
 				header('Location:'.$baseUrl.'404/');
 			}
 		}
-
+		
+		/*
+		- method for getting page name 
+		- Auth: Debojyoti 
+		*/
+		function getPageName($title)
+		{
+			$title = 'myPage/'.$title;
+			$details=$this->_DAL_Obj->getValue_where('mypage_links','*','page_link', $title);
+			return $details[0];
+		}
+		
 		/*
 		- method for getting order history for user
 		- Auth: Riju
@@ -1542,10 +1562,17 @@
 		- method for getting order basic details for user
 		- Auth: riju
 		*/
-		function getUserOrderBasicDetails($order_id)
+		function getUserOrderBasicDetails($order_id, $baseUrl)
 		{
 			$basic = $this->_DAL_Obj->getValueMultipleCondtn('order_info', '*', array('order_id'), array($order_id));
-			return $basic;
+			if($basic == 0)
+			{
+				header('location:'.$baseUrl.'404/');
+			}
+			else 
+			{
+				return $basic;
+			}
 			
 		}
 		
@@ -1685,7 +1712,14 @@
 		function getMembershipOrderDetails($order)
 		{
 			$mem_order = $this->_DAL_Obj->getValue_Where('membership_order_info', '*','membership_order_id',$order);
-			return $mem_order;
+			if($mem_order == 0)
+			{
+				header('location:'.$baseUrl.'404/');
+			}
+			else 
+			{
+				return $mem_order;
+			}
 		}
 		
 		/*
@@ -1697,6 +1731,10 @@
 			$baseUrl = $this->getBaseUrl();	
 			//getting data about the id passed	
 			$userData = $this->_DAL_Obj->getValue_where('user_mlm_info', '*', 'user_id', $id);	
+			if($userData == 0)
+			{
+				header('location:'.$baseUrl.'404/');
+			}
 			if($level==1)
 			{
 				$parentName = $this->_DAL_Obj->getValue_where('user_info', '*', 'user_id', $id);	

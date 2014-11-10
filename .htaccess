@@ -1,7 +1,7 @@
 Options +FollowSymlinks
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^product-description/([^/]+)$ product-description.php?pro=$1
+RewriteRule ^product-description/([^/]+)$ product-description.php?name=$1
 RewriteRule ^product-review/([^/]+)$ product-review.php?proid=$1
 RewriteRule ^products/cat/(.*)/l/(.*)$ products.php?cat=$1&l=$2
 RewriteRule ^myPage/(.*)$ myPage.php?id=$1 [QSA]
@@ -13,5 +13,6 @@ RewriteRule ^([^/]+)/$ $1.php
 RewriteRule ^JMLM/v-templates/login/$ JMLM/login/
 RewriteRule ^JMLM/index/$ JMLM/
 ErrorDocument 404 /vyrazu/JMLM/404/
+
 
 

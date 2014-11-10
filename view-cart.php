@@ -36,9 +36,8 @@
             <h3 class="cart-prod-name">
                 Your shopping cart - <?php $manageContent->getTotalProductInCart(); ?> Items
             </h3>
-            
-			<?php
-				if(isset($GLOBALS['_COOKIE']['DiHuangCart']) && isset($GLOBALS['_COOKIE'][$_SESSION['user_id']]))
+            <?php
+            	if(isset($GLOBALS['_COOKIE']['DiHuangCart']) && isset($GLOBALS['_COOKIE'][$_SESSION['user_id']]))
 				{
 					//get selected product list
 					$cart_amount = $manageContent->getProductListInCart();

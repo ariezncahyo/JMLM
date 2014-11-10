@@ -11,7 +11,8 @@
 	}
 	$data = $manageContent->getPageDetails($pageid, $baseUrl);
 	$page_title = $data['page_name'];
-	
+	$pagelinkDetails = $manageContent->getPageName($page_title);
+	$pageName = $pagelinkDetails['name'];
 	//checking for invalid user
 	if(isset($_SESSION['invalid']))
 	{
@@ -48,7 +49,7 @@
                 <div class="banner-link">
                     <div class="row">
                         <div class="col-sm-6">
-                            <a href="<?php echo $baseUrl;?>myPage/<?php echo $pageid; ?>" class="banner-h"><span class="banner-spn"><?php echo $data['page_name'];?></span> ></a>
+                            <a href="<?php echo $baseUrl;?>myPage/<?php echo $pageid; ?>" class="banner-h"><span class="banner-spn"><?php echo $pageName;?></span> ></a>
                         </div>
                     </div>
                 </div><!-- banner link -->
@@ -84,16 +85,16 @@
                 <?php if(!empty($data['image'])) { ?>
 					<div id="banner">
 						<?php if(!empty($data['image'])) {
-							echo '<img src="'.$baseUrl.'images/'.$data['image'].'" title="'.$data['page_name'].'" />';
+							echo '<img src="'.$baseUrl.'images/'.$data['image'].'" title="'.$pageName.'" />';
 						} ?>        
 						<div class="banner-txt">
-							<p class="banner-title"><a href="#"><?php echo $data['page_name'];?></a></p>
+							<p class="banner-title"><a href="#"><?php echo $pageName;?></a></p>
 							
 							<p class="banner-desc"><?php echo $data['page_banner_desc'];?> <!-- add and echo banner_desc --></p>
 						</div> 
 					</div><!-- banner -->
 				<?php } else { ?>
-                	<h2 class="cmpny-hstry-hd"><?php echo $data['page_name'];?></h2>
+                	<h2 class="cmpny-hstry-hd"><?php echo $pageName;?></h2>
 				<?php } ?>
 	            <!-- End Added Jacky -->
                 

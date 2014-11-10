@@ -9,14 +9,14 @@
 	}
 ?>
 <?php
-	if(!isset($GLOBALS['_GET']['pro']))
+	if(!isset($GLOBALS['_GET']['name']))
 	{
 		header("Location: index.php");
 	}
 	
-	$product_id = $GLOBALS['_GET']['pro'];
+	$product_name = $GLOBALS['_GET']['name'];
 	//get product details
-	$pro_details = $manageContent->getProductDetailsInDescriptionPage($product_id);
+	$pro_details = $manageContent->getProductDetailsInDescriptionPage($product_name, $baseUrl);
 ?>
 <?php
 	//include another template file
@@ -45,7 +45,7 @@
         <div class="col-sm-3">
             <?php
 				//getting product pic details
-				$manageContent->getProductImageInDetailsPage($product_id);
+				$manageContent->getProductImageInDetailsPage($pro_details[0]['product_id']);
 			?>
         </div>
         <div class="col-sm-5">
@@ -63,7 +63,7 @@
                         	<div class="specification_details">
 								<?php
                                     //getting product custom values
-                                    $manageContent->getProductCustomValue($product_id);
+                                    $manageContent->getProductCustomValue($pro_details[0]['product_id']);
                                 ?>
                             </div>
                             <div class="form-group">
@@ -108,7 +108,7 @@
                     <div class="row">
                         <div class="col-sm-8 mrgn-tp-cart">
                             <?php
-								$manageContent->getProductReview($product_id);
+								$manageContent->getProductReview($pro_details[0]['product_id']);
 							?>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                             <div class="youTube_outline">
                             	<?php
 									//get youTube video
-									$manageContent->getProductLink($product_id);
+									$manageContent->getProductLink($pro_details[0]['product_id']);
 								?>
                             </div>
                         </div>
@@ -133,6 +133,7 @@
     </div>
 </div><!-- container ends -->
 
+<input type="hidden" id="productId" value="<?php echo $pro_details[0]['product_id'];?>" />
 <!-- related products section -->
 
 <div class="container">

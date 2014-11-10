@@ -32,8 +32,9 @@ $(document).ready(function(e) {
 				user_id = getCookie('DiHuangUser');
 			}
 			//get product id
-			var pageUrl = window.location.href;
-			var product_id = pageUrl.substr(parseInt(pageUrl.lastIndexOf('/'))+1);
+			//var pageUrl = window.location.href;
+			//var product_id = pageUrl.substr(parseInt(pageUrl.lastIndexOf('/'))+1);
+			var product_id = $('#productId').val().trim();
 			//getting maxpick of this product
 			var maxpick = $('input[name="mx"]').val();
 			//calling the function to set cookie
@@ -499,7 +500,6 @@ function getProductSpecification(user_id,Quantity,Product_id,speci_length,produc
 	//set the cookie with product details
 	var pro_cookie_name = user_id+'pro:'+productCookie;
 	var pro_cookie_value = 'pid='+Product_id+':quantity='+Quantity+':';
-	
 	if(speci_length != 0)
 	{
 		for(var j=1; j<=speci_length; j++)
@@ -513,7 +513,6 @@ function getProductSpecification(user_id,Quantity,Product_id,speci_length,produc
 	}
 	//adding maxwidth of specification to value
 	pro_cookie_value = pro_cookie_value+'max_length='+speci_length;
-	//console.log(pro_cookie_value);
 	//set cookie
 	createCookie(pro_cookie_name,pro_cookie_value,1);
 }

@@ -24,7 +24,7 @@
                 </h3>
                 <p class="verified-txt">
                     For buying products <a href="<?php echo $baseUrl?>products/">Click Here</a><br />
-                    And if you want to go to home page <a href="<?php echo $baseUrl?>index/">Click Here</a>
+                    And if you want to go to home page <a href="<?php echo $baseUrl?>">Click Here</a>
                 </p>
            </div>
            <!-- error message text ends -->

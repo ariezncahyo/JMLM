@@ -23,6 +23,7 @@ switch ($_POST['action']) {
 		$curdate = date('Y-m-d');
 		$curtime = date('h:i:s');
 		//$extension = end(explode('.',$_FILES['image']['name']));
+		$_POST['name']=str_replace(' ', '-', $_POST['name']);
 		$column_name = array('page_id','page_name','page_content','page_banner_desc','image','date','time','status');
 		$column_value = array($page_id,$_POST['name'],$_POST['des'],$_POST['banner_des'],$imageName,$curdate,$curtime,$_POST['status']);
 		//insert the values
@@ -41,6 +42,7 @@ switch ($_POST['action']) {
 	case 'UPDATE':
 		if(isset($_POST['name']) && !empty($_POST['name']))
 		{
+			$_POST['name']=str_replace(' ', '-', $_POST['name']);	
 			$upd1 = $manageData->updateValueWhere('mypage','page_name',$_POST['name'],'page_id',$_POST['id']);
 		}
 		if(isset($_POST['des']) && !empty($_POST['des']))

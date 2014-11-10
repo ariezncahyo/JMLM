@@ -17,7 +17,7 @@
 	{
 		$oid = $GLOBALS['_GET']['oid'];
 		//to get order details
-		$basic = $manageContent->getUserOrderBasicDetails($oid);
+		$basic = $manageContent->getUserOrderBasicDetails($oid, $baseUrl);
 		//to get the order payment method
 		$payment = $manageContent->getPaymentMethod($basic[0]['payment_method']);
 		//to get the user name
