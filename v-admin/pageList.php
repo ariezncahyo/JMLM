@@ -18,6 +18,66 @@
             </div>
             <!-- /.row -->
             <div class="row">
+            	<?php
+            
+            	$limit = 15;
+            	$start = 0;
+				if(!empty($_GET['page']))
+				{
+					$start = ($_GET['page'] - 1) * $limit;
+				}
+				$active = 'class = "active"';
+				$page_details = $manageContent->getPageCount();
+				$total_pages = count($page_details)/15;
+            
+            ?>
+            <div class="row adm_row">
+            	<div class="col-sm-12">
+                	<ul class="pagination pull-right list-pagination">
+                      <?php 
+                    	
+	                		if(!empty($_GET['page']) && ($_GET['page'] > 1))
+							{
+								echo '<li><a href="pageList.php?page='.($_GET['page']-1).'">«</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="pageList.php?page=1">«</a></li>';
+							}
+                    		
+                    	
+	                      for($i=1;$i<=ceil($total_pages);$i++)
+						  {
+						  	if($i == $_GET['page'])	
+							{
+								echo '<li '.$active.'><a href="pageList.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							elseif(($_GET['page']) == '' && ($i == 1))
+							{
+								echo '<li '.$active.'><a href="pageList.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							else	 
+							{
+								echo '<li><a href="pageList.php?page='.$i.'">'.$i.'</a></li>';
+							}
+						  }
+						  
+						  	if(!empty($_GET['page']) && ($_GET['page'] < ceil($total_pages)))
+							{
+								echo '<li><a href="pageList.php?page='.($_GET['page']+1).'">»</a></li>';
+							}
+							elseif(empty($_GET['page']) && ($total_pages > 1))
+							{
+								echo '<li><a href="pageList.php?page=2">»</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="pageList.php?page='.ceil($total_pages).'">»</a></li>';
+							}
+
+					  ?>
+                    </ul>
+                </div>
             	<div class="col-lg-12">
                 	<div class="panel panel-default">
                         <div class="panel-heading"><i class="fa fa-tasks fa-fw"></i> List Of MyPage Details</div>
@@ -37,7 +97,7 @@
                                     <tbody>
                                     	<?php
 											//getting poll list
-											$manageContent->getMypageList();
+											$manageContent->getMypageListWithLimit($start, $limit);
 										?>
                                     </tbody>
                                 </table>

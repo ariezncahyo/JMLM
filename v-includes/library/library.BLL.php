@@ -1924,5 +1924,20 @@
 			$baseUrl = $this->_DAL_Obj->getValue('admin_info', '*');
 			return $baseUrl[0]['base_url'];
 		}
+
+		/*
+		- method for getting parent of user
+		- Auth: Debojyoti 
+		*/
+		function getParent($userid)
+		{
+			$parent = $this->_DAL_Obj->getValueWhereAsc('user_mlm_info', '*', array('user_id','status'), array($userid,1), 'user_id');
+			if($parent[0]['parent_id'] != 0)
+			{
+				$parentid = $parent[0]['parent_id'];
+				$parentinfo = 	$this->_DAL_Obj->getValueWhereAsc('user_mlm_info', '*', array('id','status'), array($parentid,1), 'user_id');					
+				return $parentinfo;
+			}
+		}
 	 }
 ?>

@@ -371,6 +371,8 @@
 			}
 		}
 		
+		
+		
 		/*
 		- method for getting value from id
 		- Auth: Dipanjan
@@ -1338,7 +1340,8 @@
 				{
 					//get user details
 					$userDetails = $this->manage_content->getValue_where('user_info', '*', 'user_id', $value);
-					
+					//getting member details
+					$memberDetails = $this->manage_content->getValue_where('member_level_info', '*', 'member_level', $userDetails[0]['member_level']);
 					if($userDetails[0]['email_verification'] == 1 && $userDetails[0]['membership_activation'] == 1)
 					{
 						$status = 'Valid Member';
@@ -1354,6 +1357,7 @@
 							<td>'.$userDetails[0]['username'].'</td>
 							<td>'.$userDetails[0]['email_id'].'</td>
 							<td>'.$status.'</td>
+							<td>'.$memberDetails[0]['member_category'].'</td>
 							<td><a href="member-info.php?uid='.$value.'"><button class="btn btn-info">Member Details</button></a></td>
 						</tr>';
 				}
@@ -1921,7 +1925,15 @@
 			$user_info = $this->manage_content->getValue_where('user_info', '*', 'user_id', $userid);
 			//getting user member level info
 			$user_mem_info = $this->getMemberLevelDetails($user_info[0]['member_level']);
-			
+			//getting parent details
+			$parent_details = $this->manage_content->getValue_where('user_mlm_info','*','user_id',$userid);
+			$parentlink = '';
+			if($parent_details[0]['parent_id'] != '')
+			{
+				//getting parent userid
+				$parent_userid = $this->manage_content->getValue_where('user_mlm_info','*','id',$parent_details[0]['parent_id']);	
+				$parentlink = '<a href="member-child-info.php?uid='.$parent_userid[0]['user_id'].'">Back to parent</a>';
+			}
 			echo '<div class="col-lg-8">
                     <div class="panel panel-default"><div class="panel-heading"> Member Child Info</div>
                         <div class="panel-body">
@@ -1991,7 +2003,7 @@
 							echo '</div>
 				                </div>
 				             </div>
-				           </div>
+				           </div>'.$parentlink.'
 				         </div>';
 		}
 
@@ -2487,6 +2499,427 @@
 		{
 			$baseUrl = $this->manage_content->getValue('admin_info', '*');
 			return $baseUrl[0]['base_url'];
+		}
+
+		/*
+		- method for getting product count 
+		- Auth: Debojyoti 
+		*/
+		function getProductCount()
+		{
+			$product = $this->manage_content->getValue('product_info', '*');
+			return $product;
+		}
+
+		/*
+		- method for getting list of product with limit
+		- Auth: Debojyoti
+		*/
+		function getProductListWithLimit($start,$end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//get values from database
+			$products = $this->manage_content->getValue_Limit('product_info','*',$limit);
+			if(!empty($products[0]))
+			{
+				foreach($products as $product)
+				{
+					//checking for feature product
+					$feature = $this->manage_content->getValue_where('feature_product','*','product_id',$product['product_id']);
+					if(!empty($feature[0]))
+					{
+						$feature_status = 'Yes';
+					}
+					else
+					{
+						$feature_status = 'No';
+					}
+					//checking for status
+					if($product['status'] == 1)
+					{
+						$btn = '<button class="btn btn-success">Active</button>';
+						$action = '<form action="v-includes/functions/function.product-action.php" method="post">
+									<input type="hidden" name="id" value="'.$product['product_id'].'" />
+									<input type="hidden" name="action" value="0" />
+									<input type="submit" class="btn btn-danger" value="Deactivate" />
+								</form>';
+					}
+					else
+					{
+						$btn = '<button class="btn btn-danger">Deactive</button>';
+						$action = '<form action="v-includes/functions/function.product-action.php" method="post">
+									<input type="hidden" name="id" value="'.$product['product_id'].'" />
+									<input type="hidden" name="action" value="1" />
+									<input type="submit" class="btn btn-success" value="Activate" />
+								</form>';
+					}
+					//checking for video link
+					$video = $this->manage_content->getValueMultipleCondtn('product_video','*',array('product_id','status'),array($product['product_id'],1));
+					if(empty($video[0]))
+					{
+						$link_btn = 'Add Link';
+					}
+					else
+					{
+						$link_btn = 'Edit Link';
+					}
+					
+					echo '<tr>
+							<td>'.$product['name'].'</td>
+							<td>'.$this->getValueFromId('product_category','categoryId',$product['category'],'name').'</td>
+							<td>'.$product['date'].'</td>
+							<td>'.$product['exp_date'].'</td>
+							<td>'.$feature_status.'</td>
+							<td><a href="product-info.php?pid='.$product['product_id'].'"><button class="btn btn-info">Product Details</button></a></td>
+							<td>'.$btn.'</td>  
+							<td>'.$action.'</td>  	
+						  </tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+                      	<td colspan="7">No Result Found</td>          	
+                      </tr>';
+			}
+		}
+		
+		/*
+		- method for getting order count 
+		- Auth: Debojyoti 
+		*/
+		function getOrderCount()
+		{
+			$order = $this->manage_content->getValueWhereDesc('order_info', '*',array('checkout_process'),array(1),'date');
+			return $order;
+		}
+		
+		/*
+		- method for getting order list with limit
+		- Auth: Debojyoti
+		*/
+		function getFullOrderListWithLimit($start, $end)
+		{
+			$limit = " LIMIT $start, $end";		
+			//getting values of order placed
+			$orderList = $this->manage_content->getValueWhereDescLimit('order_info','*',array('checkout_process'),array(1),'date',$limit);
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					//getting values of billing and shipping
+					$order_bill = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($order['order_id'],'Billing'));
+					$order_ship = $this->manage_content->getValueMultipleCondtn('order_shipping_info','*',array('order_id','address_mode'),array($order['order_id'],'Shipping'));
+					
+					echo '<tr>
+							<td>'.$order['order_id'].'</td>
+							<td>'.$order_bill[0]['f_name'].' '.$order_bill[0]['l_name'].'</td>
+							<td>'.$order_ship[0]['f_name'].' '.$order_ship[0]['l_name'].'</td>
+							<td>'.$order['date'].'</td>
+							<td>'.$this->getPaymentMethod($order['payment_method']).'</td>
+							<td>'.$this->getSystemCurrency('product').$order['total_amount'].'</td>
+							<td><a href="order-info.php?oid='.$order['order_id'].'"><button class="btn btn-info">Order Details</button></a></td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="7">No Result Found</td>
+					</tr>';
+			}
+		}	
+			
+		/*
+		- method for getting member count 
+		- Auth: Debojyoti 
+		*/
+		function getMemberCount()
+		{
+			$member = $this->manage_content->getValue('user_info', '*');
+			return $member;
+		}
+		
+		/*
+		- method for getting full member list with limit
+		- Auth: Debojyoti
+		*/
+		function getFullMemberListWithLimit($start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			
+			$memberList = $this->manage_content->getValue_Limit('user_info', '*', $limit);
+			//defining an empty array in which user id is stored
+			$user_id = array();
+			if(!empty($memberList[0]))
+			{
+				foreach($memberList as $member)
+				{
+					if(!in_array($member['user_id'],$user_id))
+					{
+						array_push($user_id,$member['user_id']);
+					}
+				}
+			}
+			//calling funtion to display the list
+			$userList = $this->showMemberList($user_id);
+		}
+
+		/*
+		- method for getting page count 
+		- Auth: Debojyoti 
+		*/
+		function getPageCount()
+		{
+			$page = $this->manage_content->getValue('mypage', '*');
+			return $page;
+		}
+		
+		/*
+		- method for getting mypage list with limit
+		- Auth: Debojyoti
+		*/
+		function getMypageListWithLimit($start, $end)
+		{
+				
+			$limit = " LIMIT $start, $end";		
+			//get values from database
+			$pageList = $this->manage_content->getValue_Limit('mypage','*', $limit);
+			if(!empty($pageList[0]))
+			{
+				foreach($pageList as $page)
+				{
+					//getting status
+					if($page['status'] == 1)
+					{
+						$cur_status = '<button class="btn btn-success">Activated</button>';
+						$form_Action = '<input type="hidden" name="id" value="'.$page['page_id'].'" />
+										<input type="hidden" name="status" value="0" />
+										<input type="hidden" name="action" value="UPDATE" />
+										<input type="submit" name="sub" class="btn btn-danger" value="Deactivate" />';
+					}
+					else
+					{
+						$cur_status = '<button class="btn btn-danger">Deactivated</button>';
+						$form_Action = '<input type="hidden" name="id" value="'.$page['page_id'].'" />
+										<input type="hidden" name="status" value="1" />
+										<input type="hidden" name="action" value="UPDATE" />
+										<input type="submit" name="sub" class="btn btn-success" value="Activate" />';
+					}
+					//showing the result
+					echo '<tr>
+							<td>'.$page['page_id'].'</td>
+							<td>'.$page['page_name'].'</td>
+							<td><a href="addPage.php?id='.$page['page_id'].'&action=edit"><button class="btn btn-info">Edit Details</button></a></td>
+							<td>'.$cur_status.'</td>
+							<td>
+								<form action="v-includes/functions/function.addPage.php" method="post">
+									
+									'.$form_Action.'
+								</form>
+							</td>
+							<td>
+								<form action="v-includes/functions/function.delete-page.php" method="post">
+								<input type = "hidden" name = "id"	value ="'.$page['page_id'].'" />
+								<input type="submit" name="sub" class="btn btn-danger" value="DELETE" />
+								</form>
+							</td>
+						</tr>';
+				}
+			}
+		}
+
+		/*
+		- method for getting pagelinks count 
+		- Auth: Debojyoti 
+		*/
+		function getPageLinksCount()
+		{
+			$pagelinks = $this->manage_content->getValue('mypage_links', '*');
+			return $pagelinks;
+		}
+
+		/*
+		- method for getting mypage link list with limit
+		- Auth: Debojyoti 
+		*/
+		function getMypageLinkListWithLimit($start, $end)
+		{
+			$limit = " LIMIT $start, $end";		
+			//get values from database
+			$pageLinkList = $this->manage_content->getValue_Limit('mypage_links','*',$limit);
+			if(!empty($pageLinkList[0]))
+			{
+				foreach($pageLinkList as $pagelink)
+				{
+					//getting status
+					if($pagelink['status'] == 1)
+					{
+						$cur_status = '<button class="btn btn-success">Activated</button>';
+					}
+					else
+					{
+						$cur_status = '<button class="btn btn-danger">Deactivated</button>';
+					}
+					//showing the result
+					echo '<tr>
+							<td>'.$pagelink['name'].'</td>
+							<td>'.$pagelink['page_link'].'</td>';
+							if($pagelink['top_links'] == 1)
+							{
+								$top = 'ON';
+							}
+							else
+							{
+								$top = 'OFF';	
+							}
+							if($pagelink['navbar_links'] == 1)
+							{
+								$nav = 'ON';
+							}
+							else
+							{
+								$nav = 'OFF';	
+							}
+							if($pagelink['footer_links'] == 1)
+							{
+								$footer = 'ON';
+							}
+							else
+							{
+								$footer = 'OFF';	
+							}
+					  echo '<td>'.$top.'</td>
+							<td>'.$nav.'</td>
+							<td>'.$footer.'</td>
+							<td><a href="addPageLink.php?id='.$pagelink['id'].'&action=edit"><button class="btn btn-info">Edit</button></a></td>
+							<td>'.$cur_status.'</td>
+							<td>
+								<form action="v-includes/functions/function.delete-page-link.php" method="post">
+								<input type = "hidden" name = "id"	value ="'.$pagelink['id'].'" />
+								<input type="submit" name="sub" class="btn btn-danger" value="DELETE" />
+								</form>
+							</td>
+						</tr>';
+				}
+			}
+		}
+
+		/*
+		- method for getting membership order count 
+		- Auth: Debojyoti 
+		*/
+		function getMembershipOrderListCount($order_status)
+		{
+			$order_list = $this->manage_content->getValueWhereDesc('membership_order_info', '*', array('order_status'), array($order_status), 'date');
+			return $order_list;
+		}
+		
+		/*
+		- method for getting membership order list with limit
+		- Auth: Debojyoti
+		*/
+		function getMembershipOrderListWithLimit($order_status, $start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//get values from datatbase
+			$order_list = $this->manage_content->getValueWhereDescLimit('membership_order_info', '*', array('order_status'), array($order_status), 'date', $limit);
+			if(!empty($order_list[0]))
+			{
+				foreach($order_list as $order)
+				{	
+					echo '<tr>
+							<td>'.$order['membership_order_id'].'</td>
+							<td>'.$this->getUserFromUserId($order['user_id']).'</td>
+							<td>'.$order['date'].'</td>
+							<td>'.$this->getPaymentMethod($order['payment_method']).'</td>
+							<td>'.$this->getSystemCurrency('product').$order['amount'].'</td>
+							<td><a href="membership-order-info.php?oid='.$order['membership_order_id'].'"><button class="btn btn-info">Order Details</button></a></td>
+						</tr>';
+				}
+			}
+			else
+			{
+				echo '<tr>
+						<td colspan="6">No Result Found</td>
+					</tr>';
+			}
+		}
+		
+		/*
+		- method for getting category count 
+		- Auth: Debojyoti 
+		*/
+		function getCategoryCount()
+		{
+			$root = $this->manage_content->getValueMultipleCondtn('product_category','*',array('level'),array(1));
+			return $root;
+		}
+		
+		/*
+		- method for getting category list with limit
+		- Auth: Debojyoti
+		*/
+		function getCategoryListWithLimit($start, $end)
+		{
+			$limit = " LIMIT $start, $end";		
+			//getting all root category
+			$root = $this->manage_content->getValueMultipleCondtnWithLimit('product_category','*',array(1),array(1),$limit);
+			if(!empty($root[0]))
+			{
+				foreach($root as $parent)
+				{
+					if(empty($parent['parentId']))
+					{
+						//getting child element
+						$child = explode(',',$parent['childId']);
+						if(!empty($parent['childId']))
+						{
+							$child_no = count($child);
+						}
+						else
+						{
+							$child_no = 0;
+						}
+						//checking for activecategory
+						if($parent['active'] == 1)
+						{
+							$active = 'checked="checked"';
+						}
+						else
+						{
+							$active = '';
+						}
+						//checking for status
+						if($parent['status'] == 1)
+						{
+							$btn = '<a href="v-includes/functions/function.delete-category.php?op=deactivate&id='.$parent['categoryId'].'"><button class="btn btn-danger">Deactivate</button></a>';
+						}
+						else
+						{
+							$btn = '<a href="v-includes/functions/function.delete-category.php?op=activate&id='.$parent['categoryId'].'"><button class="btn btn-success">Activate</button></a>';
+						}
+						echo '<tr>
+								<td><input type="checkbox" name="parent_cat[]" class="parent_cat" value="'.$parent['categoryId'].'" '.$active.' />'.$parent['name'].'</td>
+								<td>'.$child_no.'</td>
+								<td>'.$parent['date'].'</td>
+								<td><a href="edit-category.php?id='.$parent['categoryId'].'"><button class="btn btn-primary">Edit</button></a></td>
+								<td>'.$btn.'</td>
+								<td><a href="v-includes/functions/function.delete-category.php?op=del&id='.$parent['categoryId'].'"><button class="btn btn-danger">Delete</button></a></td>
+							</tr>';
+						
+						//getting child detail
+						if($child_no != 0)
+						{
+							//set category level
+							$category_level = 2;
+							//calling recursive functoin
+							$this->getNestedCategoryList($child,$category_level);
+						}
+						
+					}
+				}
+			}
 		}
 		
 	}

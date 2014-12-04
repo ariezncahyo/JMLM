@@ -22,6 +22,17 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            <?php
+            	$limit = 15;
+            	$start = 0;
+				if(!empty($_GET['page']))
+				{
+					$start = ($_GET['page'] - 1) * $limit;
+				}
+				$active = 'class = "active"';
+				$order_details = $manageContent->getOrderCount();
+				$total_pages = count($order_details)/15;
+			?>	
             <div class="row adm_row">
             	<div class="col-sm-12">
                 	<div class="btn-group pull-left order_btn_grp">
@@ -29,13 +40,48 @@
                         <button class="btn btn-primary btn-lg"><a href="filtered-order.php">Filtered List</a></button>
                     </div>
                     <ul class="pagination pull-right list-pagination">
-                      <li><a href="#">«</a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">»</a></li>
+                      <?php 
+                    	
+	                		if(!empty($_GET['page']) && ($_GET['page'] > 1))
+							{
+								echo '<li><a href="list-order.php?page='.($_GET['page']-1).'">«</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="list-order.php?page=1">«</a></li>';
+							}
+                    		
+                    	
+	                      for($i=1;$i<=ceil($total_pages);$i++)
+						  {
+						  	if($i == $_GET['page'])	
+							{
+								echo '<li '.$active.'><a href="list-order.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							elseif(($_GET['page']) == '' && ($i == 1))
+							{
+								echo '<li '.$active.'><a href="list-order.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							else	 
+							{
+								echo '<li><a href="list-order.php?page='.$i.'">'.$i.'</a></li>';
+							}
+						  }
+						  
+						  	if(!empty($_GET['page']) && ($_GET['page'] < ceil($total_pages)))
+							{
+								echo '<li><a href="list-order.php?page='.($_GET['page']+1).'">»</a></li>';
+							}
+							elseif(empty($_GET['page']) && ($total_pages > 1))
+							{
+								echo '<li><a href="list-order.php?page=2">»</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="list-order.php?page='.ceil($total_pages).'">»</a></li>';
+							}
+
+					  ?>
                     </ul>
                 </div>
                 <div class="col-lg-12">
@@ -55,7 +101,7 @@
                             <tbody>
                             	<?php
 									//get order list
-									$manageContent->getFullOrderList();
+									$manageContent->getFullOrderListWithLimit($start,$limit);
 								?>
                             </tbody>
                         </table>

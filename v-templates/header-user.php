@@ -133,7 +133,7 @@
 				</div>
 			</div>
 			<div id="header-search">
-				<form method="post" role="form">
+				<form method="post" action="<?php echo $baseUrl;?>search-products.php" role="form">
 				<div class="form-group form-group-custom customsearch">
 					<input type="text" placeholder="Search" class="form-control" />
 					<button type="submit" title="Search" class="button"><span class="glyphicon glyphicon-search"></span></button>

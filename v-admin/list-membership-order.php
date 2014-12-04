@@ -15,6 +15,28 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            <?php
+            
+            	$limit = 15;
+            	$start = 0;
+				if(!empty($_GET['page']))
+				{
+					$start = ($_GET['page'] - 1) * $limit;
+				}
+				$active = 'class = "active"';
+				if(isset($GLOBALS['_GET']['list']))
+				{
+					//get order list
+					$membershipOrder_details = $manageContent->getMembershipOrderListCount($GLOBALS['_GET']['list']);
+				}
+				else 
+				{
+					//get order list
+					$membershipOrder_details = $manageContent->getMembershipOrderListCount('Processing');
+				}
+				$total_pages = count($membershipOrder_details)/15;
+            
+            ?>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Membership Order List</h1>
@@ -31,13 +53,48 @@
                         <button class="btn btn-danger"><a href="list-membership-order.php?list=Cancel">Cancel Order List</a></button>
                     </div>
                     <ul class="pagination pull-right list-pagination">
-                      <li><a href="#">«</a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">»</a></li>
+                      <?php 
+                    	
+	                		if(!empty($_GET['page']) && ($_GET['page'] > 1))
+							{
+								echo '<li><a href="list-membership-order.php?page='.($_GET['page']-1).'">«</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="list-membership-order.php?page=1">«</a></li>';
+							}
+                    		
+                    	
+	                      for($i=1;$i<=ceil($total_pages);$i++)
+						  {
+						  	if($i == $_GET['page'])	
+							{
+								echo '<li '.$active.'><a href="list-membership-order.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							elseif(($_GET['page']) == '' && ($i == 1))
+							{
+								echo '<li '.$active.'><a href="list-membership-order.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							else	 
+							{
+								echo '<li><a href="list-membership-order.php?page='.$i.'">'.$i.'</a></li>';
+							}
+						  }
+						  
+						  	if(!empty($_GET['page']) && ($_GET['page'] < ceil($total_pages)))
+							{
+								echo '<li><a href="list-membership-order.php?page='.($_GET['page']+1).'">»</a></li>';
+							}
+							elseif(empty($_GET['page']) && ($total_pages > 1))
+							{
+								echo '<li><a href="list-membership-order.php?page=2">»</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="list-membership-order.php?page='.ceil($total_pages).'">»</a></li>';
+							}
+
+					  ?>
                     </ul>
                 </div>
                 <div class="col-lg-12">
@@ -58,12 +115,12 @@
                             		if(isset($GLOBALS['_GET']['list']))
 									{
 										//get order list
-										$manageContent->getMembershipOrderList($GLOBALS['_GET']['list']);
+										$manageContent->getMembershipOrderListWithLimit($GLOBALS['_GET']['list'], $start, $limit);
 									}
 									else 
 									{
 										//get order list
-										$manageContent->getMembershipOrderList('Processing');
+										$manageContent->getMembershipOrderListWithLimit('Processing', $start, $limit);
 									}
 								?>
                             </tbody>

@@ -53,6 +53,11 @@
 	                    		$level = 1;
 								//calling method from BLL library
 	                    		$manageContent->getTreeData($userId, $level);
+								$parent = $manageContent->getParent($userId);
+								if($parent[0])
+								{
+									echo '<a href="'.$parent[0]['user_id'].'">Back to parent</a>';
+								}
                     		?>
                     	</div><!--local-member block end-->
                     	
