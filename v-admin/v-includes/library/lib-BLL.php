@@ -1932,7 +1932,7 @@
 			{
 				//getting parent userid
 				$parent_userid = $this->manage_content->getValue_where('user_mlm_info','*','id',$parent_details[0]['parent_id']);	
-				$parentlink = '<a href="member-child-info.php?uid='.$parent_userid[0]['user_id'].'">Back to parent</a>';
+				$parentlink = '<a href="member-child-info.php?uid='.$parent_userid[0]['user_id'].'">Go to parent</a>';
 			}
 			echo '<div class="col-lg-8">
                     <div class="panel panel-default"><div class="panel-heading"> Member Child Info</div>
@@ -2921,7 +2921,342 @@
 				}
 			}
 		}
+
+		/*
+		- method for getting count of order list according to date
+		- Auth: Debojyoti
+		*/
+		function getOrderFromDateLimitCount($fromDate,$toDate)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process'),array(1));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(strtotime($toDate.' 23:59:59') >= strtotime($order['date']) && strtotime($order['date']) >= strtotime($fromDate.' 00:00:00') && !in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			return $order_id;
+		}
 		
+		
+		/*
+		- method for getting count of order list according to product id
+		- Auth: Debojyoti
+		*/
+		function getOrderFromProductIdCount($product_id)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('product_inventory_info','*',array('product_id'),array($product_id));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					//getting order checkout process
+					$order_checkout = $this->manage_content->getValueMultipleCondtn('order_info','*',array('order_id','checkout_process'),array($order['order_id'],1));
+					if(!empty($order_checkout[0]) && !in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			return $order_id;
+		}
+		
+		/*
+		- method for getting count of order list according to member
+		- Auth: Debojyoti
+		*/
+		function getOrderOfMemberCount($user_value)
+		{
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process'),array(1));
+			$order_id = array();
+			if(!empty($orderList[0]))
+			{
+				if($user_value == 'Guest')
+				{
+					foreach($orderList as $order)
+					{
+						if($order['user_id'] == $user_value && !in_array($order['order_id'],$order_id))
+						{
+							array_push($order_id,$order['order_id']);
+						}
+					}
+				}
+				else if($user_value == 'user')
+				{
+					foreach($orderList as $order)
+					{
+						if($order['user_id'] != 'Guest' && !in_array($order['order_id'],$order_id))
+						{
+							array_push($order_id,$order['order_id']);
+						}
+					}
+				}
+			}
+			return $order_id;
+		}
+		
+		/*
+		- method for getting count of order list according to date
+		- Auth: Debojyoti
+		*/
+		function getOrderFromPaymentMethodCount($payment)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process','payment_method'),array(1,$payment));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(!in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			return $order_id;
+		}
+		
+		/*
+		- method for getting count of order info from processing status
+		- Auth: Debojyoti
+		*/
+		function getOrderFromStatusCount($user_value)
+		{
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('order_status', 'checkout_process'),array($user_value, 1));
+			
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(!in_array($order['order_id'],$order_id))
+					{
+						array_push($order_id,$order['order_id']);
+					}
+				}
+			}
+			return $order_id;
+		}
+		
+		/*
+		- method for get order list according to date with limit
+		- Auth: Debojyoti
+		*/
+		function getOrderFromDateLimitWithLimit($fromDate,$toDate,$start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//defining an empty array which contains order id
+			$order_id = array();
+			$i = 0;
+			$j = 0;
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process'),array(1));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(strtotime($toDate.' 23:59:59') >= strtotime($order['date']) && strtotime($order['date']) >= strtotime($fromDate.' 00:00:00') && !in_array($order['order_id'],$order_id))
+					{
+						if($i >= $start)
+						{
+							array_push($order_id,$order['order_id']);
+							$j++;
+						}
+						$i++;	
+					}
+					if($j == $end)
+					{
+						break;
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list according to product id with limit
+		- Auth: Debojyoti
+		*/
+		function getOrderFromProductIdWithLimit($product_id,$start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//defining an empty array which contains order id
+			$order_id = array();
+			$i = 0;
+			$j = 0;
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('product_inventory_info','*',array('product_id'),array($product_id));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					//getting order checkout process
+					$order_checkout = $this->manage_content->getValueMultipleCondtn('order_info','*',array('order_id','checkout_process'),array($order['order_id'],1));
+					if(!empty($order_checkout[0]) && !in_array($order['order_id'],$order_id))
+					{
+						if($i >= $start)
+						{	
+							array_push($order_id,$order['order_id']);
+							$j++;
+						}
+						$i++;	
+					}
+					if($j == $end)
+					{
+						break;
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list according to member with limit
+		- Auth: Debojyoti
+		*/
+		function getOrderOfMemberWithLimit($user_value,$start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//defining an empty array which contains order id
+			$order_id = array();
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process'),array(1));
+			$i = 0;
+			$j = 0;
+			if(!empty($orderList[0]))
+			{
+				if($user_value == 'Guest')
+				{
+					foreach($orderList as $order)
+					{
+						if($order['user_id'] == $user_value && !in_array($order['order_id'],$order_id))
+						{
+							if($i >= $start)
+							{	
+								array_push($order_id,$order['order_id']);
+								$j++;
+							}
+							$i++;	
+						}
+						if($j == $end)
+						{
+							break;
+						}
+					}
+				}
+				else if($user_value == 'user')
+				{
+					foreach($orderList as $order)
+					{
+						if($order['user_id'] != 'Guest' && !in_array($order['order_id'],$order_id))
+						{
+							if($i >= $start)
+							{
+								array_push($order_id,$order['order_id']);
+								$j++;
+							}
+							$i++;
+						}
+						if($j == $end)
+						{
+							break;
+						}
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for get order list according to date with limit
+		- Auth: Debojyoti
+		*/
+		function getOrderFromPaymentMethodWithLimit($payment,$start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//defining an empty array which contains order id
+			$order_id = array();
+			$i = 0;
+			$j = 0;
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('checkout_process','payment_method'),array(1,$payment));
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(!in_array($order['order_id'],$order_id))
+					{
+						if($i >= $start)
+						{	
+							array_push($order_id,$order['order_id']);
+							$j++;
+						}
+						$i++;	
+					}
+					if($j == $end)
+					{
+						break;
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
+		
+		/*
+		- method for getting order info from processing status with limit
+		- Auth: Debojyoti
+		*/
+		function getOrderFromStatusWithLimit($user_value,$start, $end)
+		{
+			$limit = " LIMIT $start, $end";	
+			//defining an empty array which contains order id
+			$order_id = array();
+			$i = 0;
+			$j = 0;
+			//getting all order list
+			$orderList = $this->manage_content->getValueMultipleCondtnDesc('order_info','*',array('order_status', 'checkout_process'),array($user_value, 1));
+			
+			if(!empty($orderList[0]))
+			{
+				foreach($orderList as $order)
+				{
+					if(!in_array($order['order_id'],$order_id))
+					{
+						if($i >= $start)
+						{	
+							array_push($order_id,$order['order_id']);
+							$j++;
+						}
+						$i++;
+					}
+					if($j == $end)
+					{
+						break;
+					}
+				}
+			}
+			//calling the function for showing the list
+			$this->getFilteredOrderList($order_id);
+		}
 	}
 	
 ?>

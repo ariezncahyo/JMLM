@@ -1,7 +1,4 @@
 <?php
-	
-	ob_start(); 
-	
 	/*
 	 * Fetches data from DAL and creates UI
 	 * The UI calls the method to get full HTML output
@@ -28,7 +25,7 @@
 		}
 		
 		/*
-		- method for getting smember validiation
+		- method for getting member validiation
 		- Auth: Dipanjan
 		*/
 		function getMemberValidiation()
@@ -124,8 +121,7 @@
 		- Auth : Dipanjan
 		*/
 		function wallet_pagination($page,$rows,$pageUrl,$max_no_index,$limit)
-		{
-			$baseUrl = $this->getBaseUrl();
+		{	
 			//used in the db for getting o/p
 			$startPoint = $page*$limit ;
 			//no of page to be displayed
@@ -150,13 +146,14 @@
                     	<ul class="pagination">';
 				//logic for setting the prev button
 				//condition for escaping the -ve page index when $page = 0
+				
 				if( ($page-1) < 0 && $page != 0 )
 				{
-					echo '<li><a href="'.$baseUrl.$pageUrl.'p=0">&laquo;</a></li>';
+					echo '<li><a href="'.$pageUrl.'p=0">&laquo;</a></li>';
 				}
 				elseif( $page != 0 )
 				{
-					echo '<li><a href="'.$baseUrl.$pageUrl.'p='.($page-1).'">&laquo;</a></li>';
+					echo '<li><a href="'.$pageUrl.'p='.($page-1).'">&laquo;</a></li>';
 				}
 				/*for the indexes*/
 				//index initilization variable
@@ -178,7 +175,7 @@
 						{
 							echo ' class="active" ';
 						}
-						echo '><a href="'.$baseUrl.$pageUrl.'p='.($i-1).'">'.$i.'</a></li>' ;
+						echo '><a href="'.$pageUrl.'p='.($i-1).'">'.$i.'</a></li>' ;
 						//increment the index no by 1
 						$no_index++ ;
 						if( $no_index > $max_no_index )
@@ -190,7 +187,7 @@
 				if( $page != ( $no_page - 1 ) )
 				{
 					//for the next button
-					echo '<li><a href="'.$baseUrl.$pageUrl.'p='.($page + 1).'">&raquo;</a></li>' ;
+					echo '<li><a href="'.$pageUrl.'p='.($page + 1).'">&raquo;</a></li>' ;
 				}
 				//for the last button
 				//echo '<li><a href="'.$PageUrl.'?p='.($no_page - 1).'&limit='.$limit.'">Last</a></li>' ;
@@ -205,8 +202,7 @@
 		- Auth : Dipanjan
 		*/
 		function Uipagination($page,$rows,$pageUrl,$max_no_index,$limit,$paginationName)
-		{
-			$baseUrl = $this->getBaseUrl();
+		{	
 			//used in the db for getting o/p
 			$startPoint = $page*$limit ;
 			//no of page to be displayed
@@ -234,11 +230,11 @@
 				
 				if( ($page-1) < 0 && $page != 0 )
 				{
-					echo '<li><a href="'.$baseUrl.$pageUrl.$paginationName.'=0">&laquo;</a></li>';
+					echo '<li><a href="'.$pageUrl.$paginationName.'=0">&laquo;</a></li>';
 				}
 				elseif( $page != 0 )
 				{
-					echo '<li><a href="'.$baseUrl.$pageUrl.$paginationName.'='.($page-1).'">&laquo;</a></li>';
+					echo '<li><a href="'.$pageUrl.$paginationName.'='.($page-1).'">&laquo;</a></li>';
 				}
 				/*for the indexes*/
 				//index initilization variable
@@ -260,7 +256,7 @@
 						{
 							echo ' class="active" ';
 						}
-						echo '><a href="'.$baseUrl.$pageUrl.$paginationName.'='.($i-1).'">'.$i.'</a></li>' ;
+						echo '><a href="'.$pageUrl.$paginationName.'='.($i-1).'">'.$i.'</a></li>' ;
 						//increment the index no by 1
 						$no_index++ ;
 						if( $no_index > $max_no_index )
@@ -272,7 +268,7 @@
 				if( $page != ( $no_page - 1 ) )
 				{
 					//for the next button
-					echo '<li><a href="'.$baseUrl.$pageUrl.$paginationName.'='.($page + 1).'">&raquo;</a></li>' ;
+					echo '<li><a href="'.$pageUrl.$paginationName.'='.($page + 1).'">&raquo;</a></li>' ;
 				}
 				//for the last button
 				//echo '<li><a href="'.$PageUrl.'?p='.($no_page - 1).'&limit='.$limit.'">Last</a></li>' ;
@@ -307,7 +303,6 @@
 		*/
 		function getActiveProductCategoryList()
 		{
-			$baseUrl = $this->getBaseUrl();
 			//get active product list
 			$getValue = $this->_DAL_Obj->getValueMultipleCondtn('product_category','*',array('active','status'),array(1,1));
 			if(!empty($getValue[0]))
@@ -315,13 +310,13 @@
 				foreach($getValue as $value)
 				{
 					echo '<div class="col-sm-3">
-							<a href="'.$baseUrl.'products/cat/'.$value['categoryId'].'/l/'.$value['level'].'" class="hvr-no-decortn">
+							<a href="products.php?cat='.$value['categoryId'].'&l='.$value['level'].'" class="hvr-no-decortn">
 								<div class="container-products">
 									<p class="prod-para">'.$value['name'].'</p>
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="img-container">
-												<img src="'.$baseUrl.$value['image'].'" class="img-responsive center-block" />
+												<img src="'.$value['image'].'" class="img-responsive center-block" />
 											</div>
 										</div>
 									</div>
@@ -336,19 +331,11 @@
 		- method for showing product details in product details page
 		- Auth: Dipanjan
 		*/
-		function getProductDetailsInDescriptionPage($product_name, $baseUrl)
+		function getProductDetailsInDescriptionPage($product_id)
 		{
 			//get product details
-			$details = $this->_DAL_Obj->getValue_where('product_info','*','name',$product_name);
-			if(isset($details[0]) && !empty($details[0]))
-			return $details;
-			else 
-			{
-				header('Location:'.$baseUrl.'404/');
-			}
+			return $this->_DAL_Obj->getValue_where('product_info','*','product_id',$product_id);
 		}
-		
-		
 		
 		/*
 		- method for showing product category list in sidebar
@@ -389,11 +376,11 @@
 									<a data-toggle="collapse" data-parent="#accordion'.$parent['level'].'" href="#collapse'.$parent['categoryId'].'">'.$parent['name'].'</a>
 								  </h4>';
 					}*/
-					$baseUrl = $this->getBaseUrl();
+					
 					echo '<div class="panel panel-default panel-custom">
 							<div class="panel-heading">
 							  <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion'.$parent['level'].'">
-									<a href="'.$baseUrl.'products/cat/'.$parent['categoryId'].'/l/'.$parent['level'].'">'.$parent['name'].'</a>
+									<a href="products.php?cat='.$parent['categoryId'].'&l='.$parent['level'].'">'.$parent['name'].'</a>
 								  </h4>
 							</div>';
 					
@@ -422,7 +409,6 @@
 		*/
 		function getNestedCategoryListInSidebar($cat_list,$page_level,$categoryId)
 		{
-			$baseUrl = $this->getBaseUrl();
 			if(!empty($cat_list[0]))
 			{
 				echo '<div class="panel-group" id="accordion'.$cat_list[0]['level'].'">';
@@ -447,7 +433,7 @@
 					echo '<div class="panel panel-default panel-custom">
 							<div class="panel-heading">
 							  <h4 class="panel-title" data-toggle="collapse" data-parent="#accordion'.$cat['level'].'">
-									<a href="'.$baseUrl.'products/cat/'.$cat['categoryId'].'/l/'.$cat['level'].'">'.$cat['name'].'</a>
+									<a href="products.php?cat='.$cat['categoryId'].'&l='.$cat['level'].'">'.$cat['name'].'</a>
 								  </h4>
 							</div>';
 							
@@ -474,7 +460,6 @@
 		*/
 		function getFeatureProductList()
 		{
-			$baseUrl = $this->getBaseUrl();
 			//get all values of eature product
 			$products = $this->_DAL_Obj->getValueMultipleCondtn('feature_product','*',array('status'),array(1));
 			//defining a counter for limit
@@ -508,12 +493,12 @@
 										<div class="col-sm-7">
 											<p>'.substr($pro_details[0]['short_description'],0,50).'</p>
 											
-											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+											<p class="prod-name"><a href="product-description.php?pro='.$pro_details[0]['product_id'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
 										</div>
 										
 										<div class="col-sm-5">
-											<div class="img-container">';
-									echo    '<img src="'.$baseUrl.$img.'" class="img-responsive" />
+											<div class="img-container">
+												<img src="'.$img.'" class="img-responsive" />
 											</div>
 										</div>
 										
@@ -533,7 +518,6 @@
 		*/
 		function getProductListOfCategory($category_id)
 		{
-			$baseUrl = $this->getBaseUrl();
 			//getting all the child id of given category id
 			$child = $this->getChildCategoryFromCategoryId($category_id);
 			if(!empty($child))
@@ -574,12 +558,12 @@
 												<div class="col-sm-7">
 													<p>'.substr($product['short_description'],0,50).'</p>
 													
-													<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$product['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+													<p class="prod-name"><a href="product-description.php?pro='.$product['product_id'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
 												</div>
 												
 												<div class="col-sm-5">
 													<div class="img-container">
-														<img src="'.$baseUrl.$img.'" class="img-responsive" />
+														<img src="'.$img.'" class="img-responsive" />
 													</div>
 												</div>
 												
@@ -596,7 +580,7 @@
 				//checking for pro limit
 				if($pro_limit == 0)
 				{
-					echo '<div class="col-sm-12 no-product-found-label">
+					echo '<div class="col-sm-12">
 							<p class="prod-para">No Product Found</p>
 						  </div>';
 				}
@@ -651,7 +635,6 @@
 		*/
 		function getRelativeProductListOfCategory($category_id,$product_id)
 		{
-			$baseUrl = $this->getBaseUrl();
 			//getting all the child id of given category id
 			$relative_category = $this->getChildCategoryFromCategoryId($category_id);
 			//getting all the parent id of given category id included
@@ -688,9 +671,9 @@
 								}
 								
 								echo '<div class="col-sm-3">
-										<a href="'.$baseUrl.'product-description/'.$product['name'].'">
+										<a href="product-description.php?pro='.$product['product_id'].'">
 											<div class="rel-prod img-thumbnail">
-												<img class="img-responsive" src="'.$baseUrl.$img.'" />
+												<img class="img-responsive" src="'.$img.'" />
 												<p class="cart-prod-name-rel">'.$product['name'].'</p>
 												<p class="price-cart-rel">'.$this->getSystemCurrency('product').$product['member_price'].'</p>
 											</div>
@@ -870,7 +853,7 @@
 				//get each value part in an array
 				$allValue = explode(':',$get_cookie_value);
 				//getting product id
-				$pid = substr(strrchr($allValue[0],'='),1);	
+				$pid = substr(strrchr($allValue[0],'='),1);
 				//getting quantity
 				$quantity = substr(strrchr($allValue[1],'='),1);
 				//getting max length of specification
@@ -1078,14 +1061,13 @@
 		*/
 		function getProductImageInDetailsPage($product_id)
 		{
-			$baseUrl = $this->getBaseUrl();
 			//get values from database
 			$pro_details = $this->_DAL_Obj->getValueWhereAsc('product_image','*',array('product_id'),array($product_id),'img_order');
 			if(!empty($pro_details[0]))
 			{
 				/* new code */
 				echo '<div class="img-prod-cart" id="prod_main">
-						<img class="img-responsive" src="'.$baseUrl.'images/product/'.$pro_details[0]['image'].'" />
+						<img class="img-responsive" src="images/product/'.$pro_details[0]['image'].'" />
 					</div>';
 				
 				echo '<div class="row">';
@@ -1093,25 +1075,25 @@
 				if(!empty($pro_details[1]))
 				{
 					echo '<div class="col-sm-3 thumb_image" id="prod_img1">
-							<img class="img-responsive" src="'.$baseUrl.'images/product/'.$pro_details[1]['image'].'" />
+							<img class="img-responsive" src="images/product/'.$pro_details[1]['image'].'" />
 						</div>';
 				}
 				if(!empty($pro_details[2]))
 				{
 					echo '<div class="col-sm-3 thumb_image" id="prod_img2">
-							<img class="img-responsive" src="'.$baseUrl.'images/product/'.$pro_details[2]['image'].'" />
+							<img class="img-responsive" src="images/product/'.$pro_details[2]['image'].'" />
 						</div>';
 				}
 				if(!empty($pro_details[3]))
 				{
 					echo '<div class="col-sm-3 thumb_image" id="prod_img3">
-							<img class="img-responsive" src="'.$baseUrl.'images/product/'.$pro_details[3]['image'].'" />
+							<img class="img-responsive" src="images/product/'.$pro_details[3]['image'].'" />
 						</div>';
 				}
 				if(!empty($pro_details[4]))
 				{
 					echo '<div class="col-sm-3 thumb_image" id="prod_img4">
-							<img class="img-responsive" src="'.$baseUrl.'images/product/'.$pro_details[4]['image'].'" />
+							<img class="img-responsive" src="images/product/'.$pro_details[4]['image'].'" />
 						</div>';
 				}
 				
@@ -1121,7 +1103,7 @@
 			else
 			{
 				echo '<div class="img-prod-cart">
-						<img class="img-responsive" src="'.$baseUrl.'images/250x300.gif" />
+						<img class="img-responsive" src="images/250x300.gif" />
 					</div>';
 			}
 		}
@@ -1132,7 +1114,6 @@
 		*/
 		function getUserMoneyList($page)
 		{
-			$baseUrl = $this->getBaseUrl();
 			//setting limit
 			$limit = 20;
 			//calculate the rows number to be shown in this page
@@ -1166,7 +1147,7 @@
 							$product = $this->_DAL_Obj->getValue_where('product_info', '*', 'product_id', $trans_details[0]['product_id']);
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
-	                                <td><a href="'.$baseUrl.'order-details/'.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
+	                                <td><a href="order-details.php?oid='.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
 	                                <td>'.$product[0]['name'].'</td>
 	                                <td>'.$order_details[0]['quantity'].'</td>
 	                                <td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
@@ -1177,10 +1158,10 @@
 						if(substr($trans_details[0]['order_id'], 0, 9) == 'mem_order')
 						{
 							//get order details
-							$mem_order_details = $this->_DAL_Obj->getValueMultipleCondtn('membership_order_info', '*', array('membership_order_id'),array($trans_details[0]['order_id']));
+							$mem_order_details = $this->_DAL_Obj->getValueMultipleCondtn('membership_order_info', '*', array('order_id'),array($trans_details[0]['order_id']));
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
-	                                <td><a href="'.$baseUrl.'membership-order-details/'.$mem_order_details[0]['membership_order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
+	                                <td><a href="membership-order-details.php?mid='.$mem_order_details[0]['membership_order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
 	                                <td>Membership</td>
 	                                <td>1</td>
 	                                <td>'.substr($mem_order_details[0]['date'],0,strpos($mem_order_details[0]['date'], ' ')).'</td>
@@ -1204,7 +1185,6 @@
 		*/
 		function getUserPointValueListByChild($page)
 		{
-			$baseUrl = $this->getBaseUrl();
 			//setting limit
 			$limit = 20;
 			//calculate the rows number to be shown in this page
@@ -1240,7 +1220,7 @@
 							{
 								echo '<tr>
 		                                	<td>'.$sl_no.'</td>
-		                                	<td><a href="'.$baseUrl.'order-details/'.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
+		                                	<td><a href="order-details.php?oid='.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
 		                                	<td>'.$product[0]['name'].'</td>
 		                                	<td>'.$order_details[0]['quantity'].'</td>
 											<td>'.$this->getUserFromUserId($order_info[0]['user_id']).'</td>
@@ -1266,7 +1246,6 @@
 		*/
 		function getUserPointValueListByHimself($page)
 		{
-			$baseUrl = $this->getBaseUrl();	
 			//setting limit
 			$limit = 20;
 			//calculate the rows number to be shown in this page
@@ -1302,7 +1281,7 @@
 							{
 								echo '<tr>
 		                                	<td>'.$sl_no.'</td>
-		                                	<td><a href="'.$baseUrl.'order-details/'.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
+		                                	<td><a href="order-details.php?oid='.$trans_details[0]['order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
 		                                	<td>'.$product[0]['name'].'</td>
 		                                	<td>'.$order_details[0]['quantity'].'</td>
 											<td>'.substr($order_info[0]['date'],0,strpos($order_info[0]['date'], ' ')).'</td>
@@ -1486,35 +1465,19 @@
 		- method for getting page details
 		- Auth: Debojyoti
 		*/
-		function getPageDetails($id, $baseUrl)
+		function getPageDetails($id)
 		{
-			$details=$this->_DAL_Obj->getValue_where('mypage','*','page_name', $id);
+			$details=$this->_DAL_Obj->getValue_where('mypage','*','page_id', $id);
 			if(isset($details[0]) && !empty($details[0]))
 			return $details[0];
-			else 
-			{
-				header('Location:'.$baseUrl.'404/');
-			}
 		}
-		
-		/*
-		- method for getting page name 
-		- Auth: Debojyoti 
-		*/
-		function getPageName($title)
-		{
-			$title = 'myPage/'.$title;
-			$details=$this->_DAL_Obj->getValue_where('mypage_links','*','page_link', $title);
-			return $details[0];
-		}
-		
+
 		/*
 		- method for getting order history for user
 		- Auth: Riju
 		*/
 		function getOrderHistory()
 		{
-			$baseUrl = $this->getBaseUrl();	
 			$orders = $this->_DAL_Obj->getValueMultipleCondtnDesc('order_info', '*', array('user_id','checkout_process'), array($_SESSION['user_id'],1));
 			if(!empty($orders[0]))
 			{
@@ -1522,7 +1485,7 @@
 				{
 					
 					echo '<tr>
-							<td><a href="'.$baseUrl.'order-details/'.$order['order_id'].'">'.$order['order_id'].'</a></td>
+							<td><a href="order-details.php?oid='.$order['order_id'].'">'.$order['order_id'].'</a></td>
 							<td>'.substr($order['date'], 0, strpos($order['date'], ' ')).'</td>
 							<td>'.$this->getPaymentMethod($order['payment_method']).'</td>
 							<td>'.$this->getSystemCurrency('product').$order['total_amount'].'</td>
@@ -1564,17 +1527,10 @@
 		- method for getting order basic details for user
 		- Auth: riju
 		*/
-		function getUserOrderBasicDetails($order_id, $baseUrl)
+		function getUserOrderBasicDetails($order_id)
 		{
 			$basic = $this->_DAL_Obj->getValueMultipleCondtn('order_info', '*', array('order_id'), array($order_id));
-			if($basic == 0)
-			{
-				header('location:'.$baseUrl.'404/');
-			}
-			else 
-			{
-				return $basic;
-			}
+			return $basic;
 			
 		}
 		
@@ -1612,7 +1568,6 @@
 		*/
 		function getUserProductDetails($order_id)
 		{
-			$baseUrl = $this->getBaseUrl();	
 			$pro_details = $this->_DAL_Obj->getValueMultipleCondtn('product_inventory_info','*',array('order_id'),array($order_id));
 			if(!empty($pro_details[0]))
 			{
@@ -1621,7 +1576,7 @@
 				{
 					echo '<tr>
 							<td>'.$this->getProductNameFromId($product['product_id']).'
-								<a href = "'.$baseUrl.'product-review/'.$product['product_id'].'"><button class="btn">Review</button></a>
+								<a href = "product-review.php?proid='.$product['product_id'].'"><button class="btn">Review</button></a>
 							</td>
 							<td>'.$product['quantity'].'</td>
 							<td>';
@@ -1714,14 +1669,7 @@
 		function getMembershipOrderDetails($order)
 		{
 			$mem_order = $this->_DAL_Obj->getValue_Where('membership_order_info', '*','membership_order_id',$order);
-			if($mem_order == 0)
-			{
-				header('location:'.$baseUrl.'404/');
-			}
-			else 
-			{
-				return $mem_order;
-			}
+			return $mem_order;
 		}
 		
 		/*
@@ -1730,19 +1678,14 @@
 		*/
 		function getTreeData($id, $level)
 		{
-			$baseUrl = $this->getBaseUrl();	
 			//getting data about the id passed	
 			$userData = $this->_DAL_Obj->getValue_where('user_mlm_info', '*', 'user_id', $id);	
-			if($userData == 0)
-			{
-				header('location:'.$baseUrl.'404/');
-			}
 			if($level==1)
 			{
 				$parentName = $this->_DAL_Obj->getValue_where('user_info', '*', 'user_id', $id);	
 				$user_level = $this->getUserLevelDetails($parentName[0]['member_level']);	
 				echo '<div class="wholesaler-block pull-left wholesaler-outline">
-	                		<img src="'.$baseUrl.'images/user-icon.png" class="img-responsive" />
+	                		<img src="images/user-icon.png" class="img-responsive" />
                     		<div class="text-center wholsaler-textblock">
                     			<p class="wholesaler"><b>'.$parentName[0]['f_name']." ".$parentName[0]['l_name'].'</b></p>
                     			<p class="subhead">'.$user_level[0]['member_category'].'</p>
@@ -1773,7 +1716,7 @@
 					if($level == 1)
 					{
 						echo '<div class="local-block local-small-outline pull-left">
-	                    			<a href ="'.$baseUrl.'tree/'.$childData[0]['user_id'].'"><img src="'.$baseUrl.$childLevel[0]['user_icon_link'].'" alt="local" class="img-responsive subicon-align" /></a>
+	                    			<a href ="tree.php?id='.$childData[0]['user_id'].'"><img src="'.$childLevel[0]['user_icon_link'].'" alt="local" class="img-responsive subicon-align" /></a>
 		                    		<div class="text-center local-textblock">
 		                    			<p class="local-small"><b>'.$childName[0]['f_name']." ".$childName[0]['l_name'].'</b></p>
 		                    			<p class="subhead-small">'.$childLevel[0]['member_category'].'</p>
@@ -1785,7 +1728,7 @@
 					if($level == 2)
 					{
 						echo '<div class="member-outline-small">
-	                    			<a href = "'.$baseUrl.'tree/'.$childData[0]['user_id'].'"><img src="'.$baseUrl.$childLevel[0]['user_icon_link'].'" alt="member" class="img-responsive subicon-align" /></a>
+	                    			<a href = "tree.php?id='.$childData[0]['user_id'].'"><img src="'.$childLevel[0]['user_icon_link'].'" alt="member" class="img-responsive subicon-align" /></a>
 		                    		<div class="text-center member-textblock">
 		                    			<p class="local-small"><b>'.$childName[0]['f_name']." ".$childName[0]['l_name'].'</b></p>
 		                    			<p class="subhead-small">'.$childLevel[0]['member_category'].'</p>
@@ -1917,48 +1860,5 @@
 			return $links;
 		}
 		
-		/*
-		- method for getting the base url
-		- Auth: Debojyoti 
-		*/
-		function getBaseUrl()
-		{
-			$baseUrl = $this->_DAL_Obj->getValue('admin_info', '*');
-			return $baseUrl[0]['base_url'];
-		}
-
-		/*
-		- method for getting parent of user
-		- Auth: Debojyoti 
-		*/
-		function getParent($userid)
-		{
-			$parent = $this->_DAL_Obj->getValueWhereAsc('user_mlm_info', '*', array('user_id','status'), array($userid,1), 'user_id');
-			if($parent[0]['parent_id'] != 0)
-			{
-				$parentid = $parent[0]['parent_id'];
-				$parentinfo = 	$this->_DAL_Obj->getValueWhereAsc('user_mlm_info', '*', array('id','status'), array($parentid,1), 'user_id');					
-				return $parentinfo;
-			}
-		}
-		
-		/*
-		- method for showing product details in product details page with like condition
-		- Auth: Debojyoti
-		*/
-		function searchProductLikely($product_name, $baseUrl)
-		{
-			//get product details
-			$details = $this->_DAL_Obj->getValue_likely('product_info','*','name',$product_name);
-			if(isset($details[0]) && !empty($details[0]))
-			{
-				header('Location:'.$baseUrl.'product-description/'.$details[0]['name']);
-			
-			}
-			else 
-			{
-				header('Location:'.$baseUrl.'products/');
-			}
-		}
 	 }
 ?>

@@ -22,6 +22,40 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            <?php
+            	$limit = 15;
+            	$start = 0;
+				if(!empty($_GET['page']))
+				{
+					$start = ($_GET['page'] - 1) * $limit;
+				}
+				if(isset($GLOBALS['_GET']['filter']))
+				{
+					$filter = $GLOBALS['_GET']['filter'];
+				}	
+				$active = 'class = "active"';
+				if($filter == 'date')
+				{
+					$order_details = $manageContent->getOrderFromDateLimitCount($_GET['value1'],$_GET['value2']);
+				}
+				else if($filter == 'product')
+				{
+					$order_details = $manageContent->getOrderFromProductIdCount($_GET['value']);
+				}
+				else if($filter == 'user')
+				{
+					$order_details = $manageContent->getOrderOfMemberCount($_GET['value']);
+				}
+				else if($filter == 'payment_method')
+				{
+					$order_details = $manageContent->getOrderFromPaymentMethodCount($_GET['value']);
+				}
+				else if($filter == 'ord_status')
+		        {
+		            $order_details = $manageContent->getOrderFromStatusCount($_GET['value']);
+		        }
+				$total_pages = count($order_details)/15;
+			?>	
             <div class="row adm_row">
             	<div class="col-sm-12">
                 	<div class="btn-group pull-left order_btn_grp">
@@ -29,13 +63,92 @@
                         <button class="btn btn-primary btn-lg"><a href="filtered-order.php">Filtered List</a></button>
                     </div>
                     <ul class="pagination pull-right list-pagination">
-                      <li><a href="#">«</a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">»</a></li>
+                      <?php 
+                    		
+                    		if($filter == 'date')
+							{
+								if(!empty($_GET['page']) && ($_GET['page'] > 1))
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page='.($_GET['page']-1).'">«</a></li>';
+								}
+								else
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page=1">«</a></li>';
+								}
+	                    		
+	                    	
+		                      	for($i=1;$i<=ceil($total_pages);$i++)
+							  	{
+								  	if($i == $_GET['page'])	
+									{
+										echo '<li '.$active.'><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page='.$i.'">'.$i.'</a></li>';
+									}
+									elseif(($_GET['page']) == '' && ($i == 1))
+									{
+										echo '<li '.$active.'><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page='.$i.'">'.$i.'</a></li>';
+									}
+									else	 
+									{
+										echo '<li><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page='.$i.'">'.$i.'</a></li>';
+									}
+						  		}
+						  
+							  	if(!empty($_GET['page']) && ($_GET['page'] < ceil($total_pages)))
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page='.($_GET['page']+1).'">»</a></li>';
+								}
+								elseif(empty($_GET['page']) && ($total_pages > 1))
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page=2">»</a></li>';
+								}
+								else
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value1='.$_GET['value1'].'&value2='.$_GET['value2'].'&page='.ceil($total_pages).'">»</a></li>';
+								}
+							}
+							else
+							{
+								if(!empty($_GET['page']) && ($_GET['page'] > 1))
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page='.($_GET['page']-1).'">«</a></li>';
+								}
+								else
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page=1">«</a></li>';
+								}
+	                    		
+	                    	
+		                      	for($i=1;$i<=ceil($total_pages);$i++)
+							  	{
+								  	if($i == $_GET['page'])	
+									{
+										echo '<li '.$active.'><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page='.$i.'">'.$i.'</a></li>';
+									}
+									elseif(($_GET['page']) == '' && ($i == 1))
+									{
+										echo '<li '.$active.'><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'page='.$i.'">'.$i.'</a></li>';
+									}
+									else	 
+									{
+										echo '<li><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page='.$i.'">'.$i.'</a></li>';
+									}
+						  		}
+						  
+							  	if(!empty($_GET['page']) && ($_GET['page'] < ceil($total_pages)))
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page='.($_GET['page']+1).'">»</a></li>';
+								}
+								elseif(empty($_GET['page']) && ($total_pages > 1))
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page=2">»</a></li>';
+								}
+								else
+								{
+									echo '<li><a href="filtered-order.php?filter='.$filter.'&value='.$_GET['value'].'&page='.ceil($total_pages).'">»</a></li>';
+								}	
+							}	
+
+					  ?>
                     </ul>
                 </div>
                 <div class="col-lg-12">
@@ -152,23 +265,23 @@
 									//get order list
 									if($filter == 'date')
 									{
-										$manageContent->getOrderFromDateLimit($_GET['value1'],$_GET['value2']);
+										$manageContent->getOrderFromDateLimitWithLimit($_GET['value1'],$_GET['value2'],$start,$limit);
 									}
 									else if($filter == 'product')
 									{
-										$manageContent->getOrderFromProductId($_GET['value']);
+										$manageContent->getOrderFromProductIdWithLimit($_GET['value'],$start,$limit);
 									}
 									else if($filter == 'user')
 									{
-										$manageContent->getOrderOfMember($_GET['value']);
+										$manageContent->getOrderOfMemberWithLimit($_GET['value'],$start,$limit);
 									}
 									else if($filter == 'payment_method')
 									{
-										$manageContent->getOrderFromPaymentMethod($_GET['value']);
+										$manageContent->getOrderFromPaymentMethodWithLimit($_GET['value'],$start,$limit);
 									}
 									else if($filter == 'ord_status')
 							        {
-							            $manageContent->getOrderFromStatus($_GET['value']);
+							            $manageContent->getOrderFromStatusWithLimit($_GET['value'],$start,$limit);
 							        }
 								?>
                             </tbody>
