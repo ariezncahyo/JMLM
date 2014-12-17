@@ -3257,6 +3257,16 @@
 			//calling the function for showing the list
 			$this->getFilteredOrderList($order_id);
 		}
+		
+		/*
+		- method for getting the paypal payment method
+		- Auth: Debojyoti 
+		*/
+		function getPaypalPaymentMethodStatus()
+		{
+			$method = $this->manage_content->getValue('admin_info', '*');
+			return $method[0]['paypal_payment_method'];
+		}
 	}
 	
 ?>

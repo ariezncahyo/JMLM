@@ -7,6 +7,12 @@
 	{
 		header("Location: invalid-user/");
 	}
+	//searching for products
+	if(isset($_POST['product_name']))
+	{
+		$product_name = $_POST['product_name'];
+		$pro_details = $manageContent->searchProductLikely($product_name, $baseUrl);
+	}
 ?>
 <?php
 	//include another template file
@@ -73,6 +79,10 @@
 					if(!empty($cat_id))
 					{
 						$manageContent->getProductListOfCategory($cat_id);
+					}
+					elseif(isset($pro_details[0]))
+					{
+						$manageContent->getProductListBySearch($pro_details);
 					}
 					else
 					{

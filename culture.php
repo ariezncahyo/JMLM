@@ -68,7 +68,7 @@
                     <a href="#" class="module-link">
                     	<img src="<?php echo $baseUrl;?>images/banners/join-us-banner.jpg" title="Join Us" />
                         <div class="module-content">
-                            <p class="module-title">JOIN OUR TEAM</p>
+                            <p class="module-title"><?php echo join_our_team;?></p>
                             <p class="module-desc">
                                 Sign up as a distributor.<br />Create an account to purchase products.<br />Enroll in our Rewards program.
                             </p>

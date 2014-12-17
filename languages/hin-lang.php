@@ -1,0 +1,31 @@
+<?php
+	header('Content-Type: text/html; charset=utf-8');
+    define('language', 'भाषा');
+	define('links', 'लिंक');
+	define('company_history', 'कंपनी के इतिहास');
+	define('culture', 'संस्कृति');
+	define('future', 'भविष्य');
+	define('oppurtunity', 'oppurtunity');
+	define('people', 'लोग');
+	define('products', 'उत्पादों');
+	define('log_out', 'लॉग आउट');
+	define('my_account', 'मेरा खाता');
+	define('welcome', 'वेलकम');
+	define('bank_account', 'बैंक खाता');
+	define('my_wallet', 'मेरा बटुआ');
+	define('profile_setting', 'प्रोफाइल सेटिंग');
+	define('withdraw_amount', 'राशि वापस लेने');
+	define('copyright', 'प्रतिलिप्याधिकार');
+	define('all_rights_reserved', 'सर्वाधिकार सुरक्षित');
+	define('profile', 'प्रोफ़ाइल');
+	define('log_in', 'लॉग इन करें');
+	define('join_our_team', 'हमारी टीम में शामिल');
+	define('profile_info_links', 'प्रोफ़ाइल जानकारी लिंक');
+	define('tree_details', 'ट्री विवरण');
+	define('my_order_history', 'मेरे आदेश इतिहास');
+	define('my_withdraw_history', 'मेरे रुपया निकालना  इतिहास');
+	define('point_value_details', 'बिंदु मान विवरण');
+	define('change_password', 'पासवर्ड बदलें');
+	define('bank_account_details', 'बैंक खाता विवरण');
+	//die(language);
+?>

@@ -24,34 +24,34 @@
         <div class="row">
             <div class="col-sm-12">
                 <a class="tble-hd">
-                    Profile Info Links
+                    <?php echo profile_info_links;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>my-wallet/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/rings.png" /> My Wallet
+                    <img src="<?php echo $baseUrl;?>images/rings.png" /> <?php echo my_wallet;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>tree/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/rings.png" /> Tree Details
+                    <img src="<?php echo $baseUrl;?>images/rings.png" /> <?php echo tree_details;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>my-order-history/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/hand.png" /> My Order History
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> <?php echo my_order_history;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>my-withdraw-history/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/hand.png" /> My Withdraw History
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> <?php echo my_withdraw_history;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>my-pv/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Point Value Details
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> <?php echo point_value_details;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>profile-setting/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Profile Setting
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> <?php echo profile_setting;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>change-password/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Change Password
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> <?php echo change_password;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>bank-account/" class="tble-para">
-                    <img src="<?php echo $baseUrl;?>images/hand.png" /> Bank Account Details
+                    <img src="<?php echo $baseUrl;?>images/hand.png" /> <?php echo bank_account_details;?>
                 </a>
                 <a href="<?php echo $baseUrl;?>withdraw-amount/" class="tble-para brdr-none">
-                    <img src="<?php echo $baseUrl;?>images/eye.png" /> Withdraw Amount
+                    <img src="<?php echo $baseUrl;?>images/eye.png" /> <?php echo withdraw_amount;?>
                 </a>
             </div>
         </div>

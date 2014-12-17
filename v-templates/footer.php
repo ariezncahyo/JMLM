@@ -27,7 +27,7 @@
             </div>
 		</div>
 		<div class="col-sm-12">
-			<div id="footer-copyright">Copyright © 2014 Di Huang. All Rights Reserved.</p></div>					
+			<div id="footer-copyright"><?php echo copyright.' © 2014 Di Huang. '.all_rights_reserved.'.'?></p></div>					
 			<div id="footer-payment">
 				<div>
 					<a href="#" title="Paypal"><img src="<?php echo $baseUrl;?>images/icons/paypal.png" class="img-social-foot" /></a>

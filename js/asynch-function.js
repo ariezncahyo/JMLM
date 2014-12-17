@@ -31,7 +31,7 @@ $(document).ready(function(e) {
 		//calling ajax function
 		$.ajax({
 			type: "POST",
-			url:"v-includes/library/class.fetchData.php",
+			url:"../v-includes/library/class.fetchData.php",
 			data: sendingData,
 			beforeSend:function(){
 				// this is where we append a loading image
@@ -58,7 +58,7 @@ $(document).ready(function(e) {
 		//calling ajax function
 		$.ajax({
 			type: "POST",
-			url:"v-includes/library/class.fetchData.php",
+			url:"../v-includes/library/class.fetchData.php",
 			data: sendingData,
 			beforeSend:function(){
 				// this is where we append a loading image
@@ -89,7 +89,7 @@ $(document).ready(function(e) {
 			//calling ajax function
 			$.ajax({
 				type: "POST",
-				url:"v-includes/library/class.fetchData.php",
+				url:"../v-includes/library/class.fetchData.php",
 				data: sendingData,
 				beforeSend:function(){
 					// this is where we append a loading image
@@ -105,6 +105,10 @@ $(document).ready(function(e) {
 							$('#err_signup_ref_user').fadeOut(500);
 						});
 						
+					}
+					else
+					{
+						$('#err_signup_ref_user').html('');
 					}
 					return false;
 			}});

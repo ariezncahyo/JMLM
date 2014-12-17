@@ -526,6 +526,70 @@
 				}
 			}
 		}
+
+		/*
+		- method for showing product list by search
+		- Auth: Debojyoti
+		*/
+		function getProductListBySearch($products)
+		{
+			$baseUrl = $this->getBaseUrl();
+			//defining a counter for limit
+			$pro_limit = 0;
+			foreach($products as $product)
+			{
+				//getting product details value
+				$pro_details = $this->_DAL_Obj->getValueMultipleCondtn('product_info','*',array('product_id','status'),array($product['product_id'],1));
+				//checking that
+				/* expiry date is not over
+				 * product limit not over than 10  
+				*/
+				if(!empty($pro_details[0]) && (strtotime($pro_details[0]['exp_date']) > strtotime('now')) && $pro_limit < 10)
+				{
+					//getting product image
+					$pro_img = $this->_DAL_Obj->getValueMultipleCondtn('product_image','*',array('product_id','img_order'),array($product['product_id'],1));
+					if(!empty($pro_img[0]))
+					{
+						$img = 'images/product/'.$pro_img[0]['image'];
+					}
+					else
+					{
+						$img = 'images/200x200.gif';
+					}
+					echo '<div class="col-sm-4">
+								<div class="container-products prod-pg">
+									<p class="prod-para">'.$pro_details[0]['name'].'</p>
+									<p>'.substr($pro_details[0]['short_description'],0,100).'</p>
+									<div class="row">
+										
+										<div class="col-sm-7">
+											<p>'.substr($pro_details[0]['short_description'],0,50).'</p>
+											
+											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+										</div>
+										
+										<div class="col-sm-5">
+											<div class="img-container">';
+									echo    '<img src="'.$baseUrl.$img.'" class="img-responsive" />
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>';
+					
+					//increament the counter
+					$pro_limit++;
+				}
+			}
+			//checking for pro limit
+			if($pro_limit == 0)
+			{
+				echo '<div class="col-sm-12 no-product-found-label">
+						<p class="prod-para">No Product Found</p>
+					  </div>';
+			}
+		}
 		
 		/*
 		- method for showing product list of category
@@ -1952,13 +2016,19 @@
 			$details = $this->_DAL_Obj->getValue_likely('product_info','*','name',$product_name);
 			if(isset($details[0]) && !empty($details[0]))
 			{
-				header('Location:'.$baseUrl.'product-description/'.$details[0]['name']);
+				return $details;
 			
 			}
-			else 
-			{
-				header('Location:'.$baseUrl.'products/');
-			}
+		}
+		
+		/*
+		- method for getting the paypal payment method
+		- Auth: Debojyoti 
+		*/
+		function getPaypalPaymentMethodStatus()
+		{
+			$method = $this->_DAL_Obj->getValue('admin_info', '*');
+			return $method[0]['paypal_payment_method'];
 		}
 	 }
 ?>

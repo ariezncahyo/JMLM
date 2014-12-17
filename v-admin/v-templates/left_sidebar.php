@@ -67,6 +67,9 @@
                             <li>
                                 <a href="misc-details.php">Miscellaneous Details</a>
                             </li>
+                            <li>
+                                <a href="payment_configuration.php">Payment Configuration</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -94,6 +97,7 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
+                    
                 </ul>
                 <!-- /#side-menu -->
             </div>

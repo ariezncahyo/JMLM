@@ -1964,6 +1964,10 @@ body {
 	min-height: 180px;
 }
 
+.parent-link {
+	font-size:1.2em;
+}
+
 /* for product review page */
 .review_outline{
 	padding: 5px 10px;

@@ -54,5 +54,27 @@
 	}
 	
 	//including the base url
-	$baseUrl = $manageContent->getBaseUrl();	
+	$baseUrl = $manageContent->getBaseUrl();
+	
+	//include language
+	if(isset($_SESSION['language']))
+	{
+		$lang = $_SESSION['language'];
+		if($lang == 'mdrn')
+		{
+			include 'languages/mdrn-lang.php';
+		}
+		elseif($lang == 'hin')
+		{
+			include 'languages/hin-lang.php';	
+		}
+		elseif($lang == 'jpn')
+		{
+			include 'languages/jpn-lang.php';	
+		}
+		elseif ($lang == 'eng') 
+		{
+			include 'languages/eng-lang.php';
+		}
+	}	
 ?>

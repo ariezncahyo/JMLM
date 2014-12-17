@@ -56,19 +56,17 @@
 				<ul class="nav navbar-nav navbar-right nav-custom">
                                     	
 					<li class="dropdown">
-						<a class="dropdown-toggle" href="#" data-toggle="dropdown">LANGUAGE<b class="caret caret-custom"></b></a>					
+						<a class="dropdown-toggle" href="#" data-toggle="dropdown"><?php echo language ?><b class="caret caret-custom"></b></a>					
 						<ul class="dropdown-menu drop-menu-custom">
-							<li><a href="#">Lorem</a></li>
-							<li><a href="#">Lorem</a></li>
-							<li><a href="#">Lorem</a></li>
-							<li><a href="#">Lorem</a></li>
-							<li><a href="#">Lorem</a></li>
-							<li><a href="#">Lorem</a></li>
+							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=mdrn">Mandarin</a></li>
+							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=hin">Hindi</a></li>
+							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=jpn">Japanese</a></li>
+							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=eng">English</a></li>
 						</ul>
 					</li>
                     
                     <li class="dropdown">
-						<a href="#" class="dropdown-toggle custom-brdr-li" data-toggle="dropdown">LINKS<b class="caret caret-custom"></b></a>
+						<a href="#" class="dropdown-toggle custom-brdr-li" data-toggle="dropdown"><?php echo links ?><b class="caret caret-custom"></b></a>
 											
 						<ul class="dropdown-menu drop-menu-custom">
 							<?php
@@ -94,23 +92,23 @@
 						$userLevelDetails = $manageContent->getUserLevelDetails($userDetails[0]['member_level']); //get user level details
 					?>
                     
-                    <li><a href="<?php echo $baseUrl;?>v-templates/logout.php" class="custom-brdr-li">LOG OUT</a></li>
+                    <li><a href="<?php echo $baseUrl;?>v-templates/logout.php" class="custom-brdr-li"><?php echo log_out;?></a></li>
                     <li class="dropdown">
-						<a href="#" class="dropdown-toggle custom-brdr-li active-nav" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;MY ACCOUNT<b class="caret caret-custom"></b></a>
+						<a href="#" class="dropdown-toggle custom-brdr-li active-nav" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo my_account;?><b class="caret caret-custom"></b></a>
 											
 						<ul class="dropdown-menu drop-menu-custom">
                         	<li class="nav-welcome"><?php $manageContent->getUsernameOfUser(); ?></li>	
-                            <li><a href="<?php echo $baseUrl;?>profile/">Profile</a></li>
-                            <li><a href="<?php echo $baseUrl;?>bank-account/">Bank Account</a></li>
-                            <li><a href="<?php echo $baseUrl;?>my-wallet/">My Wallet</a></li>
-                            <li><a href="<?php echo $baseUrl;?>profile-setting/">Profile Setting</a></li>
-                            <li><a href="<?php echo $baseUrl;?>withdraw-amount/">Withdraw Amount</a></li>
+                            <li><a href="<?php echo $baseUrl;?>profile/"><?php echo profile;?></a></li>
+                            <li><a href="<?php echo $baseUrl;?>bank-account/"><?php echo bank_account;?></a></li>
+                            <li><a href="<?php echo $baseUrl;?>my-wallet/"><?php echo my_wallet;?></a></li>
+                            <li><a href="<?php echo $baseUrl;?>profile-setting/"><?php echo profile_setting;?></a></li>
+                            <li><a href="<?php echo $baseUrl;?>withdraw-amount/"><?php echo withdraw_amount;?></a></li>
 						</ul>					
 					</li>
                     
                     <?php } else if($_SESSION['user_id'] == 'Guest') { ?>
                     
-					<li class="custom-brdr-li"><a href="<?php echo $baseUrl;?>login/">LOG IN</a></li>
+					<li class="custom-brdr-li"><a href="<?php echo $baseUrl;?>login/"><?php echo log_in;?></a></li>
 					<li><a href="<?php echo $baseUrl;?>signup/" class="active-nav"><span class="glyphicon glyphicon-play"></span>&nbsp;&nbsp;READY TO SIGN UP ?</a></li>
                     <?php } ?>
 				</ul>
@@ -133,7 +131,7 @@
 				</div>
 			</div>
 			<div id="header-search">
-				<form method="post" action="<?php echo $baseUrl;?>search-products/" role="form">
+				<form method="post" action="<?php echo $baseUrl;?>products/" role="form">
 				<div class="form-group form-group-custom customsearch">
 					<input type="text" placeholder="Search" class="form-control" name="product_name"/>
 					<button type="submit" title="Search" class="button"><span class="glyphicon glyphicon-search"></span></button>

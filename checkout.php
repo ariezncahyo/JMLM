@@ -29,6 +29,8 @@
 <?php
 	//getting values of user info
 	$userInfo = $manageContent->getUserInfo();
+	//get paypal payment method
+	$payment_method = $manageContent->getPaypalPaymentMethodStatus();
 ?>
 
 <div class="container">
@@ -449,8 +451,18 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="cart-btn">
-                                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-											<input type="hidden" name="cmd" value="_xclick">
+                                    	<?php 
+                                    	
+                                    	if($payment_method == 0)
+										{
+											echo '<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">';
+										}
+										elseif ($payment_method == 1) 
+										{
+											echo '<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">';
+										}
+                                    	?>
+                                        	<input type="hidden" name="cmd" value="_xclick">
 											<input type="hidden" name="business" value="K5DS2MUFW8KXN">
 											<input type="hidden" name="lc" value="SG">
 											<input type="hidden" name="item_name" value="Total Price">
