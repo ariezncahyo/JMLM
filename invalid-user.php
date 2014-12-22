@@ -35,22 +35,22 @@
         	<?php if($_SESSION['invalid'] == 'Membership deactivated') { ?>
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
-                    Your Membership Is Not Activated
+                    <?php echo your_membership_is_not_activated;?>
                 </h3>
                 <p class="verified-txt">
-                    You have to purchase membership to become Member of the system
+                    <?php echo you_have_to_purchase_membership_to_become_member_of_the_system;?>
                 </p>
                 <a href="<?php echo $baseUrl;?>buy-membership/" class="btn-link-custom clk-prof-btn">
-                    Click here to purchase Membership
+                    <?php echo click_here_to_purchase_membership;?>
                 </a>
             </div><!-- membership activation text ends -->
             <?php } else if($_SESSION['invalid'] == 'Email Not Verified') { ?>
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
-                    Your Membership Is Invalid
+                    <?php echo your_membership_is_invalid;?>
                 </h3>
                 <p class="verified-txt">
-                    You have to verify your email by clicking the link send to your email id
+                    <?php echo you_have_to_verify_your_email_by_clicking_the_link_send_to_your_email_id;?>
                 </p>
             </div><!-- email verifiy text ends -->
             <?php } ?>

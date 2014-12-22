@@ -42,49 +42,49 @@
                 <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
-                        your account details
+                        <?php echo your_account_details;?>
                     </div>
                     <?php if(!empty($bank_value)) { ?>
                     
                     <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.edit-bank_details.php" method="post" id="user_bank_frm">
                         
                         <div class="form-group mrgn-tp-profile">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Account Holder Name</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo account_holder_name;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="ac_holder_name" value="<?php echo $bank_value[0]['ac_holder_name'] ?>" />
                                 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Account Number</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo account_number;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="ac_number" value="<?php echo $bank_value[0]['ac_number'] ?>" />
                                 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Your Bank Name</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo your_bank_name;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="bank_name" value="<?php echo $bank_value[0]['bank_name'] ?>" />
                                 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Branch Name</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo branch_name;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="branch_name" value="<?php echo $bank_value[0]['branch_name'] ?>" />
                                 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">IFSC Code</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile">IFSC <?php echo code;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="ifsc_code" value="<?php echo $bank_value[0]['ifsc_code'] ?>" />
                                 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Tax Number</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo tax_number;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="tax_number" value="<?php echo $bank_value[0]['tax_number'] ?>" />
                                 
@@ -92,7 +92,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-6 col-sm-5">
-                                <button type="submit" class="btn btn-custom-profile" id="user_bank_btn">UPDATE</button>
+                                <button type="submit" class="btn btn-custom-profile" id="user_bank_btn"><?php echo update;?></button>
                             </div>
                         </div>
                         
@@ -102,42 +102,42 @@
                     <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.create-bank_details.php" method="post" id="user_bank_frm" >
                         
                         <div class="form-group mrgn-tp-profile">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Account Holder Name</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo account_holder_name;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="ac_holder_name" id="bnk_ac_holder_name" />
                                 <div class="form-error" id="err_ac_holder_name"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Account Number</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo account_number;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="ac_number" id="bnk_ac_number" />
                                 <div class="form-error" id="err_ac_number"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Your Bank Name</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo your_bank_name;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="bank_name" id="bnk_bank_name" />
                                 <div class="form-error" id="err_bank_name"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Branch Name</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo branch_name;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="branch_name" id="bnk_branch_name" />
                                 <div class="form-error" id="err_branch_name"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">IFSC Code</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile">IFSC <?php echo code;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="ifsc_code" id="bnk_ifsc_code" />
                                 <div class="form-error" id="err_ifsc_code"></div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Tax Number</label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo tax_number;?></label>
                             <div class="col-sm-offset-1 col-sm-5">
                                 <input class="form-control form-profile" type="text" name="tax_number" id="bnk_tax_number" />
                                 <div class="form-error" id="err_tax_number"></div>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-6 col-sm-5">
-                                <button type="button" class="btn btn-custom-profile" id="user_bank_btn">SUBMIT</button>
+                                <button type="button" class="btn btn-custom-profile" id="user_bank_btn"><?php echo submit;?></button>
                             </div>
                         </div>
                         

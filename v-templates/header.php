@@ -60,21 +60,19 @@
 	if(isset($_SESSION['language']))
 	{
 		$lang = $_SESSION['language'];
-		if($lang == 'mdrn')
+		$langFileNames = scandir('languages/');
+		for($i=2;$i<count($langFileNames);$i++)
 		{
-			include 'languages/mdrn-lang.php';
+			$langarr = explode('-', $langFileNames[$i]);	
+			if($lang == $langarr[0])
+			{
+				include 'languages/'.$langFileNames[$i];	
+				break;
+			}
 		}
-		elseif($lang == 'hin')
-		{
-			include 'languages/hin-lang.php';	
-		}
-		elseif($lang == 'jpn')
-		{
-			include 'languages/jpn-lang.php';	
-		}
-		elseif ($lang == 'eng') 
-		{
-			include 'languages/eng-lang.php';
-		}
-	}	
+	}
+	else
+	{
+		include 'languages/English-lang.php';
+	}		
 ?>

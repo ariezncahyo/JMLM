@@ -4,6 +4,6 @@
 	//getting link for previous level
 	if($level != 1)
 	{
-		echo '<p class="prod-name"><a href="'.$baseUrl.'products/" class="hvr-no-decortn color-inhrt">Back To Root Category</a></p>';
+		echo '<p class="prod-name"><a href="'.$baseUrl.'products/" class="hvr-no-decortn color-inhrt">'.back_to_root_category.'</a></p>';
 	}
 ?>

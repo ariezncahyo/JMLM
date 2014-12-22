@@ -38,13 +38,13 @@
         <div class="col-sm-4 col-sm-offset-4">
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
-                    Thank You
+                    <?php echo thank_you;?>
                 </h3>
                 <p class="verified-txt">
-                    Your email has been verified
+                    <?php echo your_email_has_been_verified;?>
                 </p>
                 <a href="<?php echo $baseUrl;?>profile/" class="btn-link-custom clk-prof-btn">
-                    Click here to go to your profile
+                    <?php echo click_here_to_go_to_your_profile;?>
                 </a>
             </div><!-- email verifiy text ends -->
         </div>

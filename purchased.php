@@ -46,14 +46,14 @@
         <div class="col-sm-4 col-sm-offset-4">
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
-                    Thank You
+                    <?php echo thank_you;?>
                 </h3>
                 <p class="verified-txt">
-                    For your purchase ,<br />
-                    Your order id is <?php echo $order_id; ?>
+                    <?php echo for_your_purchase;?> ,<br />
+                    <?php echo your_order_id_is;?> <?php echo $order_id; ?>
                 </p>
                 <a class="btn-link-custom clk-prof-btn">
-                    Please keep this for tracking
+                    <?php echo please_keep_this_for_tracking;?>
                 </a>
             </div><!-- email verifiy text ends -->
         </div>

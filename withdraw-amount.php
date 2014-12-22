@@ -40,32 +40,32 @@
                 <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
-                        withdraw amount
+                        <?php echo withdraw_amount;?>
                     </div>
                     
                     <h3 class="hd-scnd-profile mrgn-tp-profile">
-                        Total Amount in Your Account: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$manageContent->getUserNetAmount($_SESSION['user_id']) ?></span>
+                        <?php echo total_amount_in_your_account;?>: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$manageContent->getUserNetAmount($_SESSION['user_id']) ?></span>
                     </h1>
                     
                     <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.withdraw-amount.php" method="post">
                         
                         <div class="form-group">
-                            <label class="col-sm-4 col-sm-offset-1 label-profile">Withdraw Amount: </label>
+                            <label class="col-sm-4 col-sm-offset-1 label-profile"><?php echo withdraw_amount;?>: </label>
                             <div class="col-sm-offset-1 col-sm-4">
-                                <input class="form-control form-profile" type="text" name="amount" placeholder="In Figure" />
+                                <input class="form-control form-profile" type="text" name="amount" placeholder="<?php echo in_figure;?>" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-11">
                                 <input type="checkbox" name="with_pro" value="account" class="regular-checkbox" /><label for="checkbox-1-1"></label>
                                 <span class="label-custom">
-                                    Withdraw by Account
+                                    <?php echo withdraw_by_account;?>
                                 </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-6 col-sm-4">
-                                <button type="submit" class="btn btn-custom-profile">SUBMIT</button>
+                                <button type="submit" class="btn btn-custom-profile"><?php echo submit;?></button>
                             </div>
                         </div>
                         

@@ -50,7 +50,7 @@
         </div>
         <div class="col-sm-5">
             <h3 class="cart-prod-name"><?php echo $pro_details[0]['name'] ?></h3>
-            <p class="stock-avail">In Stock <span class="status-stk">(<?php echo $pro_details[0]['remaining_stock'] ?> items available)</span></p>
+            <p class="stock-avail"><?php echo in_stock;?> <span class="status-stk">(<?php echo $pro_details[0]['remaining_stock'].' '.items_available ?>)</span></p>
             <p class="price-cart">
 			<?php
 				echo $manageContent->getSystemCurrency('product').$pro_details[0][$manageContent->getUserPrice()];
@@ -67,7 +67,7 @@
                                 ?>
                             </div>
                             <div class="form-group">
-                                <label class="lbl-cart">Quantity</label>
+                                <label class="lbl-cart">Quantity </label>
                                 <div>
 	                                <input type="Button" id='MinusButton' value="-" />
 									<input type="text" class="form-cart quant-cart" name="quantity" id="pro_quan" value="1" />
@@ -77,7 +77,7 @@
                             </div>
                             <div class="form-group">
                             	<input type="hidden" name="mx" value="<?php echo $pro_details[0]['maxpick'] ?>" />
-                                <button type="button" class="btn btn-lg btn-warning" id="add-to-cart">Add To Cart</button>
+                                <button type="button" class="btn btn-lg btn-warning" id="add-to-cart"><?php echo add_to_cart;?></button>
                             </div>
                         </form>
                     </div>
@@ -88,9 +88,9 @@
     <div class="row mrgn-tp-cart">
         <div class="col-sm-12">
             <ul class="nav nav-tabs nav-tabs-cart" id="myTab">
-              <li class="active"><a href="#des1" data-toggle="tab">Description</a></li>
-              <li><a href="#des2" data-toggle="tab">Review</a></li>
-              <li><a href="#des3" data-toggle="tab">YouTube Video</a></li>
+              <li class="active"><a href="#des1" data-toggle="tab"><?php echo description;?></a></li>
+              <li><a href="#des2" data-toggle="tab"><?php echo review;?></a></li>
+              <li><a href="#des3" data-toggle="tab"><?php echo youtube_video;?></a></li>
             </ul>
             
             <div class="tab-content">
@@ -140,7 +140,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h3 class="cart-prod-name rel-head">
-                Related Products :
+                <?php echo related_products;?> :
             </h3>
             <div class="row row-rel-prod mrgn-btm">
                 <?php 

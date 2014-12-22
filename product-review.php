@@ -47,11 +47,11 @@
                 <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
-                        Product Review
+                        <?php echo product_review;?>
                     </div>
                     
                     <h3 class="hd-scnd-profile mrgn-tp-profile">
-                        Give Product Review
+                        <?php echo give_product_review;?>
                     </h1>
                     
 	                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.product-review.php" method="post">
@@ -60,7 +60,7 @@
 							if(empty($userReview[0]['review'])) { ?>
 								
 								<div class="form-group">
-			                        <label class="col-sm-3 col-sm-offset-1 label-profile">Review: </label>
+			                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo review;?>: </label>
 			                        <div class="col-sm-offset-1 col-sm-6">
 			                            <textarea class="form-control form-profile" rows="5" name="review"></textarea>
 			                        </div>
@@ -69,12 +69,12 @@
 		                            <div class="col-sm-offset-6 col-sm-5">
 		                            	<input type = "hidden" name = "proid" value="<?php echo $_GET['proid'];?>" />
 		                            	<input type = "hidden" name = "action" value="insert" />
-		                                <button type="submit" class="btn btn-custom-profile">SUBMIT</button>
+		                                <button type="submit" class="btn btn-custom-profile"><?php echo submit;?></button>
 		                            </div>
 	                        	</div>
                         <?php  } else { ?>
 								<div class="form-group">
-			                        <label class="col-sm-3 col-sm-offset-1 label-profile">Review: </label>
+			                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo review;?>: </label>
 			                        <div class="col-sm-offset-1 col-sm-6">
 			                            <textarea class="form-control form-profile" rows="5" name="review"><?php echo $userReview[0]['review'];?></textarea>
 			                        </div>
@@ -83,7 +83,7 @@
 		                            <div class="col-sm-offset-6 col-sm-5">
 		                            	<input type = "hidden" name = "proid" value="<?php echo $_GET['proid'];?>" />
 		                                <input type = "hidden" name = "action" value="update" />
-		                                <button type="submit" class="btn btn-custom-profile">UPDATE</button>
+		                                <button type="submit" class="btn btn-custom-profile"><?php echo update;?></button>
 		                            </div>
 	                        	</div>	
 						<?php } ?>    

@@ -20,11 +20,11 @@
         	<!-- error message text starts -->
             <div class="email-verify-txt e-404">
             	<h3 class="tnk-u">
-                404 Not Found
+                404 <?php echo not_found;?>
                 </h3>
                 <p class="verified-txt">
-                    For buying products <a href="<?php echo $baseUrl?>products/">Click Here</a><br />
-                    And if you want to go to home page <a href="<?php echo $baseUrl?>">Click Here</a>
+                    <?php echo for_buying_products;?> <a href="<?php echo $baseUrl?>products/"><?php echo click_here;?></a><br />
+                    <?php echo and_if_you_want_to_go_to_home_page;?> <a href="<?php echo $baseUrl?>"><?php echo click_here;?></a>
                 </p>
            </div>
            <!-- error message text ends -->

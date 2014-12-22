@@ -41,29 +41,29 @@
                 <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
-                       Change Password
+                       <?php echo change_password;?>
                     </div>
                     
                     <h3 class="hd-scnd-profile mrgn-tp-profile">
-                        Change your password here
+                        <?php echo change_your_password_here;?>
                     </h1>
                     
 	                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.change-password.php" method="post">
 	                        
 	                    <div class="form-group">
-	                        <label class="col-sm-3 col-sm-offset-1 label-profile">Old Password </label>
+	                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo old_password;?>: </label>
 	                        <div class="col-sm-offset-1 col-sm-6">
 	                            <input class="form-control form-profile" type="password" name="old_pass"  />
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
-	                        <label class="col-sm-3 col-sm-offset-1 label-profile">New Password: </label>
+	                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo new_password;?>: </label>
 	                        <div class="col-sm-offset-1 col-sm-6">
 	                            <input class="form-control form-profile" type="password" name="new_pass" />
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
-	                        <label class="col-sm-3 col-sm-offset-1 label-profile">Re-type New Password: </label>
+	                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo retype_new_password;?>: </label>
 	                        <div class="col-sm-offset-1 col-sm-6">
 	                            <input class="form-control form-profile" type="password" name="re_pass"  />
 	                        </div>
@@ -71,7 +71,7 @@
 	                            
                         <div class="form-group">
                             <div class="col-sm-offset-6 col-sm-5">
-                                <button type="submit" class="btn btn-custom-profile">SUBMIT</button>
+                                <button type="submit" class="btn btn-custom-profile"><?php echo submit;?></button>
                             </div>
                         </div>
                         

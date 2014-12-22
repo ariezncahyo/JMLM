@@ -64,13 +64,13 @@
                         <table class="table table-custom">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Order Id</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Purchased By</th>
-                                    <th>Date</th>
-                                    <th>Point Value</th>
+                                    <th><?php echo numberlang;?></th>
+                                    <th><?php echo order_id;?></th>
+                                    <th><?php echo product_name;?></th>
+                                    <th><?php echo quantity;?></th>
+                                    <th><?php echo purchased_by;?></th>
+                                    <th><?php echo date;?></th>
+                                    <th><?php echo point_value;?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,12 +92,12 @@
                         <table class="table table-custom">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Order Id</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Date</th>
-                                    <th>Point Value</th>
+                                    <th><?php echo numberlang;?></th>
+                                    <th><?php echo order_id;?></th>
+                                    <th><?php echo product_name;?></th>
+                                    <th><?php echo quantity;?></th>
+                                    <th><?php echo date;?></th>
+                                    <th><?php echo point_value;?></th>
                                 </tr>
                             </thead>
                             <tbody>

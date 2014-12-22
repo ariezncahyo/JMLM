@@ -56,7 +56,7 @@
 								$parent = $manageContent->getParent($userId);
 								if($parent[0])
 								{
-									echo '<a href="'.$parent[0]['user_id'].'"><span class="parent-link">Back to parent</span></a>';
+									echo '<a href="'.$parent[0]['user_id'].'"><span class="parent-link">'.back_to_parent.'</span></a>';
 								}
                     		?>
                     	</div><!--local-member block end-->

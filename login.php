@@ -32,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h3 class="sign-log-in">Log In</h3>
+            <h3 class="sign-log-in"><?php echo log_in;?></h3>
         </div>
     </div>
     <div class="row">
@@ -40,34 +40,34 @@
             <div class="log-in-content">
                 <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.login.php" role="form" method="post">
                     <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo email;?> : </label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control form-cart" placeholder="Email" name="email">
+                          <input type="email" class="form-control form-cart" placeholder="<?php echo email;?>" name="email">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Password : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo password;?> : </label>
                         <div class="col-sm-9">
-                          <input type="password" class="form-control form-cart" placeholder="Password" name="password">
+                          <input type="password" class="form-control form-cart" placeholder="<?php echo password;?>" name="password">
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" name="login_time"> Keep me logged in for 2 weeks
+                              <input type="checkbox" name="login_time"> <?php echo keep_me_logged_in_for_2weeks;?>
                             </label>
                           </div>
                         </div>
                       </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn btn-warning checkout-btn">Log In</button>
+                            <button type="submit" class="btn btn-warning checkout-btn"><?php echo log_in;?></button>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 nul-pad col-sm-9">
-                            <a href="<?php echo $baseUrl;?>forgot-password/"><button type="button" class="btn btn-link btn-link-custom">Forgot password</button></a>
+                            <a href="<?php echo $baseUrl;?>forgot-password/"><button type="button" class="btn btn-link btn-link-custom"><?php echo forgot_password;?></button></a>
                         </div>
                     </div>
                 </form>

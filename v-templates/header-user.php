@@ -27,7 +27,6 @@
 </head>
 
 <body>
-
 <div id="header">
 
 	<div id="header-logo" class="container">
@@ -58,10 +57,22 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown"><?php echo language ?><b class="caret caret-custom"></b></a>					
 						<ul class="dropdown-menu drop-menu-custom">
-							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=mdrn">Mandarin</a></li>
-							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=hin">Hindi</a></li>
-							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=jpn">Japanese</a></li>
-							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=eng">English</a></li>
+							<?php
+							
+							//scanning the languages named folder to get the names of its files 
+							$langFileNames = scandir('languages/');
+							for($i=2;$i<count($langFileNames);$i++)
+							{
+								$langarr = explode('-', $langFileNames[$i]);
+							?>
+							
+							<li><a href="<?php echo $baseUrl;?>lang-set.php?language=<?php echo $langarr[0];?>"><?php echo $langarr[0];?></a></li>
+							
+							<?php	
+							}
+							
+							?>
+							
 						</ul>
 					</li>
                     
@@ -109,7 +120,7 @@
                     <?php } else if($_SESSION['user_id'] == 'Guest') { ?>
                     
 					<li class="custom-brdr-li"><a href="<?php echo $baseUrl;?>login/"><?php echo log_in;?></a></li>
-					<li><a href="<?php echo $baseUrl;?>signup/" class="active-nav"><span class="glyphicon glyphicon-play"></span>&nbsp;&nbsp;READY TO SIGN UP ?</a></li>
+					<li><a href="<?php echo $baseUrl;?>signup/" class="active-nav"><span class="glyphicon glyphicon-play"></span>&nbsp;&nbsp;<?php echo ready_to_sign_up;?> ?</a></li>
                     <?php } ?>
 				</ul>
 									
@@ -133,7 +144,7 @@
 			<div id="header-search">
 				<form method="post" action="<?php echo $baseUrl;?>products/" role="form">
 				<div class="form-group form-group-custom customsearch">
-					<input type="text" placeholder="Search" class="form-control" name="product_name"/>
+					<input type="text" placeholder="<?php echo search;?>" class="form-control" name="product_name"/>
 					<button type="submit" title="Search" class="button"><span class="glyphicon glyphicon-search"></span></button>
 				</div>
 				</form>

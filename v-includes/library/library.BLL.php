@@ -508,7 +508,7 @@
 										<div class="col-sm-7">
 											<p>'.substr($pro_details[0]['short_description'],0,50).'</p>
 											
-											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">'.view_more.'</a></p>
 										</div>
 										
 										<div class="col-sm-5">
@@ -565,7 +565,7 @@
 										<div class="col-sm-7">
 											<p>'.substr($pro_details[0]['short_description'],0,50).'</p>
 											
-											<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+											 <p class="prod-name"><a href="'.$baseUrl.'product-description/'.$pro_details[0]['name'].'" class="hvr-no-decortn color-inhrt">'.view_more.'</a></p>
 										</div>
 										
 										<div class="col-sm-5">
@@ -586,7 +586,7 @@
 			if($pro_limit == 0)
 			{
 				echo '<div class="col-sm-12 no-product-found-label">
-						<p class="prod-para">No Product Found</p>
+						<p class="prod-para">'.no_product_found.'</p>
 					  </div>';
 			}
 		}
@@ -638,7 +638,7 @@
 												<div class="col-sm-7">
 													<p>'.substr($product['short_description'],0,50).'</p>
 													
-													<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$product['name'].'" class="hvr-no-decortn color-inhrt">View More</a></p>
+													<p class="prod-name"><a href="'.$baseUrl.'product-description/'.$product['name'].'" class="hvr-no-decortn color-inhrt">'.view_more.'</a></p>
 												</div>
 												
 												<div class="col-sm-5">
@@ -661,7 +661,7 @@
 				if($pro_limit == 0)
 				{
 					echo '<div class="col-sm-12 no-product-found-label">
-							<p class="prod-para">No Product Found</p>
+							<p class="prod-para">'.no_product_found.'</p>
 						  </div>';
 				}
 			}
@@ -776,7 +776,7 @@
 				if($pro_limit == 0)
 				{
 					echo '<div class="col-sm-12">
-							<p class="cart-prod-name-rel">No Relative Product Found</p>
+							<p class="cart-prod-name-rel">'.no_relative_product_found.'</p>
 						  </div>';
 				}
 			}
@@ -845,7 +845,7 @@
 			else
 			{
 				echo '<div class="col-sm-12">
-						<p class="cart-prod-name-rel">No Video Found</p>
+						<p class="cart-prod-name-rel">'.no_video_found.'</p>
 					  </div>';
 			}
 		}
@@ -871,7 +871,7 @@
 					echo '<div class="form-group">
                                 <label class="lbl-cart" id="'.$label_id.'">'.$getValue['specification'].'</label>
                                 <select class="form-control form-cart" name="'.$name.'" id="'.$id.'">
-                                    <option value="-1">select one</option>';
+                                    <option value="-1">'.select_one.'</option>';
 					if(!empty($value))
 					{
 						foreach($value as $key=>$array_value)
@@ -1007,8 +1007,8 @@
 		{
 			//get shipping charges
 			$ship = $this->_DAL_Obj->getValue_where('shipping_cost_info','*','id',1);
-			echo '<p>Shipping Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun)</p>
-                  <p class="ship-text-span"> Total.   '.$this->getSystemCurrency('product').' '.$ship[0]['shipping_cost'].'</p>';
+			echo '<p>'.shipping_charge.'('.shipment_will_deliver_shortly_working_days_does_not_include_sat_and_sun.')</p>
+                  <p class="ship-text-span"> '.total.'.   '.$this->getSystemCurrency('product').' '.$ship[0]['shipping_cost'].'</p>';
 		}
 		
 		/*
@@ -1027,15 +1027,15 @@
 			$_SESSION['total_amount'] = $grand_total;
 			//showing grand total
 			echo '<tr>
-					<td colspan="4" class="brdr-right-nul"><span>Subtotal</span></td>
+					<td colspan="4" class="brdr-right-nul"><span>'.subtotal.'</span></td>
 					<td><span>'.$this->getSystemCurrency('product').$total_amount.'</span></td>
 				</tr>
 				<tr>
-					<td colspan="4" class="brdr-right-nul"><span>Shipping & Handling Charges(Shipment Will Deliver Shortly. Working days does not include Sat and Sun)</span></td>
+					<td colspan="4" class="brdr-right-nul"><span>'.shipping_and_handling_charges.'('.shipment_will_deliver_shortly_working_days_does_not_include_sat_and_sun.')</span></td>
 					<td><span>'.$this->getSystemCurrency('product').$ship[0]['shipping_cost'].'</span></td>
 				</tr>
 				<tr>
-					<td colspan="4" class="brdr-right-nul"><span class="grand-head">Grand Total</span></td>
+					<td colspan="4" class="brdr-right-nul"><span class="grand-head">'.grand_total.'</span></td>
 					<td><span>'.$this->getSystemCurrency('product').$grand_total.'</span></td>
 				</tr>';
 		}
@@ -1132,7 +1132,7 @@
 			$user_info = $this->_DAL_Obj->getValue_where('user_info','*','user_id',$_SESSION['user_id']);
 			if(!empty($user_info[0]))
 			{
-				echo 'Welcome '.$user_info[0]['username'];
+				echo welcome.' '.$user_info[0]['username'];
 			}
 		}
 		
@@ -1245,7 +1245,7 @@
 							echo '<tr>
 	                                <td>'.$sl_no.'</td>
 	                                <td><a href="'.$baseUrl.'membership-order-details/'.$mem_order_details[0]['membership_order_id'].'">'.$trans_details[0]['order_id'].'</a></td>
-	                                <td>Membership</td>
+	                                <td>'.membership.'</td>
 	                                <td>1</td>
 	                                <td>'.substr($mem_order_details[0]['date'],0,strpos($mem_order_details[0]['date'], ' ')).'</td>
 	                                <td>'.$this->getFeeType($trans_details[0]['fee_type']).'</td>
@@ -1416,23 +1416,23 @@
 			//get system currency
 			$system_currency = $this->getSystemCurrency('product');
 			echo '<tr>
-                    <td class="amt-color" colspan="6" style="text-align: right;">Gross Amount</td>
+                    <td class="amt-color" colspan="6" style="text-align: right;">'.gross_amount.'</td>
                     <td>'.$system_currency.$money[0]['gross_amount'].'</td>
                 </tr>
                 <tr>
-                    <td class="amt-color" colspan="6" style="text-align: right;">Withdrew Amount</td>
+                    <td class="amt-color" colspan="6" style="text-align: right;">'.withdraw_amount.'</td>
                     <td>'.$system_currency.$withdraw_money.'</td>
                 </tr>';
 			if(!empty($money[0]['processing_withdraw_amount']))
 			{
 				echo '<tr>
-	                    <td class="amt-color" colspan="6" style="text-align: right;">Processing Withdraw Amount</td>
+	                    <td class="amt-color" colspan="6" style="text-align: right;">'.processing_withdraw_amount.'</td>
 	                    <td>'.$system_currency.$with_pro_amount.'</td>
 	                </tr>';
 			}
 			
             echo '<tr>
-                    <td class="amt-color" colspan="6" style="text-align: right;">Net Amount</td>
+                    <td class="amt-color" colspan="6" style="text-align: right;">'.net_amount.'</td>
                     <td>'.$system_currency.$money[0]['net_amount'].'</td>
                 </tr>';
 		}
@@ -1447,7 +1447,7 @@
 			$total_pv = $this->_DAL_Obj->getLastValue('user_point_info', '*', 'user_id', $_SESSION['user_id'], 'id');
 			
 			echo '<tr>
-                    <td class="amt-color" colspan="5" style="text-align: right;">Total Point Value</td>
+                    <td class="amt-color" colspan="5" style="text-align: right;">'.total_point_value.'</td>
                     <td>'; if(!empty($total_pv[0]['total_pv'])) { echo $total_pv[0]['total_pv'] ; } else { echo 0;}  echo '</td>
                 </tr>';
 		}
@@ -1481,7 +1481,7 @@
 			}
 
 			echo '<tr>
-                    <td class="amt-color" colspan="6" style="text-align: right;">Point Value Earned By Child</td>
+                    <td class="amt-color" colspan="6" style="text-align: right;">'.point_value_earned_by_child.'</td>
                     <td>'.$pv.'</td>
                 </tr>';
 			
@@ -1516,7 +1516,7 @@
 			}
 
 			echo '<tr>
-                    <td class="amt-color" colspan="5" style="text-align: right;">Point Value Earned By Himself</td>
+                    <td class="amt-color" colspan="5" style="text-align: right;">'.point_value_earned_by_himself.'</td>
                     <td>'.$pv.'</td>
                 </tr>';
 			
@@ -1598,7 +1598,7 @@
 			else
 			{
 				echo '<tr>
-						<td colspan="5">Order History is Empty</td>
+						<td colspan="5">'.order_history_is_empty.'</td>
 					</tr>';
 			}
 		}
@@ -1611,15 +1611,15 @@
 		{
 			if($value == 'online')
 			{
-				$method = 'Online Payment';
+				$method = online_payment;
 			}
 			else if($value == 'bank')
 			{
-				$method = 'Bank Transfer';
+				$method = bank_transfer;
 			}
 			else if($value == 'cod')
 			{
-				$method = 'Cash On Delivery';
+				$method = cash_on_delivery;
 			}
 			return $method;
 		}
@@ -1685,7 +1685,7 @@
 				{
 					echo '<tr>
 							<td>'.$this->getProductNameFromId($product['product_id']).'
-								<a href = "'.$baseUrl.'product-review/'.$product['product_id'].'"><button class="btn">Review</button></a>
+								<a href = "'.$baseUrl.'product-review/'.$product['product_id'].'"><button class="btn">'.review.'</button></a>
 							</td>
 							<td>'.$product['quantity'].'</td>
 							<td>';
@@ -1706,15 +1706,15 @@
 				 }
 					$grand_total = intval($amount) + intval($this->getShippingCost());
 					echo '<tr>
-							<td colspan="3">Sub Total</td>
+							<td colspan="3">'.subtotal.'</td>
 							<td>'.$this->getSystemCurrency('product').$amount.'</td>
 						</tr>
 						<tr>
-							<td colspan="3">Shipping Charge</td>
+							<td colspan="3">'.shipping_charge.'</td>
 							<td>'.$this->getSystemCurrency('product').$this->getShippingCost().'</td>
 						</tr>
 						<tr>
-							<td colspan="3"><b>Grand Total</b></td>
+							<td colspan="3"><b>'.grand_total.'</b></td>
 							<td>'.$this->getSystemCurrency('product').$grand_total.'</td>
 						</tr>';
 				
@@ -1752,11 +1752,11 @@
 							<td>';
 							if($withdraw['status']==0)
 							{
-								echo 'Processing';
+								echo processing;
 							}
 							else 
 							{
-								echo 'Processed';
+								echo processed;
 							}
 					
 					echo '</td></tr>';			
@@ -1766,7 +1766,7 @@
 			else
 			{
 				echo '<tr>
-						<td colspan="5">Withdraw History is Empty</td>
+						<td colspan="5">'.withdraw_history_is_empty.'</td>
 					</tr>';
 			}
 		}
@@ -1874,7 +1874,7 @@
 						}
 						else
 						{
-							echo '<div class="local-block member-outline pull-left" style = "margin-top:11%"><p class="wholesaler" style = "margin-left:5%;margin-top: 15%;margin-bottom: 10%;"><b>NO CHILD</b></p></div>';
+							echo '<div class="local-block member-outline pull-left" style = "margin-top:11%"><p class="wholesaler" style = "margin-left:5%;margin-top: 15%;margin-bottom: 10%;"><b>'.no_child.'</b></p></div>';
 							//echoing this div which would have been echoed if the present id had a child	
 							echo '<div class="clearfix"></div>';
 						}
@@ -1888,7 +1888,7 @@
 			}
 			if(empty($userData[0]['child_id']) && $level == 1)
 			{
-				echo '<p class="wholesaler" style = "margin-left:5%;margin-top: 5%;"><b>NO CHILD</b></p></div>';
+				echo '<p class="wholesaler" style = "margin-left:5%;margin-top: 5%;"><b>'.no_child.'</b></p></div>';
 						//echoing this div which would have been echoed if the present id had a child	
 						echo '<div class="clearfix"></div>';
 			}
@@ -1905,7 +1905,7 @@
 			if(empty($reviews[0]['review']))
 			{
 				echo '<div class="col-sm-12">
-						<p class="cart-prod-name-rel">No Reviews Available</p>
+						<p class="cart-prod-name-rel">'.no_reviews_available.'</p>
 					  </div>';
 			}
 			else

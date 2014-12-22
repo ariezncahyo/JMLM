@@ -46,11 +46,11 @@
                         <table class="table table-custom">
                             <thead>
                                 <tr>
-                                    <th>Order Id</th>
-                                    <th>Purchased On</th>
-                                    <th>Payment Method</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
+                                    <th><?php echo order_id;?></th>
+                                    <th><?php echo purchase_on;?></th>
+                                    <th><?php echo payment_method;?></th>
+                                    <th><?php echo total_amount;?></th>
+                                    <th><?php echo status;?></th>
                                 </tr>
                             </thead>
                             <tbody>

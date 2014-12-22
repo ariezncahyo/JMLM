@@ -31,13 +31,13 @@
         <div class="col-sm-6 col-sm-offset-3">
             <div class="email-verify-txt">
                 <h3 class="tnk-u">
-                    Your Paypal Transaction is Unsuccessfull
+                    <?php echo your_paypal_transaction_is_unsuccessfull;?>
                 </h3>
                 <p class="verified-txt">
-                    Please repay the amount to complete the order
+                    <?php echo please_repay_the_amount_to_complete_the_order;?>
                 </p>
                 <a class="btn-link-custom clk-prof-btn">
-                    Please keep this for tracking
+                    <?php echo please_keep_this_for_tracking;?>
                 </a>
             </div><!-- email verifiy text ends -->
         </div>

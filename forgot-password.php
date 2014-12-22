@@ -67,7 +67,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h3 class="sign-log-in">Type your email to Get Password</h3>
+            <h3 class="sign-log-in"><?php echo type_your_email_to_get_password;?></h3>
         </div>
     </div>
     <div class="row">
@@ -75,14 +75,14 @@
             <div class="log-in-content">
                 <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.forgot-password.php" method="post" role="form">
                     <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo email_address;?> : </label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control form-cart" placeholder="Email" name="forgot_email">
+                          <input type="email" class="form-control form-cart" placeholder="<?php echo email_address;?>" name="forgot_email">
                         </div>
                       </div>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn btn-warning checkout-btn">Verify</button>
+                            <button type="submit" class="btn btn-warning checkout-btn"><?php echo verify;?></button>
                         </div>
                     </div>
                 </form>

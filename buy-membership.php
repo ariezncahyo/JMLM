@@ -44,11 +44,11 @@
                 <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
-                        Buy Membership
+                        <?php echo buy_membership;?>
                     </div>
                     
                     <h3 class="hd-scnd-profile mrgn-tp-profile">
-                        You have to pay for Membership: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$membership[0]['price'];  ?></span>
+                        <?php echo you_have_to_pay_for_membership;?>: <span class="amt-account"><?php echo $manageContent->getSystemCurrency('product').$membership[0]['price'];  ?></span>
                     </h1>
                     
                     <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.buy-membership.php" method="post">
@@ -57,7 +57,7 @@
                             <div class="col-sm-offset-1 col-sm-11">
                                 <input type="radio" id="membership_online" class="regular-checkbox" name="buy_mem" value="online"/><label for="checkbox-1-1"></label>
                                 <span class="label-custom">
-                                    Online Payment
+                                    <?php echo online_payment;?>
                                 </span>
                             </div>
                         </div>
@@ -65,13 +65,13 @@
                             <div class="col-sm-offset-1 col-sm-11">
                                 <input type="radio" id="membership_bank" class="regular-checkbox" checked="checked" name="buy_mem" value="bank"/><label for="checkbox-1-1"></label>
                                 <span class="label-custom">
-                                    Bank Transfer
+                                    <?php echo bank_transfer;?>
                                 </span>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-1 col-sm-11" id="cash_btn">
-                                <button type="submit" class="btn btn-custom-profile" style="float: left">SUBMIT</button>
+                                <button type="submit" class="btn btn-custom-profile" style="float: left"><?php echo submit;?></button>
                             </div>
                         </div>
                         

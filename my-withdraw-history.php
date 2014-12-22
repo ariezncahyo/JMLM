@@ -46,11 +46,11 @@
                         <table class="table table-custom">
                             <thead>
                                 <tr>
-                                    <th>Withdraw Id</th>
-                                    <th>Withdraw Method</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
+                                    <th><?php echo withdraw_id;?></th>
+                                    <th><?php echo withdraw_method;?></th>
+                                    <th><?php echo date;?></th>
+                                    <th><?php echo amount;?></th>
+                                    <th><?php echo status;?></th>
                                 </tr>
                             </thead>
                             <tbody>

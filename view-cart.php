@@ -34,7 +34,7 @@
         <!--<form method="post" role="form">-->
         <div class="col-sm-8">
             <h3 class="cart-prod-name">
-                Your shopping cart - <?php $manageContent->getTotalProductInCart(); ?> Items
+                <?php echo your_shopping_cart;?> - <?php $manageContent->getTotalProductInCart(); ?> <?php echo items;?>
             </h3>
             <?php
             	if(isset($GLOBALS['_COOKIE']['DiHuangCart']) && isset($GLOBALS['_COOKIE'][$_SESSION['user_id']]))
@@ -47,10 +47,10 @@
 					echo '<div class="sub-total">
 							<div class="row">
 								<div class="col-sm-2">
-									<a class="btn btn-link btn-link-custom" id="empty_cart">Empty Your Cart</a>
+									<a class="btn btn-link btn-link-custom" id="empty_cart">'.empty_your_cart.'</a>
 								</div>
 								<div class="col-sm-offset-7 col-sm-3">
-									<p class="prod-v-crt-name">Subtotal : '.$currency.$cart_amount.'</p>
+									<p class="prod-v-crt-name">'.subtotal.' : '.$currency.$cart_amount.'</p>
 								</div>
 							</div>
 						</div>';
@@ -70,7 +70,7 @@
 					echo '<div class="checkout-content">
 							<div class="row">
 								<div class="col-xs-8">
-									<p class="prod-v-crt-name">Subtotal : </p>
+									<p class="prod-v-crt-name">'.subtotal.' : </p>
 								</div>
 								<div class="col-xs-4">
 									<p class="prod-v-crt-name txt-rt">'.$currency.$cart_amount.'</p>
@@ -78,7 +78,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-8">
-									<p class="prod-v-crt-name">Shipping Cost : </p>
+									<p class="prod-v-crt-name">'.shipping_cost.' : </p>
 								</div>
 								<div class="col-xs-4">
 									<p class="prod-v-crt-name txt-rt">'.$currency.$manageContent->getShippingCost().'</p>
@@ -86,7 +86,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-8">
-									<p class="prod-v-crt-total"><em>Total Cost :  </em></p>
+									<p class="prod-v-crt-total"><em>'.total_cost.' :  </em></p>
 								</div>
 								<div class="col-xs-4">
 									<p class="prod-v-crt-total txt-rt"><em>'.$currency.$total_cost.'</em></p>
@@ -94,10 +94,10 @@
 							</div>
 							<div class="row btn-cust-row">
 								<div class="col-xs-6">
-									<a href="'.$baseUrl.'products/"><button class="btn btn-warning pull-left">Continue Shopping</button></a>
+									<a href="'.$baseUrl.'products/"><button class="btn btn-warning pull-left">'.continue_shopping.'</button></a>
 								</div>
 								<div class="col-xs-6">
-									<a href="'.$baseUrl.'checkout/"><button class="btn btn-warning pull-right">Go To Checkout</button></a>
+									<a href="'.$baseUrl.'checkout/"><button class="btn btn-warning pull-right">'.go_to_checkout.'</button></a>
 								</div>
 							</div>
 						</div>';
@@ -116,7 +116,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only"><?php echo close;?></span></button>
         <h4 class="modal-title" id="myModalLabel">Lorem Ipsum</h4>
       </div>
       <div class="modal-body">
@@ -128,8 +128,8 @@
         and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <a href="<?php echo $baseUrl;?>login/"><button type="button" class="btn btn-primary">Go to Login</button></a>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo close;?></button>
+        <a href="<?php echo $baseUrl;?>login/"><button type="button" class="btn btn-primary"><?php echo go_to_login;?></button></a>
       </div>
     </div>
   </div>

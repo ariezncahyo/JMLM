@@ -50,7 +50,7 @@
                 <div class="col-sm-12">
                     
                     <h3 class="contact-head">
-                        Telephone
+                        <?php echo phone_number;?>
                     </h3>
                     <p class="contact-para">
                         Lorem ipsum : 123456789<br />
@@ -59,7 +59,7 @@
                     </p>
                     
                     <h3 class="contact-head">
-                        Fax Number
+                        <?php echo fax_number;?>
                     </h3>
                     <p class="contact-para">
                         Lorem Ipsum (lorem ipsum) : 123456789<br />
@@ -67,7 +67,7 @@
                     </p>
                     
                     <h3 class="contact-head">
-                        Address
+                        <?php echo address;?>
                     </h3>
                     <p class="contact-para">
                         Lorem Ipsum Lorem Ipsum Lorem.Ipsum<br /> 
@@ -77,14 +77,14 @@
                     </p>
                     
                     <h3 class="contact-head">
-                        E-mail
+                        <?php echo email_address;?>
                     </h3>
                     <p class="contact-para">
                         loremipsum@lorem.ipsum
                     </p>
                     
                     <h3 class="contact-head">
-                        Operating Hours
+                        <?php echo operating_hours;?>
                     </h3>
                     <p class="contact-para">
                         Lorem Ipsum (lorem ipsum) : 123456789<br /> 

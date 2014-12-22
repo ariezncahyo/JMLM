@@ -53,7 +53,7 @@
         <div class="col-sm-12">
             <div class="head-banner">
                 <div class="banner-link">
-                    <a href="<?php echo $baseUrl;?>products/" class="banner-h"><span class="banner-spn">PRODUCTS</span> ></a>
+                    <a href="<?php echo $baseUrl;?>products/" class="banner-h"><span class="banner-spn"><?php echo products;?></span> ></a>
                 </div><!-- banner link -->
             </div><!-- head banner -->
         </div>
@@ -67,7 +67,7 @@
             <div id="products-banner">  
             	<img src="<?php echo $baseUrl;?>images/banners/products-banner.jpg" title="Products" />   
 				<div class="products-banner-title">
-					<a href="<?php echo $baseUrl;?>products/">PRODUCTS</a>
+					<a href="<?php echo $baseUrl;?>products/"><?php echo products;?></a>
 				</div>
             </div>
             <!-- banner ends -->

@@ -55,13 +55,13 @@
                         <table class="table table-custom">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Order Id</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Amount</th>
+                                    <th><?php echo numberlang;?></th>
+                                    <th><?php echo order_id;?></th>
+                                    <th><?php echo product_name;?></th>
+                                    <th><?php echo quantity;?></th>
+                                    <th><?php echo date;?></th>
+                                    <th><?php echo type;?></th>
+                                    <th><?php echo amount;?></th>
                                 </tr>
                             </thead>
                             <tbody>

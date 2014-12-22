@@ -50,7 +50,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" id="checkout-one">
-                      Billing Information
+                      <?php echo billing_information;?>
                     </a>
                   </h4>
                 </div>
@@ -59,11 +59,11 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4 class="head-bill">
-                                Billing Information
+                                <?php echo billing_information;?>
                             </h4>
                             <form role="form" id="billing_info">
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo first_name;?></label>
                                     <div class="col-sm-10">
                                       <input type="text" class="form-cart form-control" id="bill_fname" placeholder="First Name" name="f_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['f_name'].'"'; } ?>>
                                       <div class="form-error" id="err_bill_fname"></div>
@@ -71,7 +71,7 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Last Name</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo last_name;?></label>
                                     <div class="col-sm-10">
                                       <input type="text" class="form-cart form-control" id="bill_lname" placeholder="Last Name" name="l_name" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['l_name'].'"'; } ?>>
                                       <div class="form-error" id="err_bill_lname"></div>
@@ -79,14 +79,14 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Company</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo company;?></label>
                                     <div class="col-sm-10">
                                       <input type="text" class="form-cart form-control" id="bill_comp" placeholder="Company" name="company" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['company'].'"'; } ?>>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Email Address</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo email_address;?></label>
                                     <div class="col-sm-10">
                                       <input type="text" class="form-cart form-control" id="bill_email" placeholder="Email Address" name="email_id" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['email_id'].'"'; } ?>/>
                                       <div class="form-error" id="err_bill_email"></div>
@@ -95,20 +95,20 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Address</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo address;?></label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" id="bill_addr1" placeholder="Address" name="addr1" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_1'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_addr1" placeholder="<?php echo address;?>" name="addr1" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_1'].'"'; } ?>>
                                       <div class="form-error" id="err_bill_addr1"></div>
                                     </div>
                                     <div class="col-sm-10 mrgn-tp-cart">
-                                      <input type="text" class="form-cart form-control" id="bill_addr2" placeholder="Address" name="addr2" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_2'].'"'; } ?>>
+                                      <input type="text" class="form-cart form-control" id="bill_addr2" placeholder="<?php echo address;?>" name="addr2" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['addr_2'].'"'; } ?>>
                                       <div class="form-error" id="err_bill_addr2"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="col-sm-5 nul-pad">
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">City</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo city;?></label>
                                         <div class="col-sm-12">
                                           <input type="text" class="form-cart form-control" id="bill_city" placeholder="City" name="city" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['city'].'"'; } ?>>
                                           <div class="form-error" id="err_bill_city"></div>
@@ -116,7 +116,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Zip/Postal Code</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo zip_postal_code;?></label>
                                         <div class="col-sm-12">
                                           <input type="text" class="form-cart form-control" id="bill_zip" placeholder="Zip/Postal Code" name="postal_code" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['postal_code'].'"'; } ?>>
                                           <div class="form-error" id="err_bill_zip"></div>
@@ -124,7 +124,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Phone Number</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo phone_number;?></label>
                                         <div class="col-sm-12">
                                           <input type="text" class="form-cart form-control" id="bill_phone" placeholder="Phone Number" name="phone" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['phone'].'"'; } ?>>
                                           <div class="form-error" id="err_bill_phone"></div>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="col-sm-5 nul-pad">
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">State/Province</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo state_province;?></label>
                                         <div class="col-sm-12">
                                           <input type="text" class="form-cart form-control" id="bill_state" placeholder="State" name="state" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['state'].'"'; } ?>>
                                           <div class="form-error" id="err_bill_state"></div>
@@ -142,7 +142,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Country</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo country;?></label>
                                         <div class="col-sm-12">
                                           <input type="text" class="form-cart form-control" id="bill_country" placeholder="Country" name="country" <?php if(!empty($userInfo[0])) { echo 'value="'.$userInfo[0]['country'].'"'; } ?>>
                                           <div class="form-error" id="err_bill_country"></div>
@@ -153,7 +153,7 @@
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="billing_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapseTwo">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="billing_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapseTwo"><?php echo continuelang;?></button>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" id="checkout-two">
-                      Shipping Information
+                      <?php echo shipping_information;?>
                     </a>
                   </h4>
                 </div>
@@ -176,83 +176,83 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4 class="head-bill">
-                                Shipping Information
+                                <?php echo shipping_information;?>
                             </h4>
                             <form role="form" id="shipping_info">
                             	<div class="col-sm-10">
                                     <div class="checkbox">
                                       <label>
                                         <input type="checkbox" name="addr_condition" id="addr_condition">
-                                        Use Billing Address
+                                        <?php echo use_billing_address;?>
                                       </label>
                                     </div>
                                  </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">First Name</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo first_name;?></label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" id="ship_fname" placeholder="First Name" name="f_name">
+                                      <input type="text" class="form-cart form-control" id="ship_fname" placeholder="<?php echo first_name;?>" name="f_name">
                                       <div class="form-error" id="err_ship_fname"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Last Name</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo last_name;?></label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" id="ship_lname" placeholder="Last Name" name="l_name">
+                                      <input type="text" class="form-cart form-control" id="ship_lname" placeholder="<?php echo last_name;?>" name="l_name">
                                       
                                       <div class="form-error" id="err_ship_lname"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Company</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo company;?></label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" placeholder="Company" name="company">
+                                      <input type="text" class="form-cart form-control" placeholder="<?php echo company;?>" name="company">
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Email Address</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo email_address;?></label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" id="ship_email" placeholder="Email Address" name="email_id">
+                                      <input type="text" class="form-cart form-control" id="ship_email" placeholder="<?php echo email_address;?>" name="email_id">
                                       <div class="form-error" id="err_ship_email"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Address</label>
+                                    <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo address;?></label>
                                     <div class="col-sm-10">
-                                      <input type="text" class="form-cart form-control" id="ship_addr1" placeholder="Address" name="addr1">
+                                      <input type="text" class="form-cart form-control" id="ship_addr1" placeholder="<?php echo address;?>" name="addr1">
                                       <div class="form-error" id="err_ship_addr1"></div>
                                     </div>
                                     <div class="col-sm-10 mrgn-tp-cart">
-                                      <input type="text" class="form-cart form-control" id="ship_addr2" placeholder="Address" name="addr2">
+                                      <input type="text" class="form-cart form-control" id="ship_addr2" placeholder="<?php echo address;?>" name="addr2">
                                       <div class="form-error" id="err_ship_addr2"></div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="col-sm-5 nul-pad">
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">City</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo city;?></label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" id="ship_city" placeholder="City" name="city">
+                                          <input type="text" class="form-cart form-control" id="ship_city" placeholder="<?php echo city;?>" name="city">
                                           <div class="form-error" id="err_ship_city"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Zip/Postal Code</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo zip_postal_code;?></label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" id="ship_zip" placeholder="Zip/Postal Code" name="postal_code">
+                                          <input type="text" class="form-cart form-control" id="ship_zip" placeholder="<?php echo zip_postal_code;?>" name="postal_code">
                                           <div class="form-error" id="err_ship_zip"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Telephone</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo phone_number;?></label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" id="ship_phone" placeholder="Telephone" name="phone">
+                                          <input type="text" class="form-cart form-control" id="ship_phone" placeholder="<?php echo phone_number;?>" name="phone">
                                           <div class="form-error" id="err_ship_phone"></div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -260,17 +260,17 @@
                                 </div>
                                 <div class="col-sm-5 nul-pad">
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">State/Province</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo state_province;?></label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" id="ship_state" placeholder="State" name="state">
+                                          <input type="text" class="form-cart form-control" id="ship_state" placeholder="<?php echo state_province;?>" name="state">
                                           <div class="form-error" id="err_ship_state"></div>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label">Country</label>
+                                        <label class="form-v col-sm-12 col-md-12 col-lg-12 control-label"><?php echo country;?></label>
                                         <div class="col-sm-12">
-                                          <input type="text" class="form-cart form-control" id="ship_country" placeholder="State" name="country">
+                                          <input type="text" class="form-cart form-control" id="ship_country" placeholder="<?php echo country;?>" name="country">
                                           <div class="form-error" id="err_ship_country"></div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -280,7 +280,7 @@
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="shipping_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapseThree">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="shipping_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapseThree"><?php echo continuelang;?></button>
                                         </div>
                                     </div>
                                 </div>
@@ -294,7 +294,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" id="checkout-three">
-                      Shipping Method
+                     <?php echo shipping_method;?>
                     </a>
                   </h4>
                 </div>
@@ -303,7 +303,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4 class="head-bill">
-                                Shipping Method
+                                <?php echo shipping_method;?>
                             </h4>
                             <form role="form" id="shipping_method">
                                 <div class="col-sm-12">
@@ -317,7 +317,7 @@
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="shipping_method_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapsefour">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="shipping_method_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapsefour"><?php echo continuelang;?></button>
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +331,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour" id="checkout-four">
-                      Payment Information
+                      <?php echo payment_information;?>
                     </a>
                   </h4>
                 </div>
@@ -340,26 +340,26 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4 class="head-bill">
-                                Payment Information
+                                <?php echo payment_information;?>
                             </h4>
                             <form role="form" id="payment_info">
                                 <div class="col-sm-10">
                                     <div class="radio" id="bank">
                                       <label>
                                         <input type="radio" name="payment_info" value="bank" checked="checked">
-                                        <h4 class="ship-text ship-text-span">Cheque / Bank Transfer (Your order will be on hold until the full payment is received)</h4>
+                                        <h4 class="ship-text ship-text-span"><?php echo cheque_bank_transfer.' ('.your_order_will_be_on_hold_until_the_full_payment_is_received.')';?></h4>
                                       </label>
                                     </div>
                                     <div class="radio" id="online">
                                       <label>
                                         <input type="radio" name="payment_info" value="online">
-                                        <h4 class="ship-text ship-text-span">Online Payment</h4>
+                                        <h4 class="ship-text ship-text-span"><?php echo online_payment;?></h4>
                                       </label>
                                     </div>
                                     <div class="radio" id="cod">
                                       <label>
                                         <input type="radio" name="payment_info" value="cod">
-                                        <h4 class="ship-text ship-text-span">Cash On Delivery</h4>
+                                        <h4 class="ship-text ship-text-span"><?php echo cash_on_delivery;?></h4>
                                       </label>
                                     </div>
                                     <div class="form-error" id="err_payment_info"></div>
@@ -367,7 +367,7 @@
                                 <div class="row mrgn-tp-cart">
                                     <div class="col-md-12">
                                         <div class="cart-btn">
-                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="payment_info_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapsefive">Continue</button>
+                                            <button type="button" class="btn btn-warning btn-lg checkout-btn" id="payment_info_btn" data-toggle="collapse" data-parent="#accordion"  data-target="#collapsefive"><?php echo continuelang;?></button>
                                         </div>
                                     </div>
                                 </div>
@@ -381,7 +381,7 @@
                 <div class="panel-heading">
                   <h4 class="panel-title panel-title-custom">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapsefive" id="checkout-five">
-                      Order Review
+                      <?php echo order_review;?>
                     </a>
                   </h4>
                 </div>
@@ -389,18 +389,18 @@
                   <div class="panel-body">
                     <div class="col-sm-12">
                         <h4 class="head-bill">
-                            Order Review
+                            <?php echo order_review;?>
                         </h4>
                         <div  id="cod_btn">
 	                        <form role="form" id="order_info">
 	                            <div class="col-sm-10">
 	                                <table class="table table-bordered table-order-review">
 	                                    <thead>
-	                                        <tr><th>Product Name</th>
-	                                        <th>Specification</th>
-	                                        <th>Price</th>
-	                                        <th>Qty</th>
-	                                        <th>Subtotal</th>
+	                                        <tr><th><?php echo product_name;?></th>
+	                                        <th><?php echo specification;?></th>
+	                                        <th><?php echo price;?></th>
+	                                        <th><?php echo quantity;?></th>
+	                                        <th><?php echo subtotal;?></th>
 	                                    </tr></thead>
 	                                    <tbody>
 	                                        
@@ -414,11 +414,11 @@
 	                             </div>
 	                            <div class="row mrgn-tp-cart">
 	                                <div class="col-md-6">
-	                                   <a href="<?php echo $baseUrl;?>view-cart/" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
+	                                   <a href="<?php echo $baseUrl;?>view-cart/" class="edit-cart btn-link-custom"><?php echo edit_your_cart;?></a>
 	                                </div>
 	                                <div class="col-md-6">
 	                                    <div class="cart-btn">
-	                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn">CHECKOUT</button>
+	                                        <button type="button" class="btn btn-warning checkout-btn" id="order_overview_btn"><?php echo checkout;?></button>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -429,11 +429,11 @@
                             <div class="col-sm-10">
                                 <table class="table table-bordered table-order-review">
                                     <thead>
-                                        <tr><th>Product Name</th>
-                                        <th>Specification</th>
-                                        <th>Price</th>
-                                        <th>Qty</th>
-                                        <th>Subtotal</th>
+                                        <tr><th><?php echo product_name;?></th>
+                                        <th><?php echo specification;?></th>
+                                        <th><?php echo price;?></th>
+                                        <th><?php echo quantity;?></th>
+                                        <th><?php echo subtotal;?></th>
                                     </tr></thead>
                                     <tbody>
                                         
@@ -447,7 +447,7 @@
                              </div>
                             <div class="row mrgn-tp-cart">
                                 <div class="col-md-6">
-                                   <a href="<?php echo $baseUrl;?>view-cart/" class="edit-cart btn-link-custom">EDIT YOUR CART</a>
+                                   <a href="<?php echo $baseUrl;?>view-cart/" class="edit-cart btn-link-custom"><?php echo edit_your_cart;?></a>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="cart-btn">

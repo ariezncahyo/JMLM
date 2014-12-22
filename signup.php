@@ -19,7 +19,7 @@
 		
 		if(empty($refUser) || $refUser[0]['member_level'] == 0)
 		{
-			$_SESSION['warning'] = 'This user does not have permission to refer to anyone';
+			$_SESSION['warning'] = this_user_does_not_have_permission_to_refer_to_anyone;
 			header("Location: index.php");
 		}
 	}
@@ -48,7 +48,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <h3 class="sign-log-in">Sign Up</h3>
+            <h3 class="sign-log-in"><?php echo sign_up;?></h3>
         </div>
     </div>
     <div class="row">
@@ -56,21 +56,21 @@
             <div class="sign-up-content">
                 <form class="form-horizontal" method="post" action="<?php echo $baseUrl;?>v-includes/functions/function.signup.php" role="form" id="user_signup">
                     <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">First Name : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo first_name;?> : </label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control form-cart" placeholder="First Name" name="f_name" id="signup_fname">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo first_name;?>" name="f_name" id="signup_fname">
                           <div class="form-error" id="err_signup_fname"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Last Name : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo last_name;?> : </label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control form-cart" placeholder="Last Name" name="l_name" id="signup_lname">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo last_name;?>" name="l_name" id="signup_lname">
                           <div class="form-error" id="err_signup_lname"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Gender : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo gender;?> : </label>
                         <div class="col-sm-9">
                           <div class="radio">
                               <label>
@@ -87,14 +87,14 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Date of Birth : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo date_of_birth;?> : </label>
                         <div class="col-sm-4">
-                          <input type="text" class="form-control form-cart dob" placeholder="Date of Birth" name="dob" id="signup_dob">
+                          <input type="text" class="form-control form-cart dob" placeholder="<?php echo date_of_birth;?>" name="dob" id="signup_dob">
                           <div class="form-error" id="err_signup_dob"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Address : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo address;?> : </label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control form-cart" placeholder="Address Line 1" name="addr1" id="signup_addr1">
                           <div class="form-error" id="err_signup_addr1"></div>
@@ -102,81 +102,81 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Town/City : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo city;?> : </label>
                         <div class="col-sm-3">
-                          <input type="text" class="form-control form-cart" placeholder="Town/City" name="city" id="signup_city">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo city;?>" name="city" id="signup_city">
                           <div class="form-error" id="err_signup_city"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">State : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo state_province;?> : </label>
                         <div class="col-sm-4">
-                          <input type="text" class="form-control form-cart" placeholder="State" name="state" id="signup_state">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo state_province;?>" name="state" id="signup_state">
                           <div class="form-error" id="err_signup_state"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Country : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo country;?> : </label>
                         <div class="col-sm-4">
-                          <input type="text" class="form-control form-cart" placeholder="Country" name="country" id="signup_country">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo country;?>" name="country" id="signup_country">
                           <div class="form-error" id="err_signup_country"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Postal Code : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo zip_postal_code;?> : </label>
                         <div class="col-sm-3">
-                          <input type="text" class="form-control form-cart" placeholder="Postal Code" name="postal_code" id="signup_postal">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo zip_postal_code;?>" name="postal_code" id="signup_postal">
                           <div class="form-error" id="err_signup_postal"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Phone Number : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo phone_number;?> : </label>
                         <div class="col-sm-3">
-                          <input type="text" class="form-control form-cart" placeholder="Phone Number" name="phone">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo phone_number;?>" name="phone">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Company : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo company;?> : </label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control form-cart" placeholder="Company" name="company">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo company;?>" name="company">
                         </div>
                       </div>
                       <?php
                       	if(!isset($GLOBALS['_GET']['refid'])){
                       ?>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Referral User Id : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo referral_user_id;?> : </label>
                         <div class="col-sm-9">
-                          <input type="password" class="form-control form-cart" placeholder="Referral User Id" name="ref_user" id="signup_ref_user">
+                          <input type="password" class="form-control form-cart" placeholder="<?php echo referral_user_id;?>" name="ref_user" id="signup_ref_user">
                           <div class="form-error" id="err_signup_ref_user"></div>
                         </div>
                       </div>
                       <?php } ?>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Username : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo username;?> : </label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control form-cart" placeholder="Username" name="username" id="signup_username">
+                          <input type="text" class="form-control form-cart" placeholder="<?php echo username;?>" name="username" id="signup_username">
                           <div class="form-error" id="err_signup_username"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Email : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo email;?> : </label>
                         <div class="col-sm-9">
-                          <input type="email" class="form-control form-cart" placeholder="Email" name="email" id="signup_email">
+                          <input type="email" class="form-control form-cart" placeholder="<?php echo email;?>" name="email" id="signup_email">
                           <div class="form-error" id="err_signup_email"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Password : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo password;?> : </label>
                         <div class="col-sm-5">
-                          <input type="password" class="form-control form-cart" placeholder="Password" name="password" id="signup_pass">
+                          <input type="password" class="form-control form-cart" placeholder="<?php echo password;?>" name="password" id="signup_pass">
                           <div class="form-error" id="err_signup_pass"></div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 form-v-sign-up control-label">Confirm Password : </label>
+                        <label class="col-sm-3 form-v-sign-up control-label"><?php echo confirm_password;?> : </label>
                         <div class="col-sm-5">
-                          <input type="password" class="form-control form-cart" placeholder="Confirm Password" name="con_password" id="signup_con_pass">
+                          <input type="password" class="form-control form-cart" placeholder="<?php echo confirm_password;?>" name="con_password" id="signup_con_pass">
                           <div class="form-error" id="err_signup_con_pass"></div>
                         </div>
                       </div>
@@ -186,7 +186,7 @@
                         		if(isset($GLOBALS['_GET']['refid'])){ echo '<input type="hidden" name="ref_user" value="'.$GLOBALS['_GET']['refid'].'"/>'; }
                         	?>
                         	
-                          <button type="button" id="user_signup_btn" class="btn btn-warning checkout-btn">Sign Up</button>
+                          <button type="button" id="user_signup_btn" class="btn btn-warning checkout-btn"><?php echo sign_up;?></button>
                         </div>
                       </div>
                 </form>

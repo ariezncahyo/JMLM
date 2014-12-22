@@ -42,29 +42,29 @@
                 <div class="col-sm-9">
                     
                     <div class="head-profile-checkout">
-                        profile settings
+                        <?php echo profile_settings;?>
                     </div>
                     
                     <h3 class="hd-scnd-profile mrgn-tp-profile">
-                        Personal Information
+                        <?php echo personal_information;?>
                     </h1>
                     
 	                    <form class="form-horizontal" action="<?php echo $baseUrl;?>v-includes/functions/function.edit-user_profile.php" method="post">
 	                        
 	                    <div class="form-group">
-	                        <label class="col-sm-3 col-sm-offset-1 label-profile">First Name: </label>
+	                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo first_name;?>: </label>
 	                        <div class="col-sm-offset-1 col-sm-6">
 	                            <input class="form-control form-profile" type="text" name="f_name" value="<?php echo $profile_value[0]['f_name'];  ?>" />
 	                        </div>
 	                    </div>
 	                    <div class="form-group">
-	                        <label class="col-sm-3 col-sm-offset-1 label-profile">Last Name: </label>
+	                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo last_name;?>: </label>
 	                        <div class="col-sm-offset-1 col-sm-6">
 	                            <input class="form-control form-profile" type="text" name="l_name" value="<?php echo $profile_value[0]['l_name'];  ?>" />
 	                        </div>
 	                    </div>
 	        			 <div class="form-group">
-	                        <label class="col-sm-3 col-sm-offset-1 label-profile">Gender: </label>
+	                        <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo gender;?>: </label>
 	                        <div class="col-sm-offset-1 col-sm-6">
 	                            <div class="radio">
 								  <label>
@@ -81,57 +81,57 @@
 	                        </div>
 	                    </div>
                       	<div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Date of Birth: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo date_of_birth;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile dob" type="text" name="dob" value="<?php echo $profile_value[0]['dob'];  ?>" />
                             </div>
                         </div> 
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Company: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo company;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="company" value="<?php echo $profile_value[0]['company'];  ?>" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Address: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo address;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="addr1" value="<?php echo $profile_value[0]['addr_1'];  ?>" />
                                 <input class="form-control form-profile form-profile-topgap" type="text" name="addr2" value="<?php echo $profile_value[0]['addr_2'];  ?>" />
                             </div>
                         </div>                      
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Town/City: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo city;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="city" value="<?php echo $profile_value[0]['city'];  ?>" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">State: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo state_province;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="state" value="<?php echo $profile_value[0]['state'];  ?>" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Country: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo country;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="country" value="<?php echo $profile_value[0]['country'];  ?>" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Postal Code: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo zip_postal_code;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="postal_code" value="<?php echo $profile_value[0]['postal_code'];  ?>" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 col-sm-offset-1 label-profile">Phone Number: </label>
+                            <label class="col-sm-3 col-sm-offset-1 label-profile"><?php echo phone_number;?>: </label>
                             <div class="col-sm-offset-1 col-sm-6">
                                 <input class="form-control form-profile" type="text" name="phone" value="<?php echo $profile_value[0]['phone'];  ?>" />
                             </div>
                         </div>                        
                         <div class="form-group">
                             <div class="col-sm-offset-6 col-sm-5">
-                                <button type="submit" class="btn btn-custom-profile">UPDATE</button>
+                                <button type="submit" class="btn btn-custom-profile"><?php echo update;?></button>
                             </div>
                         </div>
                         
