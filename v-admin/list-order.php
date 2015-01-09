@@ -36,8 +36,8 @@
             <div class="row adm_row">
             	<div class="col-sm-12">
                 	<div class="btn-group pull-left order_btn_grp">
-                    	<button class="btn btn-success btn-lg"><a href="list-order.php">Full List</a></button>
-                        <button class="btn btn-primary btn-lg"><a href="filtered-order.php">Filtered List</a></button>
+                    	<a href="list-order.php"><button class="btn btn-success btn-lg">Full List</button></a>
+                        <a href="filtered-order.php"><button class="btn btn-primary btn-lg">Filtered List</button></a>
                     </div>
                     <ul class="pagination pull-right list-pagination">
                       <?php 

@@ -2105,6 +2105,55 @@
 		}
 		
 		/*
+		- method for fetching withdrawal info list
+		- Auth: Debojyoti
+		*/
+		function getMembersWithdrawListByStatusAndLimit($status,$start,$limit)
+		{
+			$limitquery = '';	
+			if($limit > 0)
+			{
+				$limitquery = "LIMIT ".$start.",".$limit;
+			}	
+			//getting all members withdraw list
+			$memberwithdrawList = $this->manage_content->getValueWhereDescLimit('withdraw_info', '*', array('status'), array($status), 'id', $limitquery);
+			$currency = $this->getSystemCurrency('product');
+			if(!empty($memberwithdrawList[0]))
+			{
+				foreach($memberwithdrawList as $withdraw)
+				{
+					$date=substr($withdraw['date'],0,10);	
+					echo '<tr>
+							<td>'.$withdraw['withdraw_id'].'</td>
+							<td>'.$this->getUserFromUserId($withdraw['user_id']).'</td>
+							<td>'.$withdraw['withdraw_method'].'</td>
+							<td>'.$currency.$withdraw['amount'].'</td>
+							<td>'.$date.'</td>';
+							if($status == 0)
+							{
+								echo '<td><a href="v-includes/functions/function.withdraw-status-update.php?userid='.$withdraw['user_id'].'&amount='.$withdraw['amount'].'&withdraw_id='.$withdraw['withdraw_id'].'"><button class="btn btn-info">Confirm</button></a></td>';
+							} 
+					echo '</tr>';
+				}
+			}
+			else 
+			{
+				echo '<tr><td align="center"'; if($status == 0) { echo 'colspan="6"'; } else { echo 'colspan="5"'; } echo '>No Value</td></tr>';
+			}
+		}
+
+		/*
+		- method for fetching count of withdrawal info list
+		- Auth: Debojyoti
+		*/
+		function getCountMembersWithdrawListByStatus($status)
+		{
+			//getting all members withdraw list
+			$memberwithdrawList = $this->manage_content->getValue_where('withdraw_info', '*', 'status', $status);
+			return $memberwithdrawList;
+		}
+		
+		/*
 		- method for getting system money info
 		- Auth: Riju
 		*/
@@ -3256,16 +3305,6 @@
 			}
 			//calling the function for showing the list
 			$this->getFilteredOrderList($order_id);
-		}
-		
-		/*
-		- method for getting the paypal payment method
-		- Auth: Debojyoti 
-		*/
-		function getPaypalPaymentMethodStatus()
-		{
-			$method = $this->manage_content->getValue('admin_info', '*');
-			return $method[0]['paypal_payment_method'];
 		}
 	}
 	

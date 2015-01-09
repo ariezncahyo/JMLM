@@ -48,9 +48,9 @@
             	<div class="col-sm-12">
             		
                 	<div class="btn-group pull-left order_btn_grp">
-                    	<button class="btn btn-success"><a href="list-membership-order.php?list=Processing">On Process</a></button>
-                        <button class="btn btn-primary"><a href="list-membership-order.php?list=Completed">Complete Order List</a></button>
-                        <button class="btn btn-danger"><a href="list-membership-order.php?list=Cancel">Cancel Order List</a></button>
+                    	<a href="list-membership-order.php?list=Processing"><button class="btn btn-success">On Process</button></a>
+                        <a href="list-membership-order.php?list=Completed"><button class="btn btn-primary">Complete Order List</button></a>
+                        <a href="list-membership-order.php?list=Cancel"><button class="btn btn-danger">Cancel Order List</button></a>
                     </div>
                     <ul class="pagination pull-right list-pagination">
                       <?php 

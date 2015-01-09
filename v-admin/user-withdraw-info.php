@@ -36,21 +36,67 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            <?php
+            	$limit = 15;
+            	$start = 0;
+				if(!empty($_GET['page']))
+				{
+					$start = ($_GET['page'] - 1) * $limit;
+				}
+				$active = 'class = "active"';
+				$member_withdraw_list = $manageContent->getCountMembersWithdrawListByStatus($status);
+				$total_pages = count($member_withdraw_list)/15;
+			?>	
             <!-- /.row -->
             <div class="row adm_row">
             	<div class="col-sm-12">
                 	<div class="btn-group pull-left order_btn_grp">
-                    	<button class="btn btn-success btn-lg"><a href="user-withdraw-info.php?action=0">Withdraw Processing</a></button>
-                        <button class="btn btn-primary btn-lg"><a href="user-withdraw-info.php?action=1">Withdraw Completed</a></button>
+                    	<a href="user-withdraw-info.php?action=0"><button class="btn btn-success btn-lg">Withdraw Processing</button></a>
+                        <a href="user-withdraw-info.php?action=1"><button class="btn btn-primary btn-lg">Withdraw Completed</button></a>
                     </div>
                     <ul class="pagination pull-right list-pagination">
-                      <li><a href="#">«</a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">»</a></li>
+                      <?php 
+                    	
+	                		if(!empty($_GET['page']) && ($_GET['page'] > 1))
+							{
+								echo '<li><a href="user-withdraw-info.php?page='.($_GET['page']-1).'">«</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="user-withdraw-info.php?page=1">«</a></li>';
+							}
+                    		
+                    	
+	                      for($i=1;$i<=ceil($total_pages);$i++)
+						  {
+						  	if($i == $_GET['page'])	
+							{
+								echo '<li '.$active.'><a href="user-withdraw-info.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							elseif(($_GET['page']) == '' && ($i == 1))
+							{
+								echo '<li '.$active.'><a href="user-withdraw-info.php?page='.$i.'">'.$i.'</a></li>';
+							}
+							else	 
+							{
+								echo '<li><a href="user-withdraw-info.php?page='.$i.'">'.$i.'</a></li>';
+							}
+						  }
+						  
+						  	if(!empty($_GET['page']) && ($_GET['page'] < ceil($total_pages)))
+							{
+								echo '<li><a href="user-withdraw-info.php?page='.($_GET['page']+1).'">»</a></li>';
+							}
+							elseif(empty($_GET['page']) && ($total_pages > 1))
+							{
+								echo '<li><a href="user-withdraw-info.php?page=2">»</a></li>';
+							}
+							else
+							{
+								echo '<li><a href="user-withdraw-info.php?page='.ceil($total_pages).'">»</a></li>';
+							}
+
+					  ?>
                     </ul>
                 </div>
                 <div class="col-lg-12">
@@ -72,10 +118,8 @@
                             </thead>
                             <tbody>
                             	<?php
-                            	//get currency type
-                            	$currency=$manageContent->getSystemCurrency('product');
                             	//get withdraw processing or processed list
-								$manageContent->getMembersWithdrawListByStatus($status);
+								$manageContent->getMembersWithdrawListByStatusAndLimit($status,$start,$limit);
                             	?>
 							</tbody>
                         </table>

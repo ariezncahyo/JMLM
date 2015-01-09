@@ -128,8 +128,8 @@
         and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo close;?></button>
-        <a href="<?php echo $baseUrl;?>login/"><button type="button" class="btn btn-primary"><?php echo go_to_login;?></button></a>
+        <a href="<?php echo $baseUrl;?>checkout/"><button type="button" class="btn btn-default"><?php echo "Guest checkout";?></button></a>
+        <a href="<?php echo $baseUrl;?>login/"><button type="button" class="btn btn-primary"><?php echo go_to_login;?></button>
       </div>
     </div>
   </div>

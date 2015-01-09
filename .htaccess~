@@ -9,7 +9,7 @@ RewriteRule ^order-details/([^/]+)$ order-details.php?oid=$1
 RewriteRule ^membership-order-details/([^/]+)$ membership-order-details.php?mid=$1
 RewriteRule ^tree/([^/]+)$ tree.php?id=$1
 RewriteRule ^([^/]+)/invalid-user/$ invalid-user/
-RewriteRule ^([^/]+)/$ $1.php
+RewriteRule ^([^/])/$ $1.php
 RewriteRule ^JMLM/v-templates/login/$ JMLM/login/
 RewriteRule ^JMLM/index/$ JMLM/
 ErrorDocument 404 /vyrazu/JMLM/404/
